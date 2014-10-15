@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.orders.OrdersOrder_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.orders.OrdersOrder_info" >
+    <id column="temp_orders_order_info_order_info_id" property="orderInfoId" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_belaidup_id" property="belaidupId" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_yes_or_no" property="yesOrNo" jdbcType="CHAR" />
+    <result column="temp_orders_order_info_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_orders_order_info_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_info_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_orders_order_info.order_info_id as temp_orders_order_info_order_info_id, temp_orders_order_info.belaidup_id as temp_orders_order_info_belaidup_id, 
+    temp_orders_order_info.order_id as temp_orders_order_info_order_id, temp_orders_order_info.yes_or_no as temp_orders_order_info_yes_or_no, 
+    temp_orders_order_info.remark as temp_orders_order_info_remark, temp_orders_order_info.creater as temp_orders_order_info_creater, 
+    temp_orders_order_info.create_time as temp_orders_order_info_create_time, temp_orders_order_info.updater as temp_orders_order_info_updater, 
+    temp_orders_order_info.update_time as temp_orders_order_info_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_orders_order_info temp_orders_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_orders_order_info temp_orders_order_info
+    where temp_orders_order_info.order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_orders_order_info
+    where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" >
+    delete from t_orders_order_info temp_orders_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.orders.OrdersOrder_info" >
+    insert into t_orders_order_info (order_info_id, belaidup_id, order_id, 
+      yes_or_no, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{orderInfoId,jdbcType=VARCHAR}, #{belaidupId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{yesOrNo,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.orders.OrdersOrder_info" >
+    insert into t_orders_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderInfoId != null" >
+        order_info_id,
+      </if>
+      <if test="belaidupId != null" >
+        belaidup_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderInfoId != null" >
+        #{orderInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupId != null" >
+        #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" resultType="java.lang.Integer" >
+    select count(*) from t_orders_order_info temp_orders_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_orders_order_info temp_orders_order_info
+    <set >
+      <if test="record.orderInfoId != null" >
+        temp_orders_order_info.order_info_id = #{record.orderInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupId != null" >
+        temp_orders_order_info.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        temp_orders_order_info.order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yesOrNo != null" >
+        temp_orders_order_info.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_orders_order_info.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_orders_order_info.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_orders_order_info.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_orders_order_info.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_orders_order_info.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_orders_order_info temp_orders_order_info
+    set temp_orders_order_info.order_info_id = #{record.orderInfoId,jdbcType=VARCHAR},
+      temp_orders_order_info.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      temp_orders_order_info.order_id = #{record.orderId,jdbcType=VARCHAR},
+      temp_orders_order_info.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      temp_orders_order_info.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_orders_order_info.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_orders_order_info.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_orders_order_info.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_orders_order_info.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.orders.OrdersOrder_info" >
+    update t_orders_order_info
+    <set >
+      <if test="belaidupId != null" >
+        belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.orders.OrdersOrder_info" >
+    update t_orders_order_info
+    set belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

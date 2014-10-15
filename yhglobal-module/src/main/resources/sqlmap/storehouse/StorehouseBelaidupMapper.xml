@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
+    <id column="temp_storehouse_belaidup_belaidup_id" property="belaidupId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_prod_name" property="belaidupProdName" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_unitprice" property="belaidupUnitprice" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_goodstype_id" property="goodstypeId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_yes_or_no" property="yesOrNo" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_weight" property="belaidupWeight" jdbcType="REAL" />
+    <result column="temp_storehouse_belaidup_belaidup_bulk" property="belaidupBulk" jdbcType="REAL" />
+    <result column="temp_storehouse_belaidup_repertory_price" property="repertoryPrice" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_stock_price" property="stockPrice" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_pack_price" property="packPrice" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_freight_price" property="freightPrice" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_belaidup_initiatin" property="belaidupInitiatin" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_terminu" property="belaidupTerminu" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_replenishment" property="replenishment" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_order_consignee" property="orderConsignee" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_order_phone" property="orderPhone" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_order_address" property="orderAddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_status" property="belaidupStatus" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_sorting_stauts" property="sortingStauts" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_stauts" property="stauts" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_belaidup_return_time" property="belaidupReturnTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_belaidup_belaidup_return_poundage" property="belaidupReturnPoundage" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_belaidup_bar_code" property="belaidupBarCode" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_storehouse_id" property="storehouseId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_belaidup_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_belaidup.belaidup_id as temp_storehouse_belaidup_belaidup_id, temp_storehouse_belaidup.belaidup_prod_name as temp_storehouse_belaidup_belaidup_prod_name, 
+    temp_storehouse_belaidup.member_id as temp_storehouse_belaidup_member_id, temp_storehouse_belaidup.belaidup_unitprice as temp_storehouse_belaidup_belaidup_unitprice, 
+    temp_storehouse_belaidup.goodstype_id as temp_storehouse_belaidup_goodstype_id, temp_storehouse_belaidup.yes_or_no as temp_storehouse_belaidup_yes_or_no, 
+    temp_storehouse_belaidup.belaidup_weight as temp_storehouse_belaidup_belaidup_weight, 
+    temp_storehouse_belaidup.belaidup_bulk as temp_storehouse_belaidup_belaidup_bulk, 
+    temp_storehouse_belaidup.repertory_price as temp_storehouse_belaidup_repertory_price, 
+    temp_storehouse_belaidup.stock_price as temp_storehouse_belaidup_stock_price, temp_storehouse_belaidup.pack_price as temp_storehouse_belaidup_pack_price, 
+    temp_storehouse_belaidup.freight_price as temp_storehouse_belaidup_freight_price, 
+    temp_storehouse_belaidup.belaidup_initiatin as temp_storehouse_belaidup_belaidup_initiatin, 
+    temp_storehouse_belaidup.belaidup_terminu as temp_storehouse_belaidup_belaidup_terminu, 
+    temp_storehouse_belaidup.replenishment as temp_storehouse_belaidup_replenishment, 
+    temp_storehouse_belaidup.order_consignee as temp_storehouse_belaidup_order_consignee, 
+    temp_storehouse_belaidup.order_phone as temp_storehouse_belaidup_order_phone, temp_storehouse_belaidup.order_address as temp_storehouse_belaidup_order_address, 
+    temp_storehouse_belaidup.belaidup_status as temp_storehouse_belaidup_belaidup_status, 
+    temp_storehouse_belaidup.sorting_stauts as temp_storehouse_belaidup_sorting_stauts, 
+    temp_storehouse_belaidup.stauts as temp_storehouse_belaidup_stauts, temp_storehouse_belaidup.belaidup_return_time as temp_storehouse_belaidup_belaidup_return_time, 
+    temp_storehouse_belaidup.belaidup_return_poundage as temp_storehouse_belaidup_belaidup_return_poundage, 
+    temp_storehouse_belaidup.belaidup_bar_code as temp_storehouse_belaidup_belaidup_bar_code, 
+    temp_storehouse_belaidup.storehouse_id as temp_storehouse_belaidup_storehouse_id, 
+    temp_storehouse_belaidup.remark as temp_storehouse_belaidup_remark, temp_storehouse_belaidup.creater as temp_storehouse_belaidup_creater, 
+    temp_storehouse_belaidup.create_time as temp_storehouse_belaidup_create_time, temp_storehouse_belaidup.updater as temp_storehouse_belaidup_updater, 
+    temp_storehouse_belaidup.update_time as temp_storehouse_belaidup_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup temp_storehouse_belaidup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup temp_storehouse_belaidup
+    where temp_storehouse_belaidup.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_belaidup
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
+    delete from t_storehouse_belaidup temp_storehouse_belaidup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
+    insert into t_storehouse_belaidup (belaidup_id, belaidup_prod_name, member_id, 
+      belaidup_unitprice, goodstype_id, yes_or_no, 
+      belaidup_weight, belaidup_bulk, repertory_price, 
+      stock_price, pack_price, freight_price, 
+      belaidup_initiatin, belaidup_terminu, replenishment, 
+      order_consignee, order_phone, order_address, 
+      belaidup_status, sorting_stauts, stauts, 
+      belaidup_return_time, belaidup_return_poundage, 
+      belaidup_bar_code, storehouse_id, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{belaidupId,jdbcType=VARCHAR}, #{belaidupProdName,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{belaidupUnitprice,jdbcType=DECIMAL}, #{goodstypeId,jdbcType=VARCHAR}, #{yesOrNo,jdbcType=CHAR}, 
+      #{belaidupWeight,jdbcType=REAL}, #{belaidupBulk,jdbcType=REAL}, #{repertoryPrice,jdbcType=DECIMAL}, 
+      #{stockPrice,jdbcType=DECIMAL}, #{packPrice,jdbcType=DECIMAL}, #{freightPrice,jdbcType=DECIMAL}, 
+      #{belaidupInitiatin,jdbcType=VARCHAR}, #{belaidupTerminu,jdbcType=VARCHAR}, #{replenishment,jdbcType=CHAR}, 
+      #{orderConsignee,jdbcType=VARCHAR}, #{orderPhone,jdbcType=VARCHAR}, #{orderAddress,jdbcType=VARCHAR}, 
+      #{belaidupStatus,jdbcType=CHAR}, #{sortingStauts,jdbcType=CHAR}, #{stauts,jdbcType=CHAR}, 
+      #{belaidupReturnTime,jdbcType=TIMESTAMP}, #{belaidupReturnPoundage,jdbcType=DECIMAL}, 
+      #{belaidupBarCode,jdbcType=VARCHAR}, #{storehouseId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
+    insert into t_storehouse_belaidup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="belaidupId != null" >
+        belaidup_id,
+      </if>
+      <if test="belaidupProdName != null" >
+        belaidup_prod_name,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="belaidupUnitprice != null" >
+        belaidup_unitprice,
+      </if>
+      <if test="goodstypeId != null" >
+        goodstype_id,
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no,
+      </if>
+      <if test="belaidupWeight != null" >
+        belaidup_weight,
+      </if>
+      <if test="belaidupBulk != null" >
+        belaidup_bulk,
+      </if>
+      <if test="repertoryPrice != null" >
+        repertory_price,
+      </if>
+      <if test="stockPrice != null" >
+        stock_price,
+      </if>
+      <if test="packPrice != null" >
+        pack_price,
+      </if>
+      <if test="freightPrice != null" >
+        freight_price,
+      </if>
+      <if test="belaidupInitiatin != null" >
+        belaidup_initiatin,
+      </if>
+      <if test="belaidupTerminu != null" >
+        belaidup_terminu,
+      </if>
+      <if test="replenishment != null" >
+        replenishment,
+      </if>
+      <if test="orderConsignee != null" >
+        order_consignee,
+      </if>
+      <if test="orderPhone != null" >
+        order_phone,
+      </if>
+      <if test="orderAddress != null" >
+        order_address,
+      </if>
+      <if test="belaidupStatus != null" >
+        belaidup_status,
+      </if>
+      <if test="sortingStauts != null" >
+        sorting_stauts,
+      </if>
+      <if test="stauts != null" >
+        stauts,
+      </if>
+      <if test="belaidupReturnTime != null" >
+        belaidup_return_time,
+      </if>
+      <if test="belaidupReturnPoundage != null" >
+        belaidup_return_poundage,
+      </if>
+      <if test="belaidupBarCode != null" >
+        belaidup_bar_code,
+      </if>
+      <if test="storehouseId != null" >
+        storehouse_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="belaidupId != null" >
+        #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupProdName != null" >
+        #{belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupUnitprice != null" >
+        #{belaidupUnitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodstypeId != null" >
+        #{goodstypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="belaidupWeight != null" >
+        #{belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="belaidupBulk != null" >
+        #{belaidupBulk,jdbcType=REAL},
+      </if>
+      <if test="repertoryPrice != null" >
+        #{repertoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockPrice != null" >
+        #{stockPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="packPrice != null" >
+        #{packPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="freightPrice != null" >
+        #{freightPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="belaidupInitiatin != null" >
+        #{belaidupInitiatin,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupTerminu != null" >
+        #{belaidupTerminu,jdbcType=VARCHAR},
+      </if>
+      <if test="replenishment != null" >
+        #{replenishment,jdbcType=CHAR},
+      </if>
+      <if test="orderConsignee != null" >
+        #{orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhone != null" >
+        #{orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddress != null" >
+        #{orderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupStatus != null" >
+        #{belaidupStatus,jdbcType=CHAR},
+      </if>
+      <if test="sortingStauts != null" >
+        #{sortingStauts,jdbcType=CHAR},
+      </if>
+      <if test="stauts != null" >
+        #{stauts,jdbcType=CHAR},
+      </if>
+      <if test="belaidupReturnTime != null" >
+        #{belaidupReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belaidupReturnPoundage != null" >
+        #{belaidupReturnPoundage,jdbcType=DECIMAL},
+      </if>
+      <if test="belaidupBarCode != null" >
+        #{belaidupBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storehouseId != null" >
+        #{storehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_belaidup temp_storehouse_belaidup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_belaidup temp_storehouse_belaidup
+    <set >
+      <if test="record.belaidupId != null" >
+        temp_storehouse_belaidup.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupProdName != null" >
+        temp_storehouse_belaidup.belaidup_prod_name = #{record.belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_storehouse_belaidup.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupUnitprice != null" >
+        temp_storehouse_belaidup.belaidup_unitprice = #{record.belaidupUnitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodstypeId != null" >
+        temp_storehouse_belaidup.goodstype_id = #{record.goodstypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yesOrNo != null" >
+        temp_storehouse_belaidup.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="record.belaidupWeight != null" >
+        temp_storehouse_belaidup.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="record.belaidupBulk != null" >
+        temp_storehouse_belaidup.belaidup_bulk = #{record.belaidupBulk,jdbcType=REAL},
+      </if>
+      <if test="record.repertoryPrice != null" >
+        temp_storehouse_belaidup.repertory_price = #{record.repertoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockPrice != null" >
+        temp_storehouse_belaidup.stock_price = #{record.stockPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.packPrice != null" >
+        temp_storehouse_belaidup.pack_price = #{record.packPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freightPrice != null" >
+        temp_storehouse_belaidup.freight_price = #{record.freightPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.belaidupInitiatin != null" >
+        temp_storehouse_belaidup.belaidup_initiatin = #{record.belaidupInitiatin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupTerminu != null" >
+        temp_storehouse_belaidup.belaidup_terminu = #{record.belaidupTerminu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replenishment != null" >
+        temp_storehouse_belaidup.replenishment = #{record.replenishment,jdbcType=CHAR},
+      </if>
+      <if test="record.orderConsignee != null" >
+        temp_storehouse_belaidup.order_consignee = #{record.orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderPhone != null" >
+        temp_storehouse_belaidup.order_phone = #{record.orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAddress != null" >
+        temp_storehouse_belaidup.order_address = #{record.orderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupStatus != null" >
+        temp_storehouse_belaidup.belaidup_status = #{record.belaidupStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.sortingStauts != null" >
+        temp_storehouse_belaidup.sorting_stauts = #{record.sortingStauts,jdbcType=CHAR},
+      </if>
+      <if test="record.stauts != null" >
+        temp_storehouse_belaidup.stauts = #{record.stauts,jdbcType=CHAR},
+      </if>
+      <if test="record.belaidupReturnTime != null" >
+        temp_storehouse_belaidup.belaidup_return_time = #{record.belaidupReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.belaidupReturnPoundage != null" >
+        temp_storehouse_belaidup.belaidup_return_poundage = #{record.belaidupReturnPoundage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.belaidupBarCode != null" >
+        temp_storehouse_belaidup.belaidup_bar_code = #{record.belaidupBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storehouseId != null" >
+        temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_storehouse_belaidup.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_belaidup.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_belaidup.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_belaidup.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_belaidup.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_belaidup temp_storehouse_belaidup
+    set temp_storehouse_belaidup.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.belaidup_prod_name = #{record.belaidupProdName,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.belaidup_unitprice = #{record.belaidupUnitprice,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.goodstype_id = #{record.goodstypeId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      temp_storehouse_belaidup.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
+      temp_storehouse_belaidup.belaidup_bulk = #{record.belaidupBulk,jdbcType=REAL},
+      temp_storehouse_belaidup.repertory_price = #{record.repertoryPrice,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.stock_price = #{record.stockPrice,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.pack_price = #{record.packPrice,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.freight_price = #{record.freightPrice,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.belaidup_initiatin = #{record.belaidupInitiatin,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.belaidup_terminu = #{record.belaidupTerminu,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.replenishment = #{record.replenishment,jdbcType=CHAR},
+      temp_storehouse_belaidup.order_consignee = #{record.orderConsignee,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.order_phone = #{record.orderPhone,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.order_address = #{record.orderAddress,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.belaidup_status = #{record.belaidupStatus,jdbcType=CHAR},
+      temp_storehouse_belaidup.sorting_stauts = #{record.sortingStauts,jdbcType=CHAR},
+      temp_storehouse_belaidup.stauts = #{record.stauts,jdbcType=CHAR},
+      temp_storehouse_belaidup.belaidup_return_time = #{record.belaidupReturnTime,jdbcType=TIMESTAMP},
+      temp_storehouse_belaidup.belaidup_return_poundage = #{record.belaidupReturnPoundage,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.belaidup_bar_code = #{record.belaidupBarCode,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_belaidup.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
+    update t_storehouse_belaidup
+    <set >
+      <if test="belaidupProdName != null" >
+        belaidup_prod_name = #{belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupUnitprice != null" >
+        belaidup_unitprice = #{belaidupUnitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodstypeId != null" >
+        goodstype_id = #{goodstypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="belaidupWeight != null" >
+        belaidup_weight = #{belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="belaidupBulk != null" >
+        belaidup_bulk = #{belaidupBulk,jdbcType=REAL},
+      </if>
+      <if test="repertoryPrice != null" >
+        repertory_price = #{repertoryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockPrice != null" >
+        stock_price = #{stockPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="packPrice != null" >
+        pack_price = #{packPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="freightPrice != null" >
+        freight_price = #{freightPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="belaidupInitiatin != null" >
+        belaidup_initiatin = #{belaidupInitiatin,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupTerminu != null" >
+        belaidup_terminu = #{belaidupTerminu,jdbcType=VARCHAR},
+      </if>
+      <if test="replenishment != null" >
+        replenishment = #{replenishment,jdbcType=CHAR},
+      </if>
+      <if test="orderConsignee != null" >
+        order_consignee = #{orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPhone != null" >
+        order_phone = #{orderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddress != null" >
+        order_address = #{orderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupStatus != null" >
+        belaidup_status = #{belaidupStatus,jdbcType=CHAR},
+      </if>
+      <if test="sortingStauts != null" >
+        sorting_stauts = #{sortingStauts,jdbcType=CHAR},
+      </if>
+      <if test="stauts != null" >
+        stauts = #{stauts,jdbcType=CHAR},
+      </if>
+      <if test="belaidupReturnTime != null" >
+        belaidup_return_time = #{belaidupReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belaidupReturnPoundage != null" >
+        belaidup_return_poundage = #{belaidupReturnPoundage,jdbcType=DECIMAL},
+      </if>
+      <if test="belaidupBarCode != null" >
+        belaidup_bar_code = #{belaidupBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storehouseId != null" >
+        storehouse_id = #{storehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
+    update t_storehouse_belaidup
+    set belaidup_prod_name = #{belaidupProdName,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      belaidup_unitprice = #{belaidupUnitprice,jdbcType=DECIMAL},
+      goodstype_id = #{goodstypeId,jdbcType=VARCHAR},
+      yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      belaidup_weight = #{belaidupWeight,jdbcType=REAL},
+      belaidup_bulk = #{belaidupBulk,jdbcType=REAL},
+      repertory_price = #{repertoryPrice,jdbcType=DECIMAL},
+      stock_price = #{stockPrice,jdbcType=DECIMAL},
+      pack_price = #{packPrice,jdbcType=DECIMAL},
+      freight_price = #{freightPrice,jdbcType=DECIMAL},
+      belaidup_initiatin = #{belaidupInitiatin,jdbcType=VARCHAR},
+      belaidup_terminu = #{belaidupTerminu,jdbcType=VARCHAR},
+      replenishment = #{replenishment,jdbcType=CHAR},
+      order_consignee = #{orderConsignee,jdbcType=VARCHAR},
+      order_phone = #{orderPhone,jdbcType=VARCHAR},
+      order_address = #{orderAddress,jdbcType=VARCHAR},
+      belaidup_status = #{belaidupStatus,jdbcType=CHAR},
+      sorting_stauts = #{sortingStauts,jdbcType=CHAR},
+      stauts = #{stauts,jdbcType=CHAR},
+      belaidup_return_time = #{belaidupReturnTime,jdbcType=TIMESTAMP},
+      belaidup_return_poundage = #{belaidupReturnPoundage,jdbcType=DECIMAL},
+      belaidup_bar_code = #{belaidupBarCode,jdbcType=VARCHAR},
+      storehouse_id = #{storehouseId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </update>
+</mapper>

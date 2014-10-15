@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseStorageMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseStorage" >
+    <id column="temp_storehouse_storage_storage_id" property="storageId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_storagetype_id" property="storagetypeId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_storage_name" property="storageName" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_status" property="status" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_storage_type_id" property="storageTypeId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_yes_or_no" property="yesOrNo" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_build_date" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_must_overhaul_num" property="mustOverhaulNum" jdbcType="INTEGER" />
+    <result column="temp_storehouse_storage_already_overhaul_num" property="alreadyOverhaulNum" jdbcType="INTEGER" />
+    <result column="temp_storehouse_storage_next_overhaul_date" property="nextOverhaulDate" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_weight_upper_bound" property="weightUpperBound" jdbcType="REAL" />
+    <result column="temp_storehouse_storage_bulk_upper_bound" property="bulkUpperBound" jdbcType="REAL" />
+    <result column="temp_storehouse_storage_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_storage.storage_id as temp_storehouse_storage_storage_id, temp_storehouse_storage.storagetype_id as temp_storehouse_storage_storagetype_id, 
+    temp_storehouse_storage.storage_name as temp_storehouse_storage_storage_name, temp_storehouse_storage.status as temp_storehouse_storage_status, 
+    temp_storehouse_storage.storage_type_id as temp_storehouse_storage_storage_type_id, 
+    temp_storehouse_storage.yes_or_no as temp_storehouse_storage_yes_or_no, temp_storehouse_storage.build_date as temp_storehouse_storage_build_date, 
+    temp_storehouse_storage.must_overhaul_num as temp_storehouse_storage_must_overhaul_num, 
+    temp_storehouse_storage.already_overhaul_num as temp_storehouse_storage_already_overhaul_num, 
+    temp_storehouse_storage.next_overhaul_date as temp_storehouse_storage_next_overhaul_date, 
+    temp_storehouse_storage.weight_upper_bound as temp_storehouse_storage_weight_upper_bound, 
+    temp_storehouse_storage.bulk_upper_bound as temp_storehouse_storage_bulk_upper_bound, 
+    temp_storehouse_storage.remark as temp_storehouse_storage_remark, temp_storehouse_storage.creater as temp_storehouse_storage_creater, 
+    temp_storehouse_storage.create_time as temp_storehouse_storage_create_time, temp_storehouse_storage.updater as temp_storehouse_storage_updater, 
+    temp_storehouse_storage.update_time as temp_storehouse_storage_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage temp_storehouse_storage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage temp_storehouse_storage
+    where temp_storehouse_storage.storage_id = #{storageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_storage
+    where storage_id = #{storageId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" >
+    delete from t_storehouse_storage temp_storehouse_storage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
+    insert into t_storehouse_storage (storage_id, storagetype_id, storage_name, 
+      status, storage_type_id, yes_or_no, 
+      build_date, must_overhaul_num, already_overhaul_num, 
+      next_overhaul_date, weight_upper_bound, bulk_upper_bound, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{storageId,jdbcType=VARCHAR}, #{storagetypeId,jdbcType=VARCHAR}, #{storageName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{storageTypeId,jdbcType=VARCHAR}, #{yesOrNo,jdbcType=CHAR}, 
+      #{buildDate,jdbcType=TIMESTAMP}, #{mustOverhaulNum,jdbcType=INTEGER}, #{alreadyOverhaulNum,jdbcType=INTEGER}, 
+      #{nextOverhaulDate,jdbcType=TIMESTAMP}, #{weightUpperBound,jdbcType=REAL}, #{bulkUpperBound,jdbcType=REAL}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
+    insert into t_storehouse_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storageId != null" >
+        storage_id,
+      </if>
+      <if test="storagetypeId != null" >
+        storagetype_id,
+      </if>
+      <if test="storageName != null" >
+        storage_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="storageTypeId != null" >
+        storage_type_id,
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no,
+      </if>
+      <if test="buildDate != null" >
+        build_date,
+      </if>
+      <if test="mustOverhaulNum != null" >
+        must_overhaul_num,
+      </if>
+      <if test="alreadyOverhaulNum != null" >
+        already_overhaul_num,
+      </if>
+      <if test="nextOverhaulDate != null" >
+        next_overhaul_date,
+      </if>
+      <if test="weightUpperBound != null" >
+        weight_upper_bound,
+      </if>
+      <if test="bulkUpperBound != null" >
+        bulk_upper_bound,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storageId != null" >
+        #{storageId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagetypeId != null" >
+        #{storagetypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storageName != null" >
+        #{storageName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="storageTypeId != null" >
+        #{storageTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="buildDate != null" >
+        #{buildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mustOverhaulNum != null" >
+        #{mustOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="alreadyOverhaulNum != null" >
+        #{alreadyOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="nextOverhaulDate != null" >
+        #{nextOverhaulDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weightUpperBound != null" >
+        #{weightUpperBound,jdbcType=REAL},
+      </if>
+      <if test="bulkUpperBound != null" >
+        #{bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_storage temp_storehouse_storage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_storage temp_storehouse_storage
+    <set >
+      <if test="record.storageId != null" >
+        temp_storehouse_storage.storage_id = #{record.storageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagetypeId != null" >
+        temp_storehouse_storage.storagetype_id = #{record.storagetypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storageName != null" >
+        temp_storehouse_storage.storage_name = #{record.storageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        temp_storehouse_storage.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.storageTypeId != null" >
+        temp_storehouse_storage.storage_type_id = #{record.storageTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yesOrNo != null" >
+        temp_storehouse_storage.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="record.buildDate != null" >
+        temp_storehouse_storage.build_date = #{record.buildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mustOverhaulNum != null" >
+        temp_storehouse_storage.must_overhaul_num = #{record.mustOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alreadyOverhaulNum != null" >
+        temp_storehouse_storage.already_overhaul_num = #{record.alreadyOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.nextOverhaulDate != null" >
+        temp_storehouse_storage.next_overhaul_date = #{record.nextOverhaulDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.weightUpperBound != null" >
+        temp_storehouse_storage.weight_upper_bound = #{record.weightUpperBound,jdbcType=REAL},
+      </if>
+      <if test="record.bulkUpperBound != null" >
+        temp_storehouse_storage.bulk_upper_bound = #{record.bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_storehouse_storage.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_storage.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_storage.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_storage.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_storage.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_storage temp_storehouse_storage
+    set temp_storehouse_storage.storage_id = #{record.storageId,jdbcType=VARCHAR},
+      temp_storehouse_storage.storagetype_id = #{record.storagetypeId,jdbcType=VARCHAR},
+      temp_storehouse_storage.storage_name = #{record.storageName,jdbcType=VARCHAR},
+      temp_storehouse_storage.status = #{record.status,jdbcType=CHAR},
+      temp_storehouse_storage.storage_type_id = #{record.storageTypeId,jdbcType=VARCHAR},
+      temp_storehouse_storage.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
+      temp_storehouse_storage.build_date = #{record.buildDate,jdbcType=TIMESTAMP},
+      temp_storehouse_storage.must_overhaul_num = #{record.mustOverhaulNum,jdbcType=INTEGER},
+      temp_storehouse_storage.already_overhaul_num = #{record.alreadyOverhaulNum,jdbcType=INTEGER},
+      temp_storehouse_storage.next_overhaul_date = #{record.nextOverhaulDate,jdbcType=TIMESTAMP},
+      temp_storehouse_storage.weight_upper_bound = #{record.weightUpperBound,jdbcType=REAL},
+      temp_storehouse_storage.bulk_upper_bound = #{record.bulkUpperBound,jdbcType=REAL},
+      temp_storehouse_storage.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_storehouse_storage.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_storage.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_storage.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_storage.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
+    update t_storehouse_storage
+    <set >
+      <if test="storagetypeId != null" >
+        storagetype_id = #{storagetypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storageName != null" >
+        storage_name = #{storageName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="storageTypeId != null" >
+        storage_type_id = #{storageTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="yesOrNo != null" >
+        yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      </if>
+      <if test="buildDate != null" >
+        build_date = #{buildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mustOverhaulNum != null" >
+        must_overhaul_num = #{mustOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="alreadyOverhaulNum != null" >
+        already_overhaul_num = #{alreadyOverhaulNum,jdbcType=INTEGER},
+      </if>
+      <if test="nextOverhaulDate != null" >
+        next_overhaul_date = #{nextOverhaulDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weightUpperBound != null" >
+        weight_upper_bound = #{weightUpperBound,jdbcType=REAL},
+      </if>
+      <if test="bulkUpperBound != null" >
+        bulk_upper_bound = #{bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where storage_id = #{storageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
+    update t_storehouse_storage
+    set storagetype_id = #{storagetypeId,jdbcType=VARCHAR},
+      storage_name = #{storageName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      storage_type_id = #{storageTypeId,jdbcType=VARCHAR},
+      yes_or_no = #{yesOrNo,jdbcType=CHAR},
+      build_date = #{buildDate,jdbcType=TIMESTAMP},
+      must_overhaul_num = #{mustOverhaulNum,jdbcType=INTEGER},
+      already_overhaul_num = #{alreadyOverhaulNum,jdbcType=INTEGER},
+      next_overhaul_date = #{nextOverhaulDate,jdbcType=TIMESTAMP},
+      weight_upper_bound = #{weightUpperBound,jdbcType=REAL},
+      bulk_upper_bound = #{bulkUpperBound,jdbcType=REAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where storage_id = #{storageId,jdbcType=VARCHAR}
+  </update>
+</mapper>

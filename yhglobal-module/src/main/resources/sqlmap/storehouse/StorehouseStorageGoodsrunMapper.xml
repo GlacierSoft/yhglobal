@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseStorageGoodsrunMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun" >
+    <id column="temp_storehouse_storage_goodsrun_goodsrun_id" property="goodsrunId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_goodsrun_belaidup_id" property="belaidupId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_goodsrun_goodsrun_num" property="goodsrunNum" jdbcType="INTEGER" />
+    <result column="temp_storehouse_storage_goodsrun_goodsrun_status" property="goodsrunStatus" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_goodsrun_status" property="status" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_goodsrun_goodsrun_date" property="goodsrunDate" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_goodsrun_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_goodsrun_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_goodsrun_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_goodsrun_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_goodsrun_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_storage_goodsrun.goodsrun_id as temp_storehouse_storage_goodsrun_goodsrun_id, 
+    temp_storehouse_storage_goodsrun.belaidup_id as temp_storehouse_storage_goodsrun_belaidup_id, 
+    temp_storehouse_storage_goodsrun.goodsrun_num as temp_storehouse_storage_goodsrun_goodsrun_num, 
+    temp_storehouse_storage_goodsrun.goodsrun_status as temp_storehouse_storage_goodsrun_goodsrun_status, 
+    temp_storehouse_storage_goodsrun.status as temp_storehouse_storage_goodsrun_status, 
+    temp_storehouse_storage_goodsrun.goodsrun_date as temp_storehouse_storage_goodsrun_goodsrun_date, 
+    temp_storehouse_storage_goodsrun.remark as temp_storehouse_storage_goodsrun_remark, 
+    temp_storehouse_storage_goodsrun.creater as temp_storehouse_storage_goodsrun_creater, 
+    temp_storehouse_storage_goodsrun.create_time as temp_storehouse_storage_goodsrun_create_time, 
+    temp_storehouse_storage_goodsrun.updater as temp_storehouse_storage_goodsrun_updater, 
+    temp_storehouse_storage_goodsrun.update_time as temp_storehouse_storage_goodsrun_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrunExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    where temp_storehouse_storage_goodsrun.goodsrun_id = #{goodsrunId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_storage_goodsrun
+    where goodsrun_id = #{goodsrunId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrunExample" >
+    delete from t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun" >
+    insert into t_storehouse_storage_goodsrun (goodsrun_id, belaidup_id, goodsrun_num, 
+      goodsrun_status, status, goodsrun_date, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{goodsrunId,jdbcType=VARCHAR}, #{belaidupId,jdbcType=VARCHAR}, #{goodsrunNum,jdbcType=INTEGER}, 
+      #{goodsrunStatus,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{goodsrunDate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun" >
+    insert into t_storehouse_storage_goodsrun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsrunId != null" >
+        goodsrun_id,
+      </if>
+      <if test="belaidupId != null" >
+        belaidup_id,
+      </if>
+      <if test="goodsrunNum != null" >
+        goodsrun_num,
+      </if>
+      <if test="goodsrunStatus != null" >
+        goodsrun_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="goodsrunDate != null" >
+        goodsrun_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsrunId != null" >
+        #{goodsrunId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupId != null" >
+        #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsrunNum != null" >
+        #{goodsrunNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsrunStatus != null" >
+        #{goodsrunStatus,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="goodsrunDate != null" >
+        #{goodsrunDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrunExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    <set >
+      <if test="record.goodsrunId != null" >
+        temp_storehouse_storage_goodsrun.goodsrun_id = #{record.goodsrunId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupId != null" >
+        temp_storehouse_storage_goodsrun.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsrunNum != null" >
+        temp_storehouse_storage_goodsrun.goodsrun_num = #{record.goodsrunNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsrunStatus != null" >
+        temp_storehouse_storage_goodsrun.goodsrun_status = #{record.goodsrunStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        temp_storehouse_storage_goodsrun.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.goodsrunDate != null" >
+        temp_storehouse_storage_goodsrun.goodsrun_date = #{record.goodsrunDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_storehouse_storage_goodsrun.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_storage_goodsrun.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_storage_goodsrun.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_storage_goodsrun.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_storage_goodsrun.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_storage_goodsrun temp_storehouse_storage_goodsrun
+    set temp_storehouse_storage_goodsrun.goodsrun_id = #{record.goodsrunId,jdbcType=VARCHAR},
+      temp_storehouse_storage_goodsrun.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      temp_storehouse_storage_goodsrun.goodsrun_num = #{record.goodsrunNum,jdbcType=INTEGER},
+      temp_storehouse_storage_goodsrun.goodsrun_status = #{record.goodsrunStatus,jdbcType=CHAR},
+      temp_storehouse_storage_goodsrun.status = #{record.status,jdbcType=CHAR},
+      temp_storehouse_storage_goodsrun.goodsrun_date = #{record.goodsrunDate,jdbcType=TIMESTAMP},
+      temp_storehouse_storage_goodsrun.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_storehouse_storage_goodsrun.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_storage_goodsrun.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_storage_goodsrun.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_storage_goodsrun.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun" >
+    update t_storehouse_storage_goodsrun
+    <set >
+      <if test="belaidupId != null" >
+        belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsrunNum != null" >
+        goodsrun_num = #{goodsrunNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsrunStatus != null" >
+        goodsrun_status = #{goodsrunStatus,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="goodsrunDate != null" >
+        goodsrun_date = #{goodsrunDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goodsrun_id = #{goodsrunId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun" >
+    update t_storehouse_storage_goodsrun
+    set belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      goodsrun_num = #{goodsrunNum,jdbcType=INTEGER},
+      goodsrun_status = #{goodsrunStatus,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      goodsrun_date = #{goodsrunDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where goodsrun_id = #{goodsrunId,jdbcType=VARCHAR}
+  </update>
+</mapper>

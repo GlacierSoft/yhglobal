@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseStorageRepairMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseStorageRepair" >
+    <id column="temp_storehouse_storage_repair_repair_id" property="repairId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_repair_title" property="repairTitle" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_storage_id" property="storageId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_repair_stauts" property="repairStauts" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_repair_repair_grade" property="repairGrade" jdbcType="CHAR" />
+    <result column="temp_storehouse_storage_repair_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_repair_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_repair_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_storage_repair.repair_id as temp_storehouse_storage_repair_repair_id, 
+    temp_storehouse_storage_repair.repair_title as temp_storehouse_storage_repair_repair_title, 
+    temp_storehouse_storage_repair.remark as temp_storehouse_storage_repair_remark, temp_storehouse_storage_repair.storage_id as temp_storehouse_storage_repair_storage_id, 
+    temp_storehouse_storage_repair.repair_stauts as temp_storehouse_storage_repair_repair_stauts, 
+    temp_storehouse_storage_repair.repair_grade as temp_storehouse_storage_repair_repair_grade, 
+    temp_storehouse_storage_repair.creater as temp_storehouse_storage_repair_creater, 
+    temp_storehouse_storage_repair.create_time as temp_storehouse_storage_repair_create_time, 
+    temp_storehouse_storage_repair.updater as temp_storehouse_storage_repair_updater, 
+    temp_storehouse_storage_repair.update_time as temp_storehouse_storage_repair_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_storage_repair temp_storehouse_storage_repair
+    where temp_storehouse_storage_repair.repair_id = #{repairId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_storage_repair
+    where repair_id = #{repairId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" >
+    delete from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepair" >
+    insert into t_storehouse_storage_repair (repair_id, repair_title, remark, 
+      storage_id, repair_stauts, repair_grade, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{repairId,jdbcType=VARCHAR}, #{repairTitle,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{storageId,jdbcType=VARCHAR}, #{repairStauts,jdbcType=CHAR}, #{repairGrade,jdbcType=CHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepair" >
+    insert into t_storehouse_storage_repair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repairId != null" >
+        repair_id,
+      </if>
+      <if test="repairTitle != null" >
+        repair_title,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="storageId != null" >
+        storage_id,
+      </if>
+      <if test="repairStauts != null" >
+        repair_stauts,
+      </if>
+      <if test="repairGrade != null" >
+        repair_grade,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repairId != null" >
+        #{repairId,jdbcType=VARCHAR},
+      </if>
+      <if test="repairTitle != null" >
+        #{repairTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="storageId != null" >
+        #{storageId,jdbcType=VARCHAR},
+      </if>
+      <if test="repairStauts != null" >
+        #{repairStauts,jdbcType=CHAR},
+      </if>
+      <if test="repairGrade != null" >
+        #{repairGrade,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_storage_repair temp_storehouse_storage_repair
+    <set >
+      <if test="record.repairId != null" >
+        temp_storehouse_storage_repair.repair_id = #{record.repairId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairTitle != null" >
+        temp_storehouse_storage_repair.repair_title = #{record.repairTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_storehouse_storage_repair.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storageId != null" >
+        temp_storehouse_storage_repair.storage_id = #{record.storageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairStauts != null" >
+        temp_storehouse_storage_repair.repair_stauts = #{record.repairStauts,jdbcType=CHAR},
+      </if>
+      <if test="record.repairGrade != null" >
+        temp_storehouse_storage_repair.repair_grade = #{record.repairGrade,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_storage_repair.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_storage_repair.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_storage_repair.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_storage_repair.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_storage_repair temp_storehouse_storage_repair
+    set temp_storehouse_storage_repair.repair_id = #{record.repairId,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.repair_title = #{record.repairTitle,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.storage_id = #{record.storageId,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.repair_stauts = #{record.repairStauts,jdbcType=CHAR},
+      temp_storehouse_storage_repair.repair_grade = #{record.repairGrade,jdbcType=CHAR},
+      temp_storehouse_storage_repair.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_storage_repair.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_storage_repair.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepair" >
+    update t_storehouse_storage_repair
+    <set >
+      <if test="repairTitle != null" >
+        repair_title = #{repairTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="storageId != null" >
+        storage_id = #{storageId,jdbcType=VARCHAR},
+      </if>
+      <if test="repairStauts != null" >
+        repair_stauts = #{repairStauts,jdbcType=CHAR},
+      </if>
+      <if test="repairGrade != null" >
+        repair_grade = #{repairGrade,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where repair_id = #{repairId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepair" >
+    update t_storehouse_storage_repair
+    set repair_title = #{repairTitle,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      storage_id = #{storageId,jdbcType=VARCHAR},
+      repair_stauts = #{repairStauts,jdbcType=CHAR},
+      repair_grade = #{repairGrade,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where repair_id = #{repairId,jdbcType=VARCHAR}
+  </update>
+</mapper>
