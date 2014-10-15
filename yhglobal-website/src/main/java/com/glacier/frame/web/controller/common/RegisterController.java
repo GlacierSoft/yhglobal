@@ -588,7 +588,7 @@ public class RegisterController extends AbstractController {
 
     /**
      * @Title: confinMenberName
-     * @Description: TODO(会员注册验证邮箱和用户名是否存在)
+     * @Description: TODO(货主会员注册验证邮箱和用户名是否存在)
      * @param @param retrieveId
      * @param @param request
      * @param @param session
@@ -607,6 +607,30 @@ public class RegisterController extends AbstractController {
         } else {
             shipperMember.setMemberName(str);
             returnResult = (JqReturnJson) shipperMemberService.isUsernameRepeat(shipperMember);
+        }
+        return returnResult;
+    }
+
+    /**
+     * @Title: confinMenberNameCarrier 
+     * @Description: TODO(承运商会员注册验证邮箱和用户名是否存在) 
+     * @param  @param str
+     * @param  @param action
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @RequestMapping(value = "/confinMenberNameCarrier.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object confinMenberNameCarrier(String str, String action) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        CarrierMember carrierMember = new CarrierMember();
+        if (action.equals("E")) {
+            carrierMember.setEmail(str);
+            returnResult = (JqReturnJson) carrierMemberService.isEmailRepeat(carrierMember);
+        } else {
+            carrierMember.setMemberName(str);
+            returnResult = (JqReturnJson) carrierMemberService.isUsernameRepeat(carrierMember);
         }
         return returnResult;
     }

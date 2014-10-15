@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="comfirPassword" class="col-sm-2 control-label">经营类型</label>
 			    <div class="col-sm-6" style="float: left; width: 460px">
-			      <select class="form-control" name="loanPurposeId" id="loanPurposeId" >
+			      <select class="form-control" name="memberType" id="memberType" >
 					  <option value="">--请选择--</option>
 					    <option value="individuality">个体货主</option>
 					    <option value="enterprise">企业货主</option>

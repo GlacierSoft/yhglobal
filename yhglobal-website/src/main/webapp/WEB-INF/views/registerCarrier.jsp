@@ -74,6 +74,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      <input type="password" maxlength="12" class="form-control" style="float: left;width: 428px" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${carrierMember.memberPassword}"/>
 			    </div>
 			  </div>
+			  <div class="form-group">
+			    <label for="comfirPassword" class="col-sm-2 control-label">经营类型</label>
+			    <div class="col-sm-6" style="float: left; width: 460px">
+			      <select class="form-control" name="memberType" id="memberType" >
+					  <option value="">--请选择--</option>
+					    <option value="individuality">个体承运商</option>
+					    <option value="enterprise">企业承运商</option>
+					</select>
+			    </div>
+			  </div>
 		  	<div class="form-group">
 				<label id="login_kaptcha_span" class="col-sm-2 control-label ">验证码</label>
 				<div class="col-sm-2">
@@ -163,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     		     }else{ 
 	     		    	$.ajax({
 	      				   type: "POST",
-	      				   url: ctx+"/confinMenberName.json",
+	      				   url: ctx+"/confinMenberNameCarrier.json",
 	      				   dataType: "json",
 	      				   data: 'str='+str+"&action=E",
 	      			       success: function(date) {  
@@ -217,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     }  
 		     $.ajax({
 				   type: "POST",
-				   url: ctx+"/confinMenberName.json",
+				   url: ctx+"/confinMenberNameCarrier.json",
 				   dataType: "json",
 				   data: 'str='+str+"&action=N",
 			       success: function(date) {  

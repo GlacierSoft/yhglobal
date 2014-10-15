@@ -383,6 +383,9 @@ public class CarrierMemberService {
         //增加会员信息 
         carrierMember.setCarrierMemberId(carrierMemberId);
         carrierMember.setMemberPassword(carrierMemberToken.getPassword()); 
+        carrierMember.setStatus("enable");
+        carrierMember.setLoginCount(0);
+        carrierMember.setCreditworthiness(0);
         carrierMember.setRegistrationTime(new Date());
         carrierMember.setLastLoginTime(new Date());
         carrierMember.setLoginCount(1); 
