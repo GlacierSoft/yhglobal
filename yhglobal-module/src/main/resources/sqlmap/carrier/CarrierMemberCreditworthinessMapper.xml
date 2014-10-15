@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.carrier.CarrierMemberCreditworthinessMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
+    <id column="temp_carrier_member_creditworthiness_carrier_member_creditworthiness_id" property="carrierMemberCreditworthinessId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_creditworthiness_type_id" property="creditworthinessTypeId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_carrier_member_creditworthiness_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <!-- 自定义扩展字段 -->
+    <result column="temp_carrier_member_creditworthiness_member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_creditworthiness_type" property="creditworthinessType" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_change_type" property="changeType" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_change_value" property="changeValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id as temp_carrier_member_creditworthiness_carrier_member_creditworthiness_id, 
+    temp_carrier_member_creditworthiness.carrier_member_id as temp_carrier_member_creditworthiness_carrier_member_id, 
+    temp_carrier_member_creditworthiness.creditworthiness_type_id as temp_carrier_member_creditworthiness_creditworthiness_type_id, 
+    temp_carrier_member_creditworthiness.remark as temp_carrier_member_creditworthiness_remark, 
+    temp_carrier_member_creditworthiness.creater as temp_carrier_member_creditworthiness_creater, 
+    temp_carrier_member_creditworthiness.create_time as temp_carrier_member_creditworthiness_create_time, 
+    temp_carrier_member_creditworthiness.updater as temp_carrier_member_creditworthiness_updater, 
+    temp_carrier_member_creditworthiness.update_time as temp_carrier_member_creditworthiness_update_time
+   <!-- 自定义扩展字段 -->
+    ,temp_carrier_member.member_name as temp_carrier_member_creditworthiness_member_name 
+    ,temp_carrier_creditworthiness_type.creditworthiness_type as temp_carrier_member_creditworthiness_creditworthiness_type 
+    ,temp_carrier_creditworthiness_change_type.change_type as temp_carrier_member_creditworthiness_change_type 
+    ,temp_creater.user_cn_name as temp_carrier_member_creditworthiness_creater_display
+    ,temp_updater.user_cn_name as temp_temp_carrier_member_creditworthiness_updater_display 
+    ,temp_carrier_creditworthiness_value.change_value as temp_carrier_member_creditworthiness_change_value
+   
+   </sql> 
+   <sql id="Base_extend">
+    LEFT JOIN t_carrier_member temp_carrier_member ON temp_carrier_member.carrier_member_id =temp_carrier_member_creditworthiness.carrier_member_id <!-- 扩展 -->
+    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_type ON temp_carrier_creditworthiness_type.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
+    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_change_type ON temp_carrier_creditworthiness_change_type.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
+   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_carrier_member_creditworthiness.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_carrier_member_creditworthiness.updater <!-- 扩展 -->
+    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_value ON temp_carrier_creditworthiness_value.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
+   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthinessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    <include refid="Base_extend" />
+    where temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id = #{carrierMemberCreditworthinessId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_carrier_member_creditworthiness
+    where carrier_member_creditworthiness_id = #{carrierMemberCreditworthinessId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthinessExample" >
+    delete from t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
+    insert into t_carrier_member_creditworthiness (carrier_member_creditworthiness_id, carrier_member_id, 
+      creditworthiness_type_id, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{carrierMemberCreditworthinessId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, 
+      #{creditworthinessTypeId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
+    insert into t_carrier_member_creditworthiness
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carrierMemberCreditworthinessId != null" >
+        carrier_member_creditworthiness_id,
+      </if>
+      <if test="carrierMemberId != null" >
+        carrier_member_id,
+      </if>
+      <if test="creditworthinessTypeId != null" >
+        creditworthiness_type_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carrierMemberCreditworthinessId != null" >
+        #{carrierMemberCreditworthinessId,jdbcType=VARCHAR},
+      </if>
+      <if test="carrierMemberId != null" >
+        #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="creditworthinessTypeId != null" >
+        #{creditworthinessTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthinessExample" resultType="java.lang.Integer" >
+    select count(*) from t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    <set >
+      <if test="record.carrierMemberCreditworthinessId != null" >
+        temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id = #{record.carrierMemberCreditworthinessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carrierMemberId != null" >
+        temp_carrier_member_creditworthiness.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditworthinessTypeId != null" >
+        temp_carrier_member_creditworthiness.creditworthiness_type_id = #{record.creditworthinessTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_carrier_member_creditworthiness.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_carrier_member_creditworthiness.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_carrier_member_creditworthiness.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_carrier_member_creditworthiness.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_carrier_member_creditworthiness.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_carrier_member_creditworthiness temp_carrier_member_creditworthiness
+    set temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id = #{record.carrierMemberCreditworthinessId,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.creditworthiness_type_id = #{record.creditworthinessTypeId,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_carrier_member_creditworthiness.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
+    update t_carrier_member_creditworthiness
+    <set >
+      <if test="carrierMemberId != null" >
+        carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="creditworthinessTypeId != null" >
+        creditworthiness_type_id = #{creditworthinessTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where carrier_member_creditworthiness_id = #{carrierMemberCreditworthinessId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
+    update t_carrier_member_creditworthiness
+    set carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      creditworthiness_type_id = #{creditworthinessTypeId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where carrier_member_creditworthiness_id = #{carrierMemberCreditworthinessId,jdbcType=VARCHAR}
+  </update>
+</mapper>

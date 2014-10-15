@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.member.ShipperMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.member.ShipperMember" >
+    <id column="temp_shipper_member_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_member_password" property="memberPassword" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_traders_password" property="tradersPassword" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_account_balance" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="temp_shipper_member_live_address" property="liveAddress" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_member_photo" property="memberPhoto" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_registration_time" property="registrationTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_member_type" property="memberType" jdbcType="CHAR" />
+    <result column="temp_shipper_member_email" property="email" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_integral" property="integral" jdbcType="INTEGER" />
+    <result column="temp_shipper_member_status" property="status" jdbcType="CHAR" />
+    <result column="temp_shipper_member_login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="temp_shipper_member_last_login_ip_address" property="lastLoginIpAddress" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_shipper_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_shipper_member.member_id as temp_shipper_member_member_id, temp_shipper_member.member_name as temp_shipper_member_member_name, 
+    temp_shipper_member.member_password as temp_shipper_member_member_password, temp_shipper_member.traders_password as temp_shipper_member_traders_password, 
+    temp_shipper_member.account_balance as temp_shipper_member_account_balance, temp_shipper_member.live_address as temp_shipper_member_live_address, 
+    temp_shipper_member.member_photo as temp_shipper_member_member_photo, temp_shipper_member.registration_time as temp_shipper_member_registration_time, 
+    temp_shipper_member.last_login_time as temp_shipper_member_last_login_time, temp_shipper_member.member_type as temp_shipper_member_member_type, 
+    temp_shipper_member.email as temp_shipper_member_email, temp_shipper_member.integral as temp_shipper_member_integral, 
+    temp_shipper_member.status as temp_shipper_member_status, temp_shipper_member.login_count as temp_shipper_member_login_count, 
+    temp_shipper_member.last_login_ip_address as temp_shipper_member_last_login_ip_address, 
+    temp_shipper_member.remark as temp_shipper_member_remark, temp_shipper_member.creater as temp_shipper_member_creater, 
+    temp_shipper_member.create_time as temp_shipper_member_create_time, temp_shipper_member.updater as temp_shipper_member_updater, 
+    temp_shipper_member.update_time as temp_shipper_member_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_shipper_member_creater_display
+    ,temp_updater.user_cn_name as temp_shipper_member_updater_display 
+  </sql> 
+ <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_shipper_member.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_shipper_member.updater <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.member.ShipperMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_shipper_member temp_shipper_member
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_member temp_shipper_member
+    <include refid="Base_extend" />
+    where temp_shipper_member.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <!-- 自定义方法，根据会员用户名进行查找会员信息 -->
+  <select id="selectByMemberName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_member temp_shipper_member
+    <include refid="Base_extend" />
+    where temp_shipper_member.member_name = #{memberName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shipper_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberExample" >
+    delete temp_shipper_member from t_shipper_member temp_shipper_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.member.ShipperMember" >
+    insert into t_shipper_member (member_id, member_name, member_password, 
+      traders_password, account_balance, live_address, 
+      member_photo, registration_time, last_login_time, 
+      member_type, email, integral, 
+      status, login_count, last_login_ip_address, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{memberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{memberPassword,jdbcType=VARCHAR}, 
+      #{tradersPassword,jdbcType=VARCHAR}, #{accountBalance,jdbcType=DECIMAL}, #{liveAddress,jdbcType=VARCHAR}, 
+      #{memberPhoto,jdbcType=VARCHAR}, #{registrationTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{memberType,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{integral,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{loginCount,jdbcType=INTEGER}, #{lastLoginIpAddress,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.member.ShipperMember" >
+    insert into t_shipper_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="memberPassword != null" >
+        member_password,
+      </if>
+      <if test="tradersPassword != null" >
+        traders_password,
+      </if>
+      <if test="accountBalance != null" >
+        account_balance,
+      </if>
+      <if test="liveAddress != null" >
+        live_address,
+      </if>
+      <if test="memberPhoto != null" >
+        member_photo,
+      </if>
+      <if test="registrationTime != null" >
+        registration_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="memberType != null" >
+        member_type,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPassword != null" >
+        #{memberPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersPassword != null" >
+        #{tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="liveAddress != null" >
+        #{liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhoto != null" >
+        #{memberPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null" >
+        #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberType != null" >
+        #{memberType,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_shipper_member temp_shipper_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_shipper_member temp_shipper_member
+    <set >
+      <if test="record.memberId != null" >
+        temp_shipper_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberName != null" >
+        temp_shipper_member.member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberPassword != null" >
+        temp_shipper_member.member_password = #{record.memberPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradersPassword != null" >
+        temp_shipper_member.traders_password = #{record.tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountBalance != null" >
+        temp_shipper_member.account_balance = #{record.accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.liveAddress != null" >
+        temp_shipper_member.live_address = #{record.liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberPhoto != null" >
+        temp_shipper_member.member_photo = #{record.memberPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registrationTime != null" >
+        temp_shipper_member.registration_time = #{record.registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        temp_shipper_member.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memberType != null" >
+        temp_shipper_member.member_type = #{record.memberType,jdbcType=CHAR},
+      </if>
+      <if test="record.email != null" >
+        temp_shipper_member.email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.integral != null" >
+        temp_shipper_member.integral = #{record.integral,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        temp_shipper_member.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.loginCount != null" >
+        temp_shipper_member.login_count = #{record.loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastLoginIpAddress != null" >
+        temp_shipper_member.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_shipper_member.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_shipper_member.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_shipper_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_shipper_member.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_shipper_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_shipper_member temp_shipper_member
+    set temp_shipper_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_shipper_member.member_name = #{record.memberName,jdbcType=VARCHAR},
+      temp_shipper_member.member_password = #{record.memberPassword,jdbcType=VARCHAR},
+      temp_shipper_member.traders_password = #{record.tradersPassword,jdbcType=VARCHAR},
+      temp_shipper_member.account_balance = #{record.accountBalance,jdbcType=DECIMAL},
+      temp_shipper_member.live_address = #{record.liveAddress,jdbcType=VARCHAR},
+      temp_shipper_member.member_photo = #{record.memberPhoto,jdbcType=VARCHAR},
+      temp_shipper_member.registration_time = #{record.registrationTime,jdbcType=TIMESTAMP},
+      temp_shipper_member.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      temp_shipper_member.member_type = #{record.memberType,jdbcType=CHAR},
+      temp_shipper_member.email = #{record.email,jdbcType=VARCHAR},
+      temp_shipper_member.integral = #{record.integral,jdbcType=INTEGER},
+      temp_shipper_member.status = #{record.status,jdbcType=CHAR},
+      temp_shipper_member.login_count = #{record.loginCount,jdbcType=INTEGER},
+      temp_shipper_member.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      temp_shipper_member.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_shipper_member.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_shipper_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_shipper_member.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_shipper_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.member.ShipperMember" >
+    update t_shipper_member
+    <set >
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPassword != null" >
+        member_password = #{memberPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersPassword != null" >
+        traders_password = #{tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        account_balance = #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="liveAddress != null" >
+        live_address = #{liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhoto != null" >
+        member_photo = #{memberPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null" >
+        registration_time = #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberType != null" >
+        member_type = #{memberType,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.member.ShipperMember" >
+    update t_shipper_member
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      member_password = #{memberPassword,jdbcType=VARCHAR},
+      traders_password = #{tradersPassword,jdbcType=VARCHAR},
+      account_balance = #{accountBalance,jdbcType=DECIMAL},
+      live_address = #{liveAddress,jdbcType=VARCHAR},
+      member_photo = #{memberPhoto,jdbcType=VARCHAR},
+      registration_time = #{registrationTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      member_type = #{memberType,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

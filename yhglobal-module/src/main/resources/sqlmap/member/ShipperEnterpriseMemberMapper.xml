@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.member.ShipperEnterpriseMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.member.ShipperEnterpriseMember" >
+    <id column="temp_shipper_enterprise_member_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_deputy" property="deputy" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_area" property="area" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_detailed_address" property="detailedAddress" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_property" property="property" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_type" property="enterpriseType" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_trade" property="trade" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_phone" property="enterprisePhone" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_img" property="enterpriseImg" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_logo" property="enterpriseLogo" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_fax" property="enterpriseFax" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_enterprise_summary" property="enterpriseSummary" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_auth_state" property="authState" jdbcType="CHAR" />
+    <result column="temp_shipper_enterprise_member_auth" property="auth" jdbcType="VARCHAR" />
+    <result column="temp_shipper_enterprise_member_auth_time" property="authTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_enterprise_member_auth_remark" property="authRemark" jdbcType="VARCHAR" />
+    <!-- 扩展字段 -->
+    <result column="temp_shipper_enterprise_member_audit_display" property="auditDisplay" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_shipper_enterprise_member.member_id as temp_shipper_enterprise_member_member_id, 
+    temp_shipper_enterprise_member.enterprise_name as temp_shipper_enterprise_member_enterprise_name, 
+    temp_shipper_enterprise_member.deputy as temp_shipper_enterprise_member_deputy, temp_shipper_enterprise_member.area as temp_shipper_enterprise_member_area, 
+    temp_shipper_enterprise_member.detailed_address as temp_shipper_enterprise_member_detailed_address, 
+    temp_shipper_enterprise_member.property as temp_shipper_enterprise_member_property, 
+    temp_shipper_enterprise_member.enterprise_type as temp_shipper_enterprise_member_enterprise_type, 
+    temp_shipper_enterprise_member.trade as temp_shipper_enterprise_member_trade, temp_shipper_enterprise_member.enterprise_phone as temp_shipper_enterprise_member_enterprise_phone, 
+    temp_shipper_enterprise_member.enterprise_img as temp_shipper_enterprise_member_enterprise_img, 
+    temp_shipper_enterprise_member.enterprise_logo as temp_shipper_enterprise_member_enterprise_logo, 
+    temp_shipper_enterprise_member.enterprise_fax as temp_shipper_enterprise_member_enterprise_fax, 
+    temp_shipper_enterprise_member.enterprise_summary as temp_shipper_enterprise_member_enterprise_summary, 
+    temp_shipper_enterprise_member.auth_state as temp_shipper_enterprise_member_auth_state, 
+    temp_shipper_enterprise_member.auth as temp_shipper_enterprise_member_auth, temp_shipper_enterprise_member.auth_time as temp_shipper_enterprise_member_auth_time, 
+    temp_shipper_enterprise_member.auth_remark as temp_shipper_enterprise_member_auth_remark
+    <!-- 以下字段属于扩展 -->
+    ,temp_auth.user_cn_name as temp_shipper_enterprise_member_audit_display 
+  </sql> 
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_auth ON temp_auth.user_id = temp_shipper_enterprise_member.auth <!-- 扩展 -->
+   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_shipper_enterprise_member temp_shipper_enterprise_member
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_enterprise_member temp_shipper_enterprise_member
+    <include refid="Base_extend" />
+    where temp_shipper_enterprise_member.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shipper_enterprise_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMemberExample" >
+    delete from t_shipper_enterprise_member temp_shipper_enterprise_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMember" >
+    insert into t_shipper_enterprise_member (member_id, enterprise_name, deputy, 
+      area, detailed_address, property, 
+      enterprise_type, trade, enterprise_phone, 
+      enterprise_img, enterprise_logo, enterprise_fax, 
+      enterprise_summary, auth_state, auth, 
+      auth_time, auth_remark)
+    values (#{memberId,jdbcType=VARCHAR}, #{enterpriseName,jdbcType=VARCHAR}, #{deputy,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{detailedAddress,jdbcType=VARCHAR}, #{property,jdbcType=VARCHAR}, 
+      #{enterpriseType,jdbcType=VARCHAR}, #{trade,jdbcType=VARCHAR}, #{enterprisePhone,jdbcType=VARCHAR}, 
+      #{enterpriseImg,jdbcType=VARCHAR}, #{enterpriseLogo,jdbcType=VARCHAR}, #{enterpriseFax,jdbcType=VARCHAR}, 
+      #{enterpriseSummary,jdbcType=VARCHAR}, #{authState,jdbcType=CHAR}, #{auth,jdbcType=VARCHAR}, 
+      #{authTime,jdbcType=TIMESTAMP}, #{authRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMember" >
+    insert into t_shipper_enterprise_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+      <if test="deputy != null" >
+        deputy,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="detailedAddress != null" >
+        detailed_address,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="enterpriseType != null" >
+        enterprise_type,
+      </if>
+      <if test="trade != null" >
+        trade,
+      </if>
+      <if test="enterprisePhone != null" >
+        enterprise_phone,
+      </if>
+      <if test="enterpriseImg != null" >
+        enterprise_img,
+      </if>
+      <if test="enterpriseLogo != null" >
+        enterprise_logo,
+      </if>
+      <if test="enterpriseFax != null" >
+        enterprise_fax,
+      </if>
+      <if test="enterpriseSummary != null" >
+        enterprise_summary,
+      </if>
+      <if test="authState != null" >
+        auth_state,
+      </if>
+      <if test="auth != null" >
+        auth,
+      </if>
+      <if test="authTime != null" >
+        auth_time,
+      </if>
+      <if test="authRemark != null" >
+        auth_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="deputy != null" >
+        #{deputy,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null" >
+        #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        #{enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null" >
+        #{trade,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisePhone != null" >
+        #{enterprisePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseImg != null" >
+        #{enterpriseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLogo != null" >
+        #{enterpriseLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseFax != null" >
+        #{enterpriseFax,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseSummary != null" >
+        #{enterpriseSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        #{authState,jdbcType=CHAR},
+      </if>
+      <if test="auth != null" >
+        #{auth,jdbcType=VARCHAR},
+      </if>
+      <if test="authTime != null" >
+        #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authRemark != null" >
+        #{authRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_shipper_enterprise_member temp_shipper_enterprise_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_shipper_enterprise_member temp_shipper_enterprise_member
+    <set >
+      <if test="record.memberId != null" >
+        temp_shipper_enterprise_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseName != null" >
+        temp_shipper_enterprise_member.enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deputy != null" >
+        temp_shipper_enterprise_member.deputy = #{record.deputy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        temp_shipper_enterprise_member.area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailedAddress != null" >
+        temp_shipper_enterprise_member.detailed_address = #{record.detailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.property != null" >
+        temp_shipper_enterprise_member.property = #{record.property,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseType != null" >
+        temp_shipper_enterprise_member.enterprise_type = #{record.enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trade != null" >
+        temp_shipper_enterprise_member.trade = #{record.trade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterprisePhone != null" >
+        temp_shipper_enterprise_member.enterprise_phone = #{record.enterprisePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseImg != null" >
+        temp_shipper_enterprise_member.enterprise_img = #{record.enterpriseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseLogo != null" >
+        temp_shipper_enterprise_member.enterprise_logo = #{record.enterpriseLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseFax != null" >
+        temp_shipper_enterprise_member.enterprise_fax = #{record.enterpriseFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseSummary != null" >
+        temp_shipper_enterprise_member.enterprise_summary = #{record.enterpriseSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authState != null" >
+        temp_shipper_enterprise_member.auth_state = #{record.authState,jdbcType=CHAR},
+      </if>
+      <if test="record.auth != null" >
+        temp_shipper_enterprise_member.auth = #{record.auth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authTime != null" >
+        temp_shipper_enterprise_member.auth_time = #{record.authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.authRemark != null" >
+        temp_shipper_enterprise_member.auth_remark = #{record.authRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_shipper_enterprise_member temp_shipper_enterprise_member
+    set temp_shipper_enterprise_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.deputy = #{record.deputy,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.area = #{record.area,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.detailed_address = #{record.detailedAddress,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.property = #{record.property,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_type = #{record.enterpriseType,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.trade = #{record.trade,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_phone = #{record.enterprisePhone,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_img = #{record.enterpriseImg,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_logo = #{record.enterpriseLogo,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_fax = #{record.enterpriseFax,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.enterprise_summary = #{record.enterpriseSummary,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.auth_state = #{record.authState,jdbcType=CHAR},
+      temp_shipper_enterprise_member.auth = #{record.auth,jdbcType=VARCHAR},
+      temp_shipper_enterprise_member.auth_time = #{record.authTime,jdbcType=TIMESTAMP},
+      temp_shipper_enterprise_member.auth_remark = #{record.authRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMember" >
+    update t_shipper_enterprise_member
+    <set >
+      <if test="enterpriseName != null" >
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="deputy != null" >
+        deputy = #{deputy,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null" >
+        detailed_address = #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        property = #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        enterprise_type = #{enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null" >
+        trade = #{trade,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisePhone != null" >
+        enterprise_phone = #{enterprisePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseImg != null" >
+        enterprise_img = #{enterpriseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLogo != null" >
+        enterprise_logo = #{enterpriseLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseFax != null" >
+        enterprise_fax = #{enterpriseFax,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseSummary != null" >
+        enterprise_summary = #{enterpriseSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        auth_state = #{authState,jdbcType=CHAR},
+      </if>
+      <if test="auth != null" >
+        auth = #{auth,jdbcType=VARCHAR},
+      </if>
+      <if test="authTime != null" >
+        auth_time = #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authRemark != null" >
+        auth_remark = #{authRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.member.ShipperEnterpriseMember" >
+    update t_shipper_enterprise_member
+    set enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      deputy = #{deputy,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      detailed_address = #{detailedAddress,jdbcType=VARCHAR},
+      property = #{property,jdbcType=VARCHAR},
+      enterprise_type = #{enterpriseType,jdbcType=VARCHAR},
+      trade = #{trade,jdbcType=VARCHAR},
+      enterprise_phone = #{enterprisePhone,jdbcType=VARCHAR},
+      enterprise_img = #{enterpriseImg,jdbcType=VARCHAR},
+      enterprise_logo = #{enterpriseLogo,jdbcType=VARCHAR},
+      enterprise_fax = #{enterpriseFax,jdbcType=VARCHAR},
+      enterprise_summary = #{enterpriseSummary,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=CHAR},
+      auth = #{auth,jdbcType=VARCHAR},
+      auth_time = #{authTime,jdbcType=TIMESTAMP},
+      auth_remark = #{authRemark,jdbcType=VARCHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

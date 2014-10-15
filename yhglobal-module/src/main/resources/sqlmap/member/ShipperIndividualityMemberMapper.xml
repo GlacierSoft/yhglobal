@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.member.ShipperIndividualityMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.member.ShipperIndividualityMember" >
+    <id column="temp_shipper_individuality_member_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_individuality_member_sex" property="sex" jdbcType="CHAR" />
+    <result column="temp_shipper_individuality_member_member_age" property="memberAge" jdbcType="INTEGER" />
+    <result column="temp_shipper_individuality_member_home_phone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="temp_shipper_individuality_member_card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_individuality_member_member_real_name" property="memberRealName" jdbcType="VARCHAR" />
+    <result column="temp_shipper_individuality_member_member_qq" property="memberQq" jdbcType="INTEGER" />
+    <result column="temp_shipper_individuality_member_mobile_number" property="mobileNumber" jdbcType="VARCHAR" />
+    <result column="temp_shipper_individuality_member_detailed_address" property="detailedAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_shipper_individuality_member.member_id as temp_shipper_individuality_member_member_id, 
+    temp_shipper_individuality_member.sex as temp_shipper_individuality_member_sex, temp_shipper_individuality_member.member_age as temp_shipper_individuality_member_member_age, 
+    temp_shipper_individuality_member.home_phone as temp_shipper_individuality_member_home_phone, 
+    temp_shipper_individuality_member.card_id as temp_shipper_individuality_member_card_id, 
+    temp_shipper_individuality_member.member_real_name as temp_shipper_individuality_member_member_real_name, 
+    temp_shipper_individuality_member.member_qq as temp_shipper_individuality_member_member_qq, 
+    temp_shipper_individuality_member.mobile_number as temp_shipper_individuality_member_mobile_number, 
+    temp_shipper_individuality_member.detailed_address as temp_shipper_individuality_member_detailed_address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_shipper_individuality_member temp_shipper_individuality_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_individuality_member temp_shipper_individuality_member
+    where temp_shipper_individuality_member.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shipper_individuality_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMemberExample" >
+    delete from t_shipper_individuality_member temp_shipper_individuality_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMember" >
+    insert into t_shipper_individuality_member (member_id, sex, member_age, 
+      home_phone, card_id, member_real_name, 
+      member_qq, mobile_number, detailed_address
+      )
+    values (#{memberId,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{memberAge,jdbcType=INTEGER}, 
+      #{homePhone,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{memberRealName,jdbcType=VARCHAR}, 
+      #{memberQq,jdbcType=INTEGER}, #{mobileNumber,jdbcType=VARCHAR}, #{detailedAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMember" >
+    insert into t_shipper_individuality_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="memberAge != null" >
+        member_age,
+      </if>
+      <if test="homePhone != null" >
+        home_phone,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="memberRealName != null" >
+        member_real_name,
+      </if>
+      <if test="memberQq != null" >
+        member_qq,
+      </if>
+      <if test="mobileNumber != null" >
+        mobile_number,
+      </if>
+      <if test="detailedAddress != null" >
+        detailed_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="memberAge != null" >
+        #{memberAge,jdbcType=INTEGER},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRealName != null" >
+        #{memberRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberQq != null" >
+        #{memberQq,jdbcType=INTEGER},
+      </if>
+      <if test="mobileNumber != null" >
+        #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null" >
+        #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_shipper_individuality_member temp_shipper_individuality_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_shipper_individuality_member temp_shipper_individuality_member
+    <set >
+      <if test="record.memberId != null" >
+        temp_shipper_individuality_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        temp_shipper_individuality_member.sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.memberAge != null" >
+        temp_shipper_individuality_member.member_age = #{record.memberAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.homePhone != null" >
+        temp_shipper_individuality_member.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        temp_shipper_individuality_member.card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberRealName != null" >
+        temp_shipper_individuality_member.member_real_name = #{record.memberRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberQq != null" >
+        temp_shipper_individuality_member.member_qq = #{record.memberQq,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobileNumber != null" >
+        temp_shipper_individuality_member.mobile_number = #{record.mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailedAddress != null" >
+        temp_shipper_individuality_member.detailed_address = #{record.detailedAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_shipper_individuality_member temp_shipper_individuality_member
+    set temp_shipper_individuality_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_shipper_individuality_member.sex = #{record.sex,jdbcType=CHAR},
+      temp_shipper_individuality_member.member_age = #{record.memberAge,jdbcType=INTEGER},
+      temp_shipper_individuality_member.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      temp_shipper_individuality_member.card_id = #{record.cardId,jdbcType=VARCHAR},
+      temp_shipper_individuality_member.member_real_name = #{record.memberRealName,jdbcType=VARCHAR},
+      temp_shipper_individuality_member.member_qq = #{record.memberQq,jdbcType=INTEGER},
+      temp_shipper_individuality_member.mobile_number = #{record.mobileNumber,jdbcType=VARCHAR},
+      temp_shipper_individuality_member.detailed_address = #{record.detailedAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMember" >
+    update t_shipper_individuality_member
+    <set >
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="memberAge != null" >
+        member_age = #{memberAge,jdbcType=INTEGER},
+      </if>
+      <if test="homePhone != null" >
+        home_phone = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRealName != null" >
+        member_real_name = #{memberRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberQq != null" >
+        member_qq = #{memberQq,jdbcType=INTEGER},
+      </if>
+      <if test="mobileNumber != null" >
+        mobile_number = #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="detailedAddress != null" >
+        detailed_address = #{detailedAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.member.ShipperIndividualityMember" >
+    update t_shipper_individuality_member
+    set sex = #{sex,jdbcType=CHAR},
+      member_age = #{memberAge,jdbcType=INTEGER},
+      home_phone = #{homePhone,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      member_real_name = #{memberRealName,jdbcType=VARCHAR},
+      member_qq = #{memberQq,jdbcType=INTEGER},
+      mobile_number = #{mobileNumber,jdbcType=VARCHAR},
+      detailed_address = #{detailedAddress,jdbcType=VARCHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

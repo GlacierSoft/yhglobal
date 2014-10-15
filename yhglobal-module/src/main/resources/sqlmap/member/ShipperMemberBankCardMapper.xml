@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.member.ShipperMemberBankCardMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.member.ShipperMemberBankCard" >
+    <id column="temp_shipper_member_bank_card_bankcard_id" property="bankcardId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_card_number" property="cardNumber" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_shipper_member_bank_card_audit" property="audit" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_bank_card_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_bank_card_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_bank_card_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_shipper_member_bank_card_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_shipper_member_bank_card_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_shipper_member_bank_card_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_shipper_member_bank_card_audit_display" property="auditDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_shipper_member_bank_card.bankcard_id as temp_shipper_member_bank_card_bankcard_id, 
+    temp_shipper_member_bank_card.member_id as temp_shipper_member_bank_card_member_id, 
+    temp_shipper_member_bank_card.bank_name as temp_shipper_member_bank_card_bank_name, 
+    temp_shipper_member_bank_card.card_name as temp_shipper_member_bank_card_card_name, 
+    temp_shipper_member_bank_card.card_number as temp_shipper_member_bank_card_card_number, 
+    temp_shipper_member_bank_card.audit_state as temp_shipper_member_bank_card_audit_state, 
+    temp_shipper_member_bank_card.audit as temp_shipper_member_bank_card_audit, 
+    temp_shipper_member_bank_card.audit_opinion as temp_shipper_member_bank_card_audit_opinion, 
+    temp_shipper_member_bank_card.audit_time as temp_shipper_member_bank_card_audit_time, 
+    temp_shipper_member_bank_card.remark as temp_shipper_member_bank_card_remark,
+    temp_shipper_member_bank_card.creater as temp_shipper_member_bank_card_creater, 
+    temp_shipper_member_bank_card.create_time as temp_shipper_member_bank_card_create_time, 
+    temp_shipper_member_bank_card.updater as temp_shipper_member_bank_card_updater, 
+    temp_shipper_member_bank_card.update_time as temp_shipper_member_bank_card_update_time
+    
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_shipper_member_bank_card_creater_display
+    ,temp_updater.user_cn_name as temp_shipper_member_bank_card_updater_display
+    ,temp_shipper_member.member_name as temp_shipper_member_bank_card_member_display
+    ,temp_auditor.user_cn_name as temp_shipper_member_bank_card_audit_display
+  </sql>
+  
+   <sql id="Base_extend">
+  	 	LEFT JOIN t_user temp_creater ON temp_creater.user_id =  temp_shipper_member_bank_card.creater <!-- 扩展 -->
+        LEFT JOIN t_user temp_updater ON temp_updater.user_id =  temp_shipper_member_bank_card.updater <!-- 扩展 -->
+        LEFT JOIN t_shipper_member temp_shipper_member on temp_shipper_member.member_id=temp_shipper_member_bank_card.member_id<!-- 扩展 -->
+        LEFT JOIN t_user temp_auditor ON temp_auditor.user_id =  temp_shipper_member_bank_card.audit <!-- 扩展 -->
+   </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_shipper_member_bank_card temp_shipper_member_bank_card
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_member_bank_card temp_shipper_member_bank_card
+    <include refid="Base_extend" />
+    where temp_shipper_member_bank_card.bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shipper_member_bank_card
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCardExample" >
+    delete from t_shipper_member_bank_card temp_shipper_member_bank_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCard" >
+    insert into t_shipper_member_bank_card (bankcard_id, member_id, bank_name, 
+      card_name, card_number, audit_state, 
+      audit, audit_opinion, audit_time, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{bankcardId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{cardName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, 
+      #{audit,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCard" >
+    insert into t_shipper_member_bank_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankcardId != null" >
+        bankcard_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="cardNumber != null" >
+        card_number,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="audit != null" >
+        audit,
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankcardId != null" >
+        #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null" >
+        #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCardExample" resultType="java.lang.Integer" >
+    select count(*) from t_shipper_member_bank_card temp_shipper_member_bank_card
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_shipper_member_bank_card temp_shipper_member_bank_card
+    <set >
+      <if test="record.bankcardId != null" >
+        temp_shipper_member_bank_card.bankcard_id = #{record.bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_shipper_member_bank_card.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        temp_shipper_member_bank_card.bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardName != null" >
+        temp_shipper_member_bank_card.card_name = #{record.cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNumber != null" >
+        temp_shipper_member_bank_card.card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_shipper_member_bank_card.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.audit != null" >
+        temp_shipper_member_bank_card.audit = #{record.audit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditOpinion != null" >
+        temp_shipper_member_bank_card.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        temp_shipper_member_bank_card.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_shipper_member_bank_card.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_shipper_member_bank_card.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_shipper_member_bank_card.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_shipper_member_bank_card.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_shipper_member_bank_card.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_shipper_member_bank_card temp_shipper_member_bank_card
+    set temp_shipper_member_bank_card.bankcard_id = #{record.bankcardId,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.bank_name = #{record.bankName,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.card_name = #{record.cardName,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_shipper_member_bank_card.audit = #{record.audit,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      temp_shipper_member_bank_card.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_shipper_member_bank_card.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_shipper_member_bank_card.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCard" >
+    update t_shipper_member_bank_card
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="audit != null" >
+        audit = #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.member.ShipperMemberBankCard" >
+    update t_shipper_member_bank_card
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      audit = #{audit,jdbcType=VARCHAR},
+      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </update>
+</mapper>

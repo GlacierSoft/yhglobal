@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.member.ShipperMemberContractRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.member.ShipperMemberContractRecord" >
+    <id column="temp_shipper_member_contract_record_contract_record_id" property="contractRecordId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_contract_type_id" property="contractTypeId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_platform_id" property="platformId" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_status" property="status" jdbcType="CHAR" />
+    <result column="temp_shipper_member_contract_record_contract_content" property="contractContent" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_operation_time" property="operationTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_contract_record_close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_contract_record_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_shipper_member_contract_record_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_shipper_member_contract_record_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    
+<!--     <result column="temp_shipper_member_contract_record_goods_display" property="goodsDisplay" jdbcType="VARCHAR"/> 自定义扩展字段 -->
+<!--     <result column="temp_shipper_member_contract_record_platform_display" property="platformDisplay" jdbcType="VARCHAR"/> 自定义扩展字段 -->
+	
+	<result column="temp_shipper_member_contract_record_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--  自定义扩展字段 -->
+    <result column="temp_shipper_member_contract_record_contract_type_display" property="contractTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_shipper_member_contract_record_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_shipper_member_contract_record_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_shipper_member_contract_record.contract_record_id as temp_shipper_member_contract_record_contract_record_id, 
+    temp_shipper_member_contract_record.goods_id as temp_shipper_member_contract_record_goods_id, 
+    temp_shipper_member_contract_record.member_id as temp_shipper_member_contract_record_member_id, 
+    temp_shipper_member_contract_record.contract_type_id as temp_shipper_member_contract_record_contract_type_id, 
+    temp_shipper_member_contract_record.platform_id as temp_shipper_member_contract_record_platform_id, 
+    temp_shipper_member_contract_record.status as temp_shipper_member_contract_record_status, 
+    temp_shipper_member_contract_record.contract_content as temp_shipper_member_contract_record_contract_content, 
+    temp_shipper_member_contract_record.operation_time as temp_shipper_member_contract_record_operation_time, 
+    temp_shipper_member_contract_record.close_time as temp_shipper_member_contract_record_close_time, 
+    temp_shipper_member_contract_record.remark as temp_shipper_member_contract_record_remark, 
+    temp_shipper_member_contract_record.creater as temp_shipper_member_contract_record_creater, 
+    temp_shipper_member_contract_record.create_time as temp_shipper_member_contract_record_create_time, 
+    temp_shipper_member_contract_record.updater as temp_shipper_member_contract_record_updater, 
+    temp_shipper_member_contract_record.update_time as temp_shipper_member_contract_record_update_time
+    
+     <!-- 以下字段属于扩展 -->
+     
+     
+    ,temp_shipper_member.member_name as temp_shipper_member_contract_record_member_display
+    ,temp_member_contract_type.contract_type_name as temp_shipper_member_contract_record_contract_type_display
+    ,temp_creater.user_cn_name as temp_shipper_member_contract_record_creater_display
+    ,temp_updater.user_cn_name as temp_shipper_member_contract_record_updater_display
+    
+  </sql>
+  
+  <sql id="Base_extend">
+    LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_shipper_member_contract_record.member_id <!-- 扩展 -->
+    LEFT JOIN t_member_contract_type  temp_member_contract_type ON temp_member_contract_type.contract_type_id =temp_shipper_member_contract_record.contract_type_id <!-- 扩展 -->
+    
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_shipper_member_contract_record.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_shipper_member_contract_record.updater <!-- 扩展 -->
+  </sql>
+  
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_shipper_member_contract_record temp_shipper_member_contract_record
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shipper_member_contract_record temp_shipper_member_contract_record
+     <include refid="Base_extend" />
+    where temp_shipper_member_contract_record.contract_record_id = #{contractRecordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shipper_member_contract_record
+    where contract_record_id = #{contractRecordId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecordExample" >
+    delete from t_shipper_member_contract_record temp_shipper_member_contract_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecord" >
+    insert into t_shipper_member_contract_record (contract_record_id, goods_id, member_id, 
+      contract_type_id, platform_id, status, 
+      contract_content, operation_time, close_time, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{contractRecordId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{contractTypeId,jdbcType=VARCHAR}, #{platformId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{contractContent,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecord" >
+    insert into t_shipper_member_contract_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contractRecordId != null" >
+        contract_record_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="contractTypeId != null" >
+        contract_type_id,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="contractContent != null" >
+        contract_content,
+      </if>
+      <if test="operationTime != null" >
+        operation_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contractRecordId != null" >
+        #{contractRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTypeId != null" >
+        #{contractTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="contractContent != null" >
+        #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecordExample" resultType="java.lang.Integer" >
+    select count(*) from t_shipper_member_contract_record temp_shipper_member_contract_record
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_shipper_member_contract_record temp_shipper_member_contract_record
+    <set >
+      <if test="record.contractRecordId != null" >
+        temp_shipper_member_contract_record.contract_record_id = #{record.contractRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        temp_shipper_member_contract_record.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_shipper_member_contract_record.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractTypeId != null" >
+        temp_shipper_member_contract_record.contract_type_id = #{record.contractTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platformId != null" >
+        temp_shipper_member_contract_record.platform_id = #{record.platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        temp_shipper_member_contract_record.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.contractContent != null" >
+        temp_shipper_member_contract_record.contract_content = #{record.contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationTime != null" >
+        temp_shipper_member_contract_record.operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null" >
+        temp_shipper_member_contract_record.close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_shipper_member_contract_record.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_shipper_member_contract_record.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_shipper_member_contract_record.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_shipper_member_contract_record.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_shipper_member_contract_record.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_shipper_member_contract_record temp_shipper_member_contract_record
+    set temp_shipper_member_contract_record.contract_record_id = #{record.contractRecordId,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.contract_type_id = #{record.contractTypeId,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.platform_id = #{record.platformId,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.status = #{record.status,jdbcType=CHAR},
+      temp_shipper_member_contract_record.contract_content = #{record.contractContent,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      temp_shipper_member_contract_record.close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      temp_shipper_member_contract_record.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_shipper_member_contract_record.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_shipper_member_contract_record.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecord" >
+    update t_shipper_member_contract_record
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTypeId != null" >
+        contract_type_id = #{contractTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="contractContent != null" >
+        contract_content = #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where contract_record_id = #{contractRecordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.member.ShipperMemberContractRecord" >
+    update t_shipper_member_contract_record
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      contract_type_id = #{contractTypeId,jdbcType=VARCHAR},
+      platform_id = #{platformId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      contract_content = #{contractContent,jdbcType=VARCHAR},
+      operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where contract_record_id = #{contractRecordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

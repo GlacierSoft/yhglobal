@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.carrier.CarrierRouteMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrier.CarrierRoute" >
+    <id column="temp_carrier_route_router_id" property="routerId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_route_origin" property="routeOrigin" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_route_stop" property="routeStop" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_type" property="type" jdbcType="CHAR" />
+    <result column="temp_carrier_route_route_bytime" property="routeBytime" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_route_price" property="routePrice" jdbcType="DECIMAL" />
+    <result column="temp_carrier_route_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_carrier_route_audit" property="audit" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_carrier_route_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_carrier_route_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_carrier_route.router_id as temp_carrier_route_router_id, temp_carrier_route.route_name as temp_carrier_route_route_name, 
+    temp_carrier_route.route_origin as temp_carrier_route_route_origin, temp_carrier_route.route_stop as temp_carrier_route_route_stop, 
+    temp_carrier_route.type as temp_carrier_route_type, temp_carrier_route.route_bytime as temp_carrier_route_route_bytime, 
+    temp_carrier_route.route_price as temp_carrier_route_route_price, temp_carrier_route.audit_state as temp_carrier_route_audit_state, 
+    temp_carrier_route.audit as temp_carrier_route_audit, temp_carrier_route.audit_opinion as temp_carrier_route_audit_opinion, 
+    temp_carrier_route.audit_time as temp_carrier_route_audit_time, temp_carrier_route.remark as temp_carrier_route_remark, 
+    temp_carrier_route.creater as temp_carrier_route_creater, temp_carrier_route.create_time as temp_carrier_route_create_time, 
+    temp_carrier_route.updater as temp_carrier_route_updater, temp_carrier_route.update_time as temp_carrier_route_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_carrier_route temp_carrier_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrier_route temp_carrier_route
+    where temp_carrier_route.router_id = #{routerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_carrier_route
+    where router_id = #{routerId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" >
+    delete from t_carrier_route temp_carrier_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
+    insert into t_carrier_route (router_id, route_name, route_origin, 
+      route_stop, type, route_bytime, 
+      route_price, audit_state, audit, 
+      audit_opinion, audit_time, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{routerId,jdbcType=VARCHAR}, #{routeName,jdbcType=VARCHAR}, #{routeOrigin,jdbcType=VARCHAR}, 
+      #{routeStop,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, #{routeBytime,jdbcType=VARCHAR}, 
+      #{routePrice,jdbcType=DECIMAL}, #{auditState,jdbcType=CHAR}, #{audit,jdbcType=VARCHAR}, 
+      #{auditOpinion,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
+    insert into t_carrier_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routerId != null" >
+        router_id,
+      </if>
+      <if test="routeName != null" >
+        route_name,
+      </if>
+      <if test="routeOrigin != null" >
+        route_origin,
+      </if>
+      <if test="routeStop != null" >
+        route_stop,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="routeBytime != null" >
+        route_bytime,
+      </if>
+      <if test="routePrice != null" >
+        route_price,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="audit != null" >
+        audit,
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routerId != null" >
+        #{routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeOrigin != null" >
+        #{routeOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="routeStop != null" >
+        #{routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="routeBytime != null" >
+        #{routeBytime,jdbcType=VARCHAR},
+      </if>
+      <if test="routePrice != null" >
+        #{routePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null" >
+        #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" resultType="java.lang.Integer" >
+    select count(*) from t_carrier_route temp_carrier_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_carrier_route temp_carrier_route
+    <set >
+      <if test="record.routerId != null" >
+        temp_carrier_route.router_id = #{record.routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeName != null" >
+        temp_carrier_route.route_name = #{record.routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeOrigin != null" >
+        temp_carrier_route.route_origin = #{record.routeOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeStop != null" >
+        temp_carrier_route.route_stop = #{record.routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        temp_carrier_route.type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.routeBytime != null" >
+        temp_carrier_route.route_bytime = #{record.routeBytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routePrice != null" >
+        temp_carrier_route.route_price = #{record.routePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.auditState != null" >
+        temp_carrier_route.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.audit != null" >
+        temp_carrier_route.audit = #{record.audit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditOpinion != null" >
+        temp_carrier_route.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        temp_carrier_route.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_carrier_route.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_carrier_route.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_carrier_route.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_carrier_route.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_carrier_route.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_carrier_route temp_carrier_route
+    set temp_carrier_route.router_id = #{record.routerId,jdbcType=VARCHAR},
+      temp_carrier_route.route_name = #{record.routeName,jdbcType=VARCHAR},
+      temp_carrier_route.route_origin = #{record.routeOrigin,jdbcType=VARCHAR},
+      temp_carrier_route.route_stop = #{record.routeStop,jdbcType=VARCHAR},
+      temp_carrier_route.type = #{record.type,jdbcType=CHAR},
+      temp_carrier_route.route_bytime = #{record.routeBytime,jdbcType=VARCHAR},
+      temp_carrier_route.route_price = #{record.routePrice,jdbcType=DECIMAL},
+      temp_carrier_route.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_carrier_route.audit = #{record.audit,jdbcType=VARCHAR},
+      temp_carrier_route.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      temp_carrier_route.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      temp_carrier_route.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_carrier_route.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_carrier_route.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_carrier_route.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_carrier_route.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
+    update t_carrier_route
+    <set >
+      <if test="routeName != null" >
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeOrigin != null" >
+        route_origin = #{routeOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="routeStop != null" >
+        route_stop = #{routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="routeBytime != null" >
+        route_bytime = #{routeBytime,jdbcType=VARCHAR},
+      </if>
+      <if test="routePrice != null" >
+        route_price = #{routePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="audit != null" >
+        audit = #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where router_id = #{routerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
+    update t_carrier_route
+    set route_name = #{routeName,jdbcType=VARCHAR},
+      route_origin = #{routeOrigin,jdbcType=VARCHAR},
+      route_stop = #{routeStop,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      route_bytime = #{routeBytime,jdbcType=VARCHAR},
+      route_price = #{routePrice,jdbcType=DECIMAL},
+      audit_state = #{auditState,jdbcType=CHAR},
+      audit = #{audit,jdbcType=VARCHAR},
+      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where router_id = #{routerId,jdbcType=VARCHAR}
+  </update>
+</mapper>

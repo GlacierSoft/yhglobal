@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.carrier.CarrierMemberTokenMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrier.CarrierMemberToken" >
+    <id column="temp_carrier_member_token_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_token_member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_token_password" property="password" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_token_salt" property="salt" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_token_traders_password" property="tradersPassword" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_token_traders_salt" property="tradersSalt" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_carrier_member_token.carrier_member_id as temp_carrier_member_token_carrier_member_id, 
+    temp_carrier_member_token.member_name as temp_carrier_member_token_member_name, temp_carrier_member_token.password as temp_carrier_member_token_password, 
+    temp_carrier_member_token.salt as temp_carrier_member_token_salt, temp_carrier_member_token.traders_password as temp_carrier_member_token_traders_password, 
+    temp_carrier_member_token.traders_salt as temp_carrier_member_token_traders_salt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierMemberTokenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_carrier_member_token temp_carrier_member_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrier_member_token temp_carrier_member_token
+    where temp_carrier_member_token.carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_carrier_member_token
+    where carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierMemberTokenExample" >
+    delete from t_carrier_member_token temp_carrier_member_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierMemberToken" >
+    insert into t_carrier_member_token (carrier_member_id, member_name, password, 
+      salt, traders_password, traders_salt
+      )
+    values (#{carrierMemberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{tradersPassword,jdbcType=VARCHAR}, #{tradersSalt,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierMemberToken" >
+    insert into t_carrier_member_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carrierMemberId != null" >
+        carrier_member_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="tradersPassword != null" >
+        traders_password,
+      </if>
+      <if test="tradersSalt != null" >
+        traders_salt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carrierMemberId != null" >
+        #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersPassword != null" >
+        #{tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersSalt != null" >
+        #{tradersSalt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierMemberTokenExample" resultType="java.lang.Integer" >
+    select count(*) from t_carrier_member_token temp_carrier_member_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_carrier_member_token temp_carrier_member_token
+    <set >
+      <if test="record.carrierMemberId != null" >
+        temp_carrier_member_token.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberName != null" >
+        temp_carrier_member_token.member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        temp_carrier_member_token.password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        temp_carrier_member_token.salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradersPassword != null" >
+        temp_carrier_member_token.traders_password = #{record.tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradersSalt != null" >
+        temp_carrier_member_token.traders_salt = #{record.tradersSalt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_carrier_member_token temp_carrier_member_token
+    set temp_carrier_member_token.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      temp_carrier_member_token.member_name = #{record.memberName,jdbcType=VARCHAR},
+      temp_carrier_member_token.password = #{record.password,jdbcType=VARCHAR},
+      temp_carrier_member_token.salt = #{record.salt,jdbcType=VARCHAR},
+      temp_carrier_member_token.traders_password = #{record.tradersPassword,jdbcType=VARCHAR},
+      temp_carrier_member_token.traders_salt = #{record.tradersSalt,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.carrier.CarrierMemberToken" >
+    update t_carrier_member_token
+    <set >
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersPassword != null" >
+        traders_password = #{tradersPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="tradersSalt != null" >
+        traders_salt = #{tradersSalt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrier.CarrierMemberToken" >
+    update t_carrier_member_token
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      traders_password = #{tradersPassword,jdbcType=VARCHAR},
+      traders_salt = #{tradersSalt,jdbcType=VARCHAR}
+    where carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
+  </update>
+</mapper>
