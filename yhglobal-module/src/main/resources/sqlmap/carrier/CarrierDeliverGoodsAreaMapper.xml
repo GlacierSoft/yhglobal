@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.carrier.CarrierDeliverGoodsAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
+    <id column="temp_carrier_deliver_goods_area_deliver_goods_area_id" property="deliverGoodsAreaId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_router_id" property="routerId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_deliver_name" property="deliverName" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_price" property="price" jdbcType="DECIMAL" />
+    <result column="temp_carrier_deliver_goods_area_address" property="address" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_carrier_deliver_goods_area.deliver_goods_area_id as temp_carrier_deliver_goods_area_deliver_goods_area_id, 
+    temp_carrier_deliver_goods_area.router_id as temp_carrier_deliver_goods_area_router_id, 
+    temp_carrier_deliver_goods_area.deliver_name as temp_carrier_deliver_goods_area_deliver_name, 
+    temp_carrier_deliver_goods_area.price as temp_carrier_deliver_goods_area_price, temp_carrier_deliver_goods_area.address as temp_carrier_deliver_goods_area_address, 
+    temp_carrier_deliver_goods_area.telephone as temp_carrier_deliver_goods_area_telephone, 
+    temp_carrier_deliver_goods_area.remark as temp_carrier_deliver_goods_area_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    where temp_carrier_deliver_goods_area.deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_carrier_deliver_goods_area
+    where deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample" >
+    delete from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
+    insert into t_carrier_deliver_goods_area (deliver_goods_area_id, router_id, deliver_name, 
+      price, address, telephone, 
+      remark)
+    values (#{deliverGoodsAreaId,jdbcType=VARCHAR}, #{routerId,jdbcType=VARCHAR}, #{deliverName,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
+    insert into t_carrier_deliver_goods_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deliverGoodsAreaId != null" >
+        deliver_goods_area_id,
+      </if>
+      <if test="routerId != null" >
+        router_id,
+      </if>
+      <if test="deliverName != null" >
+        deliver_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deliverGoodsAreaId != null" >
+        #{deliverGoodsAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="routerId != null" >
+        #{routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverName != null" >
+        #{deliverName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample" resultType="java.lang.Integer" >
+    select count(*) from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    <set >
+      <if test="record.deliverGoodsAreaId != null" >
+        temp_carrier_deliver_goods_area.deliver_goods_area_id = #{record.deliverGoodsAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routerId != null" >
+        temp_carrier_deliver_goods_area.router_id = #{record.routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliverName != null" >
+        temp_carrier_deliver_goods_area.deliver_name = #{record.deliverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        temp_carrier_deliver_goods_area.price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.address != null" >
+        temp_carrier_deliver_goods_area.address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        temp_carrier_deliver_goods_area.telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_carrier_deliver_goods_area.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    set temp_carrier_deliver_goods_area.deliver_goods_area_id = #{record.deliverGoodsAreaId,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.router_id = #{record.routerId,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.deliver_name = #{record.deliverName,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.price = #{record.price,jdbcType=DECIMAL},
+      temp_carrier_deliver_goods_area.address = #{record.address,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.telephone = #{record.telephone,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
+    update t_carrier_deliver_goods_area
+    <set >
+      <if test="routerId != null" >
+        router_id = #{routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverName != null" >
+        deliver_name = #{deliverName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
+    update t_carrier_deliver_goods_area
+    set router_id = #{routerId,jdbcType=VARCHAR},
+      deliver_name = #{deliverName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      address = #{address,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
+  </update>
+</mapper>
