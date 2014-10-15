@@ -10,7 +10,7 @@
 				<input type="hidden" name="carrierMemberCreditworthinessId" value="${creditwortinessData.carrierMemberCreditworthinessId}" />
 				<input class="spinner" style="width:168px"  value="${creditwortinessData.memberName}" readonly="readonly"/>
 			</td>
-			<td>积分类型：</td>
+			<td>信誉类型：</td>
 			<td><input id="creditwortiness_mgr_creditwortiness_detail_creditwortinessType" value="${creditwortinessData.creditworthinessType}" class="spinner" style="width:168px" readonly="readonly"/></td>
 		</tr>
 
