@@ -29,7 +29,6 @@ import com.glacier.frame.service.system.UserService;
 import com.glacier.security.util.Encodes;
  
 /**
- * 
  * @ClassName: MemberPermissionsRealm
  * @Description: TODO(会员进行自定义执行认证和授权的类)
  * @author zhenfei.zhang
@@ -50,7 +49,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     public MemberPermissionsRealm() {
         setName("MemberPermissionsRealm");
     }
-
     /*
      * (non-Javadoc) <p>Title: doGetAuthorizationInfo</p> <p>Description: 授权</p>
      * <p>当缓存中没有用户的授权信息的时候会从该方法中加载，缓存到文件中</p>
@@ -67,7 +65,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         return null;
     }
-
     /*
      * (non-Javadoc) <p>Title: doGetAuthenticationInfo</p> <p>Description:
      * 认证回调函数,登录时调用.</p>
@@ -86,17 +83,11 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
     	CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
         String username = token.getUsername(); 
-        System.out.println("0000");
-        System.out.println("0000");
-        System.out.println("0000");
-        
         if (null != username && !"".equals(username)) {
             ShipperMemberTokenExample shipperMemberTokenExample = new ShipperMemberTokenExample();
             shipperMemberTokenExample.createCriteria().andMemberNameEqualTo(username);
             ShipperMemberToken tokenMember= shipperMemberTokenMapper.selectByExample(shipperMemberTokenExample).get(0);
             if (null != tokenMember) {
-                System.out.println("001100");
-                System.out.println("011111000");
                 // 用户状态为启用或隐藏让其通过认证
                 byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
                 //通过会员id来获取会员信息
@@ -104,8 +95,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
                 updatePrincipalMemberInfo(token, principalMember);// 更新用户登录信息
-                System.out.println("03300");
-                System.out.println("0133000");
                 return info;
             } else {
                 throw new DisabledAccountException();
@@ -113,7 +102,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         }
         return null;
     }
-
     /**
      * @param token
      * @param principalUser
@@ -129,7 +117,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
      *             已检查测试:Green
      *             <p>
      */
-
     private void updatePrincipalMemberInfo(CaptchaUsernamePasswordToken token, ShipperMember principalMember) {
         ShipperMember lastTokenMember = new ShipperMember();
         UserExample userExample = new UserExample();
@@ -182,7 +169,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         SimplePrincipalCollection principals = new SimplePrincipalCollection(principal, getName());
         clearCachedAuthorizationInfo(principals);
     }
-
     /**
      * 清除所有用户授权信息缓存.
      */
@@ -194,7 +180,6 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
             }
         }
     }
-
     /**
      * 设定Password校验的Hash算法与迭代次数.
      */
@@ -204,5 +189,4 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         matcher.setHashIterations(UserService.HASH_INTERATIONS);
         setCredentialsMatcher(matcher);
     }
-    
 }

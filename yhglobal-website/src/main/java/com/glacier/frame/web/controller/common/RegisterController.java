@@ -24,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.service.carrier.CarrierMemberService;
 import com.glacier.frame.service.common.HtmlEmailPublic;
 import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.website.WebsiteAnnouncementService;
@@ -32,12 +34,22 @@ import com.glacier.frame.service.website.WebsiteNewsService;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 
+/**
+ * @ClassName: RegisterController 
+ * @Description: TODO(注册控制器) 
+ * @author xichao.dong	
+ * @email 406592176@qq.com
+ * @date 2014-10-11 下午2:14:28
+ */
 @Controller
 public class RegisterController extends AbstractController {
 
     @Autowired
-    private ShipperMemberService shipperMemberService;
+    private ShipperMemberService shipperMemberService;// 注入会员货主业务类
 
+    @Autowired
+    private CarrierMemberService carrierMemberService;// 注入会员货主业务类
+    
     @Autowired
     private WebsiteAnnouncementService announcementService;// 注入公告业务类
 
@@ -45,11 +57,11 @@ public class RegisterController extends AbstractController {
     private WebsiteNewsService newsService;// 注入新闻业务类
 
     @Autowired
-    private HtmlEmailPublic htmlEmailPublic;
+    private HtmlEmailPublic htmlEmailPublic;// 注入邮箱工具类
 
     /**
      * @Title: intoregister
-     * @Description: TODO(前台注册转向页面)
+     * @Description: TODO(前台货主注册转向页面)
      * @param @return设定文件
      * @return String 返回类型
      * @throws
@@ -65,8 +77,25 @@ public class RegisterController extends AbstractController {
     }
 
     /**
+     * @Title: intoregister
+     * @Description: TODO(前台承运商注册转向页面)
+     * @param @return设定文件
+     * @return String 返回类型
+     * @throws
+     * 
+     */
+    @RequestMapping(value = "/intoregisterCarrier.htm")
+    public String intoregisterCarrier(HttpSession session) {
+        session.removeAttribute("currentCarrierMember");
+        if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
+            SecurityUtils.getSubject().logout();// 进入注册页面，默认把登录用户注销
+        }
+        return "registerCarrier";
+    }
+
+    /**
      * @Title: register
-     * @Description: TODO(前台注册功能)
+     * @Description: TODO(前台货主注册功能)
      * @param @param shipperMember
      * @param @param bindingResult
      * @param @param captcha
@@ -89,7 +118,6 @@ public class RegisterController extends AbstractController {
         if (matcher.matches() == false) {
             return "register";
         }
-
         String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
         if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
             // throw new IncorrectCaptchaException("验证码错误！");
@@ -99,7 +127,6 @@ public class RegisterController extends AbstractController {
             return "register";
         }
         session.setAttribute("isCaptcha", isCaptcha);
-
         // 判断用户名是否重复
         JqReturnJson returnisUsernameRepeat = (JqReturnJson) shipperMemberService.isUsernameRepeat(shipperMember);
         if (!returnisUsernameRepeat.isSuccess()) {
@@ -116,7 +143,6 @@ public class RegisterController extends AbstractController {
             request.setAttribute("shipperMember", shipperMember);
             return "register";
         }
-
         ModelAndView mav = new ModelAndView("sendMailSuccess");
 
         // 创建一个临时用户注册ID
@@ -167,10 +193,111 @@ public class RegisterController extends AbstractController {
         }
         return mav;
     }
+    
+    /**
+     * @Title: register
+     * @Description: TODO(前台承运商注册功能)
+     * @param @param shipperMember
+     * @param @param bindingResult
+     * @param @param captcha
+     * @param @param request
+     * @param @param session
+     * @param @return设定文件
+     * @return Object 返回类型
+     * @throws
+     * 
+     */
+    @RequestMapping(value = "/registerCarrier.htm", method = RequestMethod.POST)
+    public Object registerCarrier(@Valid
+            CarrierMember carrierMember, BindingResult bindingResult, String captcha, HttpServletRequest request, HttpSession session) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+        Matcher matcher = pattern.matcher(carrierMember.getEmail());
+        // 验证邮箱的合法性
+        if (matcher.matches() == false) {
+            return "register";
+        }
+        String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+            // throw new IncorrectCaptchaException("验证码错误！");
+            request.setAttribute("errorCaptcha", "errorCaptcha");// 通过设置errorCaptcha的
+                                                                 // 值，来判断验证码是否正确。
+            request.setAttribute("carrierMember", carrierMember);
+            return "register";
+        }
+        session.setAttribute("isCaptcha", isCaptcha);
+        // 判断用户名是否重复
+        JqReturnJson returnisUsernameRepeat = (JqReturnJson) carrierMemberService.isUsernameRepeat(carrierMember);
+        if (!returnisUsernameRepeat.isSuccess()) {
+            request.setAttribute("usernameRepeat", "usernameRepeat");// 通过设置usernameRepeat的
+                                                                     // 值，来判断用户名是否重复。
+            request.setAttribute("carrierMember", carrierMember);
+            return "register";
+        }
+        // 判断邮箱是否重复isEmailRepeat
+        JqReturnJson returnisEmailRepeat = (JqReturnJson) carrierMemberService.isEmailRepeat(carrierMember);
+        if (!returnisEmailRepeat.isSuccess()) {
+            request.setAttribute("emailRepeat", "emailRepeat");// 通过设置emailRepeat的
+                                                               // 值，来判断邮箱是否重复。
+            request.setAttribute("carrierMember", carrierMember);
+            return "register";
+        }
+        ModelAndView mav = new ModelAndView("sendMailSuccess");
+
+        // 创建一个临时用户注册ID
+        String registerId = "" + Math.random() * Math.random();
+        /**
+         * 得到web系统url路径的方法
+         * */
+        // 得到web的url路径：http://localhost:8080/ssh1/
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+        // 邮件发送成功后，用户点在邮箱中点击这个链接回到注册网站。
+        // http://localhost:8080/frame-website//mailBack.htm?registerId=" +
+        // registerId;
+        String url = basePath + "mailBackCarrier.htm?registerId=" + registerId;
+        // 将验证邮箱链接后面的registerId存到session中
+        session.setAttribute(registerId, carrierMember.getMemberName());
+        session.setAttribute("carrierMemberSimple", carrierMember);
+        // 设置session的有效时间，为10分钟，10分钟内没有点击链接的话，注册将失败
+        session.setMaxInactiveInterval(600);
+        // 基于org.apache.commons.mail,封装好的mail，发邮件流程比较简单，比原生态mail简单。
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName("smtp.qq.com");// QQ郵箱服務器
+        // email.setHostName("smtp.163.com");// 163郵箱服務器
+        // email.setHostName("smtp.gmail.com");// gmail郵箱服務器
+
+        email.setSmtpPort(465);// 设置端口号
+        email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com", "zx5304960"));// 用1240033960@qq.com这个邮箱发送验证邮件的
+        email.setTLS(true);// tls要设置为true,没有设置会报错。
+        email.setSSL(true);// ssl要设置为true,没有设置会报错。
+        try {
+            email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
+            // email.setFrom("13798985542@163.com", "13798985542@163.com",
+            // "UTF-8");
+            // email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
+        } catch (EmailException e1) {
+            e1.printStackTrace();
+        }
+        email.setCharset("UTF-8");// 没有设置会乱码。
+        try {
+            email.setSubject("冰川网贷注册");// 设置邮件名称
+            email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成注册！");// 设置邮件内容
+            email.addTo(carrierMember.getEmail());// 给会员发邮件
+            // email.addTo("804346249@qq.com");
+            email.send();// 邮件发送
+        } catch (EmailException e) {
+            // throw new RuntimeException(e);
+            return mav;
+        }
+        return mav;
+    }
 
     /**
      * @Title: mailBack
-     * @Description: TODO(点击邮件验证，转向页面。)
+     * @Description: TODO(货主注册，点击邮件验证，转向页面。)
      * @param @param registerId
      * @param @param request
      * @param @param session
@@ -183,9 +310,9 @@ public class RegisterController extends AbstractController {
     public Object mailBack(JqPager pager, String pagetype, String shipperMemberId, String registerId, HttpServletRequest request, HttpSession session) {
         // 获取主页显示的借款、新闻、公告的数据列表
         ModelAndView mav = new ModelAndView("index");
-        int p = 1;
+        //int p = 1;
         mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));// 主页加载公告信息
-        mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1, "type"));// 主页加载新闻信息
+        //mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1, "type"));// 主页加载新闻信息
         if (registerId == null) {
             return mav;
         }
@@ -200,7 +327,7 @@ public class RegisterController extends AbstractController {
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
         String host = ip + IpUtil.getIpInfo(ip);
         shipperMember.setLastLoginIpAddress(host);
-        // 注册时，生成会员信息，会员资金记录，会员统计记录, 生成会员资金记录, 生会员统计记录
+        // 注册时，生成会员信息
         JqReturnJson returnResult = (JqReturnJson) shipperMemberService.addShipperMemberReception(shipperMember);// 注册会员，调用添加会员方法
         request.setAttribute("returnResult", returnResult);
         if (!returnResult.isSuccess()) {
@@ -219,6 +346,57 @@ public class RegisterController extends AbstractController {
         return "login";
     }
 
+    /**
+     * @Title: mailBack
+     * @Description: TODO(承运商注册，点击邮件验证，转向页面。)
+     * @param @param registerId
+     * @param @param request
+     * @param @param session
+     * @param @return设定文件
+     * @return Object 返回类型
+     * @throws
+     * 
+     */
+    @RequestMapping(value = "/mailBackCarrier.htm")
+    public Object mailBackCarrier(JqPager pager, String pagetype, String carrierMemberId, String registerId, HttpServletRequest request, HttpSession session) {
+        // 获取主页显示的借款、新闻、公告的数据列表
+        ModelAndView mav = new ModelAndView("index");
+        //int p = 1;
+        mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));// 主页加载公告信息
+        //mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1, "type"));// 主页加载新闻信息
+        if (registerId == null) {
+            return mav;
+        }
+        String registerName = (String) session.getAttribute(registerId);
+        // 如果session设置的有限时间过期，则注册不成功，直接返回
+        if (registerName == null || registerName.equals("")) {
+            return mav;
+        }
+        session.setAttribute("registerName", registerName);
+        CarrierMember carrierMember = (CarrierMember) session.getAttribute("carrierMemberSimple");
+        // 获取最后登录ip地址
+        String ip = IpUtil.getIpAddr((HttpServletRequest) request);
+        String host = ip + IpUtil.getIpInfo(ip);
+        carrierMember.setLastLoginIpAddress(host);
+        // 注册时，生成会员信息
+        JqReturnJson returnResult = (JqReturnJson) carrierMemberService.addCarrierMemberReception(carrierMember);// 注册会员，调用添加会员方法
+        request.setAttribute("returnResult", returnResult);
+        if (!returnResult.isSuccess()) {
+            return mav;
+        }
+        String carrierMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在冰川网贷注册会员成功！注册的账号为"+carrierMember.getMemberName()+"。" +
+                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+        //htmlEmailPublic.goEmail(carrierMember,carrierMemberMsg);
+        List<String> CarrierMemberMailList = new ArrayList<String>();
+        CarrierMemberMailList.add(carrierMember.getEmail());
+        htmlEmailPublic.setToMailsList(CarrierMemberMailList);
+        htmlEmailPublic.setTitle("冰川网贷提示");
+        htmlEmailPublic.setMsg(carrierMemberMsg);
+        Thread borrowingLoanThread = new Thread(htmlEmailPublic);
+        borrowingLoanThread.start();//启动线程
+        return "registerCarrierSucceed";
+    }
+    
     /**
      * @Title: sendMailSuccess
      * @Description: TODO(邮件发送成功，转向页面)
@@ -471,30 +649,6 @@ public class RegisterController extends AbstractController {
     @RequestMapping(value = "/contactUs.htm")
     public Object contactUs() {
         return "about_mgr/contactUs";
-    }
-
-    // 转到“新手引导、借款流程”页面
-    @RequestMapping(value = "/borrowingProcess.htm")
-    public Object borrowingProcess() {
-        return "newbie_mgr/borrowingProcess";
-    }
-
-    // 转到“投资流程”页面
-    @RequestMapping(value = "/investmentProcess.htm")
-    public Object investmentProcess() {
-        return "newbie_mgr/investmentProcess";
-    }
-
-    // 转到“风险保障”页面
-    @RequestMapping(value = "/riskGuarantee.htm")
-    public Object riskGuarantee() {
-        return "newbie_mgr/riskGuarantee";
-    }
-
-    // 转到“我要借款”页面
-    @RequestMapping(value = "/borrow.htm")
-    public Object borrow() {
-        return "borrow_mgr/borrow";
     }
 
     // 转到'找回密码'页面

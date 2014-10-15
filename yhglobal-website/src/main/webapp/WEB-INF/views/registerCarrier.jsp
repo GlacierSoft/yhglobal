@@ -45,43 +45,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
       <div class="container">
       	<div class="panel panel-primary">
-		  <div class="panel-heading panel-title">会员注册</div>
+		  <div class="panel-heading panel-title">承运商注册</div>
 		  <div class="panel-body">
-      		<form id="registerForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/register.htm" method="post" onsubmit="return validaForm();">
+      		<form id="registerForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/registerCarrier.htm" method="post" onsubmit="return validaForm();">
 			  <div class="form-group">
 			    <label for="email" class="col-sm-2 control-label">常用邮箱</label>
 			    <div class="col-sm-6 parentCls" style="float: left; width: 800px">
-			      <input type="text" onfocus="this.type='email'"  class="form-control inputElem" autocomplete="off"  style="float: left;width: 428px;height: 35px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required  value="${member.email}"  />
+			      <input type="text" onfocus="this.type='email'"  class="form-control inputElem" autocomplete="off"  style="float: left;width: 428px;height: 35px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required  value="${carrierMember.email}"  />
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="memberName" class="col-sm-2 control-label">用户名</label>
+			    <label for="memberName" class="col-sm-2 control-label">承运商用户名</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
 			      <input type="text"   class="form-control" style="float: left;width: 428px" id="memberName_form-group"
 			      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\u4e00-\u9fa5]/g,''))" onkeyup="this.value=this.value.replace(/[\u4e00-\u9fa5]/g,'')" 
-			       name="memberName" placeholder="用户名" value="${member.memberName}" maxlength="12"/>
+			       name="memberName" placeholder="用户名" value="${carrierMember.memberName}" maxlength="12"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="memberPassword" class="col-sm-2 control-label">密码</label>
+			    <label for="memberPassword" class="col-sm-2 control-label">承运商密码</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input  type="text" onfocus="this.type='password'" autocomplete="off"  maxlength="12" class="form-control" style="float: left;width: 428px" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
+			      <input  type="text" onfocus="this.type='password'" autocomplete="off"  maxlength="12" class="form-control" style="float: left;width: 428px" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${carrierMember.memberPassword}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="comfirPassword" class="col-sm-2 control-label">确认密码</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type="password" maxlength="12" class="form-control" style="float: left;width: 428px" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${member.memberPassword}"/>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="comfirPassword" class="col-sm-2 control-label">经营类型</label>
-			    <div class="col-sm-6" style="float: left; width: 460px">
-			      <select class="form-control" name="loanPurposeId" id="loanPurposeId" >
-					  <option value="">--请选择--</option>
-					    <option value="individuality">个体货主</option>
-					    <option value="enterprise">企业货主</option>
-					</select>
+			      <input type="password" maxlength="12" class="form-control" style="float: left;width: 428px" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${carrierMember.memberPassword}"/>
 			    </div>
 			  </div>
 		  	<div class="form-group">

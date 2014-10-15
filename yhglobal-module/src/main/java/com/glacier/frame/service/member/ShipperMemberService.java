@@ -39,6 +39,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson; 
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
+
 /*** 
  * @ClassName:  ShipperMemberService
  * @Description: TODO(货主会员表业务类)
@@ -61,6 +62,7 @@ public class ShipperMemberService {
 
 	@Autowired
     private ShipperMemberTokenMapper shipperMemberTokenMapper;
+	
 	/**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有会员信息) 
@@ -87,7 +89,6 @@ public class ShipperMemberService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-     
     
     /**
 	 * @Title: getMember 
@@ -207,17 +208,6 @@ public class ShipperMemberService {
     }
     
     /**
-     * 设定盐值和设定安全的交易密码，生成随机的salt并经过1024次 sha-1 hash
-     */
-    @SuppressWarnings("unused")
-	private void entryptTradersPassword(ShipperMemberToken shipperMemberToken) {
-        byte[] salt = Digests.generateSalt(SALT_SIZE);
-        shipperMemberToken.setTradersSalt(Encodes.encodeHex(salt));
-        byte[] hashPassword = Digests.sha1(shipperMemberToken.getTradersPassword().getBytes(), salt, HASH_INTERATIONS); 
-        shipperMemberToken.setTradersPassword(Encodes.encodeHex(hashPassword));
-    }
-    
-    /**
      * @Title: retrieveEmail 
      * @Description: TODO(判断该邮箱是否存在) 
      * @param @param member
@@ -320,20 +310,18 @@ public class ShipperMemberService {
             return returnResult;
         }
         int count = 0;
-        int countWork = 0;
         int countToken = 0;
-        int creditCount = 0;
-        int MessageNoticeCount = 0;
         String shipperMemberId = RandomGUID.getRandomGUID();  
         //设置shipperMembertoken信息
         ShipperMemberToken shipperMemberToken = new ShipperMemberToken();
         shipperMemberToken.setMemberId(shipperMemberId);
         shipperMemberToken.setMemberName(shipperMember.getMemberName());
         shipperMemberToken.setPassword(shipperMember.getMemberPassword()); 
-        this.entryptPassword(shipperMemberToken);  
+        this.entryptPassword(shipperMemberToken); 
         //增加会员信息 
         shipperMember.setMemberId(shipperMemberId);
         shipperMember.setMemberPassword(shipperMemberToken.getPassword()); 
+        shipperMember.setStatus("enable");
         shipperMember.setRegistrationTime(new Date());
         shipperMember.setLastLoginTime(new Date());
         shipperMember.setLoginCount(1); 
@@ -347,9 +335,9 @@ public class ShipperMemberService {
         //增加shipperMembertoken信息 要先增加shipperMember记录，才能再生成外键表的记录
         shipperMemberToken.setTradersSalt(shipperMemberToken.getSalt());
         shipperMemberToken.setTradersPassword(shipperMemberToken.getPassword());//交易密码
-        countToken = shipperMemberTokenMapper.insert(shipperMemberToken);
-        
-        if (count == 1 && countWork == 1 && countToken == 1 && creditCount == 1 && MessageNoticeCount == 1) {
+        countToken = shipperMemberTokenMapper.insert(shipperMemberToken); 
+        //判断增加信息是否成功，成功返回成功提示信息
+        if (count == 1 && countToken == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + shipperMember.getMemberName() + "] 会员信息已保存");
             returnResult.setObj(shipperMember);

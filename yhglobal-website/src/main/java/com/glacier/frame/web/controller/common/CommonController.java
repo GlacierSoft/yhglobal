@@ -11,10 +11,10 @@
  *        	<p>
 				第一次修改：
 				时间：2014-2-13
-				修改人：zhenfei.zhang 
+				修改人：xichao.dong 
 				修改内容简介 ：
 			</p>              
- * @Review (审核人) ：zhenfei.zhang
+ * @Review (审核人) ：xichao.dong
  * 
  */
 package com.glacier.frame.web.controller.common;
@@ -40,11 +40,11 @@ import com.glacier.frame.service.website.WebsiteNewsService;
 import com.glacier.jqueryui.util.JqPager;
 
 /**
- * @ClassName: CommonController
- * @Description: TODO(公用控制器)
- * @author zhenfei.zhang
- * @email 289556866@qq.com
- * @date 2014-2-13 下午3:29:07
+ * @ClassName: CommonController 
+ * @Description: TODO(公用控制器) 
+ * @author xichao.dong	
+ * @email 406592176@qq.com
+ * @date 2014-10-15 下午2:12:10
  */
 @Controller
 public class CommonController {
@@ -96,6 +96,7 @@ public class CommonController {
         mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1,"trade"));//主页加载新闻信息
         return mav;
     }
+    
     /**
      * @Title: postLogin 
      * @Description: TODO(跳转到登录页面) 
@@ -133,6 +134,7 @@ public class CommonController {
         request.setAttribute("shipperMember", shipperMember);
         return "login";
     }
+    
     /**
      * @Title: logout 
      * @Description: TODO(退出系统) 

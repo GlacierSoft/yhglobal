@@ -76,7 +76,8 @@
 	          	<c:choose>
 				   <c:when test="${empty currentMember}">  
 		         		<span>您好！| <a href="${ctx}/login.htm" class="navbar-link">登录</a> |</span>
-		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
+		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">货主注册</a> |</span>
+		         		<span><a href="${ctx}/intoregisterCarrier.htm" class="navbar-link">承运商注册</a></span>
 				   </c:when>
 			   	<c:otherwise> 
 				   		<span>您好！${currentMember.memberName}

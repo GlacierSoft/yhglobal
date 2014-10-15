@@ -19,6 +19,9 @@ public interface CarrierMemberMapper {
     List<CarrierMember> selectByExample(CarrierMemberExample example);
 
     CarrierMember selectByPrimaryKey(String carrierMemberId);
+    
+    //  自定义方法，根据名字查找承运商
+    CarrierMember selectByMemberName(String memberName);
 
     int updateByExampleSelective(@Param("record") CarrierMember record, @Param("example") CarrierMemberExample example);
 

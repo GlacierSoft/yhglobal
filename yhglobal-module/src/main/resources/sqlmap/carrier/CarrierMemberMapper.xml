@@ -141,6 +141,14 @@
      <include refid="Base_extend" />
     where temp_carrier_member.carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
   </select>
+  <!-- 自定义方法，根据名字查找承运商 -->
+  <select id="selectByMemberName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrier_member temp_carrier_member
+    <include refid="Base_extend" />
+    where temp_carrier_member.member_name = #{memberName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_carrier_member
     where carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR}
