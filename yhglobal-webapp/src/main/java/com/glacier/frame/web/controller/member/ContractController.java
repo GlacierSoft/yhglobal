@@ -86,5 +86,23 @@ public class ContractController {
    	  	ouputStream.flush();    
    	  	ouputStream.close();   
 	   }
+	 
+	 //合同信息导出
+	 @RequestMapping(value="print.htm")
+	 private Object intoContractPrintPage(String contractRecordId,String str) {
+		    ModelAndView mav = new ModelAndView("member_mgr/contract_mgr/contract_print");
+		    mav.addObject("str",str);
+		    if(StringUtils.isNotBlank(contractRecordId)){
+		    	  ShipperMemberContractRecord shipperMemberContractRecord=(ShipperMemberContractRecord) contractService.getContractPro(contractRecordId);
+		          SimpleDateFormat sf=new SimpleDateFormat("yyyy年MM月dd日");
+		          String open_time=sf.format(shipperMemberContractRecord.getOperationTime());
+		          String close_time=sf.format(shipperMemberContractRecord.getCloseTime());
+		          mav.addObject("open_time",open_time);
+		          mav.addObject("close_time",close_time);
+		    	  mav.addObject("contractData", shipperMemberContractRecord);
+		    }
+		    return mav;
+		}
+	 
 	
 }
