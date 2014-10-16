@@ -266,6 +266,76 @@ public class CarrierRouteExample {
             return (Criteria) this;
         }
 
+        public Criteria andStatusIsNull() {
+            addCriterion("temp_carrier_route.status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("temp_carrier_route.status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("temp_carrier_route.status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("temp_carrier_route.status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("temp_carrier_route.status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("temp_carrier_route.status like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("temp_carrier_route.status not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("temp_carrier_route.status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
         public Criteria andRouteOriginIsNull() {
             addCriterion("temp_carrier_route.route_origin is null");
             return (Criteria) this;
@@ -406,73 +476,73 @@ public class CarrierRouteExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeIsNull() {
-            addCriterion("temp_carrier_route.type is null");
+        public Criteria andRouteTypeIsNull() {
+            addCriterion("temp_carrier_route.route_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIsNotNull() {
-            addCriterion("temp_carrier_route.type is not null");
+        public Criteria andRouteTypeIsNotNull() {
+            addCriterion("temp_carrier_route.route_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(String value) {
-            addCriterion("temp_carrier_route.type =", value, "type");
+        public Criteria andRouteTypeEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_type =", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(String value) {
-            addCriterion("temp_carrier_route.type <>", value, "type");
+        public Criteria andRouteTypeNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_type <>", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(String value) {
-            addCriterion("temp_carrier_route.type >", value, "type");
+        public Criteria andRouteTypeGreaterThan(String value) {
+            addCriterion("temp_carrier_route.route_type >", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_carrier_route.type >=", value, "type");
+        public Criteria andRouteTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_type >=", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(String value) {
-            addCriterion("temp_carrier_route.type <", value, "type");
+        public Criteria andRouteTypeLessThan(String value) {
+            addCriterion("temp_carrier_route.route_type <", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(String value) {
-            addCriterion("temp_carrier_route.type <=", value, "type");
+        public Criteria andRouteTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_type <=", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLike(String value) {
-            addCriterion("temp_carrier_route.type like", value, "type");
+        public Criteria andRouteTypeLike(String value) {
+            addCriterion("temp_carrier_route.route_type like", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotLike(String value) {
-            addCriterion("temp_carrier_route.type not like", value, "type");
+        public Criteria andRouteTypeNotLike(String value) {
+            addCriterion("temp_carrier_route.route_type not like", value, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<String> values) {
-            addCriterion("temp_carrier_route.type in", values, "type");
+        public Criteria andRouteTypeIn(List<String> values) {
+            addCriterion("temp_carrier_route.route_type in", values, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<String> values) {
-            addCriterion("temp_carrier_route.type not in", values, "type");
+        public Criteria andRouteTypeNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.route_type not in", values, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(String value1, String value2) {
-            addCriterion("temp_carrier_route.type between", value1, value2, "type");
+        public Criteria andRouteTypeBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.route_type between", value1, value2, "routeType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(String value1, String value2) {
-            addCriterion("temp_carrier_route.type not between", value1, value2, "type");
+        public Criteria andRouteTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.route_type not between", value1, value2, "routeType");
             return (Criteria) this;
         }
 
@@ -486,123 +556,823 @@ public class CarrierRouteExample {
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeEqualTo(String value) {
+        public Criteria andRouteBytimeEqualTo(Integer value) {
             addCriterion("temp_carrier_route.route_bytime =", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeNotEqualTo(String value) {
+        public Criteria andRouteBytimeNotEqualTo(Integer value) {
             addCriterion("temp_carrier_route.route_bytime <>", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeGreaterThan(String value) {
+        public Criteria andRouteBytimeGreaterThan(Integer value) {
             addCriterion("temp_carrier_route.route_bytime >", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeGreaterThanOrEqualTo(String value) {
+        public Criteria andRouteBytimeGreaterThanOrEqualTo(Integer value) {
             addCriterion("temp_carrier_route.route_bytime >=", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeLessThan(String value) {
+        public Criteria andRouteBytimeLessThan(Integer value) {
             addCriterion("temp_carrier_route.route_bytime <", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeLessThanOrEqualTo(String value) {
+        public Criteria andRouteBytimeLessThanOrEqualTo(Integer value) {
             addCriterion("temp_carrier_route.route_bytime <=", value, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeLike(String value) {
-            addCriterion("temp_carrier_route.route_bytime like", value, "routeBytime");
-            return (Criteria) this;
-        }
-
-        public Criteria andRouteBytimeNotLike(String value) {
-            addCriterion("temp_carrier_route.route_bytime not like", value, "routeBytime");
-            return (Criteria) this;
-        }
-
-        public Criteria andRouteBytimeIn(List<String> values) {
+        public Criteria andRouteBytimeIn(List<Integer> values) {
             addCriterion("temp_carrier_route.route_bytime in", values, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeNotIn(List<String> values) {
+        public Criteria andRouteBytimeNotIn(List<Integer> values) {
             addCriterion("temp_carrier_route.route_bytime not in", values, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeBetween(String value1, String value2) {
+        public Criteria andRouteBytimeBetween(Integer value1, Integer value2) {
             addCriterion("temp_carrier_route.route_bytime between", value1, value2, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRouteBytimeNotBetween(String value1, String value2) {
+        public Criteria andRouteBytimeNotBetween(Integer value1, Integer value2) {
             addCriterion("temp_carrier_route.route_bytime not between", value1, value2, "routeBytime");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceIsNull() {
-            addCriterion("temp_carrier_route.route_price is null");
+        public Criteria andRouteNumberIsNull() {
+            addCriterion("temp_carrier_route.route_number is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceIsNotNull() {
-            addCriterion("temp_carrier_route.route_price is not null");
+        public Criteria andRouteNumberIsNotNull() {
+            addCriterion("temp_carrier_route.route_number is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceEqualTo(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price =", value, "routePrice");
+        public Criteria andRouteNumberEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_number =", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceNotEqualTo(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price <>", value, "routePrice");
+        public Criteria andRouteNumberNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_number <>", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceGreaterThan(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price >", value, "routePrice");
+        public Criteria andRouteNumberGreaterThan(String value) {
+            addCriterion("temp_carrier_route.route_number >", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price >=", value, "routePrice");
+        public Criteria andRouteNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_number >=", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceLessThan(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price <", value, "routePrice");
+        public Criteria andRouteNumberLessThan(String value) {
+            addCriterion("temp_carrier_route.route_number <", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_carrier_route.route_price <=", value, "routePrice");
+        public Criteria andRouteNumberLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.route_number <=", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceIn(List<BigDecimal> values) {
-            addCriterion("temp_carrier_route.route_price in", values, "routePrice");
+        public Criteria andRouteNumberLike(String value) {
+            addCriterion("temp_carrier_route.route_number like", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceNotIn(List<BigDecimal> values) {
-            addCriterion("temp_carrier_route.route_price not in", values, "routePrice");
+        public Criteria andRouteNumberNotLike(String value) {
+            addCriterion("temp_carrier_route.route_number not like", value, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_carrier_route.route_price between", value1, value2, "routePrice");
+        public Criteria andRouteNumberIn(List<String> values) {
+            addCriterion("temp_carrier_route.route_number in", values, "routeNumber");
             return (Criteria) this;
         }
 
-        public Criteria andRoutePriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_carrier_route.route_price not between", value1, value2, "routePrice");
+        public Criteria andRouteNumberNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.route_number not in", values, "routeNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouteNumberBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.route_number between", value1, value2, "routeNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouteNumberNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.route_number not between", value1, value2, "routeNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeIsNull() {
+            addCriterion("temp_carrier_route.startof_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeIsNotNull() {
+            addCriterion("temp_carrier_route.startof_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeEqualTo(Date value) {
+            addCriterion("temp_carrier_route.startof_time =", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeNotEqualTo(Date value) {
+            addCriterion("temp_carrier_route.startof_time <>", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeGreaterThan(Date value) {
+            addCriterion("temp_carrier_route.startof_time >", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_carrier_route.startof_time >=", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeLessThan(Date value) {
+            addCriterion("temp_carrier_route.startof_time <", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeLessThanOrEqualTo(Date value) {
+            addCriterion("temp_carrier_route.startof_time <=", value, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeIn(List<Date> values) {
+            addCriterion("temp_carrier_route.startof_time in", values, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeNotIn(List<Date> values) {
+            addCriterion("temp_carrier_route.startof_time not in", values, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeBetween(Date value1, Date value2) {
+            addCriterion("temp_carrier_route.startof_time between", value1, value2, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartofTimeNotBetween(Date value1, Date value2) {
+            addCriterion("temp_carrier_route.startof_time not between", value1, value2, "startofTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionIsNull() {
+            addCriterion("temp_carrier_route.available_position is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionIsNotNull() {
+            addCriterion("temp_carrier_route.available_position is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionEqualTo(Float value) {
+            addCriterion("temp_carrier_route.available_position =", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionNotEqualTo(Float value) {
+            addCriterion("temp_carrier_route.available_position <>", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionGreaterThan(Float value) {
+            addCriterion("temp_carrier_route.available_position >", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_carrier_route.available_position >=", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionLessThan(Float value) {
+            addCriterion("temp_carrier_route.available_position <", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionLessThanOrEqualTo(Float value) {
+            addCriterion("temp_carrier_route.available_position <=", value, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionIn(List<Float> values) {
+            addCriterion("temp_carrier_route.available_position in", values, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionNotIn(List<Float> values) {
+            addCriterion("temp_carrier_route.available_position not in", values, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionBetween(Float value1, Float value2) {
+            addCriterion("temp_carrier_route.available_position between", value1, value2, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailablePositionNotBetween(Float value1, Float value2) {
+            addCriterion("temp_carrier_route.available_position not between", value1, value2, "availablePosition");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeIsNull() {
+            addCriterion("temp_carrier_route.box_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeIsNotNull() {
+            addCriterion("temp_carrier_route.box_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeEqualTo(String value) {
+            addCriterion("temp_carrier_route.box_type =", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.box_type <>", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeGreaterThan(String value) {
+            addCriterion("temp_carrier_route.box_type >", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.box_type >=", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeLessThan(String value) {
+            addCriterion("temp_carrier_route.box_type <", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.box_type <=", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeLike(String value) {
+            addCriterion("temp_carrier_route.box_type like", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeNotLike(String value) {
+            addCriterion("temp_carrier_route.box_type not like", value, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeIn(List<String> values) {
+            addCriterion("temp_carrier_route.box_type in", values, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.box_type not in", values, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.box_type between", value1, value2, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.box_type not between", value1, value2, "boxType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeIsNull() {
+            addCriterion("temp_carrier_route.cease_take_delivery_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeIsNotNull() {
+            addCriterion("temp_carrier_route.cease_take_delivery_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeEqualTo(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time =", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeNotEqualTo(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time <>", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeGreaterThan(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time >", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time >=", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeLessThan(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time <", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeLessThanOrEqualTo(Date value) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time <=", value, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeIn(List<Date> values) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time in", values, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeNotIn(List<Date> values) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time not in", values, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeBetween(Date value1, Date value2) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time between", value1, value2, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCeaseTakeDeliveryTimeNotBetween(Date value1, Date value2) {
+            addCriterion("temp_carrier_route.cease_take_delivery_time not between", value1, value2, "ceaseTakeDeliveryTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceIsNull() {
+            addCriterion("temp_carrier_route.starting_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceIsNotNull() {
+            addCriterion("temp_carrier_route.starting_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price =", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceNotEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price <>", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceGreaterThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price >", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price >=", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceLessThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price <", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.starting_price <=", value, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.starting_price in", values, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceNotIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.starting_price not in", values, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.starting_price between", value1, value2, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartingPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.starting_price not between", value1, value2, "startingPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceIsNull() {
+            addCriterion("temp_carrier_route.weight_goods_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceIsNotNull() {
+            addCriterion("temp_carrier_route.weight_goods_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price =", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceNotEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price <>", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceGreaterThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price >", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price >=", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceLessThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price <", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.weight_goods_price <=", value, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.weight_goods_price in", values, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceNotIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.weight_goods_price not in", values, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.weight_goods_price between", value1, value2, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGoodsPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.weight_goods_price not between", value1, value2, "weightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceIsNull() {
+            addCriterion("temp_carrier_route.light_goods_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceIsNotNull() {
+            addCriterion("temp_carrier_route.light_goods_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price =", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceNotEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price <>", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceGreaterThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price >", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price >=", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceLessThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price <", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.light_goods_price <=", value, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.light_goods_price in", values, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceNotIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.light_goods_price not in", values, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.light_goods_price between", value1, value2, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andLightGoodsPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.light_goods_price not between", value1, value2, "lightGoodsPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeIsNull() {
+            addCriterion("temp_carrier_route.extract_goods_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeIsNotNull() {
+            addCriterion("temp_carrier_route.extract_goods_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeEqualTo(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time =", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time <>", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeGreaterThan(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time >", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time >=", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeLessThan(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time <", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time <=", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeLike(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time like", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeNotLike(String value) {
+            addCriterion("temp_carrier_route.extract_goods_time not like", value, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeIn(List<String> values) {
+            addCriterion("temp_carrier_route.extract_goods_time in", values, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.extract_goods_time not in", values, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.extract_goods_time between", value1, value2, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtractGoodsTimeNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.extract_goods_time not between", value1, value2, "extractGoodsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumIsNull() {
+            addCriterion("temp_carrier_route.premium is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumIsNotNull() {
+            addCriterion("temp_carrier_route.premium is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium =", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumNotEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium <>", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumGreaterThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium >", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium >=", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumLessThan(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium <", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_carrier_route.premium <=", value, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.premium in", values, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumNotIn(List<BigDecimal> values) {
+            addCriterion("temp_carrier_route.premium not in", values, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.premium between", value1, value2, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andPremiumNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_carrier_route.premium not between", value1, value2, "premium");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneIsNull() {
+            addCriterion("temp_carrier_route.telephone is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneIsNotNull() {
+            addCriterion("temp_carrier_route.telephone is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneEqualTo(String value) {
+            addCriterion("temp_carrier_route.telephone =", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.telephone <>", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneGreaterThan(String value) {
+            addCriterion("temp_carrier_route.telephone >", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.telephone >=", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneLessThan(String value) {
+            addCriterion("temp_carrier_route.telephone <", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.telephone <=", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneLike(String value) {
+            addCriterion("temp_carrier_route.telephone like", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneNotLike(String value) {
+            addCriterion("temp_carrier_route.telephone not like", value, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneIn(List<String> values) {
+            addCriterion("temp_carrier_route.telephone in", values, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.telephone not in", values, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.telephone between", value1, value2, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelephoneNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.telephone not between", value1, value2, "telephone");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageIsNull() {
+            addCriterion("temp_carrier_route.mileage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageIsNotNull() {
+            addCriterion("temp_carrier_route.mileage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageEqualTo(String value) {
+            addCriterion("temp_carrier_route.mileage =", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.mileage <>", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageGreaterThan(String value) {
+            addCriterion("temp_carrier_route.mileage >", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.mileage >=", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageLessThan(String value) {
+            addCriterion("temp_carrier_route.mileage <", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.mileage <=", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageLike(String value) {
+            addCriterion("temp_carrier_route.mileage like", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageNotLike(String value) {
+            addCriterion("temp_carrier_route.mileage not like", value, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageIn(List<String> values) {
+            addCriterion("temp_carrier_route.mileage in", values, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.mileage not in", values, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.mileage between", value1, value2, "mileage");
+            return (Criteria) this;
+        }
+
+        public Criteria andMileageNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.mileage not between", value1, value2, "mileage");
             return (Criteria) this;
         }
 

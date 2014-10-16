@@ -3,20 +3,48 @@ package com.glacier.frame.entity.carrier;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class CarrierRoute {
     private String routerId;
 
     private String routeName;
 
+    private String status;
+
     private String routeOrigin;
 
     private String routeStop;
 
-    private String type;
+    private String routeType;
 
-    private String routeBytime;
+    private Integer routeBytime;
 
-    private BigDecimal routePrice;
+    private String routeNumber;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date startofTime;
+
+    private Float availablePosition;
+
+    private String boxType;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date ceaseTakeDeliveryTime;
+
+    private BigDecimal startingPrice;
+
+    private BigDecimal weightGoodsPrice;
+
+    private BigDecimal lightGoodsPrice;
+
+    private String extractGoodsTime;
+
+    private BigDecimal premium;
+
+    private String telephone;
+
+    private String mileage;
 
     private String auditState;
 
@@ -24,19 +52,67 @@ public class CarrierRoute {
 
     private String auditOpinion;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String remark;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    //自定义字段承运商
+    private String carrierDisplay;
+    
+    //创建人
+    private String createrDisplay;
+    
+    //更新人
+    private String updaterDisplay;
+    
+    //审核人
+    private String auditDisplay; 
+    
 
-    public String getRouterId() {
+    public String getCarrierDisplay() {
+		return carrierDisplay;
+	}
+
+	public void setCarrierDisplay(String carrierDisplay) {
+		this.carrierDisplay = carrierDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getAuditDisplay() {
+		return auditDisplay;
+	}
+
+	public void setAuditDisplay(String auditDisplay) {
+		this.auditDisplay = auditDisplay;
+	}
+
+	public String getRouterId() {
         return routerId;
     }
 
@@ -50,6 +126,14 @@ public class CarrierRoute {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getRouteOrigin() {
@@ -68,28 +152,116 @@ public class CarrierRoute {
         this.routeStop = routeStop;
     }
 
-    public String getType() {
-        return type;
+    public String getRouteType() {
+        return routeType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
     }
 
-    public String getRouteBytime() {
+    public Integer getRouteBytime() {
         return routeBytime;
     }
 
-    public void setRouteBytime(String routeBytime) {
+    public void setRouteBytime(Integer routeBytime) {
         this.routeBytime = routeBytime;
     }
 
-    public BigDecimal getRoutePrice() {
-        return routePrice;
+    public String getRouteNumber() {
+        return routeNumber;
     }
 
-    public void setRoutePrice(BigDecimal routePrice) {
-        this.routePrice = routePrice;
+    public void setRouteNumber(String routeNumber) {
+        this.routeNumber = routeNumber;
+    }
+
+    public Date getStartofTime() {
+        return startofTime;
+    }
+
+    public void setStartofTime(Date startofTime) {
+        this.startofTime = startofTime;
+    }
+
+    public Float getAvailablePosition() {
+        return availablePosition;
+    }
+
+    public void setAvailablePosition(Float availablePosition) {
+        this.availablePosition = availablePosition;
+    }
+
+    public String getBoxType() {
+        return boxType;
+    }
+
+    public void setBoxType(String boxType) {
+        this.boxType = boxType;
+    }
+
+    public Date getCeaseTakeDeliveryTime() {
+        return ceaseTakeDeliveryTime;
+    }
+
+    public void setCeaseTakeDeliveryTime(Date ceaseTakeDeliveryTime) {
+        this.ceaseTakeDeliveryTime = ceaseTakeDeliveryTime;
+    }
+
+    public BigDecimal getStartingPrice() {
+        return startingPrice;
+    }
+
+    public void setStartingPrice(BigDecimal startingPrice) {
+        this.startingPrice = startingPrice;
+    }
+
+    public BigDecimal getWeightGoodsPrice() {
+        return weightGoodsPrice;
+    }
+
+    public void setWeightGoodsPrice(BigDecimal weightGoodsPrice) {
+        this.weightGoodsPrice = weightGoodsPrice;
+    }
+
+    public BigDecimal getLightGoodsPrice() {
+        return lightGoodsPrice;
+    }
+
+    public void setLightGoodsPrice(BigDecimal lightGoodsPrice) {
+        this.lightGoodsPrice = lightGoodsPrice;
+    }
+
+    public String getExtractGoodsTime() {
+        return extractGoodsTime;
+    }
+
+    public void setExtractGoodsTime(String extractGoodsTime) {
+        this.extractGoodsTime = extractGoodsTime;
+    }
+
+    public BigDecimal getPremium() {
+        return premium;
+    }
+
+    public void setPremium(BigDecimal premium) {
+        this.premium = premium;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(String mileage) {
+        this.mileage = mileage;
     }
 
     public String getAuditState() {
@@ -178,11 +350,23 @@ public class CarrierRoute {
         CarrierRoute other = (CarrierRoute) that;
         return (this.getRouterId() == null ? other.getRouterId() == null : this.getRouterId().equals(other.getRouterId()))
             && (this.getRouteName() == null ? other.getRouteName() == null : this.getRouteName().equals(other.getRouteName()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRouteOrigin() == null ? other.getRouteOrigin() == null : this.getRouteOrigin().equals(other.getRouteOrigin()))
             && (this.getRouteStop() == null ? other.getRouteStop() == null : this.getRouteStop().equals(other.getRouteStop()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getRouteType() == null ? other.getRouteType() == null : this.getRouteType().equals(other.getRouteType()))
             && (this.getRouteBytime() == null ? other.getRouteBytime() == null : this.getRouteBytime().equals(other.getRouteBytime()))
-            && (this.getRoutePrice() == null ? other.getRoutePrice() == null : this.getRoutePrice().equals(other.getRoutePrice()))
+            && (this.getRouteNumber() == null ? other.getRouteNumber() == null : this.getRouteNumber().equals(other.getRouteNumber()))
+            && (this.getStartofTime() == null ? other.getStartofTime() == null : this.getStartofTime().equals(other.getStartofTime()))
+            && (this.getAvailablePosition() == null ? other.getAvailablePosition() == null : this.getAvailablePosition().equals(other.getAvailablePosition()))
+            && (this.getBoxType() == null ? other.getBoxType() == null : this.getBoxType().equals(other.getBoxType()))
+            && (this.getCeaseTakeDeliveryTime() == null ? other.getCeaseTakeDeliveryTime() == null : this.getCeaseTakeDeliveryTime().equals(other.getCeaseTakeDeliveryTime()))
+            && (this.getStartingPrice() == null ? other.getStartingPrice() == null : this.getStartingPrice().equals(other.getStartingPrice()))
+            && (this.getWeightGoodsPrice() == null ? other.getWeightGoodsPrice() == null : this.getWeightGoodsPrice().equals(other.getWeightGoodsPrice()))
+            && (this.getLightGoodsPrice() == null ? other.getLightGoodsPrice() == null : this.getLightGoodsPrice().equals(other.getLightGoodsPrice()))
+            && (this.getExtractGoodsTime() == null ? other.getExtractGoodsTime() == null : this.getExtractGoodsTime().equals(other.getExtractGoodsTime()))
+            && (this.getPremium() == null ? other.getPremium() == null : this.getPremium().equals(other.getPremium()))
+            && (this.getTelephone() == null ? other.getTelephone() == null : this.getTelephone().equals(other.getTelephone()))
+            && (this.getMileage() == null ? other.getMileage() == null : this.getMileage().equals(other.getMileage()))
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAudit() == null ? other.getAudit() == null : this.getAudit().equals(other.getAudit()))
             && (this.getAuditOpinion() == null ? other.getAuditOpinion() == null : this.getAuditOpinion().equals(other.getAuditOpinion()))
@@ -200,11 +384,23 @@ public class CarrierRoute {
         int result = 1;
         result = prime * result + ((getRouterId() == null) ? 0 : getRouterId().hashCode());
         result = prime * result + ((getRouteName() == null) ? 0 : getRouteName().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRouteOrigin() == null) ? 0 : getRouteOrigin().hashCode());
         result = prime * result + ((getRouteStop() == null) ? 0 : getRouteStop().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getRouteType() == null) ? 0 : getRouteType().hashCode());
         result = prime * result + ((getRouteBytime() == null) ? 0 : getRouteBytime().hashCode());
-        result = prime * result + ((getRoutePrice() == null) ? 0 : getRoutePrice().hashCode());
+        result = prime * result + ((getRouteNumber() == null) ? 0 : getRouteNumber().hashCode());
+        result = prime * result + ((getStartofTime() == null) ? 0 : getStartofTime().hashCode());
+        result = prime * result + ((getAvailablePosition() == null) ? 0 : getAvailablePosition().hashCode());
+        result = prime * result + ((getBoxType() == null) ? 0 : getBoxType().hashCode());
+        result = prime * result + ((getCeaseTakeDeliveryTime() == null) ? 0 : getCeaseTakeDeliveryTime().hashCode());
+        result = prime * result + ((getStartingPrice() == null) ? 0 : getStartingPrice().hashCode());
+        result = prime * result + ((getWeightGoodsPrice() == null) ? 0 : getWeightGoodsPrice().hashCode());
+        result = prime * result + ((getLightGoodsPrice() == null) ? 0 : getLightGoodsPrice().hashCode());
+        result = prime * result + ((getExtractGoodsTime() == null) ? 0 : getExtractGoodsTime().hashCode());
+        result = prime * result + ((getPremium() == null) ? 0 : getPremium().hashCode());
+        result = prime * result + ((getTelephone() == null) ? 0 : getTelephone().hashCode());
+        result = prime * result + ((getMileage() == null) ? 0 : getMileage().hashCode());
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAudit() == null) ? 0 : getAudit().hashCode());
         result = prime * result + ((getAuditOpinion() == null) ? 0 : getAuditOpinion().hashCode());

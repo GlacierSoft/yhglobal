@@ -109,7 +109,7 @@
   <!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_carrier_member_creater_display
     ,temp_updater.user_cn_name as temp_carrier_member_updater_display 
-    ,temp_updater.user_cn_name as temp_carrier_member_audit_display
+    ,temp_audit.user_cn_name as temp_carrier_member_audit_display
   </sql> 
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_carrier_member.creater <!-- 扩展 -->
