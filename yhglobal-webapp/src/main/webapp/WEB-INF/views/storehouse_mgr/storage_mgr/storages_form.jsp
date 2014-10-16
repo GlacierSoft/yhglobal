@@ -23,7 +23,7 @@
 			</td>
 			<td>每年必检修次数：</td>
 			<td>
-				<input id="storage_mgr_storage_form_mustOverhaulNum" name="mustOverhaulNum"  style="width:268px;height: 20px;" value="${storageDate.mustOverhaulNum}" class="easyui-validatebox spinner"  required="true"/>
+				<input id="storage_mgr_storage_form_mustOverhaulNum" name="mustOverhaulNum"  style="width:268px;height: 20px;" value="${storageDate.mustOverhaulNum}" class="easyui-numberbox"  required="true"/>
 			</td>
 		</tr>
 		<tr>
@@ -59,7 +59,7 @@
 		<tr>
 			<td>建造时间：</td>
 			<td>
-				<input id="storage_mgr_storage_form_buildDate" name="buildDate"  style="width:268px;height: 20px;" value="<fmt:formatDate value="${storageDate.buildDate}" pattern="yyyy-MM-dd"/>" class="easyui-datetimebox"  required="true"/>
+				<input id="storage_mgr_storage_form_buildDate" name="buildDate"  style="width:268px;height: 20px;" value="<fmt:formatDate value="${storageDate.buildDate}" pattern="yyyy-MM-dd"/>" class="easyui-datetimebox" data-options="showSeconds:false"  required="true"/>
 			</td>
 		</tr>
 		<tr>

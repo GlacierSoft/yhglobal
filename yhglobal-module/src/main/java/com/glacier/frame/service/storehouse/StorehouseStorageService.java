@@ -117,10 +117,10 @@ public class StorehouseStorageService {
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy_MM_dd");
         //构建用于检修时间系统Date
         Date overhaulDate = new Date();
-        Calendar calendar = Calendar.getInstance();  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(storage.getBuildDate());
         calendar.add(Calendar.MONTH, (12/storage.getMustOverhaulNum()));
         overhaulDate = calendar.getTime();
-        System.out.println("111111111111111111111111:"+formatDate.format(overhaulDate)+"/22222222222222222222222222222222222:"+12/storage.getMustOverhaulNum());
         storage.setNextOverhaulDate(overhaulDate);
         storage.setStorageCode("ST_STORAGE_"+formatDate.format(new Date())+"_"+(storageCount+1));
         storage.setAlreadyOverhaulNum(0);
@@ -166,8 +166,8 @@ public class StorehouseStorageService {
         StorehouseStorage storageTime = (StorehouseStorage) getStorage(storage.getStorageId());
         storage.setNextOverhaulDate(storageTime.getNextOverhaulDate());
         storage.setUsableWeight(storageTime.getWeightUpperBound());
-        storage.setUsableBulk(storageTime.getBulkUpperBound());
-        storage.setAlreadyOverhaulNum(storageTime.getAlreadyOverhaulNum());
+        storage.setUsableBulk(storage.getBulkUpperBound());
+        storage.setAlreadyOverhaulNum(storage.getAlreadyOverhaulNum());
         storage.setStorageCode(storageTime.getStorageCode());
         storage.setCreater(storageTime.getCreater());
         storage.setCreateTime(storageTime.getCreateTime());
