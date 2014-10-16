@@ -3,22 +3,31 @@
 <mapper namespace="com.glacier.frame.dao.storehouse.StorehouseStorageMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseStorage" >
     <id column="temp_storehouse_storage_storage_id" property="storageId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_storage_code" property="storageCode" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_storagetype_id" property="storagetypeId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_storage_name" property="storageName" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_status" property="status" jdbcType="CHAR" />
-    <result column="temp_storehouse_storage_storage_type_id" property="storageTypeId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_user_id" property="userId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_yes_or_no" property="yesOrNo" jdbcType="CHAR" />
     <result column="temp_storehouse_storage_build_date" property="buildDate" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_storage_must_overhaul_num" property="mustOverhaulNum" jdbcType="INTEGER" />
     <result column="temp_storehouse_storage_already_overhaul_num" property="alreadyOverhaulNum" jdbcType="INTEGER" />
     <result column="temp_storehouse_storage_next_overhaul_date" property="nextOverhaulDate" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_storage_weight_upper_bound" property="weightUpperBound" jdbcType="REAL" />
+    <result column="temp_storehouse_storage_usable_weight" property="usableWeight" jdbcType="REAL" />
     <result column="temp_storehouse_storage_bulk_upper_bound" property="bulkUpperBound" jdbcType="REAL" />
+    <result column="temp_storehouse_storage_usable_bulk" property="usableBulk" jdbcType="REAL" />
+    <result column="temp_storehouse_storage_storage_tel" property="storageTel" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_storage_storage_address" property="storageAddress" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_storage_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_user_dsisplay" property="userDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_storage_typer_display" property="storageTyperDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,18 +88,31 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_storehouse_storage.storage_id as temp_storehouse_storage_storage_id, temp_storehouse_storage.storagetype_id as temp_storehouse_storage_storagetype_id, 
+    temp_storehouse_storage.storage_id as temp_storehouse_storage_storage_id, temp_storehouse_storage.storage_code as temp_storehouse_storage_storage_code, 
+    temp_storehouse_storage.storagetype_id as temp_storehouse_storage_storagetype_id, 
     temp_storehouse_storage.storage_name as temp_storehouse_storage_storage_name, temp_storehouse_storage.status as temp_storehouse_storage_status, 
-    temp_storehouse_storage.storage_type_id as temp_storehouse_storage_storage_type_id, 
-    temp_storehouse_storage.yes_or_no as temp_storehouse_storage_yes_or_no, temp_storehouse_storage.build_date as temp_storehouse_storage_build_date, 
-    temp_storehouse_storage.must_overhaul_num as temp_storehouse_storage_must_overhaul_num, 
+    temp_storehouse_storage.user_id as temp_storehouse_storage_user_id, temp_storehouse_storage.yes_or_no as temp_storehouse_storage_yes_or_no, 
+    temp_storehouse_storage.build_date as temp_storehouse_storage_build_date, temp_storehouse_storage.must_overhaul_num as temp_storehouse_storage_must_overhaul_num, 
     temp_storehouse_storage.already_overhaul_num as temp_storehouse_storage_already_overhaul_num, 
     temp_storehouse_storage.next_overhaul_date as temp_storehouse_storage_next_overhaul_date, 
     temp_storehouse_storage.weight_upper_bound as temp_storehouse_storage_weight_upper_bound, 
-    temp_storehouse_storage.bulk_upper_bound as temp_storehouse_storage_bulk_upper_bound, 
+    temp_storehouse_storage.usable_weight as temp_storehouse_storage_usable_weight, temp_storehouse_storage.bulk_upper_bound as temp_storehouse_storage_bulk_upper_bound, 
+    temp_storehouse_storage.usable_bulk as temp_storehouse_storage_usable_bulk, temp_storehouse_storage.storage_tel as temp_storehouse_storage_storage_tel, 
+    temp_storehouse_storage.storage_address as temp_storehouse_storage_storage_address, 
     temp_storehouse_storage.remark as temp_storehouse_storage_remark, temp_storehouse_storage.creater as temp_storehouse_storage_creater, 
     temp_storehouse_storage.create_time as temp_storehouse_storage_create_time, temp_storehouse_storage.updater as temp_storehouse_storage_updater, 
     temp_storehouse_storage.update_time as temp_storehouse_storage_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_storehouse_storage_creater_display
+    ,temp_updater.user_cn_name as temp_storehouse_storage_updater_display
+    ,temp_user.user_cn_name as temp_storehouse_storage_user_dsisplay
+    ,temp_storagetype.storagetype_name as temp_storehouse_storage_storage_typer_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_storage.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_storage.updater <!-- 扩展 -->
+    LEFT JOIN t_user temp_user ON temp_user.user_id = temp_storehouse_storage.user_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_storagetype_set temp_storagetype ON temp_storagetype.storagetype_id = temp_storehouse_storage.storagetype_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" >
     select
@@ -99,6 +121,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_storage temp_storehouse_storage
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -113,6 +136,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_storage temp_storehouse_storage
+    <include refid="Base_extend" />
     where temp_storehouse_storage.storage_id = #{storageId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -120,22 +144,26 @@
     where storage_id = #{storageId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" >
-    delete from t_storehouse_storage temp_storehouse_storage
+    delete temp_storehouse_storage from t_storehouse_storage temp_storehouse_storage
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
-    insert into t_storehouse_storage (storage_id, storagetype_id, storage_name, 
-      status, storage_type_id, yes_or_no, 
-      build_date, must_overhaul_num, already_overhaul_num, 
-      next_overhaul_date, weight_upper_bound, bulk_upper_bound, 
+    insert into t_storehouse_storage (storage_id, storage_code, storagetype_id, 
+      storage_name, status, user_id, 
+      yes_or_no, build_date, must_overhaul_num, 
+      already_overhaul_num, next_overhaul_date, 
+      weight_upper_bound, usable_weight, bulk_upper_bound, 
+      usable_bulk, storage_tel, storage_address, 
       remark, creater, create_time, 
       updater, update_time)
-    values (#{storageId,jdbcType=VARCHAR}, #{storagetypeId,jdbcType=VARCHAR}, #{storageName,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{storageTypeId,jdbcType=VARCHAR}, #{yesOrNo,jdbcType=CHAR}, 
-      #{buildDate,jdbcType=TIMESTAMP}, #{mustOverhaulNum,jdbcType=INTEGER}, #{alreadyOverhaulNum,jdbcType=INTEGER}, 
-      #{nextOverhaulDate,jdbcType=TIMESTAMP}, #{weightUpperBound,jdbcType=REAL}, #{bulkUpperBound,jdbcType=REAL}, 
+    values (#{storageId,jdbcType=VARCHAR}, #{storageCode,jdbcType=VARCHAR}, #{storagetypeId,jdbcType=VARCHAR}, 
+      #{storageName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{yesOrNo,jdbcType=CHAR}, #{buildDate,jdbcType=TIMESTAMP}, #{mustOverhaulNum,jdbcType=INTEGER}, 
+      #{alreadyOverhaulNum,jdbcType=INTEGER}, #{nextOverhaulDate,jdbcType=TIMESTAMP}, 
+      #{weightUpperBound,jdbcType=REAL}, #{usableWeight,jdbcType=REAL}, #{bulkUpperBound,jdbcType=REAL}, 
+      #{usableBulk,jdbcType=REAL}, #{storageTel,jdbcType=VARCHAR}, #{storageAddress,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -144,6 +172,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="storageId != null" >
         storage_id,
+      </if>
+      <if test="storageCode != null" >
+        storage_code,
       </if>
       <if test="storagetypeId != null" >
         storagetype_id,
@@ -154,8 +185,8 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="storageTypeId != null" >
-        storage_type_id,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="yesOrNo != null" >
         yes_or_no,
@@ -175,8 +206,20 @@
       <if test="weightUpperBound != null" >
         weight_upper_bound,
       </if>
+      <if test="usableWeight != null" >
+        usable_weight,
+      </if>
       <if test="bulkUpperBound != null" >
         bulk_upper_bound,
+      </if>
+      <if test="usableBulk != null" >
+        usable_bulk,
+      </if>
+      <if test="storageTel != null" >
+        storage_tel,
+      </if>
+      <if test="storageAddress != null" >
+        storage_address,
       </if>
       <if test="remark != null" >
         remark,
@@ -198,6 +241,9 @@
       <if test="storageId != null" >
         #{storageId,jdbcType=VARCHAR},
       </if>
+      <if test="storageCode != null" >
+        #{storageCode,jdbcType=VARCHAR},
+      </if>
       <if test="storagetypeId != null" >
         #{storagetypeId,jdbcType=VARCHAR},
       </if>
@@ -207,8 +253,8 @@
       <if test="status != null" >
         #{status,jdbcType=CHAR},
       </if>
-      <if test="storageTypeId != null" >
-        #{storageTypeId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="yesOrNo != null" >
         #{yesOrNo,jdbcType=CHAR},
@@ -228,8 +274,20 @@
       <if test="weightUpperBound != null" >
         #{weightUpperBound,jdbcType=REAL},
       </if>
+      <if test="usableWeight != null" >
+        #{usableWeight,jdbcType=REAL},
+      </if>
       <if test="bulkUpperBound != null" >
         #{bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="usableBulk != null" >
+        #{usableBulk,jdbcType=REAL},
+      </if>
+      <if test="storageTel != null" >
+        #{storageTel,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAddress != null" >
+        #{storageAddress,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -250,6 +308,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_storage temp_storehouse_storage
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -260,6 +319,9 @@
       <if test="record.storageId != null" >
         temp_storehouse_storage.storage_id = #{record.storageId,jdbcType=VARCHAR},
       </if>
+      <if test="record.storageCode != null" >
+        temp_storehouse_storage.storage_code = #{record.storageCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.storagetypeId != null" >
         temp_storehouse_storage.storagetype_id = #{record.storagetypeId,jdbcType=VARCHAR},
       </if>
@@ -269,8 +331,8 @@
       <if test="record.status != null" >
         temp_storehouse_storage.status = #{record.status,jdbcType=CHAR},
       </if>
-      <if test="record.storageTypeId != null" >
-        temp_storehouse_storage.storage_type_id = #{record.storageTypeId,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        temp_storehouse_storage.user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.yesOrNo != null" >
         temp_storehouse_storage.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
@@ -290,8 +352,20 @@
       <if test="record.weightUpperBound != null" >
         temp_storehouse_storage.weight_upper_bound = #{record.weightUpperBound,jdbcType=REAL},
       </if>
+      <if test="record.usableWeight != null" >
+        temp_storehouse_storage.usable_weight = #{record.usableWeight,jdbcType=REAL},
+      </if>
       <if test="record.bulkUpperBound != null" >
         temp_storehouse_storage.bulk_upper_bound = #{record.bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="record.usableBulk != null" >
+        temp_storehouse_storage.usable_bulk = #{record.usableBulk,jdbcType=REAL},
+      </if>
+      <if test="record.storageTel != null" >
+        temp_storehouse_storage.storage_tel = #{record.storageTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storageAddress != null" >
+        temp_storehouse_storage.storage_address = #{record.storageAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
         temp_storehouse_storage.remark = #{record.remark,jdbcType=VARCHAR},
@@ -316,17 +390,22 @@
   <update id="updateByExample" parameterType="map" >
     update t_storehouse_storage temp_storehouse_storage
     set temp_storehouse_storage.storage_id = #{record.storageId,jdbcType=VARCHAR},
+      temp_storehouse_storage.storage_code = #{record.storageCode,jdbcType=VARCHAR},
       temp_storehouse_storage.storagetype_id = #{record.storagetypeId,jdbcType=VARCHAR},
       temp_storehouse_storage.storage_name = #{record.storageName,jdbcType=VARCHAR},
       temp_storehouse_storage.status = #{record.status,jdbcType=CHAR},
-      temp_storehouse_storage.storage_type_id = #{record.storageTypeId,jdbcType=VARCHAR},
+      temp_storehouse_storage.user_id = #{record.userId,jdbcType=VARCHAR},
       temp_storehouse_storage.yes_or_no = #{record.yesOrNo,jdbcType=CHAR},
       temp_storehouse_storage.build_date = #{record.buildDate,jdbcType=TIMESTAMP},
       temp_storehouse_storage.must_overhaul_num = #{record.mustOverhaulNum,jdbcType=INTEGER},
       temp_storehouse_storage.already_overhaul_num = #{record.alreadyOverhaulNum,jdbcType=INTEGER},
       temp_storehouse_storage.next_overhaul_date = #{record.nextOverhaulDate,jdbcType=TIMESTAMP},
       temp_storehouse_storage.weight_upper_bound = #{record.weightUpperBound,jdbcType=REAL},
+      temp_storehouse_storage.usable_weight = #{record.usableWeight,jdbcType=REAL},
       temp_storehouse_storage.bulk_upper_bound = #{record.bulkUpperBound,jdbcType=REAL},
+      temp_storehouse_storage.usable_bulk = #{record.usableBulk,jdbcType=REAL},
+      temp_storehouse_storage.storage_tel = #{record.storageTel,jdbcType=VARCHAR},
+      temp_storehouse_storage.storage_address = #{record.storageAddress,jdbcType=VARCHAR},
       temp_storehouse_storage.remark = #{record.remark,jdbcType=VARCHAR},
       temp_storehouse_storage.creater = #{record.creater,jdbcType=VARCHAR},
       temp_storehouse_storage.create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -339,6 +418,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
     update t_storehouse_storage
     <set >
+      <if test="storageCode != null" >
+        storage_code = #{storageCode,jdbcType=VARCHAR},
+      </if>
       <if test="storagetypeId != null" >
         storagetype_id = #{storagetypeId,jdbcType=VARCHAR},
       </if>
@@ -348,8 +430,8 @@
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
       </if>
-      <if test="storageTypeId != null" >
-        storage_type_id = #{storageTypeId,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="yesOrNo != null" >
         yes_or_no = #{yesOrNo,jdbcType=CHAR},
@@ -369,8 +451,20 @@
       <if test="weightUpperBound != null" >
         weight_upper_bound = #{weightUpperBound,jdbcType=REAL},
       </if>
+      <if test="usableWeight != null" >
+        usable_weight = #{usableWeight,jdbcType=REAL},
+      </if>
       <if test="bulkUpperBound != null" >
         bulk_upper_bound = #{bulkUpperBound,jdbcType=REAL},
+      </if>
+      <if test="usableBulk != null" >
+        usable_bulk = #{usableBulk,jdbcType=REAL},
+      </if>
+      <if test="storageTel != null" >
+        storage_tel = #{storageTel,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAddress != null" >
+        storage_address = #{storageAddress,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -392,17 +486,22 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorage" >
     update t_storehouse_storage
-    set storagetype_id = #{storagetypeId,jdbcType=VARCHAR},
+    set storage_code = #{storageCode,jdbcType=VARCHAR},
+      storagetype_id = #{storagetypeId,jdbcType=VARCHAR},
       storage_name = #{storageName,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
-      storage_type_id = #{storageTypeId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
       yes_or_no = #{yesOrNo,jdbcType=CHAR},
       build_date = #{buildDate,jdbcType=TIMESTAMP},
       must_overhaul_num = #{mustOverhaulNum,jdbcType=INTEGER},
       already_overhaul_num = #{alreadyOverhaulNum,jdbcType=INTEGER},
       next_overhaul_date = #{nextOverhaulDate,jdbcType=TIMESTAMP},
       weight_upper_bound = #{weightUpperBound,jdbcType=REAL},
+      usable_weight = #{usableWeight,jdbcType=REAL},
       bulk_upper_bound = #{bulkUpperBound,jdbcType=REAL},
+      usable_bulk = #{usableBulk,jdbcType=REAL},
+      storage_tel = #{storageTel,jdbcType=VARCHAR},
+      storage_address = #{storageAddress,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -104,6 +104,18 @@ public class StorehouseStorageExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andUserDisplayLike(String value) {
+            addCriterion("temp_user.username like", value, "userDisplay");
+            return (Criteria) this;
+        }
+        
+        //扩展查询条件
+        public Criteria andStorageTypeLike(String value) {
+            addCriterion("temp_storehouse_storagetype_set.storagetype_name like", value, "storageTyperDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -192,6 +204,76 @@ public class StorehouseStorageExample {
 
         public Criteria andStorageIdNotBetween(String value1, String value2) {
             addCriterion("temp_storehouse_storage.storage_id not between", value1, value2, "storageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeIsNull() {
+            addCriterion("temp_storehouse_storage.storage_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeIsNotNull() {
+            addCriterion("temp_storehouse_storage.storage_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_code =", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeNotEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_code <>", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeGreaterThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_code >", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_code >=", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeLessThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_code <", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_code <=", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_code like", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeNotLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_code not like", value, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_code in", values, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeNotIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_code not in", values, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_code between", value1, value2, "storageCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageCodeNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_code not between", value1, value2, "storageCode");
             return (Criteria) this;
         }
 
@@ -405,73 +487,73 @@ public class StorehouseStorageExample {
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdIsNull() {
-            addCriterion("temp_storehouse_storage.storage_type_id is null");
+        public Criteria andUserIdIsNull() {
+            addCriterion("temp_storehouse_storage.user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdIsNotNull() {
-            addCriterion("temp_storehouse_storage.storage_type_id is not null");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("temp_storehouse_storage.user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdEqualTo(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id =", value, "storageTypeId");
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdNotEqualTo(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id <>", value, "storageTypeId");
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdGreaterThan(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id >", value, "storageTypeId");
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("temp_storehouse_storage.user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id >=", value, "storageTypeId");
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdLessThan(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id <", value, "storageTypeId");
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("temp_storehouse_storage.user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id <=", value, "storageTypeId");
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdLike(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id like", value, "storageTypeId");
+        public Criteria andUserIdLike(String value) {
+            addCriterion("temp_storehouse_storage.user_id like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdNotLike(String value) {
-            addCriterion("temp_storehouse_storage.storage_type_id not like", value, "storageTypeId");
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("temp_storehouse_storage.user_id not like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdIn(List<String> values) {
-            addCriterion("temp_storehouse_storage.storage_type_id in", values, "storageTypeId");
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdNotIn(List<String> values) {
-            addCriterion("temp_storehouse_storage.storage_type_id not in", values, "storageTypeId");
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_storage.storage_type_id between", value1, value2, "storageTypeId");
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andStorageTypeIdNotBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_storage.storage_type_id not between", value1, value2, "storageTypeId");
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
 
@@ -845,6 +927,66 @@ public class StorehouseStorageExample {
             return (Criteria) this;
         }
 
+        public Criteria andUsableWeightIsNull() {
+            addCriterion("temp_storehouse_storage.usable_weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightIsNotNull() {
+            addCriterion("temp_storehouse_storage.usable_weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight =", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightNotEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight <>", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightGreaterThan(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight >", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight >=", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightLessThan(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight <", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightLessThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_weight <=", value, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightIn(List<Float> values) {
+            addCriterion("temp_storehouse_storage.usable_weight in", values, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightNotIn(List<Float> values) {
+            addCriterion("temp_storehouse_storage.usable_weight not in", values, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_storage.usable_weight between", value1, value2, "usableWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableWeightNotBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_storage.usable_weight not between", value1, value2, "usableWeight");
+            return (Criteria) this;
+        }
+
         public Criteria andBulkUpperBoundIsNull() {
             addCriterion("temp_storehouse_storage.bulk_upper_bound is null");
             return (Criteria) this;
@@ -902,6 +1044,206 @@ public class StorehouseStorageExample {
 
         public Criteria andBulkUpperBoundNotBetween(Float value1, Float value2) {
             addCriterion("temp_storehouse_storage.bulk_upper_bound not between", value1, value2, "bulkUpperBound");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkIsNull() {
+            addCriterion("temp_storehouse_storage.usable_bulk is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkIsNotNull() {
+            addCriterion("temp_storehouse_storage.usable_bulk is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk =", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkNotEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk <>", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkGreaterThan(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk >", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk >=", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkLessThan(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk <", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkLessThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_storage.usable_bulk <=", value, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkIn(List<Float> values) {
+            addCriterion("temp_storehouse_storage.usable_bulk in", values, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkNotIn(List<Float> values) {
+            addCriterion("temp_storehouse_storage.usable_bulk not in", values, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_storage.usable_bulk between", value1, value2, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsableBulkNotBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_storage.usable_bulk not between", value1, value2, "usableBulk");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelIsNull() {
+            addCriterion("temp_storehouse_storage.storage_tel is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelIsNotNull() {
+            addCriterion("temp_storehouse_storage.storage_tel is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel =", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelNotEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel <>", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelGreaterThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel >", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel >=", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelLessThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel <", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel <=", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel like", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelNotLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_tel not like", value, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_tel in", values, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelNotIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_tel not in", values, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_tel between", value1, value2, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageTelNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_tel not between", value1, value2, "storageTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressIsNull() {
+            addCriterion("temp_storehouse_storage.storage_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressIsNotNull() {
+            addCriterion("temp_storehouse_storage.storage_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_address =", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressNotEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_address <>", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressGreaterThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_address >", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_address >=", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressLessThan(String value) {
+            addCriterion("temp_storehouse_storage.storage_address <", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_storage.storage_address <=", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_address like", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressNotLike(String value) {
+            addCriterion("temp_storehouse_storage.storage_address not like", value, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_address in", values, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressNotIn(List<String> values) {
+            addCriterion("temp_storehouse_storage.storage_address not in", values, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_address between", value1, value2, "storageAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStorageAddressNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_storage.storage_address not between", value1, value2, "storageAddress");
             return (Criteria) this;
         }
 
