@@ -105,4 +105,23 @@ public class CarrierContractController {
  	  	ouputStream.close();   
    }
   	
+  	 //承运商合同信息导出
+	 @RequestMapping(value="print.htm")
+	 private Object intoContractPrintPage(String contractRecordId,String str) {
+		    ModelAndView mav = new ModelAndView("mcarrier_mgr/carrierContract_mgr/carrierContract_print");
+		    mav.addObject("str",str);
+		    if(StringUtils.isNotBlank(contractRecordId)){
+		    	  CarrierContractRecord carrierContractRecord=(CarrierContractRecord) carrierContractRecordService.getCarrierContractPro(contractRecordId);
+		          SimpleDateFormat sf=new SimpleDateFormat("yyyy年MM月dd日");
+		          String open_time=sf.format(carrierContractRecord.getEnableTime());
+		          String close_time=sf.format(carrierContractRecord.getDisableTime());
+		          mav.addObject("open_time",open_time);
+		          mav.addObject("close_time",close_time);
+		    	  mav.addObject("carrierContractData", carrierContractRecord);
+		    }
+		    return mav;
+		}
+  	
+  	
+  	
 }

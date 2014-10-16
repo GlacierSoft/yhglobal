@@ -87,7 +87,7 @@ public class ContractController {
    	  	ouputStream.close();   
 	   }
 	 
-	 //合同信息导出
+	 //合同信息打印
 	 @RequestMapping(value="print.htm")
 	 private Object intoContractPrintPage(String contractRecordId,String str) {
 		    ModelAndView mav = new ModelAndView("member_mgr/contract_mgr/contract_print");

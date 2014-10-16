@@ -15,8 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <form id="form1">
 	<table style="width: 600px;height: 800px;border: 1px solid red;">
 	   
-		<tr><td style="font-size: 25px;">甲方：<u>${contractData.memberDisplay }</u></td></tr>
-		<tr><td style="font-size: 25px;">乙方：<u>${contractData.platformId }</u></td></tr>
+		<tr><td style="font-size: 25px;">甲方：<u>${carrierContractData.carrierDisplay }</u></td></tr>
+		<tr><td style="font-size: 25px;">乙方：<u>${carrierContractData.platformId }</u></td></tr>
 		
 		<tr><td style="font-size: 25px;">甲、乙双方本着精诚合作、平等互利的原则，经友好协商，就相关租赁合作事宜， 达成如下，双方共同遵守： </td></tr>
 		
@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<tr><td style="font-size: 25px;">第二条：合作期限 </td></tr>
 		
-		<tr><td style="font-size: 25px;">合作期限自<u>${contractData.operationTime }</u>至<u>${contractData.closeTime }</u></td></tr>
+		<tr><td style="font-size: 25px;">合作期限自<u>${open_time }</u>至<u>${close_time }</u></td></tr>
 		
 		<tr><td style="font-size: 25px;">第三条：收费标准、结算方式 </td></tr>
 		

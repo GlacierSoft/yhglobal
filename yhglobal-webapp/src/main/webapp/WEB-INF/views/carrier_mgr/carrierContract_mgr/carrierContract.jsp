@@ -3,6 +3,10 @@
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 
 <script type="text/javascript">
 	$.util.namespace('glacier.carrier_mgr.carrierContract_mgr.carrierContract');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -173,7 +177,58 @@
 			data : fields.status
 		});
 	
+	//自定义对话框
+	glacier.carrier_mgr.carrierContract_mgr.carrierContract.printContractorManager=function(){
+		      $("#investDailogTest").dialog({
+		  				  title:"选择操作",
+		  				  width: 380,    
+		  				  height: 150,
+		  				  modal: true,
+		  			      closed: false
+		  			});
+	 };
+	
+	
+	function print_Preview(str){
+			var row =glacier.carrier_mgr.carrierContract_mgr.carrierContract.carrierContractDataGrid.datagrid("getSelected");
+			$("#spread_dialog").dialog({
+		 		width: 380,    
+				height: 160,
+		 		href: ctx+"/do/carrierContract/print.htm?contractRecordId="+row.contractRecordId+"&str="+str, 
+		 		closed: false
+		 	});
+  };
+	
 </script>
+
+<!--自定义对话款  -->
+<div id="investDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest" closed="true" style="position:relative; z-index:9999;">
+       <div style="width:320px;height: 60px;border:0px solid red;margin: 0px auto;margin-top: 10px;">
+		  <div style="float: left;">
+		     <img alt="" src="<%=basePath %>resources/images/warning.png" style="width:50px;height: 50px; "> 
+		  </div>
+		  <div style="float: left;line-height: 50px;margin-left: 20px;">
+		  	<a href="javascript:print_Preview('preview_print');">打印预览</a>&nbsp;
+		  	<a href="javascript:print_Preview('direct_print');">直接打印</a>&nbsp;
+		  	<a href="javascript:print_Preview('design_print');">打印设计</a>&nbsp;
+		  	<a href="javascript:print_Preview('choose_print');">选择打印机</a>&nbsp;
+		   </div>
+		 </div>
+</div>
+<!--自定义按钮  -->
+<div id="dlg-buttons-invest">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
+
+<!--自定义对话框(媒介)-->
+<div id="spread_dialog" class="easyui-dialog" closed="true" style="position:relative; z-index:-1;"></div>
+
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
