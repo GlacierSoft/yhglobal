@@ -11,10 +11,12 @@
  * 
  */
 package com.glacier.frame.service.member; 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List; 
-import org.apache.commons.lang3.StringUtils; 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ import com.glacier.frame.entity.member.ShipperMemberToken;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.jqueryui.util.JqReturnJson; 
+import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
 
@@ -322,10 +324,14 @@ public class ShipperMemberService {
         shipperMember.setMemberId(shipperMemberId);
         shipperMember.setMemberPassword(shipperMemberToken.getPassword()); 
         shipperMember.setStatus("enable");
+        BigDecimal accountBalance =new BigDecimal("0");
+        shipperMember.setAccountBalance(accountBalance);
+        shipperMember.setIntegral(0);
         shipperMember.setRegistrationTime(new Date());
         shipperMember.setLastLoginTime(new Date());
         shipperMember.setLoginCount(1); 
         shipperMember.setMemberPhoto("http://bdmu.v068041.10000net.cn/netloan-website/resources/images/shipperMember/shipperMember.jpg");//会员注册后的默认头像
+        shipperMember.setRemark("货主会员创建帐号");
         shipperMember.setCreater("超级管理员");
         shipperMember.setCreateTime(new Date());
         shipperMember.setUpdater("超级管理员");

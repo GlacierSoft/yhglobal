@@ -11,6 +11,7 @@
  * 
  */
 package com.glacier.frame.service.carrier; 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -260,16 +261,6 @@ public class CarrierMemberService {
     }
     
     /**
-     * 设定盐值和设定安全的交易密码，生成随机的salt并经过1024次 sha-1 hash
-     */
-    private void entryptTradersPassword(CarrierMemberToken carrierMemberToken) {
-        byte[] salt = Digests.generateSalt(SALT_SIZE);
-        carrierMemberToken.setTradersSalt(Encodes.encodeHex(salt));
-        byte[] hashPassword = Digests.sha1(carrierMemberToken.getTradersPassword().getBytes(), salt, HASH_INTERATIONS); 
-        carrierMemberToken.setTradersPassword(Encodes.encodeHex(hashPassword));
-    }
-    
-    /**
      * @Title: retrieveEmail 
      * @Description: TODO(判断该邮箱是否存在) 
      * @param @param member
@@ -385,11 +376,19 @@ public class CarrierMemberService {
         carrierMember.setMemberPassword(carrierMemberToken.getPassword()); 
         carrierMember.setStatus("enable");
         carrierMember.setLoginCount(0);
+        BigDecimal creditLimit = new BigDecimal("0");
+        carrierMember.setCreditLimit(creditLimit);
         carrierMember.setCreditworthiness(0);
         carrierMember.setRegistrationTime(new Date());
         carrierMember.setLastLoginTime(new Date());
         carrierMember.setLoginCount(1); 
+        BigDecimal surplusMonney = new BigDecimal("0");
+        carrierMember.setSurplusMonney(surplusMonney);
+        carrierMember.setDeliverSuccess(0);
+        carrierMember.setDeliverFail(0);
+        carrierMember.setAuditState("authstr");
         carrierMember.setMemberPhoto("http://bdmu.v068041.10000net.cn/netloan-website/resources/images/carrierMember/carrierMember.jpg");//会员注册后的默认头像
+        carrierMember.setRemark("承运商创建帐号");
         carrierMember.setCreater("超级管理员");
         carrierMember.setCreateTime(new Date());
         carrierMember.setUpdater("超级管理员");
@@ -411,10 +410,4 @@ public class CarrierMemberService {
         return returnResult;
     }
     
-    private void updateentryptPassword(CarrierMemberToken carrierMemberToken) {
-        byte[] salt = Digests.generateSalt(SALT_SIZE);
-        carrierMemberToken.setSalt(Encodes.encodeHex(salt));
-        byte[] hashPassword = Digests.sha1(carrierMemberToken.getPassword().getBytes(), salt, HASH_INTERATIONS);
-        carrierMemberToken.setPassword(Encodes.encodeHex(hashPassword));
-    }
 }
