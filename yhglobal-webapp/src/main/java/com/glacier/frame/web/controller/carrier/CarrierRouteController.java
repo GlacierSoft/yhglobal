@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.jqueryui.util.JqPager;
@@ -59,18 +60,17 @@ public class CarrierRouteController extends AbstractController {
     // 查询显示所有的承运商会员信息
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, String q) {
-        return carrierRouterService.listAsGrid(jqPager, q);
+    private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO,String q) {
+       System.out.println(">>>>>>>>>>>>>"+q);
+    	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO, q);
     }
-      
+       
     // 进入班线Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoMemberDetailPage(String carrierRouteId) { 
+    private Object intoMemberDetailPage(String routerId) { 
     	ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_detail");
-    	  
-    	if(StringUtils.isNotBlank(carrierRouteId)){
-    		  
-	        	  mav.addObject("carrierRouteData",carrierRouterService.getRoute(carrierRouteId)); 
+    	 if(StringUtils.isNotBlank(routerId)){ 
+	        mav.addObject("carrierRouteData",carrierRouterService.getRoute(routerId)); 
     	}
 	     return mav;
     }
@@ -84,12 +84,14 @@ public class CarrierRouteController extends AbstractController {
 
     // 班线audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
-    private Object intoAuditMember(String routeId) {
-        ModelAndView mav = new ModelAndView("carrier_mgr/carrierMember_mgr/carrierRoute_audit");
-        if(StringUtils.isNotBlank(routeId)){
-        	 CarrierRoute carrierRoute=carrierRouterService.getRoute(routeId);
-        	  mav.addObject("carrierMemberData", carrierRoute);   
+    private Object intoAuditMember(String routerId) {
+        ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_audit");
+        if(StringUtils.isNotBlank(routerId)){
+        	 CarrierRoute carrierRoute=carrierRouterService.getRoute(routerId);
+        	 System.out.println("<<<<<<<<<<<<<<<<<<<<"+carrierRoute.getAuditOpinion());
+        	 mav.addObject("carrierRouteData", carrierRoute);   
           }
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+routerId);
         return mav;
     }
     
@@ -102,4 +104,15 @@ public class CarrierRouteController extends AbstractController {
         }
         return carrierRouterService.audit(carrierRoute);
     }
+    
+    
+    
+    //班线审核
+    @RequestMapping(value = "/area.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object selectArea(String routeid) {  
+         return carrierRouterService.selectArea(routeid);
+      }
+    
+    
 }

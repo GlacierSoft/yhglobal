@@ -100,7 +100,7 @@
 							sortable : true
 						},{
 							field : 'boxType',
-							title : '箱型',
+							title : '车辆箱型',
 							width : 120,
 							sortable : true,
 							formatter : function(value, row, index) {//数据格式化，例如man显示是，woman显示女
@@ -150,7 +150,7 @@
 								return renderGridValue(value, fields.auditState);
 							}
 						},{
-							field : 'audit',
+							field : 'auditDisplay',
 							title : '审核人',
 							width : 120,
 							sortable : true
@@ -212,11 +212,9 @@
 									glacier.carrier_mgr.carrierRoute_mgr.route.param,this).unCheck();
 						},
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
-						   //审核通过的才能启用/禁用班线
-							if(rowData.auditState == 'pass'){
-								action_controller(
+						  	action_controller(
 										glacier.carrier_mgr.carrierRoute_mgr.route.param,this).select();
-							 }
+							 
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
@@ -231,18 +229,16 @@
 								body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
 							}
 						},
-						onDblClickRow : function(rowIndex, rowData){
-							alert("查看详情功能暂未实现");
-							return;
-                      /*   $.easyui.showDialog({
+						onDblClickRow : function(rowIndex, rowData){  
+                        $.easyui.showDialog({
 								title : '【' + rowData.routeName + '】班线详细信息',
-								href : ctx+ '/do/carrierMember/intoDetail.htm?carrierMemberId='+ rowData.carrierMemberId,//从controller请求jsp页面进行渲染
-								height : 550,
+								href : ctx+ '/do/carrierRoute/intoDetail.htm?routerId='+ rowData.routerId,//从controller请求jsp页面进行渲染
+								height : 570,
 								width:630,
 								resizable : false,
 								enableApplyButton : false,
 								enableSaveButton : false
-							}); */
+							});  
 						}
 					});
  
@@ -251,21 +247,19 @@
 	//点击审核按钮触发方法 
 	glacier.carrier_mgr.carrierRoute_mgr.route.audit= function(){
 		var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
-		 	
-		alert("暂未完成");
-	/* 	glacier.basicAddOrEditDialog({
+	  	glacier.basicAddOrEditDialog({
 				title : '【'+row.routeName+'】-班线审核',
-				width : 570,
-				height : 510,
+				width : 630,
+				height : 580,
 				queryUrl : ctx + '/do/carrierRoute/intoAudit.htm',
 				submitUrl : ctx + '/do/carrierRoute/audit.json',
 				queryParams : {
-					memberId : row.routerId
+					routerId : row.routerId
 				},
 				successFun : function (){
 					glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload'); 
 				}
-			});  */ 
+			});  
 	};
 	  
 	//点击启用禁用按钮触发方法
@@ -316,6 +310,17 @@
 		//required:true,
 		data : fields.status
 	}); 
+	//下拉项的值
+	$('#routeSearchForm_routeType').combobox({
+		valueField : 'value',
+		//height:18,
+		width : 80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.routeType
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -332,19 +337,22 @@
 		<form id="routeSearchForm">
 			<table>
 				<tr>
+				<td>班线编号：</td>
+					<td><input name="routeNumber" style="width: 80px;"
+						class="spinner" /></td> 
 					<td>班线名称：</td>
 					<td><input name="routeName" style="width: 80px;"
 						class="spinner" /></td> 
-				    <td>承运商名称：</td>
-					<td><input name="routeName" style="width: 80px;"
+				    <td>班线类型：</td>
+					<td><input id="routeSearchForm_routeType" name="routeType" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
 					<td><input id="routeSearchForm_status" name="status"
 						style="width: 80px;" class="spinner" /></td> 
 						<td>始发站：</td>
-					<td><input name="routeName" style="width: 80px;"
+					<td><input name="routeOrigin" style="width: 80px;"
 						class="spinner" /></td> <td>终点站：</td>
-					<td><input name="routeName" style="width: 80px;"
+					<td><input name="routeStop" style="width: 80px;"
 						class="spinner" /></td> 
 						
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"

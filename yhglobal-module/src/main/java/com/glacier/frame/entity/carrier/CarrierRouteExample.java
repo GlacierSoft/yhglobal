@@ -3,7 +3,7 @@ package com.glacier.frame.entity.carrier;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.List; 
 
 public class CarrierRouteExample {
     protected String orderByClause;
@@ -104,7 +104,13 @@ public class CarrierRouteExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        
+        //自定承运商名称查询方法
+        public Criteria andCarrierDisplayLike(String value) {
+        	addCriterion(" temp_carrier_member.member_name like ",value," carrierDisplay ");
+            return (Criteria) this;
+        } 
+         
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

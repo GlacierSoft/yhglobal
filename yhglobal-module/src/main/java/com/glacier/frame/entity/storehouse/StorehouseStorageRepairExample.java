@@ -103,7 +103,13 @@ public class StorehouseStorageRepairExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        
+        //扩展查询条件
+        public Criteria andStorageDisplayLike(String value) {
+            addCriterion("temp_storage.storage_name like ", value, "storageDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

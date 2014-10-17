@@ -12,6 +12,9 @@
     <result column="temp_storehouse_storage_repair_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_storage_repair_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_storage_repair_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_storage_repair_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_repair_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_repair_storage_display" property="storageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,6 +84,15 @@
     temp_storehouse_storage_repair.create_time as temp_storehouse_storage_repair_create_time, 
     temp_storehouse_storage_repair.updater as temp_storehouse_storage_repair_updater, 
     temp_storehouse_storage_repair.update_time as temp_storehouse_storage_repair_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_storehouse_storage_repair_creater_display
+    ,temp_updater.user_cn_name as temp_storehouse_storage_repair_updater_display
+    ,temp_storage.storage_name as temp_storehouse_storage_repair_storage_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_storage_repair.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_storage_repair.updater <!-- 扩展 -->
+    LEFT JOIN t_storehouse_storage temp_storage ON temp_storage.storage_id = temp_storehouse_storage_repair.storage_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" >
     select
@@ -89,6 +101,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,6 +116,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <include refid="Base_extend" />
     where temp_storehouse_storage_repair.repair_id = #{repairId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -110,7 +124,7 @@
     where repair_id = #{repairId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" >
-    delete from t_storehouse_storage_repair temp_storehouse_storage_repair
+    delete temp_storehouse_storage_repair from t_storehouse_storage_repair temp_storehouse_storage_repair
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -194,6 +208,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_storage_repair temp_storehouse_storage_repair
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

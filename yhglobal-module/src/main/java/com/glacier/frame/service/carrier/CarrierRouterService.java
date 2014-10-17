@@ -18,6 +18,7 @@
  * 
  */
 package com.glacier.frame.service.carrier; 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List; 
 
@@ -28,9 +29,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
+
+import com.glacier.frame.dao.carrier.CarrierDeliverGoodsAreaMapper;
+import com.glacier.frame.dao.carrier.CarrierPickUpgoodsAreaMapper;
 import com.glacier.frame.dao.carrier.CarrierRouteMapper;
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
+import com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea;
+import com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample;
+import com.glacier.frame.entity.carrier.CarrierPickUpgoodsArea;
+import com.glacier.frame.entity.carrier.CarrierPickUpgoodsAreaExample;
 import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.entity.carrier.CarrierRouteExample; 
+import com.glacier.frame.entity.carrier.CarrierRouteExample.Criteria;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -49,6 +59,12 @@ public class CarrierRouterService {
 	@Autowired
 	private CarrierRouteMapper carrierRouteMapper;
 	
+	@Autowired
+	private CarrierDeliverGoodsAreaMapper carrierDeliverGoodsAreaMapper;
+	
+	@Autowired
+	private CarrierPickUpgoodsAreaMapper carrierPickUpgoodsAreaMapper;
+	
 	/*** 
 	 * @Title: listAsGrid  
 	 * @Description: TODO(获取班线list)  
@@ -58,10 +74,11 @@ public class CarrierRouterService {
 	 * @return Object    返回类型  
 	 * @throws
 	 */
-    public Object listAsGrid(JqPager jqPager, String q) {
+     public Object listAsGrid(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO, String q) {
         JqGridReturn returnResult = new JqGridReturn();
         CarrierRouteExample carrierRouteExample = new CarrierRouteExample(); 
-       // Criteria queryCriteria = carrierRouteExample.createCriteria(); 
+        Criteria queryCriteria = carrierRouteExample.createCriteria(); 
+        routeQueryDTO.setQueryCondition(queryCriteria, q);
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	carrierRouteExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	carrierRouteExample.setLimitEnd(jqPager.getRows());
@@ -74,7 +91,7 @@ public class CarrierRouterService {
         returnResult.setRows(shippermembers);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
-    }
+      }
     
      /*** 
       * @Title: getRoute  
@@ -83,10 +100,10 @@ public class CarrierRouterService {
       * @param @return    设定文件  
       * @return Object    返回类型  
       * @throws
-      */
-    public CarrierRoute getRoute(String routeId) {  
-    	return carrierRouteMapper.selectByPrimaryKey(routeId);
-    } 
+      */ 
+	  public CarrierRoute getRoute(String routeId) {  
+	    	return carrierRouteMapper.selectByPrimaryKey(routeId);
+	  } 
      
      /*** 
       * @Title: upStatus  
@@ -96,8 +113,8 @@ public class CarrierRouterService {
       * @return Object    返回类型  
       * @throws
       */
-    @Transactional(readOnly = false)
-    public Object upStatus(String routeId){
+      @Transactional(readOnly = false)
+      public Object upStatus(String routeId){
     	 JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
          Subject pricipalSubject = SecurityUtils.getSubject(); 
     	 User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -145,10 +162,37 @@ public class CarrierRouterService {
         count = carrierRouteMapper.updateByPrimaryKeySelective(carrierRoute);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("班线【"+carrierRoute.getRouteName()+"】审核操作成功");
+            returnResult.setMsg("班线【"+route.getRouteName()+"】审核操作成功");
         } else {
-            returnResult.setMsg("发生未知错误，企业信息审核失败");
+            returnResult.setMsg("发生未知错误，信息审核失败");
         }
         return returnResult;
+    }
+    
+    
+    /*** 
+     * @Title: selectArea  
+     * @Description: TODO(查询班线的发货区域和收货区域)  
+     * @param @param routeid
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object selectArea(String routeid){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        returnResult.setSuccess(true);
+    	List<Object> listObject=new ArrayList<Object>(); 
+    	CarrierDeliverGoodsAreaExample  carrierDeliverGoodsAreaExample =new CarrierDeliverGoodsAreaExample();
+    	carrierDeliverGoodsAreaExample.createCriteria().andRouterIdEqualTo(routeid);
+    	//查询发货区域
+    	List<CarrierDeliverGoodsArea> celiverList=carrierDeliverGoodsAreaMapper.selectByExample(carrierDeliverGoodsAreaExample);
+    	listObject.add(celiverList); 
+    	CarrierPickUpgoodsAreaExample carrierPickUpgoodsAreaExample =new CarrierPickUpgoodsAreaExample();
+    	carrierPickUpgoodsAreaExample.createCriteria().andRouterIdEqualTo(routeid);
+    	//查询收货区域
+    	List<CarrierPickUpgoodsArea>  pickUpList=carrierPickUpgoodsAreaMapper.selectByExample(carrierPickUpgoodsAreaExample);
+    	listObject.add(pickUpList); 
+    	returnResult.setObj(listObject);
+    	return returnResult;
     }
 }

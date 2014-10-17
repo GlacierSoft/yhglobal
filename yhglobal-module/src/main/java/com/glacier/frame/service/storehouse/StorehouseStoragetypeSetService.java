@@ -20,13 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStoragetypeSetMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseStoragetypeSetQueryDTO;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.frame.entity.storehouse.StorehouseStorageExample;
 import com.glacier.frame.entity.storehouse.StorehouseStoragetypeSet;
 import com.glacier.frame.entity.storehouse.StorehouseStoragetypeSetExample;
 import com.glacier.frame.entity.system.User;
@@ -44,6 +45,9 @@ public class StorehouseStoragetypeSetService {
 
 	@Autowired
 	private StorehouseStoragetypeSetMapper storagetypeSetMapper;
+	
+	@Autowired
+	private StorehouseStorageMapper storageMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -171,19 +175,45 @@ public class StorehouseStoragetypeSetService {
      */
     @Transactional(readOnly = false)
     public Object delStoragetype(List<String> storagetypeIds, List<String> storagetypeName) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        if (storagetypeIds.size() > 0) {
-        	StorehouseStoragetypeSetExample storagetypeSetExample = new StorehouseStoragetypeSetExample(); 
-        	storagetypeSetExample.createCriteria().andStoragetypeIdIn(storagetypeIds);
-            count = storagetypeSetMapper.deleteByExample(storagetypeSetExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(storagetypeName, ",") + " ]仓库类型信息");
-            } else {
-                returnResult.setMsg("发生未知错误，仓库类型信息删除失败");
-            }
-        }
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        // 定义删除成功数据行数量
+        int rightNumber = 0;
+        // 定义返回结果
+        String result_str = ""; 
+        // 定义是否显示提示
+        boolean isFlag = true;
+        //数据行长度判断
+        if (storagetypeIds.size() > 0) { 
+           //匹配删除信息
+           for (int i = 0; i < storagetypeIds.size(); i++) {  
+                 // 相关联充值记录
+        		StorehouseStorageExample storageExample = new StorehouseStorageExample();
+        		storageExample.createCriteria().andStoragetypeIdEqualTo(storagetypeIds.get(i));
+        		int count = storageMapper.countByExample(storageExample);
+                // 判断是否关联
+        		if (count <= 0) { 
+        			StorehouseStoragetypeSetExample storagetypeSetExample = new StorehouseStoragetypeSetExample();
+        			storagetypeSetExample.createCriteria().andStoragetypeIdEqualTo(storagetypeIds.get(i));
+        		      int number = storagetypeSetMapper.deleteByExample(storagetypeSetExample);
+        	          rightNumber += number;// 删除成功数据行数量记录 
+                 } else { 
+                       if(isFlag){ 
+        				if(count > 0){
+        					result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【仓库类型】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【仓库类型】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+        					isFlag = false;
+        					} 
+                        }  
+                       }
+        			}
+        		// 删除成功数量大于0即为操作成功,且提示关联信息
+        		if(rightNumber>0){
+        			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+        			returnResult.setSuccess(true);
+        		}else{
+        			returnResult.setMsg(result_str.trim());
+        			returnResult.setSuccess(false);
+        		     }
+        	   }
         return returnResult;
     }
 }
