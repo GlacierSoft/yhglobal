@@ -22,15 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
+import com.glacier.frame.dao.storehouse.StorehouseStorageRepairMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseStorageQueryDTO;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.frame.entity.storehouse.StorehouseStorage;
 import com.glacier.frame.entity.storehouse.StorehouseStorageExample;
+import com.glacier.frame.entity.storehouse.StorehouseStorageRepairExample;
 import com.glacier.frame.entity.system.User;
 import com.glacier.frame.entity.storehouse.StorehouseStorageExample.Criteria;
 /*** 
@@ -46,6 +47,9 @@ public class StorehouseStorageService {
 
 	@Autowired
 	private StorehouseStorageMapper storageMapper;
+	
+	@Autowired
+	private StorehouseStorageRepairMapper storageRepairMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -193,7 +197,7 @@ public class StorehouseStorageService {
      */
     @Transactional(readOnly = false)
     public Object delStorage(List<String> storageIds, List<String> storageName) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        /*JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (storageIds.size() > 0) {
         	StorehouseStorageExample storageExample = new StorehouseStorageExample(); 
@@ -206,6 +210,46 @@ public class StorehouseStorageService {
                 returnResult.setMsg("发生未知错误，仓库信息删除失败");
             }
         }
+        return returnResult;*/
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        // 定义删除成功数据行数量
+        int rightNumber = 0;
+        // 定义返回结果
+        String result_str = ""; 
+        // 定义是否显示提示
+        boolean isFlag = true;
+        //数据行长度判断
+        if (storageIds.size() > 0) { 
+           //匹配删除信息
+           for (int i = 0; i < storageIds.size(); i++) {  
+                 // 相关联充值记录
+        		StorehouseStorageRepairExample storageRepairExample = new StorehouseStorageRepairExample();
+        		storageRepairExample.createCriteria().andStorageIdEqualTo(storageIds.get(i));
+        		int count = storageRepairMapper.countByExample(storageRepairExample);
+                // 判断是否关联
+        		if (count <= 0) { 
+        			StorehouseStorageExample storageExample = new StorehouseStorageExample();
+        			storageExample.createCriteria().andStoragetypeIdEqualTo(storageIds.get(i));
+        		      int number = storageMapper.deleteByExample(storageExample);
+        	          rightNumber += number;// 删除成功数据行数量记录 
+                 } else { 
+                       if(isFlag){ 
+        				if(count > 0){
+        					result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【仓库】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【仓库维修】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+        					isFlag = false;
+        					} 
+                        }  
+                       }
+        			}
+        		// 删除成功数量大于0即为操作成功,且提示关联信息
+        		if(rightNumber>0){
+        			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+        			returnResult.setSuccess(true);
+        		}else{
+        			returnResult.setMsg(result_str.trim());
+        			returnResult.setSuccess(false);
+        		     }
+        	   }
         return returnResult;
     }
 }

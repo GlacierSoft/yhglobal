@@ -2,6 +2,8 @@ package com.glacier.frame.entity.storehouse;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class StorehouseStorageRepair {
     private String repairId;
 
@@ -17,11 +19,22 @@ public class StorehouseStorageRepair {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String storageDisplay;
 
     public String getRepairId() {
         return repairId;
@@ -103,7 +116,31 @@ public class StorehouseStorageRepair {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getStorageDisplay() {
+		return storageDisplay;
+	}
+
+	public void setStorageDisplay(String storageDisplay) {
+		this.storageDisplay = storageDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

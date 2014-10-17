@@ -26,7 +26,7 @@
     <result column="temp_storehouse_storage_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_storage_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_storage_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_storehouse_storage_user_dsisplay" property="userDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_storage_user_display" property="userDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_storage_storage_typer_display" property="storageTyperDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -105,7 +105,7 @@
   	<!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_storehouse_storage_creater_display
     ,temp_updater.user_cn_name as temp_storehouse_storage_updater_display
-    ,temp_user.user_cn_name as temp_storehouse_storage_user_dsisplay
+    ,temp_user.user_cn_name as temp_storehouse_storage_user_display
     ,temp_storagetype.storagetype_name as temp_storehouse_storage_storage_typer_display
   </sql>
   <sql id="Base_extend">

@@ -13,7 +13,7 @@
 			</td>
 			<td>仓库类型：</td>
 			<td>
-				<input id="storage_mgr_storage_form_storagetypeId" name="storagetypeId"  style="width:268px;height: 20px;" value="${storageDate.storagetypeId}"/>
+				<input id="storage_mgr_storage_form_storagetypeId" name="storagetypeId"  style="width:268px;height: 20px;" value="${storageDate.storagetypeId}" disabled="disabled"/>
 			</td>
 		</tr>
 		<tr>
@@ -53,13 +53,13 @@
 			</td>
 			<td>负责人：</td>
 			<td>
-				<input id="storage_mgr_storage_form_userId" name="userId"  style="width:268px;height: 20px;" value="${storageDate.userId}"/>
+				<input id="storage_mgr_storage_form_userId" disabled="disabled" name="userId"  style="width:268px;height: 20px;" value="${storageDate.userId}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>建造时间：</td>
 			<td>
-				<input id="storage_mgr_storage_form_buildDate" name="buildDate"  style="width:268px;height: 20px;" value="<fmt:formatDate value="${storageDate.buildDate}" pattern="yyyy-MM-dd"/>" class="easyui-datetimebox" data-options="showSeconds:false"  required="true"/>
+				<input id="storage_mgr_storage_form_buildDate" disabled="disabled" name="buildDate"  style="width:268px;height: 20px;" value="<fmt:formatDate value="${storageDate.buildDate}" pattern="yyyy-MM-dd"/>" class="easyui-datetimebox" data-options="showSeconds:false"  required="true"/>
 			</td>
 		</tr>
 		<tr>
