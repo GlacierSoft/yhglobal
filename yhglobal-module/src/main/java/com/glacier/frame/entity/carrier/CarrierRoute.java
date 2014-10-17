@@ -22,14 +22,14 @@ public class CarrierRoute {
 
     private String routeNumber;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="HH:mm")
     private Date startofTime;
 
     private Float availablePosition;
 
     private String boxType;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="HH:mm")
     private Date ceaseTakeDeliveryTime;
 
     private BigDecimal startingPrice;
