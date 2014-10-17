@@ -79,7 +79,23 @@ function getLodop(oOBJECT,oEMBED){
 	            	 if(str_warn_firefox.trim()!="0")
 	            			str_warn_total=str_warn_firefox;
 	            	$('#investDailogTest').dialog('close');
-	            	$.messager.alert("操作提示",strHtmInstall+str_warn_total,"warning");
+	            	//$.messager.alert("操作提示",strHtmInstall+str_warn_total,"warning");
+	            	$("#ContractPrintDailogTest").dialog({
+		  				  title:"安全提示",
+		  				  width: 540,    
+		  				  height: 180,
+		  				  modal: true,
+		  			      closed: false,
+		  			      buttons:[{
+		  			    	  text:'关闭',
+		  			    	  iconCls:'icon-cancel',
+		  			    	  handler:function(){
+		  			    		  //alert("---->");
+		  			    		  //$(this).dialog('close');
+		  			    		  $("#ContractPrintDailogTest").dialog('close');
+		  			    	  }
+		  			      }]
+		  			});
 	             }
 	             return LODOP;
 	     } else 

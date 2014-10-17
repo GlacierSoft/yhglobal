@@ -7,12 +7,21 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
 %>
 
+<style>
+.print_text:link {
+   color: #561B8B;
+  
+}
+</style>
+
 <script language="javascript" src="<%=basePath %>resources/js/lodop/LodopFuncs.js"></script>
+
 <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
 	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
 </object> 
 
 <form id="form1">
+    
 	<table style="width: 600px;height: 800px;border: 1px solid red;">
 	   
 		<tr><td style="font-size: 25px;">甲方：<u>${contractData.memberDisplay }</u></td></tr>
@@ -74,37 +83,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </table>
   </form>
 
+
+<!--自定义对话款  -->
+<div id="ContractPrintDailogTest" class="easyui-dialog" closed="true" style="position:relative; z-index:9999;">
+       <div style="width:480px;height: 70px;border:0px solid red;margin: 0px auto;margin-top: 20px;">
+		  <div style="float: left; width: 80px;height:80px;border: 0px solid red;">
+		     <img alt="" src="<%=basePath %>resources/images/warning.png" style="width:70px;height: 70px;"> 
+		  </div>
+		  <div style="float: left;text-align: left;width:390px;height: 70px ;border:0px solid red;margin-top: 5px;margin-left: 5px;">
+		  	  <span style="color: #FF01FF;">打印操作 无法响应:</span><br/>
+		  	 <span style="color: #FF01FF;">(未安装打印插件,打印插件未更新)</span><br/>
+		  	 <span style="color: #FF01FF;">1.电脑操作系统为32位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop32.exe" class="print_text">【下载或者升级】</a>32位定制的打印插件。</span><br/>
+		  	 <span style="color: #FF01FF;">2.电脑操作系统为64位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop64.exe" class="print_text">【下载或者升级】</a>64位定制的打印插件。</span><br/>
+		   </div>
+		 </div>
+</div>
+
+
 <script>
    var LODOP; //声明为全局变量  
    
    $(function(){
-	   $('#spread_dialog').dialog('close');
-	     if('${str}'=="preview_print"){
-	    	 CreateOneFormPage();	
-	    	 LODOP.PREVIEW(); 
-	     }else if('${str}'=="direct_print"){
-	    	CreateOneFormPage();
-	 		LODOP.PRINT();
-	    }else if('${str}'=="design_print"){
-	    	CreateTwoFormPage();
-			LODOP.PRINT_SETUP();
-	    	 
-	     }else if('${str}'=="choose_print"){
-	    	CreateOneFormPage();
-	 		LODOP.PRINTA(); 
-	     }
-	 } );
+	     $('#spread_dialog').dialog('close');
+	     CheckIsInstall();
+	});
+ 
    
-	 function CreateOneFormPage(){
-		LODOP=getLodop();  
-		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
-		
-		//LODOP.ADD_PRINT_TEXT(50,231,260,39,"珠海冰川科技有限公司");
-		LODOP.ADD_PRINT_HTM(88,200,350,600,document.getElementById("form1").innerHTML);
-		LODOP.SET_PREVIEW_WINDOW(0,0,0,760,540,"");
-	 };	
+   function CheckIsInstall() {
+	   try{ 
+		    var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM')); 
+			if ((LODOP!=null)&&(typeof(LODOP.VERSION)!="undefined")){
+				doPrint('${str}');
+			 }  
+		 }catch(err){ 
+			 alert("Error:本机未安装或需要升级!"); 
+		 } 
+	}; 
+   
+	   
+	function  doPrint(str){
+	   if('${str}'=="preview_print"){
+		   CreateOneFormPage();	
+		  	LODOP.PREVIEW(); 
+		}else if('${str}'=="direct_print"){
+		  	CreateOneFormPage();
+			LODOP.PRINT();
+		}else if('${str}'=="design_print"){
+		  	CreateTwoFormPage();
+			LODOP.PRINT_SETUP();
+		}else if('${str}'=="choose_print"){
+		  	CreateOneFormPage();
+		}
+	};	
+	
+  function CreateOneFormPage(){
+	LODOP=getLodop();  
+	//LODOP.ADD_PRINT_TEXT(50,231,260,39,"珠海冰川科技有限公司");
+	LODOP.ADD_PRINT_HTM(88,200,350,600,document.getElementById("form1").innerHTML);
+	LODOP.SET_PREVIEW_WINDOW(0,0,0,760,540,"");
+  };	
 	 
-	 function CreateTwoFormPage(){
+  function CreateTwoFormPage(){
 			LODOP=getLodop();  
 			LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单二");
 			LODOP.ADD_PRINT_RECT(70,27,634,242,0,1);
@@ -113,8 +152,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			LODOP.SET_PRINT_STYLEA(2,"Bold",1);
 			LODOP.ADD_PRINT_HTM(88,40,321,185,document.getElementById("form1").innerHTML);
 			LODOP.ADD_PRINT_TEXT(319,58,500,30,"注：其中《表单一》按显示大小，《表单二》在程序控制宽度(285px)内自适应调整");
-		}; 
+  }; 
 		
+  //按钮关闭
+  function doCloseDialog(){
+	  $('#ContractPrintDailogTest').dialog('close');
+  };
+  
 </script>
 	
 

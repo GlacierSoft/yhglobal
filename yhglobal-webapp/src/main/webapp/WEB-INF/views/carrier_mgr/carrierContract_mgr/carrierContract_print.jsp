@@ -78,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    var LODOP; //声明为全局变量  
    
    $(function(){
+	    alert("我是好人!!!!");
 	   $('#spread_dialog').dialog('close');
+	   alert("好人难当!!!!");
 	     if('${str}'=="preview_print"){
 	    	 CreateOneFormPage();	
 	    	 LODOP.PREVIEW(); 
@@ -94,6 +96,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 		LODOP.PRINTA(); 
 	     }
 	 } );
+   
+   
    
 	 function CreateOneFormPage(){
 		LODOP=getLodop();  
