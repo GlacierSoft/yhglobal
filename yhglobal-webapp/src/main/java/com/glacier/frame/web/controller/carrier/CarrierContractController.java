@@ -108,7 +108,7 @@ public class CarrierContractController {
   	 //承运商合同信息导出
 	 @RequestMapping(value="print.htm")
 	 private Object intoContractPrintPage(String contractRecordId,String str) {
-		    ModelAndView mav = new ModelAndView("mcarrier_mgr/carrierContract_mgr/carrierContract_print");
+		    ModelAndView mav = new ModelAndView("carrier_mgr/carrierContract_mgr/carrierContract_print");
 		    mav.addObject("str",str);
 		    if(StringUtils.isNotBlank(contractRecordId)){
 		    	  CarrierContractRecord carrierContractRecord=(CarrierContractRecord) carrierContractRecordService.getCarrierContractPro(contractRecordId);

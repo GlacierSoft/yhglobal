@@ -16,7 +16,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		toolbarId : 'carrierContractDataGrid_toolbar',
 		actions : {
              edit:{flag:'edit',controlType:'single'},
-             del:{flag:'del',controlType:'multiple'}
+             del:{flag:'del',controlType:'multiple'},
+             print:{flag:'print',controlType:'single'}
           }
      };
 

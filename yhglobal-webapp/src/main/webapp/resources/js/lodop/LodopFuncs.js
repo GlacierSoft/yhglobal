@@ -80,7 +80,7 @@ function getLodop(oOBJECT,oEMBED){
 	            			str_warn_total=str_warn_firefox;
 	            	$('#investDailogTest').dialog('close');
 	            	//$.messager.alert("操作提示",strHtmInstall+str_warn_total,"warning");
-	            	$("#ContractPrintDailogTest").dialog({
+	            	$("#contractRecordPrintDailogTest").dialog({
 		  				  title:"安全提示",
 		  				  width: 540,    
 		  				  height: 180,
@@ -90,10 +90,9 @@ function getLodop(oOBJECT,oEMBED){
 		  			    	  text:'关闭',
 		  			    	  iconCls:'icon-cancel',
 		  			    	  handler:function(){
-		  			    		  //alert("---->");
-		  			    		  //$(this).dialog('close');
-		  			    		  $("#ContractPrintDailogTest").dialog('close');
-		  			    	  }
+		  			    		  $(this).dialog('close');
+		  			    		 //$("#contractRecordPrintDailogTest").dialog('close');
+		  			    		}
 		  			      }]
 		  			});
 	             }
