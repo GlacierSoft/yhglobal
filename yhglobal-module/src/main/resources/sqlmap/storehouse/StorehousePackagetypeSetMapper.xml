@@ -10,6 +10,8 @@
     <result column="temp_storehouse_packagetype_set_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_packagetype_set_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_packagetype_set_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<result column="temp_storehouse_packagetype_set_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_packagetype_set_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,6 +80,13 @@
     temp_storehouse_packagetype_set.create_time as temp_storehouse_packagetype_set_create_time, 
     temp_storehouse_packagetype_set.updater as temp_storehouse_packagetype_set_updater, 
     temp_storehouse_packagetype_set.update_time as temp_storehouse_packagetype_set_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_storehouse_packagetype_set_creater_display
+    ,temp_updater.user_cn_name as temp_storehouse_packagetype_set_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_packagetype_set.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_packagetype_set.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehousePackagetypeSetExample" >
     select
@@ -86,6 +95,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_packagetype_set temp_storehouse_packagetype_set
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,6 +110,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_packagetype_set temp_storehouse_packagetype_set
+    <include refid="Base_extend" />
     where temp_storehouse_packagetype_set.packagetype_id = #{packagetypeId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -107,7 +118,7 @@
     where packagetype_id = #{packagetypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehousePackagetypeSetExample" >
-    delete from t_storehouse_packagetype_set temp_storehouse_packagetype_set
+    delete temp_storehouse_packagetype_set from t_storehouse_packagetype_set temp_storehouse_packagetype_set
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -177,6 +188,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehousePackagetypeSetExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_packagetype_set temp_storehouse_packagetype_set
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
