@@ -85,17 +85,9 @@ function getLodop(oOBJECT,oEMBED){
 		  				  width: 540,    
 		  				  height: 180,
 		  				  modal: true,
-		  			      closed: false,
-		  			      buttons:[{
-		  			    	  text:'关闭',
-		  			    	  iconCls:'icon-cancel',
-		  			    	  handler:function(){
-		  			    		  $(this).dialog('close');
-		  			    		 //$("#contractRecordPrintDailogTest").dialog('close');
-		  			    		}
-		  			      }]
+		  			      closed: false
 		  			});
-	             }
+	            }
 	             return LODOP;
 	     } else 
 	     if (LODOP.VERSION<"6.1.9.2") {

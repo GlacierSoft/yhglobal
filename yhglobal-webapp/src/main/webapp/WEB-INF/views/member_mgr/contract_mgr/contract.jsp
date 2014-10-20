@@ -8,6 +8,11 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
 %>
 
+<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
+</object> 
+
+
 <script type="text/javascript">
 	$.util.namespace('glacier.member_mgr.contract_mgr.contract');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
@@ -194,18 +199,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  function print_Preview(str){
 			var row =glacier.member_mgr.contract_mgr.contract.contractDataGrid.datagrid("getSelected");
 			$("#spread_dialog").dialog({
-		 		width: 380,    
+				width: 380,    
 				height: 160,
 		 		href: ctx+"/do/contract/print.htm?contractRecordId="+row.contractRecordId+"&str="+str, 
 		 		closed: false
 		 	});
 		};
-	  
 </script>
 
-
 <!--自定义对话款  -->
-<div id="investDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest" closed="true" style="position:relative; z-index:9999;">
+<div id="investDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest" closed="true" style="position:relative; z-index:9999; ">
        <div style="width:320px;height: 60px;border:0px solid red;margin: 0px auto;margin-top: 10px;">
 		  <div style="float: left;">
 		     <img alt="" src="<%=basePath %>resources/images/warning.png" style="width:50px;height: 50px; "> 
@@ -231,6 +234,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!--自定义对话框(媒介)-->
 <div id="spread_dialog" class="easyui-dialog" closed="true" style="position:relative; z-index:-1;"></div>  
+
+
+<!--自定义对话款  -->
+<div id="contractRecordPrintDailogTest" class="easyui-dialog"  closed="true" buttons="#dlg-buttons-invest-record">
+       <div style="width:480px;height: 70px;border:0px solid red;margin: 0px auto;margin-top: 20px;">
+		  <div style="float: left; width: 80px;height:80px;border: 0px solid red;">
+		     <img alt="" src="<%=basePath %>resources/images/warning.png" style="width:70px;height: 70px;"> 
+		  </div>
+		  <div style="float: left;text-align: left;width:390px;height: 70px ;border:0px solid red;margin-top: 5px;margin-left: 5px;">
+		  	  <span style="color: #FF01FF;">打印操作无法响应:</span><br/>
+		  	 <span style="color: #FF01FF;">(未安装打印插件,打印插件未更新)</span><br/>
+		  	 <span style="color: #FF01FF;">1.电脑操作系统为32位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop32.exe" class="print_text">【下载或者升级】</a>32位定制的打印插件。</span><br/>
+		  	 <span style="color: #FF01FF;">2.电脑操作系统为64位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop64.exe" class="print_text">【下载或者升级】</a>64位定制的打印插件。</span><br/>
+		   </div>
+		 </div>
+</div>
+
+<!--自定义按钮  -->
+<div id="dlg-buttons-invest-record">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#contractRecordPrintDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">

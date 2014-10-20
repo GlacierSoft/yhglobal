@@ -7,10 +7,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
 %>
 
-<script language="javascript" src="<%=basePath %>resources/js/lodop/LodopFuncs.js"></script>
-<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
-	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
-</object> 
+<style>
+.print_text:link {
+   color: #561B8B;
+  
+}
+</style>
 
 <p><textarea rows="15" id="doc1" cols="102">
 	   
@@ -65,26 +67,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		法定代表人（签名）：____                法定代表人（签名）：____
 		或指定授权人：____                         或指定授权人：____
 		帐户：____                                   开户行：____
-		帐  号：____      全  称： ____    </td></tr>
+		帐  号：____      全  称： ____
 		
 		本合同于____年____月____日签订于____
      
 </textarea></p>
-
-<!--自定义对话款  -->
-<div id="contractRecordPrintDailogTest">
-       <div style="width:480px;height: 70px;border:0px solid red;margin: 0px auto;margin-top: 20px;">
-		  <div style="float: left; width: 80px;height:80px;border: 0px solid red;">
-		     <img alt="" src="<%=basePath %>resources/images/warning.png" style="width:70px;height: 70px;"> 
-		  </div>
-		  <div style="float: left;text-align: left;width:390px;height: 70px ;border:0px solid red;margin-top: 5px;margin-left: 5px;">
-		  	  <span style="color: #FF01FF;">打印操作无法响应:</span><br/>
-		  	 <span style="color: #FF01FF;">(未安装打印插件,打印插件未更新)</span><br/>
-		  	 <span style="color: #FF01FF;">1.电脑操作系统为32位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop32.exe" class="print_text">【下载或者升级】</a>32位定制的打印插件。</span><br/>
-		  	 <span style="color: #FF01FF;">2.电脑操作系统为64位,请点击<a href="<%=basePath %>resources/js/lodop/install_lodop64.exe" class="print_text">【下载或者升级】</a>64位定制的打印插件。</span><br/>
-		   </div>
-		 </div>
-</div>
 
 <script>
    var LODOP; //声明为全局变量  
@@ -94,13 +81,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     CheckIsInstall();
 	});
  
-   
    function CheckIsInstall() {
 	   try{ 
 		    var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM')); 
 			if ((LODOP!=null)&&(typeof(LODOP.VERSION)!="undefined")){
-				doPrint('${str}');
-			 }  
+				 doPrint('${str}'); 
+			} 
 		 }catch(err){ 
 			 alert("Error:本机未安装或需要升级!"); 
 		 } 
@@ -109,22 +95,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   
 	function  doPrint(str){
 	   if('${str}'=="preview_print"){
-		    CreateOneFormPage();
+		    CreateOneFormPage();	
 		    LODOP.SET_PREVIEW_WINDOW(0,0,0,760,540,"");
 		  	LODOP.PREVIEW(); 
 		}else if('${str}'=="direct_print"){
-		  	CreateOneFormPage();
+			CreateOneFormPage();
 			LODOP.PRINT();
 		}else if('${str}'=="design_print"){
-		  	CreateTwoFormPage();
-		  	LODOP.PRINT_DESIGN();
+			CreateOneFormPage();
+			LODOP.PRINT_DESIGN();
 		}else if('${str}'=="choose_print"){
-		  	CreateOneFormPage();
+			CreateOneFormPage();
 		  	LODOP.PRINTA(); 
 		}
 	};	
 	
-   function CreateOneFormPage(){
+  function CreateOneFormPage(){
 	    LODOP=getLodop();  
 		LODOP.PRINT_INITA(10,10,754,453,"珠海冰川科技有限公司");
 		LODOP.ADD_PRINT_TEXT(21,300,300,30,"越海物流平台承运商专属合同\n");
@@ -150,6 +136,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		LODOP.SET_PRINT_STYLEA(0,"ItemType",2);
 		LODOP.SET_PRINT_STYLEA(0,"Horient",1);
 		LODOP.SET_PRINT_STYLEA(0,"Vorient",1);
+
   }; 
 		
 </script>
+
+
+	
+
