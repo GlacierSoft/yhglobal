@@ -6,12 +6,12 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable" width="800">
 		<tr>
-			<td>仓库类型名称：</td>
+			<td>包装类型名称：</td>
 			<td>
 				<input type="hidden" id="memberGrade_mgr_memberGrade_form_packagetypeId" name="packagetypeId" value="${packagetypeDate.packagetypeId}" />
 				<input id="memberGrade_mgr_memberGrade_form_packagetypeName" style="width:268px;height: 20px;" name="packagetypeName" value="${packagetypeDate.packagetypeName}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
 			</td>
-			<td>仓库类型状态：</td>
+			<td>包装类型状态：</td>
 			<td>
 			<input id="memberGrade_mgr_memberGrade_form_status" name="status"  style="width:268px;" readonly="readonly" value="${packagetypeDate.status}" class="spinner"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
