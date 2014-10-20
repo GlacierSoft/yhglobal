@@ -79,8 +79,30 @@ public class CarrierRoute {
     //审核人
     private String auditDisplay; 
     
+    //发车时间，临时字段 
+    private String  outTime;
+    
+    //截止收货时间，临时字段
+    private String intTime;
 
-    public String getCarrierDisplay() {
+    
+    public String getOutTime() {
+		return outTime;
+	}
+
+	public void setOutTime(String outTime) {
+		this.outTime = outTime;
+	}
+
+	public String getIntTime() {
+		return intTime;
+	}
+
+	public void setIntTime(String intTime) {
+		this.intTime = intTime;
+	}
+
+	public String getCarrierDisplay() {
 		return carrierDisplay;
 	}
 

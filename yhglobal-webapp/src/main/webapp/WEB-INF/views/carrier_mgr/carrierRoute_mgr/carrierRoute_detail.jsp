@@ -26,7 +26,7 @@
 				<input class="spinner" style="height:18px;width:180px" value="${carrierRouteData.routeNumber}"  readonly="readonly"/>
 			</td> 
 		 	     <td colspan="3" style="padding-left:10px;">查看
-		 	     <a href="#" style="color:blue; text-decoration:none;" onmouseover="showdiv(this)" onmouseout="hidediv()">[货物发/收区域]</a>
+		 	     <a href="#" style="color:blue; text-decoration:none;" onmouseover="showdiv(this)" onmouseout="hidediv()">[货物发/收区域]</a></td>
 		 </tr>
 		 <tr>
 		    <td>班线名称：</td>

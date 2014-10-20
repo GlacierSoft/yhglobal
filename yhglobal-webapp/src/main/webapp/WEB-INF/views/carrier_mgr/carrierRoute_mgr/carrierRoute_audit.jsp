@@ -110,7 +110,7 @@
 			<td >保险费：</td>
 			<td><input class="spinner" style="width:180px" value="<fmt:formatNumber value="${carrierRouteData.premium}" pattern="#,#00.00"/>元" readonly="readonly"/></td>
 		    	<td style="padding-left:10px;">审核状态：</td>
-		 	<td><input id="auditState" class="spinner" style="width:180px"  value="${carrierRouteData.auditState}" readonly="readonly"/></td>
+		 	<td><input id="auditState" name="auditState"  class="spinner" style="width:180px"  value="${carrierRouteData.auditState}" readonly="readonly"/></td>
 	    </tr>
 		<tr>
 		   <td>审核人：</td>
@@ -189,7 +189,7 @@
 		<tr>
 			<td>审核说明：</td>
 			<td colspan="3">
-				<textarea name="auditOpinion" class="spinner" style="height:50px;width:445px">${carrierRouteData.auditOpinion}</textarea>
+				<textarea name="auditOpinion" class="spinner" style="height:50px;width:505px">${carrierRouteData.auditOpinion}</textarea>
 			</td>
 		</tr>
 	</table> 

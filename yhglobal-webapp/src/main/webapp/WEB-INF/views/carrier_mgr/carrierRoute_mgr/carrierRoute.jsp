@@ -12,7 +12,8 @@
 		toolbarId : 'routeDataGrid_toolbar',
 		actions : {
              status:{flag:'status',controlType:'single'},
-             audit:{flag:'audit',controlType:'single'}
+             audit:{flag:'audit',controlType:'single'},
+             edit:{flag:'edit',controlType:'single'}
           }
      };
 
@@ -262,10 +263,30 @@
 			});  
 	};
 	  
+	
+	//点击编辑按钮触发方法
+     glacier.carrier_mgr.carrierRoute_mgr.route.editRoute = function(){
+		var row =glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '【'+row.routeName+'】-班线编辑',
+			width : 610,
+			height : 480,
+			queryUrl : ctx + '/do/carrierRoute/intoForm.htm',
+			submitUrl : ctx + '/do/carrierRoute/edit.json',
+			queryParams : {
+				routerId : row.routerId
+			},
+			successFun : function (){
+				glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
+	
 	//点击启用禁用按钮触发方法
-	glacier.carrier_mgr.carrierRoute_mgr.route.editRoute = function(){
-    var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
-     $.messager.confirm('请确认', '是否要启用/禁用该班线?', function(r){
+	glacier.carrier_mgr.carrierRoute_mgr.route.editRouteStatus = function(){
+      var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
+      $.messager.confirm('请确认', '是否要启用/禁用该班线?', function(r){
 		if (r){ 
 		    $.ajax({
 				   type: "POST",
