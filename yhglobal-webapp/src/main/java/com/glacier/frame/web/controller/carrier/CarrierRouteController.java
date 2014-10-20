@@ -27,10 +27,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.core.controller.AbstractController; 
-import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO; 
 import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.jqueryui.util.JqPager;
@@ -61,8 +60,7 @@ public class CarrierRouteController extends AbstractController {
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO,String q) {
-       System.out.println(">>>>>>>>>>>>>"+q);
-    	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO, q);
+     	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO, q);
     }
        
     // 进入班线Detail信息页面
@@ -88,11 +86,9 @@ public class CarrierRouteController extends AbstractController {
         ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_audit");
         if(StringUtils.isNotBlank(routerId)){
         	 CarrierRoute carrierRoute=carrierRouterService.getRoute(routerId);
-        	 System.out.println("<<<<<<<<<<<<<<<<<<<<"+carrierRoute.getAuditOpinion());
-        	 mav.addObject("carrierRouteData", carrierRoute);   
+         	 mav.addObject("carrierRouteData", carrierRoute);   
           }
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+routerId);
-        return mav;
+         return mav;
     }
     
     //班线审核
@@ -104,15 +100,32 @@ public class CarrierRouteController extends AbstractController {
         }
         return carrierRouterService.audit(carrierRoute);
     }
-    
-    
-    
+     
     //班线审核
     @RequestMapping(value = "/area.json", method = RequestMethod.POST)
     @ResponseBody
     private Object selectArea(String routeid) {  
          return carrierRouterService.selectArea(routeid);
       }
+     
+    // 进入班线Form表单页面
+    @RequestMapping(value = "/intoForm.htm")
+    private Object intoGradeFormPnews(String routerId) {
+        ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_form");
+        if(StringUtils.isNotBlank(routerId)){  
+            mav.addObject("carrierRouteData", carrierRouterService.getRoute(routerId));
+        } 
+        return mav;
+    } 
     
+    //修改班线
+    @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object editGrade(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return carrierRouterService.editRoute(carrierRoute);
+    }
     
 }
