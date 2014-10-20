@@ -1,6 +1,19 @@
 ﻿var CreatedOKLodop7766=null;
 
 function getLodop(oOBJECT,oEMBED){
+	
+	//获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+	var curWwwPath=window.document.location.href;
+	//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+	var pathName=window.document.location.pathname;
+	var pos=curWwwPath.indexOf(pathName);
+	//获取主机地址，如： http://localhost:8083
+	var localhostPaht=curWwwPath.substring(0,pos);
+	//获取带"/"的项目名，如：/uimcardprj
+	var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1)+"/";
+	//项目跟路径
+	var baseName=localhostPaht+projectName;
+	
 /**************************
   本函数根据浏览器类型决定采用哪个页面元素作为Lodop对象：
   IE系列、IE内核系列的浏览器采用oOBJECT，
@@ -8,27 +21,7 @@ function getLodop(oOBJECT,oEMBED){
   如果页面没有相关对象元素，则新建一个或使用上次那个,避免重复生成。
   64位浏览器指向64位的安装程序install_lodop64.exe。
 **************************/
-		//=====全局变量 设定
-		var str_warn_install="0";
-		var str_warn_update="0";
-		var str_warn_firefox="0";
-		var str_warn_chrome="0";
-		var str_warn_total="0";
-		
-		//获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
-    	var curWwwPath=window.document.location.href;
-    	//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
-    	var pathName=window.document.location.pathname;
-    	var pos=curWwwPath.indexOf(pathName);
-    	//获取主机地址，如： http://localhost:8083
-    	var localhostPaht=curWwwPath.substring(0,pos);
-    	//获取带"/"的项目名，如：/uimcardprj
-    	var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1)+"/";
-    	//项目跟路径
-    	var baseName=localhostPaht+projectName;
-		
-	
-	    var strHtmInstall="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='"+baseName+"resources/js/lodop/install_lodop32.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
+        var strHtmInstall="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='"+baseName+"resources/js/lodop/install_lodop32.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
         var strHtmUpdate="<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='"+baseName+"resources/js/lodop/install_lodop32.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>";
         var strHtm64_Install="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='"+baseName+"resources/js/lodop/install_lodop64.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
         var strHtm64_Update="<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='"+baseName+"resources/js/lodop/install_lodop64.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>";
@@ -62,47 +55,40 @@ function getLodop(oOBJECT,oEMBED){
 	     if ((LODOP==null)||(typeof(LODOP.VERSION)=="undefined")) {
 	             if (navigator.userAgent.indexOf('Chrome')>=0)
 	                 //document.documentElement.innerHTML=strHtmChrome+document.documentElement.innerHTML;
-	            	 str_warn_chrome=strHtmChrome;
+	            	 $.messager.alert("操作提示",strHtmChrome,"warning");
 	             if (navigator.userAgent.indexOf('Firefox')>=0)
 	                 //document.documentElement.innerHTML=strHtmFireFox+document.documentElement.innerHTML;
-	            	 str_warn_firefox=strHtmFireFox;
+	            	 $.messager.alert("操作提示",strHtmFireFox,"warning");
 	             if (is64IE) 
-	            	 //document.write(strHtm64_Install); 
+	            	 //document.write(strHtm64_Install);
 	            	 $.messager.alert("操作提示",strHtm64_Install,"warning");
-	             else if (isIE)   
-	            	// document.write(strHtmInstall);  
-	            	 $.messager.alert("操作提示",strHtm64_Install,"warning");
+	             else if (isIE)  
+	            	 //document.write(strHtmInstall);
+	            	 $.messager.alert("操作提示",strHtmInstall,"warning");
 	             else{
-	                // document.documentElement.innerHTML=strHtmInstall+document.documentElement.innerHTML;
-	            	 if(str_warn_chrome.trim()!="0")
-	            			str_warn_total=str_warn_chrome;
-	            	 if(str_warn_firefox.trim()!="0")
-	            			str_warn_total=str_warn_firefox;
-	            	$('#investDailogTest').dialog('close');
-	            	//$.messager.alert("操作提示",strHtmInstall+str_warn_total,"warning");
-	            	$("#contractRecordPrintDailogTest").dialog({
+	                 //document.documentElement.innerHTML=strHtmInstall+document.documentElement.innerHTML;
+	            	 $('#investDailogTest').dialog('close');
+	            	 $("#contractRecordPrintDailogTest").dialog({
 		  				  title:"安全提示",
 		  				  width: 540,    
 		  				  height: 180,
 		  				  modal: true,
 		  			      closed: false
 		  			});
-	            }
+	             }
 	             return LODOP;
 	     } else 
 	     if (LODOP.VERSION<"6.1.9.2") {
 	             if (is64IE) 
-	            	 //document.write(strHtm64_Update);
+	            	 //document.write(strHtm64_Update); 
 	            	 $.messager.alert("操作提示",strHtm64_Update,"warning");
-	             else if(isIE)
+	             else if (isIE) 
 	            	 //document.write(strHtmUpdate);
 	            	 $.messager.alert("操作提示",strHtm64_Update,"warning");
 	             else
-	                //document.documentElement.innerHTML=strHtmUpdate+document.documentElement.innerHTML;
+	               //document.documentElement.innerHTML=strHtmUpdate+document.documentElement.innerHTML;
 	            	$.messager.alert("操作提示",strHtm64_Update,"warning");
-	            	return LODOP;
-	     }else{
-	    	 
+	    	     return LODOP;
 	     };
 	     //=====如下空白位置适合调用统一功能(如注册码、语言选择等):====	     
 
