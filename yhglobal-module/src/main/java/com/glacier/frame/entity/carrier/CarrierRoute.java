@@ -3,11 +3,13 @@ package com.glacier.frame.entity.carrier;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class CarrierRoute {
     private String routerId;
-
+     
     private String routeName;
 
     private String status;
@@ -17,7 +19,7 @@ public class CarrierRoute {
     private String routeStop;
 
     private String routeType;
-
+  
     private Integer routeBytime;
 
     private String routeNumber;
@@ -41,7 +43,8 @@ public class CarrierRoute {
     private String extractGoodsTime;
 
     private BigDecimal premium;
-
+   
+    @Pattern(regexp = "(^(\\d{3,4}-)?\\d{7,8})$|(13[0-9]{9})", message = "{Route.telephone.illegal}")
     private String telephone;
 
     private String mileage;
@@ -80,9 +83,11 @@ public class CarrierRoute {
     private String auditDisplay; 
     
     //发车时间，临时字段 
+    @Pattern(regexp = "^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$", message = "{Route.outTime.illegal}")
     private String  outTime;
     
     //截止收货时间，临时字段
+    @Pattern(regexp = "^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$", message = "{Route.intTime.illegal}")
     private String intTime;
 
     

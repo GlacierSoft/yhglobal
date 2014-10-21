@@ -34,7 +34,8 @@
 		 </tr>
 		 <tr>
 		    <td>班线名称：</td>
-			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:180px"  name="routeName" value="${carrierRouteData.routeName}"/></td>
+			<td><input class="easyui-validatebox spinner" required="true" 
+			style="height:18px;width:180px"  name="routeName" value="${carrierRouteData.routeName}"/></td>
 		    <td  style="padding-left:10px;">承运商：</td>
 			<td>
 				<input id="carrier_mgr_carInformation_form_carrierMemberId" required="true" class="easyui-validatebox spinner" style="height:18px;width:180px" name="carrierDisplay" value="${carrierRouteData.carrierDisplay}"/>
@@ -51,56 +52,78 @@
 	    </tr>
 		<tr>
 			<td>班线起点：</td>
-			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="routeOrigin"  value="${carrierRouteData.routeOrigin}"/></td>
+			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeOrigin"  value="${carrierRouteData.routeOrigin}"/></td>
 		    <td style="padding-left:10px;"> 联系电话：</td>
 			<td>
-				<input class="  easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="telephone"  value="${carrierRouteData.telephone}"/>
+				<input class="easyui-validatebox spinner" maxlength="11" required="true" style="height:18px;width:180px" name="telephone"  value="${carrierRouteData.telephone}"  
+			  	validType="customReg['(^(\d{3,4}-)?\d{7,8})$|(13[0-9]{9})','<fmt:message key="Route.telephone.illegal"/>']"
+			  />
 			</td>
 		</tr> 
 		<tr>
 		    <td >班线终点：</td>
-			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
+			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
 		
 			<td style="padding-left:10px;">发车时间：</td>
 			<td> 
-				<input class="easyui-validatebox spinner" required="true" style="height:18px;width:100px" name="outTime" value="<fmt:formatDate value="${carrierRouteData.startofTime}" pattern="HH:mm"/>"  onchange="javascript:if(!/^(20|21|22|23|[0-1]?\d):[0-5]?\d$/.test(this.value)){alert('时间格式不正确!');};"/>格式:hh:mm
+				<input class="easyui-validatebox spinner" required="true"
+				 style="height:18px;width:100px" name="outTime" value="<fmt:formatDate value="${carrierRouteData.startofTime}" pattern="HH:mm"/>" 
+				validType="customReg['^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$','<fmt:message key="Route.outTime.illegal"/>']"
+			 />格式:hh:mm
 			</td>
 			
 	    </tr>
 	   	<tr>
 	   	   <td>在途时间：</td>
 			<td>
-				<input class="easyui-validatebox spinner"  required="true" style="height:18px;width:155px" name="routeBytime"  value="${carrierRouteData.routeBytime}"/>小时
+				<input class="easyui-validatebox spinner"  required="true"  maxlength="3"
+				style="height:18px;width:155px" name="routeBytime" 
+				 value="${carrierRouteData.routeBytime}"
+				  	validType="customReg['^[0-9]+$','<fmt:message key="Route.routeBytime.illegal"/>']"
+			 
+				 />小时
 			</td>
 	   		<td style="padding-left:10px;">截止收货时间：</td>
 			<td>
-			   <input class="easyui-validatebox spinner" required="true" style="height:18px;width:100px"    value="<fmt:formatDate value="${carrierRouteData.ceaseTakeDeliveryTime}" pattern="HH:mm"/>" name="intTime" onchange="javascript:if(!/^(20|21|22|23|[0-1]?\d):[0-5]?\d$/.test(this.value)){alert('时间格式不正确!');};"/>格式:hh:mm
+			   <input class="easyui-validatebox spinner" required="true" style="height:18px;width:100px"    value="<fmt:formatDate value="${carrierRouteData.ceaseTakeDeliveryTime}" pattern="HH:mm"/>" name="intTime" 
+             validType="customReg['^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$','<fmt:message key="Route.intTime.illegal"/>']"/>格式:hh:mm
 			</td> 
 			
 	</tr>	
 		<tr>
 			<td>起步价：</td>
 			<td>
-				<input class=" easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="startingPrice" value="<fmt:formatNumber value="${carrierRouteData.startingPrice}" pattern="#,#00.00"/>" />
+			
+				<input class=" easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="startingPrice" 
+				value="<fmt:formatNumber value="${carrierRouteData.startingPrice}" pattern="#,#00.00"/>"
+				validType="customReg['^[0-9]+(\.[0-9]{2})?$','<fmt:message key="Route.startingPrice.illegal"/>']"
+				 />
 			</td>
 			<td style="padding-left:10px;">重货价：</td>
-			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:140px" name="weightGoodsPrice" value="<fmt:formatNumber value="${carrierRouteData.weightGoodsPrice}" pattern="#,#00.00"/>" />元/公斤</td>
+			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:140px" name="weightGoodsPrice" 
+			value="<fmt:formatNumber value="${carrierRouteData.weightGoodsPrice}" pattern="#,#00.00"/>" 
+			validType="customReg['^[0-9]+(\.[0-9]{2})?$','<fmt:message key="Route.weightGoodsPrice.illegal"/>']"
+			/>元/公斤</td>
 		</tr>
 		<tr> 
 			<td>车辆箱型：</td>
 			<td><input id="boxType"  name="boxType" required="true" style="height:18px;width:180px"  value="${carrierRouteData.boxType}" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.boxType" /></td>
 	        <td style="padding-left:10px;">轻货价：</td>
 			<td>
-				<input class="easyui-validatebox spinner" required="true" style="height:18px;width:140px" name="lightGoodsPrice"  value="<fmt:formatNumber value="${carrierRouteData.lightGoodsPrice}" pattern="#,#00.00"/>"/>元/立方
+				<input class="easyui-validatebox spinner" required="true" style="height:18px;width:140px" name="lightGoodsPrice"  
+				value="<fmt:formatNumber value="${carrierRouteData.lightGoodsPrice}" pattern="#,#00.00"/>"
+				validType="customReg['^[0-9]+(\.[0-9]{2})?$','<fmt:message key="Route.lightGoodsPrice.illegal"/>']"
+				/>元/立方
 			</td>
 	   </tr>
 		<tr>
 			<td >班线里程：</td>
 			<td><input class="easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="mileage" value="${carrierRouteData.mileage}"  /></td>
 		   <td style="padding-left:10px;">保险费：</td>
-			<td><input class="  easyui-validatebox spinner" required="true" style="height:18px;width:165px" name="premium" value="<fmt:formatNumber value="${carrierRouteData.premium}" pattern="#,#00.00"/>" />元</td>
-		   
-		
+			<td><input class="  easyui-validatebox spinner" required="true" style="height:18px;width:165px" 
+			name="premium" value="<fmt:formatNumber value="${carrierRouteData.premium}" pattern="#,#00.00"/>"
+			validType="customReg['^[0-9]+(\.[0-9]{2})?$','<fmt:message key="Route.premium.illegal"/>']"
+			 />元</td> 
 		</tr>
 		<tr>	
 		    <td >预计提货时间：</td>
@@ -109,15 +132,16 @@
 			</td>
 			  <td style="padding-left:10px;">可定仓位(余)：</td>
 			<td>
-				<input class="easyui-validatebox spinner" required="true" style="height:18px;width:165px" name="availablePosition" value="${carrierRouteData.availablePosition}"/>%
+				<input class="easyui-validatebox spinner" required="true" style="height:18px;width:165px" name="availablePosition" 
+				value="${carrierRouteData.availablePosition}"  validType="customReg['^[0-9]+(\.[0-9]{1})?$','<fmt:message key="Route.availablePosition.illegal"/>']"
+				/>%
 			</td>
 	  </tr>  
 		<tr>   
 		     <td>备注：</td>
 			 <td colspan="3"><textarea name="remark"  class=" easyui-validatebox spinner"  style="width:470px;height: 80px" >${carrierRouteData.remark}</textarea></td>
 		</tr> 
-	</table>  
-	 <input  name="auditState" value="${carrierRouteData.auditState}" type="hidden">
+	</table>   
  <input id="routeid" value="${carrierRouteData.routerId }" type="hidden">
  <div id="Prew" class="ark-poptip" style="top: 70px;margin-left: 320px;width: 234px;visibility:hidden;"  >
 	<div class="ark-poptip-shadow">
