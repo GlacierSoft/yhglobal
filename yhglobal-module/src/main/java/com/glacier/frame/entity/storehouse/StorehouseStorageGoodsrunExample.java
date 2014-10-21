@@ -104,6 +104,14 @@ public class StorehouseStorageGoodsrunExample {
             return criteria;
         }
 
+        
+        public Criteria andBelaidupDisplay(String value) {
+        	addCriterion("temp_storehouse_belaidup.belaidup_prod_name like",value,"belaidupDisplay");
+            return (Criteria) this;
+        }
+        
+        
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
