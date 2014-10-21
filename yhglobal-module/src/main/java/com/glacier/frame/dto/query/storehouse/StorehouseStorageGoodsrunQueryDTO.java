@@ -19,13 +19,11 @@ public class StorehouseStorageGoodsrunQueryDTO  extends StorehouseStorageGoodsru
 	}
 
 
-	  
-
 	public void setGoodsRunStartTime(Date goodsRunStartTime) {
 		this.goodsRunStartTime = goodsRunStartTime;
 	}
 
-
+   
 
 	public Date getGoodsRunEndTime() {
 		return goodsRunEndTime;
@@ -41,6 +39,10 @@ public class StorehouseStorageGoodsrunQueryDTO  extends StorehouseStorageGoodsru
 
 	public void setQueryCondition(Criteria queryCriteria, String q){
 		
+		
+		if(null!=this.getBelaidupDisplay()){
+			queryCriteria.andBelaidupDisplay("%"+this.getBelaidupDisplay()+"%");
+		}
 		
 		if(null != this.getStatus()){//状态Enum查询
 			queryCriteria.andStatusEqualTo(this.getStatus().toString());
