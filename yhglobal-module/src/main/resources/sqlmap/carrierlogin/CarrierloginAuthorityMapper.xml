@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.carrierlogin.CarrierloginAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrierlogin.CarrierloginAuthority" >
+    <id column="temp_carrierlogin_authority_role_id" property="roleId" jdbcType="VARCHAR" />
+    <id column="temp_carrierlogin_authority_menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="temp_carrierlogin_authority_actions" property="actions" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_carrierlogin_authority.role_id as temp_carrierlogin_authority_role_id, temp_carrierlogin_authority.menu_id as temp_carrierlogin_authority_menu_id, 
+    temp_carrierlogin_authority.actions as temp_carrierlogin_authority_actions
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthorityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_carrierlogin_authority temp_carrierlogin_authority
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthorityKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_carrierlogin_authority temp_carrierlogin_authority
+    where temp_carrierlogin_authority.role_id = #{roleId,jdbcType=VARCHAR}
+      and temp_carrierlogin_authority.menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthorityKey" >
+    delete from t_carrierlogin_authority
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthorityExample" >
+    delete temp_carrierlogin_authority from t_carrierlogin_authority temp_carrierlogin_authority
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthority" >
+    insert into t_carrierlogin_authority (role_id, menu_id, actions
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{actions,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthority" >
+    insert into t_carrierlogin_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="actions != null" >
+        actions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="actions != null" >
+        #{actions,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthorityExample" resultType="java.lang.Integer" >
+    select count(*) from t_carrierlogin_authority temp_carrierlogin_authority
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_carrierlogin_authority temp_carrierlogin_authority
+    <set >
+      <if test="record.roleId != null" >
+        temp_carrierlogin_authority.role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuId != null" >
+        temp_carrierlogin_authority.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actions != null" >
+        temp_carrierlogin_authority.actions = #{record.actions,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_carrierlogin_authority temp_carrierlogin_authority
+    set temp_carrierlogin_authority.role_id = #{record.roleId,jdbcType=VARCHAR},
+      temp_carrierlogin_authority.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      temp_carrierlogin_authority.actions = #{record.actions,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthority" >
+    update t_carrierlogin_authority
+    <set >
+      <if test="actions != null" >
+        actions = #{actions,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrierlogin.CarrierloginAuthority" >
+    update t_carrierlogin_authority
+    set actions = #{actions,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByCarrierloginUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+	  	SELECT <include refid="Base_Column_List" /> FROM t_carrierlogin_authority temp_carrierlogin_authority
+		INNER JOIN t_carrierlogin_menu temp_carrierlogin_menu ON temp_carrierlogin_authority.menu_id = temp_carrierlogin_menu.menu_id 
+		WHERE temp_carrierlogin_authority.role_id IN
+		(
+			SELECT temp_carrierlogin_role.role_id FROM t_carrierlogin_role temp_carrierlogin_role
+			INNER JOIN t_carrierlogin_user_role temp_carrierlogin_user_role ON temp_carrierlogin_role.role_id = temp_carrierlogin_user_role.role_id
+			WHERE temp_carrierlogin_user_role.user_id = #{userId}
+		)
+  </select>
+</mapper>

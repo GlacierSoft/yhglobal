@@ -11,6 +11,7 @@
 	glacier.carrier_mgr.carrierMember_mgr.member.param = {
 		toolbarId : 'memberDataGrid_toolbar',
 		actions : {
+			 assign:{flag:'assign',controlType:'single'},
              status:{flag:'status',controlType:'single'},
              audit:{flag:'audit',controlType:'single'},
              auth:{flag:'auth',controlType:'single'}
@@ -297,6 +298,85 @@
 		//required:true,
 		data : fields.memberType
 	});
+	
+	//显示为用户分配角色窗口
+	glacier.carrier_mgr.carrierMember_mgr.member.roleAssign = function(){
+		var carrierMemberId = glacier.carrier_mgr.carrierMember_mgr.member.memberDataGrid.datagrid("getSelected").carrierMemberId;
+		glacier.carrier_mgr.carrierMember_mgr.member.memberRoleTreeGrid = $('#memberRoleTreeGrid').treegrid({
+			url:ctx +'/do/auth/getRolesAndRational.json',//请求的URL
+			idField : 'roleId',//定义了关键字段来标识一个树节点
+			singleSelect:false,//限制单选
+			checkOnSelect:true,
+			selectOnCheck:false,
+			queryParams:{carrierMemberId:carrierMemberId},//当请求远程数据时，发送的额外参数
+			fit : true,//控件自动resize占满窗口大小
+			fitColumns : true,//自动填充行
+			border : false,//是否存在边框
+			columns:[[
+				{
+					field:'roleId',
+					title:'ID',
+					checkbox:true
+				},{
+					field:'roleCnName',
+					title:'角色名',
+					width:120
+				},{
+					field:'roleEnName',
+					title:'角色英文名',
+					width:120
+				},{
+					field:'remark',
+					title:'备注',
+					width:200
+				}
+			]] 
+		});
+		//显示分配角色窗口
+		var memberName = glacier.carrier_mgr.carrierMember_mgr.member.memberDataGrid.datagrid("getSelected").memberName;
+		glacier.carrier_mgr.carrierMember_mgr.member.memberRoleWin = $('#memberRoleWin').dialog({ 
+			title:'为【'+memberName+'】用户分配角色',
+		    width:650,  
+		    height:200,
+		    resizable:true,
+		    modal:true,
+		    minimizable:false,
+		    maximizable:true,
+		    buttons:[{
+				text:'保存',
+				iconCls:"icon-save",
+				handler:function(){
+					glacier.carrier_mgr.carrierMember_mgr.member.saveRolesAndRational(carrierMemberId);
+				}
+			},{
+				text:'关闭',
+				iconCls:"icon-undo",
+				handler:function(){
+					glacier.carrier_mgr.carrierMember_mgr.member.memberRoleWin.dialog('close');
+				}
+			}]
+		});
+	};
+	
+	//保存用户和角色关系
+	glacier.carrier_mgr.carrierMember_mgr.member.saveRolesAndRational = function(carrierMemberId){
+		var roleIds = [];
+		var roleInputs = glacier.carrier_mgr.carrierMember_mgr.member.memberRoleWin.find("input[name='roleId']:checked");
+		for(var i=0;i<roleInputs.length;i++){
+			roleIds.push(roleInputs[i].value);
+		}
+		//发送远程请求保存当前权限设置
+		$.ajax({
+			   type: "POST",
+			   url: ctx + "/do/auth/saveRolesAndRational.json",
+			   data: {carrierMemberId:carrierMemberId,roleIds:roleIds.join(',')},
+			   dataType:'json',
+			   success: function(r){
+				   	glacier.show({msg:r.msg,result:r.success});
+				   	glacier.carrier_mgr.carrierMember_mgr.member.memberRoleWin.dialog('close');
+			   }
+		});
+	};
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -337,4 +417,9 @@
 			</table>
 		</form>
 	</div>
+</div>
+
+<!-- 自定义分配角色窗口 -->
+<div id="memberRoleWin">
+	<table id="memberRoleTreeGrid"></table>
 </div>

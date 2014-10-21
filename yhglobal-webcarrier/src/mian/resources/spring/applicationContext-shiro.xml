@@ -7,11 +7,11 @@
 	default-lazy-init="true">
 
 	<!-- 自定义的realm，自定义登录验证和认证方法 -->
-	<bean id="customPermissionsRealm" class="com.glacier.frame.compent.realm.CustomPermissionsRealm" />
+	<bean id="CarrierPermissionsRealm" class="com.glacier.frame.compent.realm.CarrierPermissionsRealm" />
 
 	<!-- shiro的安全管理，整合了事务 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="customPermissionsRealm" />
+		<property name="realm" ref="CarrierPermissionsRealm" />
 		<property name="cacheManager" ref="shiroEhcacheManager" />
 	</bean>
 

@@ -1,7 +1,9 @@
 package com.glacier.frame.web.controller.system;
 
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.glacier.core.controller.AbstractController;
+import com.glacier.frame.dto.query.carrierlogin.CarrierloginRoleQueryDTO;
+import com.glacier.frame.entity.carrierlogin.CarrierloginRole;
+import com.glacier.frame.service.carrierlogin.CarrierloginRoleService;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.frame.dto.query.system.RoleQueryDTO;
-import com.glacier.frame.entity.system.Role;
-import com.glacier.frame.service.system.MenuService;
-import com.glacier.frame.service.system.RoleService;
 
 /***
  * @ClassName:  RoleController
@@ -30,11 +32,8 @@ import com.glacier.frame.service.system.RoleService;
 public class RoleController extends AbstractController{
 
     @Autowired
-    private RoleService roleService;// 注入角色业务Bean
+    private CarrierloginRoleService carrierloginRoleService;// 注入角色业务Bean
     
-    @Autowired
-    private MenuService menuService;// 注入菜单业务Bean
-
     // 进入角色列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPage() {
@@ -47,7 +46,7 @@ public class RoleController extends AbstractController{
     private Object intoRoleFormPage(String roleId) {
         ModelAndView mav = new ModelAndView("system_mgr/role_mgr/role_form");
         if(StringUtils.isNotBlank(roleId)){
-            mav.addObject("roleData", roleService.getRole(roleId));
+            mav.addObject("roleData", carrierloginRoleService.getRole(roleId));
         }
         return mav;
     }
@@ -57,7 +56,7 @@ public class RoleController extends AbstractController{
     private Object intoRoleDetailPage(String roleId) {
         ModelAndView mav = new ModelAndView("system_mgr/role_mgr/role_detail");
         if(StringUtils.isNotBlank(roleId)){
-            mav.addObject("roleData", roleService.getRole(roleId));
+            mav.addObject("roleData", carrierloginRoleService.getRole(roleId));
         }
         return mav;
     }
@@ -65,34 +64,34 @@ public class RoleController extends AbstractController{
     // 检索表格结构的角色数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listRoleAsGridByMenuId(RoleQueryDTO roleQueryDTO, JqPager pager) {
-        return roleService.listAsGrid(roleQueryDTO,pager);
+    private Object listRoleAsGridByMenuId(CarrierloginRoleQueryDTO carrierloginRoleQueryDTO, JqPager pager) {
+        return carrierloginRoleService.listAsGrid(carrierloginRoleQueryDTO,pager);
     }
     
     // 增加角色
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addRole(@Valid Role role, BindingResult bindingResult) throws Exception {
+    private Object addRole(@Valid CarrierloginRole carrierloginRole, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return roleService.addRole(role);
+        return carrierloginRoleService.addRole(carrierloginRole);
     }
     
     // 修改角色
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editRole(@Valid Role role, BindingResult bindingResult) {
+    private Object editRole(@Valid CarrierloginRole carrierloginRole, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return roleService.editRole(role);
+        return carrierloginRoleService.editRole(carrierloginRole);
     }
     
     //批量删除角色
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delRoles(@RequestParam List<String> roleIds,@RequestParam List<String> roleCnNames) {
-        return roleService.delRoles(roleIds, roleCnNames);
+        return carrierloginRoleService.delRoles(roleIds, roleCnNames);
     }
 }

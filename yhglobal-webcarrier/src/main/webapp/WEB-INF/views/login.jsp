@@ -43,19 +43,19 @@
 					<div class="col-lg-12 visible-lg" style="height:120px;">
 					</div>
 					<div class="page-header">
-						<h1>YHGlobal Management System <br><small>&nbsp;&nbsp;越 海 物 流 管 理 系 统</small></h1>
+						<h1>YHGlobal Carrier Management System <br><small>&nbsp;&nbsp;越 海 物 流承运商 管 理 系 统</small></h1>
 					</div>
 					<div class="row">
 						<div class="col-md-10 col-xs-12">
 							<form id="loginForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/do/login.htm" method="post" onsubmit="return validaForm();">
 								<div id="userrname_form_group" class="form-group">
-									<label for="username" class="control-label col-xs-3 hidden-sm hidden-xs">用户名</label>
+									<label for="memberName" class="control-label col-xs-3 hidden-sm hidden-xs">用户名</label>
 									<div class="col-md-9 col-xs-12">
 										<input type="text" id="username" name="username" class="form-control input-lg"  placeholder="请输入用户名"  />
 									</div>
 								</div>
 								<div id="password_form_group" class="form-group">
-									<label for="password" class="control-label col-xs-3 hidden-sm hidden-xs">密码</label>
+									<label for="memberPassword" class="control-label col-xs-3 hidden-sm hidden-xs">密码</label>
 									<div class="col-md-9 col-xs-12">
 										<input type="password" id="password" name="password" class="form-control input-lg"  placeholder="密码" />
 									</div>

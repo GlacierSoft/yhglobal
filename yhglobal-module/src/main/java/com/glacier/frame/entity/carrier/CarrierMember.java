@@ -401,4 +401,17 @@ public class CarrierMember {
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
+    /*
+     * (non-Javadoc)
+     * 
+     * 
+     * @return
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.getMemberName();
+    }
 }

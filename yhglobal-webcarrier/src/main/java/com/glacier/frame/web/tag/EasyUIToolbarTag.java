@@ -19,8 +19,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.glacier.basic.util.DBHelper;
+import com.glacier.frame.entity.carrierlogin.CarrierloginAction;
 import com.glacier.frame.entity.common.util.CommonStatus;
-import com.glacier.frame.entity.system.Action;
 import com.glacier.frame.entity.system.util.ActionType;
 
 /**
@@ -53,7 +53,7 @@ public class EasyUIToolbarTag extends TagSupport {
         return toolbarId;
     }
 
-    public void setToolbarId(String toolbarId) {
+    public void setToolbarId(String toolbarId) {  
         this.toolbarId = toolbarId;
     }
 
@@ -82,17 +82,17 @@ public class EasyUIToolbarTag extends TagSupport {
 
             StringBuilder sqlStr = new StringBuilder();
             sqlStr.append("select ");
-            sqlStr.append("temp_action.action_id as temp_action_action_id, temp_action.menu_id as temp_action_menu_id, ");
-            sqlStr.append("temp_action.panel_id as temp_action_panel_id, ");
-            sqlStr.append("temp_action.action_cn_name as temp_action_action_cn_name, ");
-            sqlStr.append("temp_action.action_en_name as temp_action_action_en_name, temp_action.icon_cls as temp_action_icon_cls, ");
-    		sqlStr.append("temp_action.type as temp_action_type, temp_action.disabled as temp_action_disabled, ");
-	        sqlStr.append("temp_action.method as temp_action_method, temp_action.order_num as temp_action_order_num, ");
-            sqlStr.append("temp_action.remark as temp_action_remark ");
-            sqlStr.append(",temp_menu.menu_en_name as temp_action_menuEnName ");
-            sqlStr.append(",temp_panel.panel_cn_name as temp_action_panel_cn_name ");
-            sqlStr.append(",temp_panel.panel_en_name as temp_action_panel_en_name ");
-            sqlStr.append("from t_action temp_action INNER JOIN t_menu temp_menu ON temp_action.menu_id = temp_menu.menu_id INNER JOIN t_panel temp_panel ON temp_action.panel_id = temp_panel.panel_id WHERE temp_menu.menu_en_name = ? AND temp_panel.panel_en_name = ? ORDER BY temp_action.order_num ASC");
+            sqlStr.append("temp_carrierlogin_action.action_id as temp_carrierlogin_action_action_id, temp_carrierlogin_action.menu_id as temp_carrierlogin_action_menu_id, ");
+            sqlStr.append("temp_carrierlogin_action.panel_id as temp_carrierlogin_action_panel_id, ");
+            sqlStr.append("temp_carrierlogin_action.action_cn_name as temp_carrierlogin_action_action_cn_name, ");
+            sqlStr.append("temp_carrierlogin_action.action_en_name as temp_carrierlogin_action_action_en_name, temp_carrierlogin_action.icon_cls as temp_carrierlogin_action_icon_cls, ");
+    		sqlStr.append("temp_carrierlogin_action.type as temp_carrierlogin_action_type, temp_carrierlogin_action.disabled as temp_carrierlogin_action_disabled, ");
+	        sqlStr.append("temp_carrierlogin_action.method as temp_carrierlogin_action_method, temp_carrierlogin_action.order_num as temp_carrierlogin_action_order_num, ");
+            sqlStr.append("temp_carrierlogin_action.remark as temp_carrierlogin_action_remark ");
+            sqlStr.append(",temp_carrierlogin_menu.menu_en_name as temp_carrierlogin_action_menuEnName ");
+            sqlStr.append(",temp_carrierlogin_panel.panel_cn_name as temp_carrierlogin_action_panel_cn_name ");
+            sqlStr.append(",temp_carrierlogin_panel.panel_en_name as temp_carrierlogin_action_panel_en_name ");
+            sqlStr.append("from t_carrierlogin_action temp_carrierlogin_action INNER JOIN t_carrierlogin_menu temp_carrierlogin_menu ON temp_carrierlogin_action.menu_id = temp_carrierlogin_menu.menu_id INNER JOIN t_carrierlogin_panel temp_carrierlogin_panel ON temp_carrierlogin_action.panel_id = temp_carrierlogin_panel.panel_id WHERE temp_carrierlogin_menu.menu_en_name = ? AND temp_carrierlogin_panel.panel_en_name = ? ORDER BY temp_carrierlogin_action.order_num ASC");
 
             Object[] obj = new Object[]{menuEnName,panelEnName};
             
@@ -102,22 +102,22 @@ public class EasyUIToolbarTag extends TagSupport {
 
             while (rs.next()) {// 遍历返回数据，进行字符串构造
                 
-                Action actionTemp = new Action();
-                actionTemp.setActionId(rs.getString("temp_action_action_id"));
-                actionTemp.setMenuId(rs.getString("temp_action_menu_id"));
-                actionTemp.setActionCnName(rs.getString("temp_action_action_cn_name"));
-                actionTemp.setActionEnName(rs.getString("temp_action_action_en_name"));
-                actionTemp.setPanelCnName(rs.getString("temp_action_panel_cn_name"));
-                actionTemp.setPanelEnName(rs.getString("temp_action_panel_en_name"));
-                actionTemp.setIconCls(rs.getString("temp_action_icon_cls"));
-                actionTemp.setType(ActionType.valueOf(rs.getString("temp_action_type")));
-                actionTemp.setDisabled(CommonStatus.valueOf(rs.getString("temp_action_disabled")));
-                actionTemp.setMethod(rs.getString("temp_action_method"));
-                actionTemp.setOrderNum(rs.getInt("temp_action_order_num"));
-                actionTemp.setRemark(rs.getString("temp_action_remark"));
-                actionTemp.setMenuEnName(rs.getString("temp_action_menuEnName"));
+                CarrierloginAction actionTemp = new CarrierloginAction();
+                actionTemp.setActionId(rs.getString("temp_carrierlogin_action_action_id"));
+                actionTemp.setMenuId(rs.getString("temp_carrierlogin_action_menu_id"));
+                actionTemp.setActionCnName(rs.getString("temp_carrierlogin_action_action_cn_name"));
+                actionTemp.setActionEnName(rs.getString("temp_carrierlogin_action_action_en_name"));
+                actionTemp.setPanelCnName(rs.getString("temp_carrierlogin_action_panel_cn_name"));
+                actionTemp.setPanelEnName(rs.getString("temp_carrierlogin_action_panel_en_name"));
+                actionTemp.setIconCls(rs.getString("temp_carrierlogin_action_icon_cls"));
+                actionTemp.setType(ActionType.valueOf(rs.getString("temp_carrierlogin_action_type")));
+                actionTemp.setDisabled(CommonStatus.valueOf(rs.getString("temp_carrierlogin_action_disabled")));
+                actionTemp.setMethod(rs.getString("temp_carrierlogin_action_method"));
+                actionTemp.setOrderNum(rs.getInt("temp_carrierlogin_action_order_num"));
+                actionTemp.setRemark(rs.getString("temp_carrierlogin_action_remark"));
+                actionTemp.setMenuEnName(rs.getString("temp_carrierlogin_action_menuEnName"));
                 String permissionStr = actionTemp.getMenuEnName() + ":" + actionTemp.getPanelEnName()+"_"+actionTemp.getActionEnName();
-                if (subject.isPermitted(permissionStr)) {// 权限验证通过
+//                if (subject.isPermitted(permissionStr)) {// 权限验证通过
                     returnStr.append("<a id=\"" + actionTemp.getMenuEnName() + "_btn_" + actionTemp.getPanelEnName() + "_" + actionTemp.getActionEnName() + "\" class=\"easyui-linkbutton\" data-options=\"plain:true");
                     returnStr.append(",disabled:" + actionTemp.getDisabled().getValue());
                     if (!"".equals(actionTemp.getIconCls())) {
@@ -130,9 +130,10 @@ public class EasyUIToolbarTag extends TagSupport {
                     }
 
                     returnStr.append(" >"+actionTemp.getActionCnName()+" </a><div class=\"dialog-tool-separator\"></div>");
-                }
+//                }
             }
             returnStr.append(" </div>");
+            
             this.pageContext.getOut().println(returnStr.toString().toCharArray());// 输出到页面
             DBHelper.free(rs);// 关闭链接
         } catch (Exception e) {

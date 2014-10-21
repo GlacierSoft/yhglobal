@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 					lines : true,
 					onLoadSuccess : function(node) {
-						$('#layout_west_tree').tree('collapseAll');
+// 						$('#layout_west_tree').tree('collapseAll');// 因为菜单不多，所以默认为展开状态
 					},
 					onClick : function(node) {
 						var url = node.attributes.url;
@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div id="sessionInfoDiv" style="position: absolute; right: 0px; top: 0px;width: 350px" class="login_name">
 					<span class="icon-dortmund-user" style="vertical-align: top;display:inline-block;width:16px;height:16px;"></span>
 					<a href="javascript:void(0);" class="user" rel="shareit">
-						${currentUser.userCnName}
+						${currentUser.memberName}
 					</a>
 					<span class="label label-info" ><input id="time" readonly="readonly" type="text" size="10" style="width: 200px;background-color:transparent;border-style:none;border: 0"/></span>
 				</div>
