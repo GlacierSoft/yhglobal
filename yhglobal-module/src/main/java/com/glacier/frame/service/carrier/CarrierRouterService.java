@@ -76,6 +76,7 @@ public class CarrierRouterService {
 	
 	@Autowired
 	private CarrierMemberMapper carrierMemberMapper;
+	
 	/*** 
 	 * @Title: listAsGrid  
 	 * @Description: TODO(获取班线list)  
@@ -130,6 +131,10 @@ public class CarrierRouterService {
          Subject pricipalSubject = SecurityUtils.getSubject(); 
     	 User pricipalUser = (User) pricipalSubject.getPrincipal();
     	 CarrierRoute carrierRoute= carrierRouteMapper.selectByPrimaryKey(routeId);
+    	 if(carrierRoute.getAuditState().equals("pass")==false){
+    		 returnResult.setMsg("该班线不是【审核通过】状态，不可进行启用禁用操作");
+    		 return returnResult;
+    	 } 
     	 if(carrierRoute.getStatus().equals("enable")){
     		 carrierRoute.setStatus("disable");
     	 }else{
@@ -158,12 +163,11 @@ public class CarrierRouterService {
     @Transactional(readOnly = false) 
     public Object audit(CarrierRoute carrierRoute) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        CarrierRoute route = carrierRouteMapper.selectByPrimaryKey(carrierRoute.getRouterId());
-        System.out.println("route:"+route);
+        CarrierRoute route = carrierRouteMapper.selectByPrimaryKey(carrierRoute.getRouterId()); 
         if(route.getAuditState().equals("authstr")==false){
         	returnResult.setMsg("该班线已进行过审核，不可重复操作");
        	    return returnResult;
-        }
+        }  
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject(); 
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -219,19 +223,20 @@ public class CarrierRouterService {
     public Object editRoute(CarrierRoute carrierRoute) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        CarrierRouteExample carrierRouteExample = new CarrierRouteExample();
-        int count = 0;
-        // 防止班线编号重复
-        carrierRouteExample.createCriteria().andRouteNumberEqualTo(carrierRoute.getRouteNumber()).andRouterIdNotEqualTo(carrierRoute.getRouterId());
-        count = carrierRouteMapper.countByExample(carrierRouteExample);
-        if (count > 0) {
-            returnResult.setMsg("承运商班线编号重复");
-            return returnResult;
-        }
-        String s = new String(carrierRoute.getOutTime());   
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        CarrierRoute  route=carrierRouteMapper.selectByPrimaryKey(carrierRoute.getRouterId());
+        int count = 0; 
+        if(route.getAuditState().equals("authstr")==false){
+        	 returnResult.setMsg("该班线已经进行过审核操作，不可修改！");
+             return returnResult;
+        } 
+        if(route.getStatus().equals("disable")){
+      		 returnResult.setMsg("该班线未启用，不可进行修改操作");
+      		 return returnResult;
+      	 }   
+        String s = new String(carrierRoute.getOutTime().trim());  
         String time[] = s.split(":");  
-        String s2 = new String(carrierRoute.getIntTime());   
+        String s2 = new String(carrierRoute.getIntTime().trim());   
         String inTime[] = s2.split(":");  
         //根据ID获取班线信息  
         carrierRoute.setUpdater(pricipalUser.getUserId());
@@ -240,16 +245,22 @@ public class CarrierRouterService {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
-        cal.set(Calendar.SECOND,Integer.valueOf(time[1]));
-        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MINUTE,Integer.valueOf(time[1]));
         Date date=cal.getTime();
-        carrierRoute.setStartofTime(date);    
+        carrierRoute.setStartofTime(date);     
         cal.setTime(new Date());
         cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(inTime[0]));
-        cal.set(Calendar.SECOND,Integer.valueOf(inTime[1]));
-        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MINUTE,Integer.valueOf(inTime[1]));
         Date dates=cal.getTime(); 
-        carrierRoute.setCeaseTakeDeliveryTime(dates); 
+        carrierRoute.setCeaseTakeDeliveryTime(dates);   
+        carrierRoute.setAuditState(route.getAuditState());
+        carrierRoute.setAudit(route.getAudit());
+        carrierRoute.setAuditTime(route.getAuditTime());
+        carrierRoute.setAuditOpinion(route.getAuditOpinion());
+        carrierRoute.setCreater(route.getCreater());
+        carrierRoute.setCreateTime(route.getCreateTime()); 
         count = carrierRouteMapper.updateByPrimaryKey(carrierRoute);
         //取出详情表的信息，修改班线绑定的承运商
         CarrierAmongRouteExample carrierAmongRouteExample=new CarrierAmongRouteExample();
@@ -268,5 +279,5 @@ public class CarrierRouterService {
             returnResult.setMsg("发生未知错误，班线信息修改失败");
         } 
         return returnResult;
-    } 
+    }  
 }
