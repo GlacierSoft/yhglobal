@@ -167,7 +167,7 @@
 			panelHeight : 'auto',
 			editable : false,
 			//required:true,
-			data : fields.auditState
+			data : fields.yesOrNo
 		});
 	  
 	  $('#bankCardSearchForm_status_normal').combobox({
@@ -178,7 +178,7 @@
 			panelHeight : 'auto',
 			editable : false,
 			//required:true,
-			data : fields.yesOrNo
+			data : fields.auditState
 		});
 	
 </script>
@@ -190,7 +190,7 @@
 	<div id="storehouseDamageGridPanel" data-options="region:'center',border:true">
 		<table id="storehouseDamageDataGrid">
 			<glacierui:toolbar panelEnName="StorehouseDamageList"
-				toolbarId="storehouseDamageDataGrid_toolbar" menuEnName="storageGoodsrun" />
+				toolbarId="storehouseDamageDataGrid_toolbar" menuEnName="storehouseDamage" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
