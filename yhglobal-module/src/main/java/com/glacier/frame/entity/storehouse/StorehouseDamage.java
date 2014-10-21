@@ -43,12 +43,20 @@ public class StorehouseDamage {
   
    private String belaidupDisplay; 
    
+   private String auditorDisplay;
    
    
-   
-   public String getUpdaterDisplay() {
-	return updaterDisplay;
-}
+   public String getAuditorDisplay() {
+	return auditorDisplay;
+   }
+
+   public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
 
    public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;

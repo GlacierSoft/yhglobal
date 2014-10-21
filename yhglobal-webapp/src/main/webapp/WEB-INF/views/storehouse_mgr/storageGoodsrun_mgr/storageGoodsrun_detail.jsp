@@ -8,7 +8,7 @@
 		<tr>
 			<td>货物名称：</td>
 			<td>
-				<input class="spinner" style="height:18px;width:180px" value="${storehouseStorageGoodsrunData.belaidupId}"  readonly="readonly"/>
+				<input class="spinner" style="height:18px;width:180px" value="${storehouseStorageGoodsrunData.belaidupDisplay}"  readonly="readonly"/>
 			</td>
 			<td>流动次数：</td>
 			<td><input class="spinner" style="width:168px" value="${storehouseStorageGoodsrunData.goodsrunNum}" readonly="readonly"/></td>

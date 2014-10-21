@@ -22,10 +22,12 @@ package com.glacier.frame.web.controller.storehouse;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,7 +85,25 @@ public class StorehouseDamageController {
    	    return mav;
    	}
 	
-	
-
-
+   //进入货物损坏信息审核页
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoAuditStorehouseDamage(String damageId) {
+        ModelAndView mav = new ModelAndView("storehouse_mgr/storehouseDamage/storehouseDamage_audit");
+        if(StringUtils.isNotBlank(damageId)){
+        	 mav.addObject("storehouseDamageData", storehouseDamageServcie.getStorehouseDamagePro(damageId));
+        }
+        return mav;
+    }
+    
+    // 货主会员银行卡信息审核
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object auditBankCard(@Valid StorehouseDamage storehouseDamage, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+        	// 后台校验的错误信息
+            //return returnErrorBindingResult(bindingResult);
+        }
+        return storehouseDamageServcie.auditStorehouseDamage(storehouseDamage);
+    }
+   	
 }  

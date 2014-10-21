@@ -119,10 +119,10 @@ public class StorehouseStorageGoodsrunService {
 	    	int count=storehouseStorageGoodsrunMapper.updateByPrimaryKeySelective(storehouseStorageGoodsrun);
 	    	if(count==1){
 	    		returnResult.setSuccess(true);
-	    		returnResult.setMsg("【"+storehouseStorageGoodsrun.getBelaidupId()+"】货物流动记录信息"+str+"操作成功!");
+	    		returnResult.setMsg("【"+storehouseStorageGoodsrun.getBelaidupDisplay()+"】货物流动记录信息"+str+"操作成功!");
 	    	}else{
 	    	   returnResult.setSuccess(true);
-	   		   returnResult.setMsg("发生未知错误,【"+storehouseStorageGoodsrun.getBelaidupId()+"】货物流动记录信息"+str+"操作失败!");
+	   		   returnResult.setMsg("发生未知错误,【"+storehouseStorageGoodsrun.getBelaidupDisplay()+"】货物流动记录信息"+str+"操作失败!");
 	    	}
 	    	return returnResult;
 	    }

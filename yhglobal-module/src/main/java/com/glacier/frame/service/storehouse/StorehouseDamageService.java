@@ -19,9 +19,12 @@
  */
 package com.glacier.frame.service.storehouse;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,8 +35,10 @@ import com.glacier.frame.dto.query.storehouse.StorehouseDamageQueryDTO;
 import com.glacier.frame.entity.storehouse.StorehouseDamage;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample.Criteria;
+import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: StorehouseDamageService 
@@ -93,4 +98,35 @@ public class StorehouseDamageService {
 			return storehouseDamage;
 		}
 		
+		
+		/**
+	     * @Title: auditStorehouseDamage 
+	     * @Description: TODO(审核货物损坏记录信息) 
+	     * @param @param shipperMemberBankCard
+	     * @param @return    设定文件 
+	     * @return Object    返回类型 
+	     * @throws
+	     */ 
+	    @Transactional(readOnly = false)
+	    public Object auditStorehouseDamage(StorehouseDamage storehouseDamage) {
+		    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		    int count = 0;
+		    if(storehouseDamage.getAuditStatus().equals("authstr")){
+		    	returnResult.setMsg("货物损坏信息中审核状态不可为【审核中】，请重新操作!");
+			}else{
+		    	Subject pricipalSubject = SecurityUtils.getSubject();
+			    User pricipalUser = (User) pricipalSubject.getPrincipal();
+			    storehouseDamage.setUpdater(pricipalUser.getUserId());
+			    storehouseDamage.setUpdateTime(new Date());
+			    count = storehouseDamageMapper.updateByPrimaryKeySelective(storehouseDamage);
+			    if (count == 1) {
+			        returnResult.setSuccess(true);
+			        returnResult.setMsg("货物损坏信息审核操作成功!");
+			    } else {
+			    	returnResult.setMsg("货物损坏信息审核操作失败!");
+			    }
+			}
+		    return returnResult;
+		}
+
 }

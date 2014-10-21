@@ -136,7 +136,7 @@
 						},
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({
-								title : '【' + rowData.belaidupId + '】流动详细信息',
+								title : '【' + rowData.belaidupDisplay + '】流动详细信息',
 								href : ctx+ '/do/storageGoodsrun/intoDetail.htm?goodsrunId='+ rowData.goodsrunId,//从controller请求jsp页面进行渲染
 								width : 560,
 								height : 340,

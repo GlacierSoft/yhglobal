@@ -40,7 +40,7 @@
 							title : 'ID',
 							checkbox : true
 						},{
-							field : 'belaidupId',
+							field : 'belaidupDisplay',
 							title : '入库货物',
 							width : 120,
 							sortable : true
@@ -63,11 +63,11 @@
 							width : 120,
 							sortable : true,
 							formatter : function(value, row, index) {//数据格式化
-								return renderGridValue(value, fields.status);
+								return renderGridValue(value, fields.auditState);
 							}
 							
 						}, {
-							field : 'createrDisplay',
+							field : 'auditorDisplay',
 							title : '审核人',
 							width : 120,
 							sortable : true
@@ -181,6 +181,29 @@
 			data : fields.auditState
 		});
 	
+	  //点击审核触发按钮
+	  glacier.storehouse_mgr.storehouseDamage.storehouseDamage.auditStorehouseDamage=function(){
+			var row =glacier.storehouse_mgr.storehouseDamage.storehouseDamage.storehouseDamageDataGrid.datagrid("getSelected");
+			if(row.auditStatus=="authstr"){
+			  glacier.basicAddOrEditDialog({
+					title :"【"+row.belaidupDisplay+"】损坏信息审核",
+					width : 580,
+					height : 380,
+					queryUrl : ctx + '/do/storehouseDamage/intoAudit.htm',
+					submitUrl : ctx + '/do/storehouseDamage/audit.json',
+					queryParams : {
+						damageId : row.damageId
+					},
+					successFun : function (){
+						glacier.storehouse_mgr.storehouseDamage.storehouseDamage.storehouseDamageDataGrid.datagrid('reload');
+					}
+				});
+			}else{
+				$.messager.alert("操作提示", "该条记录已审核，请选择其他数据!","info");
+			}
+			
+		};
+		
 </script>
 
 

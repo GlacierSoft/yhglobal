@@ -32,6 +32,10 @@ public class StorehouseDamageQueryDTO extends StorehouseDamage {
 
 	public void setQueryCondition(Criteria queryCriteria, String q){
 		
+		if(null!=this.getBelaidupDisplay()){
+			queryCriteria.andBelaidupDisplay("%"+this.getBelaidupDisplay()+"%");
+		}
+		
 		if(null!=this.getAuditStatus()){
 			queryCriteria.andAuditStatusEqualTo(this.getAuditStatus().toString());
 		}

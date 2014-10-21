@@ -18,7 +18,7 @@
     <result column="temp_storehouse_damage_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_damage_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_damage_belaidup_display" property="belaidupDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    
+    <result column="temp_storehouse_damage_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -88,13 +88,19 @@
     temp_storehouse_damage.updater as temp_storehouse_damage_updater, temp_storehouse_damage.update_time as temp_storehouse_damage_update_time
     
    ,temp_creater.user_cn_name as  temp_storehouse_damage_creater_display
-   ,temp_updater.user_cn_name as  temp_storehouse_damage_updater_display    
+   ,temp_updater.user_cn_name as  temp_storehouse_damage_updater_display
+   ,temp_auditor.user_cn_name as  temp_storehouse_damage_auditor_display
+   ,temp_storehouse_belaidup.belaidup_prod_name as  temp_storehouse_damage_belaidup_display    
   
   </sql>
   
   <sql id="Base_extend">
 	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_damage.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_damage.updater <!-- 扩展 -->
+    LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_storehouse_damage.auditor<!-- 扩展 -->
+    LEFT JOIN t_storehouse_belaidup temp_storehouse_belaidup ON temp_storehouse_belaidup.belaidup_id =temp_storehouse_damage.belaidup_id<!-- 扩展 -->
+    
+    
   </sql>
   
   
