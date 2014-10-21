@@ -105,7 +105,7 @@ public class CarrierContractController {
  	  	ouputStream.close();   
    }
   	
-  	 //承运商合同信息导出
+  	 //承运商合同信息打印
 	 @RequestMapping(value="print.htm")
 	 private Object intoContractPrintPage(String contractRecordId,String str) {
 		    ModelAndView mav = new ModelAndView("carrier_mgr/carrierContract_mgr/carrierContract_print");

@@ -2,6 +2,8 @@ package com.glacier.frame.entity.storehouse;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class StorehouseStorageGoodsrun {
     private String goodsrunId;
 
@@ -13,19 +15,57 @@ public class StorehouseStorageGoodsrun {
 
     private String status;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date goodsrunDate;
 
     private String remark;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    
+    /**
+     * 自定义字段
+     */
+    
+    private String updaterDisplay;
+    
+    private String createrDisplay;
+    
+    private String belaidupDisplay;
+    
+    public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
 
-    public String getGoodsrunId() {
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getBelaidupDisplay() {
+		return belaidupDisplay;
+	}
+
+	public void setBelaidupDisplay(String belaidupDisplay) {
+		this.belaidupDisplay = belaidupDisplay;
+	}
+
+public String getGoodsrunId() {
         return goodsrunId;
     }
 

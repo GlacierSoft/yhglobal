@@ -14,6 +14,12 @@
     <result column="temp_storehouse_damage_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_damage_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_damage_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_storehouse_damage_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_damage_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_damage_belaidup_display" property="belaidupDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,7 +86,18 @@
     temp_storehouse_damage.audit_opinion as temp_storehouse_damage_audit_opinion, temp_storehouse_damage.audit_date as temp_storehouse_damage_audit_date, 
     temp_storehouse_damage.creater as temp_storehouse_damage_creater, temp_storehouse_damage.create_time as temp_storehouse_damage_create_time, 
     temp_storehouse_damage.updater as temp_storehouse_damage_updater, temp_storehouse_damage.update_time as temp_storehouse_damage_update_time
+    
+   ,temp_creater.user_cn_name as  temp_storehouse_damage_creater_display
+   ,temp_updater.user_cn_name as  temp_storehouse_damage_updater_display    
+  
   </sql>
+  
+  <sql id="Base_extend">
+	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_damage.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_damage.updater <!-- 扩展 -->
+  </sql>
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseDamageExample" >
     select
     <if test="distinct" >
@@ -88,6 +105,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_damage temp_storehouse_damage
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,6 +120,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_damage temp_storehouse_damage
+    <include refid="Base_extend" />
     where temp_storehouse_damage.damage_id = #{damageId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -207,6 +226,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseDamageExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_damage temp_storehouse_damage
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
