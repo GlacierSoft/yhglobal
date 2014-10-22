@@ -254,7 +254,7 @@
 
 
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有合同类型列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="contractManagerGridPanel" data-options="region:'center',border:true">
 		<table id="contractManagerDataGrid">

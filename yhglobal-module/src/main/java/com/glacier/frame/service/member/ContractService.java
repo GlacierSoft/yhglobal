@@ -81,7 +81,7 @@ public class ContractService {
 	
 	/**
      * @Title: getContractPro 
-     * @Description: TODO(获取单个会员合同记录信息) 
+     * @Description: TODO(获取会员合同记录信息对象) 
      * @param @param contractRecordId
      * @param @return    设定文件 
      * @return Object    返回类型 

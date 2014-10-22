@@ -18,7 +18,7 @@
           }
      };
 
-	//初始化客服DataGrid
+	//初始化货物流动记录DataGrid
 	glacier.storehouse_mgr.storageGoodsrun_mgr.storageGoodsrun.storageGoodsrunDataGrid = $('#storageGoodsrunDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -203,7 +203,7 @@
 
 
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有货物流动记录列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="storageGoodsrunGridPanel" data-options="region:'center',border:true">
 		<table id="storageGoodsrunDataGrid">

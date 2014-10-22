@@ -18,7 +18,7 @@
           }
      };
 
-	//初始化客服DataGrid
+	//初始化货主银行卡DataGrid
 	glacier.member_mgr.bankCard_mgr.bankCard.bankCardDataGrid = $('#bankCardDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式

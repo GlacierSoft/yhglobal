@@ -56,7 +56,7 @@ public class CarrierBankCardService {
 	  
 	/**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有合同类型记录信息) 
+     * @Description: TODO(获取所有会员银行卡记录信息) 
      * @param @param padvertisementr，carrierBankCardQueryDTO，q
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -83,7 +83,7 @@ public class CarrierBankCardService {
 	
 	/**
      * @Title: getBankCardPro 
-     * @Description: TODO(获取承运商合同类型记录信息对象) 
+     * @Description: TODO(获取会员银行卡记录信息对象) 
      * @param @param bankCardId
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -97,7 +97,7 @@ public class CarrierBankCardService {
 	
 	/**
      * @Title: auditBankCard 
-     * @Description: TODO(审核承运商合同类型记录信息) 
+     * @Description: TODO(审核会员银行卡记录信息) 
      * @param @param shipperMemberBankCard
      * @param @return    设定文件 
      * @return Object    返回类型 
