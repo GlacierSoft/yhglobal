@@ -73,8 +73,7 @@ public class ShipperMemberController extends AbstractController{
     @ResponseBody
     private Object updateStatus(String  memberId) {
     	return shippermemberService.upStatus(memberId); 
-    } 
-    
+    }  
     
     // 企业会员audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
@@ -97,6 +96,5 @@ public class ShipperMemberController extends AbstractController{
         }
         return shippermemberService.audit(shipperEnterpriseMember);
     }
-    
-    
+     
 }

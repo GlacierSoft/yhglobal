@@ -16,7 +16,7 @@
           }
      };
 
-	//初始化客服DataGrid
+	//初始化货主会员DataGrid
 	glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -216,7 +216,7 @@
           }
 		});
 	}; 
-	//客服资料模糊查询
+	//货主会员模糊查询
 	glacier.member_mgr.member_mgr.member.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('load',obj);
@@ -244,7 +244,7 @@
 	});
 </script>
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有货主会员列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="memberGridPanel" data-options="region:'center',border:true">
 		<table id="memberDataGrid">

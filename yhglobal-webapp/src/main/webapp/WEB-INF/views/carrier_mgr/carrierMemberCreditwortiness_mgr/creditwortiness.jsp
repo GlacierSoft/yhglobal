@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.carrier_mgr.creditwortinss_mgr.creditwortinss');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//初始化会员积分记录DataGrid
+	//初始化承运商信誉记录DataGrid
 	glacier.carrier_mgr.creditwortinss_mgr.creditwortinss.creditwortinssDataGrid = $('#creditwortinssDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
@@ -120,7 +120,7 @@
 	});
 </script>
 
-<!-- 所有会员积分记录列表面板和表格 -->
+<!-- 所有会员信誉记录列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="integralGridPanel" data-options="region:'center',border:true" >
 		<table id="creditwortinssDataGrid">

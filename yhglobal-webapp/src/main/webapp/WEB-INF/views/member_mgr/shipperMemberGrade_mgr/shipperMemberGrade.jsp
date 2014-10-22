@@ -16,7 +16,7 @@
           }
      };
 
-	//初始化客服DataGrid
+	//初始化会员等级DataGrid
 	glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.memberGradeDataGrid = $('#memberGradeDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -161,12 +161,12 @@
 						}
 					});
 
-	// 增加会员信用等级
+	// 增加会员等级
 	glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.addMemberGrade = function(){
 		glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.memberGradeDialog('【会员等级】- 增加会员等级',false,'/do/shipperMemberGrade/add.json');
 	};
 	
-	//编辑会员信用等级
+	//编辑会员等级
 	glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.editMemberGrade = function(){
 		glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.memberGradeDialog('【会员等级】- 编辑会员等级',true,'/do/shipperMemberGrade/edit.json');
 	};
@@ -260,7 +260,7 @@
 			});
 		}
 	};
-	//客服资料模糊查询
+	//会员等级模糊查询
 	glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.memberGrade_mgr.memberGrade_mgr.memberGrade.memberGradeDataGrid.datagrid('load',obj);
@@ -288,7 +288,7 @@
 	});
 </script>
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有会员等级列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="memberGradeGridPanel" data-options="region:'center',border:true">
 		<table id="memberGradeDataGrid">

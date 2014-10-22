@@ -17,7 +17,7 @@
           }
      };
 
-	//初始化客服DataGrid
+	//初始化班线DataGrid
 	glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid = $('#routeDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -315,7 +315,7 @@
           }
 		});
 	}; 
-	//客服资料模糊查询
+	//班线资料模糊查询
 	glacier.carrier_mgr.carrierRoute_mgr.route.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('load',obj);
@@ -344,7 +344,7 @@
 	});
 </script>
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有班线列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="routeGridPanel" data-options="region:'center',border:true">
 		<table id="routeDataGrid">
