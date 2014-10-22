@@ -42,7 +42,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: StorehouseDamageService 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: 货物损坏记录业务层
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2014-10-21 上午11:13:46
@@ -109,24 +109,24 @@ public class StorehouseDamageService {
 	     */ 
 	    @Transactional(readOnly = false)
 	    public Object auditStorehouseDamage(StorehouseDamage storehouseDamage) {
-		    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		    int count = 0;
-		    if(storehouseDamage.getAuditStatus().equals("authstr")){
-		    	returnResult.setMsg("货物损坏信息中审核状态不可为【审核中】，请重新操作!");
-			}else{
-		    	Subject pricipalSubject = SecurityUtils.getSubject();
-			    User pricipalUser = (User) pricipalSubject.getPrincipal();
-			    storehouseDamage.setUpdater(pricipalUser.getUserId());
-			    storehouseDamage.setUpdateTime(new Date());
-			    count = storehouseDamageMapper.updateByPrimaryKeySelective(storehouseDamage);
-			    if (count == 1) {
-			        returnResult.setSuccess(true);
-			        returnResult.setMsg("货物损坏信息审核操作成功!");
-			    } else {
-			    	returnResult.setMsg("货物损坏信息审核操作失败!");
-			    }
-			}
-		    return returnResult;
+	       JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	       int count = 0;
+	       if(storehouseDamage.getAuditStatus().equals("authstr")){
+	    	 returnResult.setMsg("货物损坏信息中审核状态不可为【审核中】，请重新操作!");
+		   }else{
+	    	 Subject pricipalSubject = SecurityUtils.getSubject();
+		     User pricipalUser = (User) pricipalSubject.getPrincipal();
+		     storehouseDamage.setUpdater(pricipalUser.getUserId());
+		     storehouseDamage.setUpdateTime(new Date());
+		     count = storehouseDamageMapper.updateByPrimaryKeySelective(storehouseDamage);
+		     if (count == 1) {
+		        returnResult.setSuccess(true);
+		        returnResult.setMsg("货物损坏信息审核操作成功!");
+		     } else {
+		    	returnResult.setMsg("货物损坏信息审核操作失败!");
+		     }
 		}
+	    return returnResult;
+	}
 
 }

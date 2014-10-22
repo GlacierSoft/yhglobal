@@ -147,7 +147,7 @@
 						},
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({
-								title : '【' + rowData.belaidupId + '】损坏详细信息',
+								title : '【' + rowData.belaidupDisplay + '】损坏详细信息',
 								href : ctx+ '/do/storehouseDamage/intoDetail.htm?damageId='+ rowData.damageId,//从controller请求jsp页面进行渲染
 								width : 560,
 								height : 340,

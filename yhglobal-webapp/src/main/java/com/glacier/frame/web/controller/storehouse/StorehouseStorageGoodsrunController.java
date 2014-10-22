@@ -93,7 +93,7 @@ public class StorehouseStorageGoodsrunController {
         return mav;
     }
     
-    //进入合同类型信息表单页面
+    //修改货物流动启用或禁用状态
     @RequestMapping(value = "/audit.json")
     @ResponseBody
     private Object auditStorehouseStorageGoodsrun(String goodsrunId) {

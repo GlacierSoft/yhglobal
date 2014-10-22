@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           }
      };
 
-	//初始化客服DataGrid
+	//初始化承运商合同记录DataGrid
 	glacier.carrier_mgr.carrierContract_mgr.carrierContract.carrierContractDataGrid = $('#carrierContractDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>   
 </div> 
 
-<!-- 所有客服列表面板和表格 -->
+<!-- 所有承运商合同记录表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="carrierContractGridPanel" data-options="region:'center',border:true">
 		<table id="carrierContractDataGrid">

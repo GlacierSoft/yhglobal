@@ -40,7 +40,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: StorehouseStorageGoodsrunService 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: 货物流动记录业务层
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2014-10-21 上午9:58:10

@@ -155,7 +155,7 @@
 			  str="禁用";
 		else
 			  str="启用";
-        $.messager.confirm('请确认', '是否要'+str+'该条合同类型记录', function(r){
+        $.messager.confirm('请确认', '是否要'+str+'该条货物流动记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",

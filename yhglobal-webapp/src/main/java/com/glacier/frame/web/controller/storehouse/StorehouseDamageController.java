@@ -75,7 +75,7 @@ public class StorehouseDamageController {
    		return returnResult;
    	}
 	
-	//仓库货品流动记录信息详情页
+	//仓库货品损坏记录信息详情页
    	@RequestMapping(value = "/intoDetail.htm")
    	private Object intoStorehouseDamageDetailPage(String damageId) {
    	    ModelAndView mav = new ModelAndView("storehouse_mgr/storehouseDamage/storehouseDamage_detail");
@@ -95,7 +95,7 @@ public class StorehouseDamageController {
         return mav;
     }
     
-    // 货主会员银行卡信息审核
+    //修改货物损坏信息审核状态
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object auditBankCard(@Valid StorehouseDamage storehouseDamage, BindingResult bindingResult) {
