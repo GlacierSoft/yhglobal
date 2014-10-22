@@ -103,6 +103,12 @@ public class OrdersTrackingExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
+        
+        
+        public Criteria andDispatchingDisplay(String value) {
+        	addCriterion("temp_storehouse_dispatching.dispatching_code like",value,"dispatchingDisplay");
+            return (Criteria) this;
+        }
 
         protected void addCriterion(String condition) {
             if (condition == null) {

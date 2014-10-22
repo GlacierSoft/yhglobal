@@ -35,6 +35,7 @@ import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: OrdersDispatchingService 
@@ -94,5 +95,35 @@ public class OrdersDispatchingService {
 			OrdersDispatching ordersDispatching = ordersDispatchingMapper.selectByPrimaryKey(dispatchingId);
 			return ordersDispatching;
 	 }
-	
+	 
+	 /**
+	    * @Title: changeOrdersDispatchingStatus 
+	    * @Description: 启用/禁用货物配送记录信息
+	    * @param  @param dispatchingId
+	    * @param  @return
+	    * @throws 
+	    * 备注<p>已检查测试:Green<p> 
+	  */
+	 @Transactional(readOnly = false)
+	 public Object changeOrdersDispatchingStatus(String dispatchingId){
+		    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		    OrdersDispatching ordersDispatching = ordersDispatchingMapper.selectByPrimaryKey(dispatchingId);
+	    	String str="";
+	    	if(ordersDispatching.getStatus().equals("enable")){
+	    		ordersDispatching.setStatus("disable");
+	    		str="禁用";
+	    	}else{
+	    		ordersDispatching.setStatus("enable");
+	    		str="启用";
+	    	}
+	    	int count=ordersDispatchingMapper.updateByPrimaryKeySelective(ordersDispatching);
+	    	if(count==1){
+	    		returnResult.setSuccess(true);
+	    		returnResult.setMsg("【"+ordersDispatching.getCarrierDisplay()+"】配送记录信息"+str+"操作成功!");
+	    	}else{
+	    	   returnResult.setSuccess(true);
+	   		   returnResult.setMsg("发生未知错误,【"+ordersDispatching.getCarrierDisplay()+"】配送记录信息"+str+"操作失败!");
+	    	}
+	    	return returnResult;
+	 }
 }

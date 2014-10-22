@@ -34,6 +34,7 @@ import com.glacier.frame.entity.orders.OrdersTrackingExample;
 import com.glacier.frame.entity.orders.OrdersTrackingExample.Criteria;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: OrdersTrackingService 
@@ -93,4 +94,36 @@ public class OrdersTrackingService {
 		 OrdersTracking ordersTracking = ordersTrackingMapper.selectByPrimaryKey(trackingId);
 			return ordersTracking;
 	 }
+	 
+	 /**
+	    * @Title: changeOrdersDispatchingStatus 
+	    * @Description: 启用/禁用货物跟踪记录信息
+	    * @param  @param dispatchingId
+	    * @param  @return
+	    * @throws 
+	    * 备注<p>已检查测试:Green<p> 
+	  */
+	 public Object changeOrdersTrackingStatus(String trackingId){
+		    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		    OrdersTracking ordersTracking = ordersTrackingMapper.selectByPrimaryKey(trackingId);
+	    	String str="";
+	    	if(ordersTracking.getStatus().equals("enable")){
+	    		ordersTracking.setStatus("disable");
+	    		str="禁用";
+	    	}else{
+	    		ordersTracking.setStatus("enable");
+	    		str="启用";
+	    	}
+	    	int count=ordersTrackingMapper.updateByPrimaryKeySelective(ordersTracking);
+	    	if(count==1){
+	    		returnResult.setSuccess(true);
+	    		returnResult.setMsg("【"+ordersTracking.getDispatchingDisplay()+"】跟踪记录信息"+str+"操作成功!");
+	    	}else{
+	    	   returnResult.setSuccess(true);
+	   		   returnResult.setMsg("发生未知错误,【"+ordersTracking.getDispatchingDisplay()+"】跟踪记录信息"+str+"操作失败!");
+	    	}
+	    	return returnResult;
+	 }
+	 
+	 
 }

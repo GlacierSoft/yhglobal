@@ -55,6 +55,15 @@
 							width : 120,
 							sortable : true
 						},{
+							field : 'status',
+							title : '启用/禁用',
+							width : 120,
+							sortable : true,
+							formatter : function(value, row, index) {//数据格式化
+								return renderGridValue(value, fields.status);
+							}
+							
+						},{
 							field : 'dispatchingStatus',
 							title : '配送状态',
 							width : 120,
@@ -91,15 +100,6 @@
 							width : 120,
 							sortable : true
 						},{
-							field : 'status',
-							title : '启用/禁用',
-							width : 120,
-							sortable : true,
-							formatter : function(value, row, index) {//数据格式化
-								return renderGridValue(value, fields.status);
-							}
-							
-						},{
 							field : 'createrDisplay',
 							title : '创建人',
 							sortable : true,
@@ -119,11 +119,6 @@
 							title : '更新时间',
 							sortable : true,
 							width : 200
-						}, {
-							field : 'remark',
-							title : '备注',
-							width : 120,
-							sortable : true,
 						} ] ],
 						pagination : true,//True 就会在 datagrid 的底部显示分页栏
 						pmemberSize : 10,//注意，pmemberSize必须在pmemberList存在
@@ -189,7 +184,7 @@
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/ordersDispatching/audit.json',
-						   data: {goodsrunId:row.dispatchingId},
+						   data: {dispatchingId:row.dispatchingId},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理

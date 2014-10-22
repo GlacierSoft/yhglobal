@@ -81,7 +81,7 @@
     temp_orders_tracking.updater as temp_orders_tracking_updater, temp_orders_tracking.update_time as temp_orders_tracking_update_time
   
      <!-- 以下字段属于扩展 -->
-    ,temp_storehouse_dispatching.dispatching_code as  temp_orders_tracking_dispatching_display 
+    ,temp_orders_dispatching.dispatching_code as temp_orders_tracking_dispatching_display 
     ,temp_creater.user_cn_name as   temp_orders_tracking_creater_display
     ,temp_updater.user_cn_name as   temp_orders_tracking_updater_display   
   

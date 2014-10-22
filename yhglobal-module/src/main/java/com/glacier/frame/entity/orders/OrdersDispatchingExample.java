@@ -104,6 +104,12 @@ public class OrdersDispatchingExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
+        
+        public Criteria andCarrierDisplay(String value) {
+        	addCriterion("temp_carrier_member.member_name like",value,"carrierDisplay");
+            return (Criteria) this;
+        }
+        
 
         protected void addCriterion(String condition) {
             if (condition == null) {

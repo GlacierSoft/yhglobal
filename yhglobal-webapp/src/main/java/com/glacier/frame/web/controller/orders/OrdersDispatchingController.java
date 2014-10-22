@@ -80,5 +80,13 @@ public class OrdersDispatchingController {
    	    }
    	    return mav;
    	}
+   	
+    //修改货物流动启用或禁用状态
+    @RequestMapping(value = "/audit.json")
+    @ResponseBody
+    private Object auditStorehouseStorageGoodsrun(String dispatchingId) {
+        return ordersDispatchingService.changeOrdersDispatchingStatus(dispatchingId);
+    }
+   	
     
 }

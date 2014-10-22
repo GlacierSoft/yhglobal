@@ -22,6 +22,7 @@
 	<result column="temp_orders_dispatching_driver_display"  property="driverDisplay" jdbcType="VARCHAR"/> <!--  自定义扩展字段 -->
     <result column="temp_orders_dispatching_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_orders_dispatching_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_dispatching_car_display" property="carDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -95,18 +96,20 @@
   
      <!-- 以下字段属于扩展 -->
     ,temp_carrier_member.member_name as temp_orders_dispatching_carrier_display 
-    ,temp_carrier_drive.drive_name as  temp_orders_dispatching_driver_display
+    ,temp_carrier_driver.driver_name as  temp_orders_dispatching_driver_display
     ,temp_creater.user_cn_name as  temp_orders_dispatching_creater_display
-    ,temp_updater.user_cn_name as  temp_orders_dispatching_updater_display  
+    ,temp_updater.user_cn_name as  temp_orders_dispatching_updater_display
+    ,temp_carrier_car_information.plate_number as  temp_orders_dispatching_car_display  
   
   </sql>
   
    
     <sql id="Base_extend">
 	LEFT JOIN t_carrier_member  temp_carrier_member ON temp_carrier_member.carrier_member_id = temp_orders_dispatching.carrier_id<!-- 扩展 -->
-    LEFT JOIN t_carrier_driver  temp_carrier_drive ON temp_carrier_driver.driver_id = temp_orders_dispatching.driver_id <!-- 扩展 -->
+    LEFT JOIN t_carrier_driver  temp_carrier_driver ON temp_carrier_driver.driver_id = temp_orders_dispatching.driver_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_dispatching.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_dispatching.updater <!-- 扩展 -->
+    LEFT JOIN t_carrier_car_information  temp_carrier_car_information ON temp_carrier_car_information.car_id= temp_orders_dispatching.car_id <!-- 扩展 -->
   </sql>
   
   

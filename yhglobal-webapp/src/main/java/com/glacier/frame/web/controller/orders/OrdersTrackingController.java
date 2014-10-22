@@ -81,9 +81,16 @@ public class OrdersTrackingController {
    	private Object intoOrdersTrackingDetailPage(String trackingId) {
    	    ModelAndView mav = new ModelAndView("orders_mgr/ordersTracking_mgr/ordersTracking_detail");
    	    if(StringUtils.isNotBlank(trackingId)){
-   	          mav.addObject("ordersDispatchingData", ordersTrackingService.getOrdersTrackingPro(trackingId));
+   	          mav.addObject("ordersTrackingData", ordersTrackingService.getOrdersTrackingPro(trackingId));
    	    }
    	    return mav;
    	}
-    
+   	
+    //修改货物流动启用或禁用状态
+    @RequestMapping(value = "/audit.json")
+    @ResponseBody
+    private Object auditStorehouseStorageGoodsrun(String trackingId) {
+        return ordersTrackingService.changeOrdersTrackingStatus(trackingId);
+    }
+   	
 }

@@ -2,6 +2,8 @@ package com.glacier.frame.entity.orders;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class OrdersTracking {
     private String trackingId;
 
@@ -13,10 +15,12 @@ public class OrdersTracking {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     /**
