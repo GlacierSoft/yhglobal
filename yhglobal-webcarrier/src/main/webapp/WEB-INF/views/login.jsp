@@ -35,15 +35,15 @@
 	      </div>
 	    </div>
 		<div id="normal_container" class="container">
-			<div class="row">
+			<div class="row"  style="width: 1300px; height: 800px;">
 				<div class="col-md-6 hidden-sm hidden-xs">
-					<img src="${pageContext.request.contextPath}/resources/images/login.jpg" class="img-responsive" alt="Glacier Soft" />
+					<img src="${pageContext.request.contextPath}/resources/images/login.jpg" class="img-responsive" alt="Glacier Soft" style="width: 690px; height: 600px;"/>
 				</div>
-				<div class="col-md-6 col-xs-12">
+				<div class="col-md-6 col-xs-12" style="margin-top: 50px;">
 					<div class="col-lg-12 visible-lg" style="height:120px;">
 					</div>
 					<div class="page-header">
-						<h1>YHGlobal Carrier Management System <br><small>&nbsp;&nbsp;越 海 物 流承运商 管 理 系 统</small></h1>
+						<h1>YHGlobal Carrier Management System <br><small>&nbsp;&nbsp;越 海 物 流 承 运 商 管 理 系 统</small></h1>
 					</div>
 					<div class="row">
 						<div class="col-md-10 col-xs-12">
