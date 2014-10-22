@@ -42,7 +42,7 @@
 		<tr>
 		    <td>到站时间：</td>
 			<td>
-				<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ordersDispatchingData.arriveTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+				<input class="spinner" style="width:168px" value="<fmt:formatDate value="${ordersDispatchingData.arriveTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/>
 			</td>
 			<td>启用/禁用：</td>
 			<td><input class="spinner" style="width:168px" id="ordersDispatching_status" readonly="readonly"/></td>	

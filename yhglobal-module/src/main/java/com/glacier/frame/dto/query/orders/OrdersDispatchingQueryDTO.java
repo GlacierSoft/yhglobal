@@ -21,7 +21,42 @@ public class OrdersDispatchingQueryDTO extends  OrdersDispatching {
 	
 	
 	
-   public void setQueryCondition(Criteria queryCriteria, String q){
+	
+	
+	
+   public Date getGoodsRunStartTime() {
+		return goodsRunStartTime;
+	}
+
+	public void setGoodsRunStartTime(Date goodsRunStartTime) {
+		this.goodsRunStartTime = goodsRunStartTime;
+	}
+
+	public Date getGoodsRunEndTime() {
+		return goodsRunEndTime;
+	}
+
+	public void setGoodsRunEndTime(Date goodsRunEndTime) {
+		this.goodsRunEndTime = goodsRunEndTime;
+	}
+
+	public Date getArriveStartTime() {
+		return arriveStartTime;
+	}
+
+	public void setArriveStartTime(Date arriveStartTime) {
+		this.arriveStartTime = arriveStartTime;
+	}
+
+	public Date getArriveEndTime() {
+		return arriveEndTime;
+	}
+
+	public void setArriveEndTime(Date arriveEndTime) {
+		this.arriveEndTime = arriveEndTime;
+	}
+
+public void setQueryCondition(Criteria queryCriteria, String q){
 	   
 	   if(null!=this.getCarrierDisplay()){
 			queryCriteria.andCarrierDisplay("%"+this.getCarrierDisplay()+"%");

@@ -16,6 +16,22 @@ public class OrdersTrackingQueryDTO extends  OrdersTracking{
 	
 	private Date goodsRunEndTime;
 	
+	public Date getGoodsRunStartTime() {
+		return goodsRunStartTime;
+	}
+
+	public void setGoodsRunStartTime(Date goodsRunStartTime) {
+		this.goodsRunStartTime = goodsRunStartTime;
+	}
+
+	public Date getGoodsRunEndTime() {
+		return goodsRunEndTime;
+	}
+
+	public void setGoodsRunEndTime(Date goodsRunEndTime) {
+		this.goodsRunEndTime = goodsRunEndTime;
+	}
+
 	public void setQueryCondition(Criteria queryCriteria, String q){
      
 		 if(null!=this.getStatus())

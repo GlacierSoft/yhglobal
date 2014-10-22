@@ -106,7 +106,7 @@ public class OrdersTrackingExample {
         
         
         public Criteria andDispatchingDisplay(String value) {
-        	addCriterion("temp_storehouse_dispatching.dispatching_code like",value,"dispatchingDisplay");
+        	addCriterion("temp_orders_dispatching.dispatching_code like",value,"dispatchingDisplay");
             return (Criteria) this;
         }
 

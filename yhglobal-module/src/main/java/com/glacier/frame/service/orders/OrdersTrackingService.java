@@ -103,6 +103,7 @@ public class OrdersTrackingService {
 	    * @throws 
 	    * 备注<p>已检查测试:Green<p> 
 	  */
+	 @Transactional(readOnly = false)
 	 public Object changeOrdersTrackingStatus(String trackingId){
 		    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		    OrdersTracking ordersTracking = ordersTrackingMapper.selectByPrimaryKey(trackingId);

@@ -19,7 +19,7 @@
 		    <td>创建人：</td>
 			<td><input class="spinner" style="width:168px"   value="${ordersTrackingData.createrDisplay}" readonly="readonly"/></td>
 		     <td>录入时间：</td>
-			 <td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ordersDispatchingData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
+			 <td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ordersTrackingData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
 		 </tr>
 		 <tr>   
 		     <td>更新人：</td>

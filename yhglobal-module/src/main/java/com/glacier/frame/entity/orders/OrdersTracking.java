@@ -31,7 +31,7 @@ public class OrdersTracking {
     
     private String createrDisplay;
     
-    private String updateDisplay;
+    private String updaterDisplay;
     
     
     
@@ -51,13 +51,13 @@ public class OrdersTracking {
 	public void setCreaterDisplay(String createrDisplay) {
 		this.createrDisplay = createrDisplay;
 	}
-
-	public String getUpdateDisplay() {
-		return updateDisplay;
+    
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
 	}
 
-	public void setUpdateDisplay(String updateDisplay) {
-		this.updateDisplay = updateDisplay;
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
 	}
 
 	public String getTrackingId() {
