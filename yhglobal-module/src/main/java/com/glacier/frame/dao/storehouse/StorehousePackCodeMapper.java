@@ -19,6 +19,8 @@ public interface StorehousePackCodeMapper {
     List<StorehousePackCode> selectByExample(StorehousePackCodeExample example);
 
     StorehousePackCode selectByPrimaryKey(String packCodeId);
+    
+    StorehousePackCode selectByBelaidup(String belaidupId);
 
     int updateByExampleSelective(@Param("record") StorehousePackCode record, @Param("example") StorehousePackCodeExample example);
 

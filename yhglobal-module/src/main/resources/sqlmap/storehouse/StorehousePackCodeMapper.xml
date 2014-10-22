@@ -99,6 +99,12 @@
     from t_storehouse_pack_code temp_storehouse_pack_code
     where temp_storehouse_pack_code.pack_code_id = #{packCodeId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByBelaidup" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_pack_code temp_storehouse_pack_code
+    where temp_storehouse_pack_code.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_storehouse_pack_code
     where pack_code_id = #{packCodeId,jdbcType=VARCHAR}

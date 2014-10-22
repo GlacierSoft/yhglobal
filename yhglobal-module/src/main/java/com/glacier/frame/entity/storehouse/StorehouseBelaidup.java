@@ -3,6 +3,8 @@ package com.glacier.frame.entity.storehouse;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class StorehouseBelaidup {
     private String belaidupId;
 
@@ -46,6 +48,7 @@ public class StorehouseBelaidup {
 
     private String stauts;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date belaidupReturnTime;
 
     private BigDecimal belaidupReturnPoundage;
@@ -58,12 +61,32 @@ public class StorehouseBelaidup {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String shipperMemberDisplay;
+    
+    private String goodsTypeDisplay;
+    
+    private String storageDisplay;
+    
+    private String packageDisplay;
+    
+    private String packageCode;
+    
+    
     public String getBelaidupId() {
         return belaidupId;
     }
@@ -304,7 +327,63 @@ public class StorehouseBelaidup {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getShipperMemberDisplay() {
+		return shipperMemberDisplay;
+	}
+
+	public void setShipperMemberDisplay(String shipperMemberDisplay) {
+		this.shipperMemberDisplay = shipperMemberDisplay;
+	}
+
+	public String getGoodsTypeDisplay() {
+		return goodsTypeDisplay;
+	}
+
+	public void setGoodsTypeDisplay(String goodsTypeDisplay) {
+		this.goodsTypeDisplay = goodsTypeDisplay;
+	}
+
+	public String getStorageDisplay() {
+		return storageDisplay;
+	}
+
+	public void setStorageDisplay(String storageDisplay) {
+		this.storageDisplay = storageDisplay;
+	}
+
+	public String getPackageDisplay() {
+		return packageDisplay;
+	}
+
+	public void setPackageDisplay(String packageDisplay) {
+		this.packageDisplay = packageDisplay;
+	}
+
+	public String getPackageCode() {
+		return packageCode;
+	}
+
+	public void setPackageCode(String packageCode) {
+		this.packageCode = packageCode;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

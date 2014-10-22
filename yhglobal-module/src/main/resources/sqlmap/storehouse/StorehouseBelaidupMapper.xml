@@ -32,6 +32,13 @@
     <result column="temp_storehouse_belaidup_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_belaidup_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<result column="temp_storehouse_belaidup_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_shipper_member_display" property="shipperMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_goods_type_display" property="goodsTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_storage_display" property="storageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_package_display" property="packageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_package_code" property="packageCode" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -114,6 +121,23 @@
     temp_storehouse_belaidup.remark as temp_storehouse_belaidup_remark, temp_storehouse_belaidup.creater as temp_storehouse_belaidup_creater, 
     temp_storehouse_belaidup.create_time as temp_storehouse_belaidup_create_time, temp_storehouse_belaidup.updater as temp_storehouse_belaidup_updater, 
     temp_storehouse_belaidup.update_time as temp_storehouse_belaidup_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_storehouse_belaidup_creater_display
+    ,temp_updater.user_cn_name as temp_storehouse_belaidup_updater_display
+    ,temp_goodstype.goodstype_name as temp_storehouse_belaidup_goods_type_display
+    ,temp_member.member_name as temp_storehouse_belaidup_shipper_member_display
+    ,temp_storage.storage_name as temp_storehouse_belaidup_storage_display
+    ,temp_packagetype.packagetype_name as temp_storehouse_belaidup_package_display
+    ,temp_packcode.pack_bar_code as temp_storehouse_belaidup_package_code
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_belaidup.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_belaidup.updater <!-- 扩展 -->
+    LEFT JOIN t_storehouse_goodstype_set temp_goodstype ON temp_goodstype.goodstype_id = temp_storehouse_belaidup.goodstype_id <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_member ON temp_member.member_id = temp_storehouse_belaidup.member_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_storage temp_storage ON temp_storage.storage_id = temp_storehouse_belaidup.storehouse_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_pack_code temp_packcode ON temp_packcode.belaidup_id = temp_storehouse_belaidup.belaidup_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_packagetype_set temp_packagetype ON temp_packagetype.packagetype_id = temp_packcode.packagetype_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
     select
@@ -122,6 +146,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_belaidup temp_storehouse_belaidup
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -136,6 +161,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_belaidup temp_storehouse_belaidup
+    <include refid="Base_extend" />
     where temp_storehouse_belaidup.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -143,7 +169,7 @@
     where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
-    delete from t_storehouse_belaidup temp_storehouse_belaidup
+    delete temp_storehouse_belaidup from t_storehouse_belaidup temp_storehouse_belaidup
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -361,6 +387,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_belaidup temp_storehouse_belaidup
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

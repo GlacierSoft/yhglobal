@@ -44,7 +44,7 @@
 			sortable : true
 		},{
 			field : 'storageTyperDisplay',
-			title : '仓库',
+			title : '仓库类型',
 			width : 120,
 			sortable : true
 		},{
