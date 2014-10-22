@@ -10,6 +10,11 @@
     <result column="temp_orders_tracking_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_tracking_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_orders_tracking_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_orders_tracking_dispatching_display" property="dispatchingDisplay" jdbcType="VARCHAR"/><!-- 自定义扩展字段 -->
+	<result column="temp_orders_tracking_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_tracking_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,7 +79,20 @@
     temp_orders_tracking.message as temp_orders_tracking_message, temp_orders_tracking.status as temp_orders_tracking_status, 
     temp_orders_tracking.creater as temp_orders_tracking_creater, temp_orders_tracking.create_time as temp_orders_tracking_create_time, 
     temp_orders_tracking.updater as temp_orders_tracking_updater, temp_orders_tracking.update_time as temp_orders_tracking_update_time
+  
+     <!-- 以下字段属于扩展 -->
+    ,temp_storehouse_dispatching.dispatching_code as  temp_orders_tracking_dispatching_display 
+    ,temp_creater.user_cn_name as   temp_orders_tracking_creater_display
+    ,temp_updater.user_cn_name as   temp_orders_tracking_updater_display   
+  
+   </sql>
+   
+   <sql id="Base_extend">
+	LEFT JOIN t_orders_dispatching  temp_orders_dispatching ON temp_orders_dispatching.dispatching_id = temp_orders_tracking.dispatching_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_tracking.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_tracking.updater <!-- 扩展 -->
   </sql>
+   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersTrackingExample" >
     select
     <if test="distinct" >
@@ -82,6 +100,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_orders_tracking temp_orders_tracking
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,6 +115,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_orders_tracking temp_orders_tracking
+    <include refid="Base_extend" />
     where temp_orders_tracking.tracking_id = #{trackingId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -173,6 +193,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersTrackingExample" resultType="java.lang.Integer" >
     select count(*) from t_orders_tracking temp_orders_tracking
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

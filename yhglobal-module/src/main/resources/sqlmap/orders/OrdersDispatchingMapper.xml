@@ -17,6 +17,12 @@
     <result column="temp_orders_dispatching_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_dispatching_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_orders_dispatching_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_orders_dispatching_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
+	<result column="temp_orders_dispatching_driver_display"  property="driverDisplay" jdbcType="VARCHAR"/> <!--  自定义扩展字段 -->
+    <result column="temp_orders_dispatching_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_dispatching_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +92,25 @@
     temp_orders_dispatching.arrive_time as temp_orders_dispatching_arrive_time, temp_orders_dispatching.status as temp_orders_dispatching_status, 
     temp_orders_dispatching.creater as temp_orders_dispatching_creater, temp_orders_dispatching.create_time as temp_orders_dispatching_create_time, 
     temp_orders_dispatching.updater as temp_orders_dispatching_updater, temp_orders_dispatching.update_time as temp_orders_dispatching_update_time
+  
+     <!-- 以下字段属于扩展 -->
+    ,temp_carrier_member.member_name as temp_orders_dispatching_carrier_display 
+    ,temp_carrier_drive.drive_name as  temp_orders_dispatching_driver_display
+    ,temp_creater.user_cn_name as  temp_orders_dispatching_creater_display
+    ,temp_updater.user_cn_name as  temp_orders_dispatching_updater_display  
+  
   </sql>
+  
+   
+    <sql id="Base_extend">
+	LEFT JOIN t_carrier_member  temp_carrier_member ON temp_carrier_member.carrier_member_id = temp_orders_dispatching.carrier_id<!-- 扩展 -->
+    LEFT JOIN t_carrier_driver  temp_carrier_drive ON temp_carrier_driver.driver_id = temp_orders_dispatching.driver_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_dispatching.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_dispatching.updater <!-- 扩展 -->
+  </sql>
+  
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersDispatchingExample" >
     select
     <if test="distinct" >
@@ -94,6 +118,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_orders_dispatching temp_orders_dispatching
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -108,6 +133,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_orders_dispatching temp_orders_dispatching
+    <include refid="Base_extend" />
     where temp_orders_dispatching.dispatching_id = #{dispatchingId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -233,6 +259,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersDispatchingExample" resultType="java.lang.Integer" >
     select count(*) from t_orders_dispatching temp_orders_dispatching
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

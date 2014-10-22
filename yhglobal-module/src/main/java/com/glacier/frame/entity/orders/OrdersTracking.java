@@ -18,8 +18,45 @@ public class OrdersTracking {
     private String updater;
 
     private Date updateTime;
+    
+    /**
+     * 自定义字段 
+     */
+    
+    private String dispatchingDisplay;
+    
+    private String createrDisplay;
+    
+    private String updateDisplay;
+    
+    
+    
 
-    public String getTrackingId() {
+    public String getDispatchingDisplay() {
+		return dispatchingDisplay;
+	}
+
+	public void setDispatchingDisplay(String dispatchingDisplay) {
+		this.dispatchingDisplay = dispatchingDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdateDisplay() {
+		return updateDisplay;
+	}
+
+	public void setUpdateDisplay(String updateDisplay) {
+		this.updateDisplay = updateDisplay;
+	}
+
+	public String getTrackingId() {
         return trackingId;
     }
 

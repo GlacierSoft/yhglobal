@@ -33,8 +33,57 @@ public class OrdersDispatching {
     private String updater;
 
     private Date updateTime;
+    
+    
+    
+    /**
+     *自定义拓展阶段 
+     */
+    
+    private String carrierDisplay;
+    
+    private String driverDisplay;
+    
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    
+    
+    
+    public String getCarrierDisplay() {
+		return carrierDisplay;
+	}
 
-    public String getDispatchingId() {
+	public void setCarrierDisplay(String carrierDisplay) {
+		this.carrierDisplay = carrierDisplay;
+	}
+
+	public String getDriverDisplay() {
+		return driverDisplay;
+	}
+
+	public void setDriverDisplay(String driverDisplay) {
+		this.driverDisplay = driverDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getDispatchingId() {
         return dispatchingId;
     }
 
