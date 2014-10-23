@@ -280,4 +280,18 @@ public class CarrierRouterService {
         } 
         return returnResult;
     }  
+	
+	/** 
+	 * @Title: GenerationRouteNumber  
+	 * @Description: TODO(系统自动生成班线编号，不能重复)  
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
+	 */
+/*	public Object GenerationRouteNumber(){
+		String number="YH"+Double.toString(Math.random()*9000+1000); 
+		CarrierRouteExample carrierRouteExample=new CarrierRouteExample();
+		carrierRouteExample.createCriteria().andRouteNameEqualTo(number); 
+		int i =carrierRouteMapper.selectByExample(carrierRouteExample).size();  
+	}*/
 }
