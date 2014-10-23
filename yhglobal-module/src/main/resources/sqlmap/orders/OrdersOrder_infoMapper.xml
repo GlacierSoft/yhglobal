@@ -105,7 +105,7 @@
     where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" >
-    delete from t_orders_order_info temp_orders_order_info
+    delete temp_orders_order_info from t_orders_order_info temp_orders_order_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

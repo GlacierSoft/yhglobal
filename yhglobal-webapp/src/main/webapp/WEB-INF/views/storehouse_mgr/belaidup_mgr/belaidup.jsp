@@ -12,7 +12,8 @@
 		toolbarId : 'belaidupDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
-	            del:{flag:'del',controlType:'multiple'}
+	            del:{flag:'del',controlType:'multiple'},
+	            create:{flag:'create',controlType:'multiple'}
 	         }
      };
 
@@ -251,6 +252,53 @@
 			});
 		}
 	};
+	
+	//点击生成订单按钮触发方法
+	glacier.belaidup_mgr.belaidup_mgr.belaidup.orderBelaidup = function() {
+		var rows = glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid("getChecked");
+		var belaidupIds = [];//id标识
+		var belaidupName = [];
+		for ( var i = 0; i < rows.length; i++) {
+			belaidupIds.push(rows[i].belaidupId);
+			belaidupName.push(rows[i].belaidupProdName);
+		}
+		if (belaidupIds.length > 0) {
+			$.messager.confirm('请确认','是否将【'+rows.length+'】条货物记录合成订单',function(r){
+                   if (r){
+                   	 $.ajax({ 
+                   		type: "POST",
+                   	    url : ctx+ '/do/order/add.json',
+						data : {
+							belaidupIds : belaidupIds.join(','),
+							belaidupName : belaidupName.join(',')
+						},
+						dataType : 'json',
+						success : function(r) {
+							if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+								$.messager.show({
+									title : '提示',
+									width : 480,
+									height : 120,
+									timeout : 3000,
+									msg : r.msg
+								});
+                                            glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid('reload');
+							} else {
+								$.messager.show({//后台验证弹出错误提示信息框
+											title : '错误提示',
+											width : 480,
+											height : 120,
+											msg : '<span style="color:red">'+ r.msg+ '<span>',
+											timeout : 4500
+										});
+							}
+						}
+					});
+				}
+			});
+		}
+	};
+	
 	//模糊查询
 	glacier.belaidup_mgr.belaidup_mgr.belaidup.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
@@ -309,6 +357,9 @@
 					<td><input name="belaidupBarCode" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>包装条形码：</td>
+					<td><input id="belaidup_mgr_belaidup_belaiduptypeId" name="packageCode" style="width: 80px;"
+						class="spinner" /></td> 
+					<td>起始站：</td>
 					<td><input id="belaidup_mgr_belaidup_belaiduptypeId" name="packageCode" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>货物状态：</td>
