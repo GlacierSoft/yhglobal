@@ -2,17 +2,19 @@
 	contentType="text/html; charset=UTF-8"%>
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
-	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
-
+	uri="http://com.glacier.permissions.com.cn/tag/easyui"%> 
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path -->
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
 	$.util.namespace('glacier.carrier_mgr.carrierRoute_mgr.route');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
 	glacier.carrier_mgr.carrierRoute_mgr.route.param = {
 		toolbarId : 'routeDataGrid_toolbar',
-		actions : {
-             status:{flag:'status',controlType:'single'},
-             audit:{flag:'audit',controlType:'single'},
+		actions : { 
+             add:{flag:'add',controlType:'add'},
              edit:{flag:'edit',controlType:'single'}
           }
      };
@@ -243,25 +245,19 @@
 						}
 					});
  
-	
-	
-	//点击审核按钮触发方法 
-	glacier.carrier_mgr.carrierRoute_mgr.route.audit= function(){
-		var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
-	  	glacier.basicAddOrEditDialog({
-				title : '【'+row.routeName+'】-班线审核',
-				width : 630,
-				height : 580,
-				queryUrl : ctx + '/do/carrierRoute/intoAudit.htm',
-				submitUrl : ctx + '/do/carrierRoute/audit.json',
-				queryParams : {
-					routerId : row.routerId
-				},
-				successFun : function (){
-					glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload'); 
-				}
-			});  
-	};
+	//点击增加按钮触发方法
+	glacier.carrier_mgr.carrierRoute_mgr.route.addRoute = function(){ 
+		glacier.basicAddOrEditDialog({
+			title : '【班线】- 增加',
+			width : 610,
+			height : 480,
+			queryUrl : ctx + '/do/carrierRoute/addForm.htm',
+			submitUrl : ctx + '/do/carrierRoute/add.json',
+			successFun : function (){
+				glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
+			}
+		});
+	}; 
 	  
 	
 	//点击编辑按钮触发方法
@@ -348,34 +344,36 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="routeGridPanel" data-options="region:'center',border:true">
 		<table id="routeDataGrid">
-			<glacierui:toolbar panelEnName="routeList"
+			<glacierui:toolbar panelEnName="carrierRouteList"
 				toolbarId="routeDataGrid_toolbar" menuEnName="carrierRoute" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
-	</div>
+	</div>  
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
 		<form id="routeSearchForm">
 			<table>
 				<tr>
 				<td>班线编号：</td>
-					<td><input name="routeNumber" style="width: 80px;"
+					<td><input name="routeNumber" style="width: 80px;height: 23px;"
 						class="spinner" /></td> 
 					<td>班线名称：</td>
-					<td><input name="routeName" style="width: 80px;"
+					<td><input name="routeName" style="width: 80px;height: 23px;"
 						class="spinner" /></td> 
 				    <td>班线类型：</td>
-					<td><input id="routeSearchForm_routeType" name="routeType" style="width: 80px;"
+					<td><input id="routeSearchForm_routeType" name="routeType" style="width: 80px;height: 23px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
 					<td><input id="routeSearchForm_status" name="status"
-						style="width: 80px;" class="spinner" /></td> 
+						style="width: 80px;height: 23px;" class="spinner" /></td> 
 						<td>始发站：</td>
-					<td><input name="routeOrigin" style="width: 80px;"
-						class="spinner" /></td> <td>终点站：</td>
-					<td><input name="routeStop" style="width: 80px;"
-						class="spinner" /></td> 
-						
+					<td> 
+				        <input name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+	               </td> 
+					<td>终点站：</td>  
+					<td>  
+					  <input name="routeStop" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+	               </td>  
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('load',glacier.serializeObject($('#routeSearchForm')));">查询</a>
@@ -384,7 +382,58 @@
 						onclick="$('#routeSearchForm input').val('');glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
-			</table>
-		</form>
+			</table>   
+		</form>    
 	</div>
-</div>
+</div> 
+ 
+									<!--弹出省省市-->
+	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-170px;top:50%;margin-top:-55px;">
+	  <div class="tabsArea clearfix">
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div> 
+<script src="${ctx}/resources/area/js/public.js"></script>
+

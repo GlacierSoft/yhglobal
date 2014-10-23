@@ -17,8 +17,7 @@
  * @Review (审核人) ：song.jundong 
  * 
  */
-package com.glacier.frame.web.controller.carrier;
- 
+package com.glacier.frame.web.controller.carrier; 
 import javax.validation.Valid; 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,36 +71,18 @@ public class CarrierRouteController extends AbstractController {
     	}
 	     return mav;
     }
-    
-    // 启用、禁用班线
-    @RequestMapping(value = "/status.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object updateStatus(String  routerId) {
-    	return carrierRouterService.upStatus(routerId); 
-    }  
+      
 
-    // 班线audit表单页面
-    @RequestMapping(value = "/intoAudit.htm")
-    private Object intoAuditMember(String routerId) {
-        ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_audit");
-        if(StringUtils.isNotBlank(routerId)){
-        	 CarrierRoute carrierRoute=carrierRouterService.getRoute(routerId);
-         	 mav.addObject("carrierRouteData", carrierRoute);   
-          }
+    // 班线add表单页面
+    @RequestMapping(value = "/addForm.htm")
+    private Object intoAuditMember() {
+        ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierAddRoute_form");
+    	String number="YH"+Double.toString(Math.random()*9000+1000);  
+        mav.addObject("routeNub", number);   
          return mav;
     }
-    
-    //班线审核
-    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object auditMember(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return carrierRouterService.audit(carrierRoute);
-    }
-     
-    //班线审核
+      
+    //查询收货发货区域
     @RequestMapping(value = "/area.json", method = RequestMethod.POST)
     @ResponseBody
     private Object selectArea(String routeid) {  
