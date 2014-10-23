@@ -1,8 +1,11 @@
 (function() {
 	$(".proCitySelAll").click(function(event) {
-		if ($("body").data("CitysAll") == null) {
+		
+		
+	    $(".hotCityAll .list ul").empty();
+	    // if ($("body").data("CitysAll") == null) {
 			sendAllCitiesAjax();
-		}
+	 	//} 
 		$(this).select();
 		$(".provinceCity").hide();
 		$(".provinceCityAll").hide();
@@ -24,13 +27,14 @@
 		$(".provinceCityAll").find(".tabsArea").find("a").removeClass("current");
 		$(".provinceCityAll").find(".tabsArea").find("a[tb=hotCityAll]").addClass("current");
 		$(".provinceCityAll").find(".con").children().hide();
-		$(".provinceCityAll").find(".con").find(".hotCityAll").show();
-		if ($("body").data("allProvinces") == null) {
+		$(".provinceCityAll").find(".con").find(".hotCityAll").show();  
+		$(".provinceAll .list ul li").remove();
+		// if ($("body").data("allProvinces") == null) {
 			sendAllProvinceAjax();
-		}
-		if ($("body").data("allCountys") == null) {
+		// }
+		 //if ($("body").data("allCountys") == null) {
 			sendAllCountiesAjax();
-		}
+		// }
 		$(".provinceCityAll").find(".tabsArea").find("a").click(function() {
 			if ($(this).attr("tb") == "cityAll" && $(".provinceAll .list .current").val() == null) {
 				return;
@@ -800,7 +804,7 @@ var cityIdAll = null;
 var provinceAllTotalPage = null;
 var pa_pageSize = 12;
 var pa_currentPage = 1;
-function sendAllProvinceAjax() {
+function sendAllProvinceAjax() { 
 	$.ajax({
 		type: "get",
 		url: 'http://localhost:8089/yhglobal-webcarrier/resources/area/js/queryAllProvinces.js',
@@ -817,7 +821,7 @@ function sendAllProvinceAjax() {
 		}
 	});
 }
-function sendAllCitiesAjax() {
+function sendAllCitiesAjax() { 
 	$.ajax({
 		type: "get",
 		url: 'http://localhost:8089/yhglobal-webcarrier/resources/area/js/queryCities.js',
@@ -835,7 +839,7 @@ function sendAllCitiesAjax() {
 	});
 }
 function sendAllCountiesAjax()
- {
+ { 
 	$.ajax({
 		type: "get",
 		url: "http://localhost:8089/yhglobal-webcarrier/resources/area/js/queryAllAreas.js",
