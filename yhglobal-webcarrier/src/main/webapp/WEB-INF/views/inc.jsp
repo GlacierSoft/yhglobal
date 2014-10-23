@@ -17,7 +17,7 @@
 <link href="${ctx}/resources/css/main.css" rel="stylesheet" type="text/css" />
 <!-- kindeditor上传按钮样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/kindeditor/themes/default/default.css"></link>
-<!-- 增加地区选择样式 -->
+<!-- 增加地区选择器样式 -->
 <link href="${ctx}/resources/area/css/cityLayout.css" type="text/css" rel="stylesheet">
 <link href="${ctx}/resources/area/css/area.css" type="text/css" rel="stylesheet">
 

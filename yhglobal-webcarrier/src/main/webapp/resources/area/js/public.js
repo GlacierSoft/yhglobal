@@ -99,7 +99,7 @@ function wrongMsg(object, msg) {
 	var thisObj;
 	var dimCityDiv = "<div id='dimCityQuery'><ul></ul></div>";
 	$("body").append(dimCityDiv);
-	$("body").delegate(".proCityQuery,.proCityQueryAll", ($.browser.opera ? "keypress": "keyup"),
+	$("body").delegate(".proCityQuery,.proCityQueryAll", ($.support.opera ? "keypress": "keyup"),
 	function(event) {
 		if ($("#dimCityQuery:visible").size() == 0) {
 			$(".backifname").hide();
@@ -381,7 +381,7 @@ function wrongMsg(object, msg) {
 		$(".backifname").hide();
 		return false;
 	});
-	$(".nomarl").live("focus",
+	$(".nomarl").on("focus",
 	function() {
 		var ov = $.trim($(this).attr("ov"));
 		var val = $.trim($(this).val());
@@ -392,7 +392,7 @@ function wrongMsg(object, msg) {
 			$(this).val("");
 		}
 	});
-	$(".nomarl").live("blur",
+	$(".nomarl").on("blur",
 	function() {
 		var ov = $.trim($(this).attr("ov"));
 		var val = $.trim($(this).val());

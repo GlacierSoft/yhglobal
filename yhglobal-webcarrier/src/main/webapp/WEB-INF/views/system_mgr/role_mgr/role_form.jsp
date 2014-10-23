@@ -5,7 +5,7 @@
 <!-- 获取项目根path -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
-<form method="post" style="padding:15px">
+<form id="role_mgr_role_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
 			<td>角色名称：</td>
@@ -18,13 +18,13 @@
 			<td>英文名称：</td>
 			<td><input name="roleEnName" class="easyui-validatebox spinner" style="width:268px" value="${roleData.roleEnName}" required="true" validType="customReg['^[A-Z_]{4,16}$','<fmt:message key="Role.roleEnName.illegal"/>']"/></td>
 		</tr>
-		<tr>
+	<%-- 	<tr>
 			<td>备注：</td>
 			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${roleData.remark}</textarea></td>
-		</tr>
+		</tr> --%>
 	</table>
 	
-	<input name="" id="start1" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll" ov="请选择/输入城市名称">
+	<input name="remark" id="remark" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll" ov="请选择/输入城市名称">
 	<!--弹出省省市-->
 	<div class="provinceCityAll">
 	  <div class="tabsArea clearfix">
@@ -74,5 +74,4 @@
 	  </div>
 	</div>
 </form>
-<script src="${ctx}/resources/area/js/jquery-1.6.2.min.js"></script>
 <script src="${ctx}/resources/area/js/public.js"></script>
