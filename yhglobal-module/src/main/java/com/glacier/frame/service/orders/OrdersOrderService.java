@@ -131,7 +131,7 @@ public class OrdersOrderService {
         	StorehouseBelaidup belaidupTerminu = belaidupMapper.selectByPrimaryKey(belaidupIds.get(0));
         	for (String belaidupId : belaidupIds) {
             	StorehouseBelaidup belaidup = belaidupMapper.selectByPrimaryKey(belaidupId);
-            	if(belaidupTerminu.getBelaidupTerminu().equals(belaidup.getBelaidupTerminu())){
+            	if(!belaidupTerminu.getBelaidupTerminu().equals(belaidup.getBelaidupTerminu())){
             		returnResult.setSuccess(false);
                     returnResult.setMsg("[" + belaidup.getBelaidupProdName() + "] 货物信息与所选的货物不为同一目的地,请重新选择！");
                     return returnResult;
@@ -148,15 +148,14 @@ public class OrdersOrderService {
         order.setOrderId(RandomGUID.getRandomGUID());
         OrdersOrderExample orderExample = new OrdersOrderExample(); 
         int count = 0;
+        
+        order.setOrderCode("OR_ORDER_"+formatDate.format(new Date())+"_"+(orderCount+1));
         // 防止订单名称重复
         orderExample.createCriteria().andOrderCodeEqualTo(order.getOrderCode());
         count = orderMapper.countByExample(orderExample);
         if (count > 0) {
         	order.setOrderCode("OR_ORDER_"+formatDate.format(new Date())+"_"+(orderCount+2));
-        }else{
-        	order.setOrderCode("OR_ORDER_"+formatDate.format(new Date())+"_"+(orderCount+1));
         }
-        
         order.setOrderNum(belaidupIds.size());
         for (String belaidupId : belaidupIds) {
         	StorehouseBelaidup belaidupMoney = belaidupMapper.selectByPrimaryKey(belaidupId);
