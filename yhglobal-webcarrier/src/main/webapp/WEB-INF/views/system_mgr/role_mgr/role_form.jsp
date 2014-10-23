@@ -1,5 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- 引入国际化标签 -->
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path -->
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
 <form method="post" style="padding:15px">
 	<table class="formtable">
@@ -19,5 +23,56 @@
 			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${roleData.remark}</textarea></td>
 		</tr>
 	</table>
+	
+	<input name="" id="start1" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll" ov="请选择/输入城市名称">
+	<!--弹出省省市-->
+	<div class="provinceCityAll">
+	  <div class="tabsArea clearfix">
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div>
 </form>
-
+<script src="${ctx}/resources/area/js/jquery-1.6.2.min.js"></script>
+<script src="${ctx}/resources/area/js/public.js"></script>
