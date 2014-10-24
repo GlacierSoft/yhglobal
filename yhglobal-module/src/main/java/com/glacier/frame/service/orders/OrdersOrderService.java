@@ -183,6 +183,10 @@ public class OrdersOrderService {
         		order_Info.setOrderId(order.getOrderId());
         		order_Info.setYesOrNo("no");
         		order_Info.setRemark("暂无");
+        		order_Info.setCreater(pricipalUser.getUserId());
+        		order_Info.setCreateTime(new Date());
+        		order_Info.setUpdater(pricipalUser.getUserId());
+        		order_Info.setUpdateTime(new Date());
         		order_InfoMapper.insert(order_Info);
         		//修改货物的分拣状态为已分拣
         		StorehouseBelaidup belaidup = belaidupMapper.selectByPrimaryKey(belaidupId);

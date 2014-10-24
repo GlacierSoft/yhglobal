@@ -11,6 +11,10 @@
     <result column="temp_orders_order_info_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_order_info_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_orders_order_info_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<result column="temp_orders_order_info_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_order_info_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_order_info_belaidup_display" property="belaidupDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_order_info_order_code_display" property="orderCodeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,6 +80,17 @@
     temp_orders_order_info.remark as temp_orders_order_info_remark, temp_orders_order_info.creater as temp_orders_order_info_creater, 
     temp_orders_order_info.create_time as temp_orders_order_info_create_time, temp_orders_order_info.updater as temp_orders_order_info_updater, 
     temp_orders_order_info.update_time as temp_orders_order_info_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_orders_order_info_creater_display
+    ,temp_updater.user_cn_name as temp_orders_order_info_updater_display
+    ,temp_belaidup.belaidup_prod_name as temp_orders_order_info_belaidup_display
+    ,temp_order.order_code as temp_orders_order_info_order_code_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_order_info.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_order_info.updater <!-- 扩展 -->
+    LEFT JOIN t_storehouse_belaidup temp_belaidup ON temp_belaidup.belaidup_id = temp_orders_order_info.belaidup_id <!-- 扩展 -->
+    LEFT JOIN t_orders_order temp_order ON temp_order.order_id = temp_orders_order_info.order_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" >
     select
@@ -84,6 +99,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_orders_order_info temp_orders_order_info
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,6 +114,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_orders_order_info temp_orders_order_info
+    <include refid="Base_extend" />
     where temp_orders_order_info.order_info_id = #{orderInfoId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -183,6 +200,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersOrder_infoExample" resultType="java.lang.Integer" >
     select count(*) from t_orders_order_info temp_orders_order_info
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

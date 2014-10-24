@@ -2,6 +2,8 @@ package com.glacier.frame.entity.orders;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class OrdersOrder_info {
     private String orderInfoId;
 
@@ -15,11 +17,24 @@ public class OrdersOrder_info {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段，显示创建人真实名字
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String belaidupDisplay;
+    
+    private String orderCodeDisplay;
 
     public String getOrderInfoId() {
         return orderInfoId;
@@ -93,7 +108,39 @@ public class OrdersOrder_info {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getBelaidupDisplay() {
+		return belaidupDisplay;
+	}
+
+	public void setBelaidupDisplay(String belaidupDisplay) {
+		this.belaidupDisplay = belaidupDisplay;
+	}
+
+	public String getOrderCodeDisplay() {
+		return orderCodeDisplay;
+	}
+
+	public void setOrderCodeDisplay(String orderCodeDisplay) {
+		this.orderCodeDisplay = orderCodeDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

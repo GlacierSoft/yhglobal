@@ -104,6 +104,18 @@ public class OrdersOrder_infoExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andBelaidupDisplayLike(String value) {
+            addCriterion("temp_belaidup.belaidup_prod_name like ", value, "belaidupDisplay");
+            return (Criteria) this;
+        }
+        
+        //扩展查询条件
+        public Criteria andOrderCodeDisplayLike(String value) {
+            addCriterion("temp_order.order_code like ", value, "orderCodeDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
