@@ -53,17 +53,23 @@
 		<tr>
 			<td>班线起点：</td>
 			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeOrigin"  value="${carrierRouteData.routeOrigin}"/></td>
-		    <td style="padding-left:10px;"> 联系电话：</td>
+		    <td style="padding-left:10px;">发货站地址：</td>
+			<td><input class="spinner" style="width:180px"  value="${carrierRouteData.originAddress}" /></td>
+		    
+		</tr> 
+		<tr>
+		    <td >班线终点：</td>
+			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
+		    <td style="padding-left:10px;">到货站地址：</td>
+			<td><input class="spinner" style="width:180px"  value="${carrierRouteData.stopAddress}" /></td>
+		 	
+	    </tr>
+	    <tr> <td> 联系电话：</td>
 			<td>
 				<input class="easyui-validatebox spinner" maxlength="11" required="true" style="height:18px;width:180px" name="telephone"  value="${carrierRouteData.telephone}"  
 			  	validType="customReg['(^(\d{3,4}-)?\d{7,8})$|(13[0-9]{9})','<fmt:message key="Route.telephone.illegal"/>']"
 			  />
 			</td>
-		</tr> 
-		<tr>
-		    <td >班线终点：</td>
-			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
-		
 			<td style="padding-left:10px;">发车时间：</td>
 			<td> 
 				<input class="easyui-validatebox spinner" required="true"
@@ -71,8 +77,7 @@
 				validType="customReg['^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$','<fmt:message key="Route.outTime.illegal"/>']"
 			 />格式:hh:mm
 			</td>
-			
-	    </tr>
+		</tr>
 	   	<tr>
 	   	   <td>在途时间：</td>
 			<td>

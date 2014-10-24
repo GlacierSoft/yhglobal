@@ -3,7 +3,7 @@ package com.glacier.frame.entity.carrier;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
 
 public class CarrierRouteExample {
     protected String orderByClause;
@@ -104,13 +104,13 @@ public class CarrierRouteExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        
-        //自定承运商名称查询方法
+
+		 //自定承运商名称查询方法
         public Criteria andCarrierDisplayLike(String value) {
         	addCriterion(" temp_carrier_member.member_name like ",value," carrierDisplay ");
             return (Criteria) this;
         } 
-         
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -412,6 +412,76 @@ public class CarrierRouteExample {
             return (Criteria) this;
         }
 
+        public Criteria andOriginAddressIsNull() {
+            addCriterion("temp_carrier_route.origin_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressIsNotNull() {
+            addCriterion("temp_carrier_route.origin_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressEqualTo(String value) {
+            addCriterion("temp_carrier_route.origin_address =", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.origin_address <>", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressGreaterThan(String value) {
+            addCriterion("temp_carrier_route.origin_address >", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.origin_address >=", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressLessThan(String value) {
+            addCriterion("temp_carrier_route.origin_address <", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.origin_address <=", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressLike(String value) {
+            addCriterion("temp_carrier_route.origin_address like", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressNotLike(String value) {
+            addCriterion("temp_carrier_route.origin_address not like", value, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressIn(List<String> values) {
+            addCriterion("temp_carrier_route.origin_address in", values, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.origin_address not in", values, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.origin_address between", value1, value2, "originAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginAddressNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.origin_address not between", value1, value2, "originAddress");
+            return (Criteria) this;
+        }
+
         public Criteria andRouteStopIsNull() {
             addCriterion("temp_carrier_route.route_stop is null");
             return (Criteria) this;
@@ -479,6 +549,76 @@ public class CarrierRouteExample {
 
         public Criteria andRouteStopNotBetween(String value1, String value2) {
             addCriterion("temp_carrier_route.route_stop not between", value1, value2, "routeStop");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressIsNull() {
+            addCriterion("temp_carrier_route.stop_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressIsNotNull() {
+            addCriterion("temp_carrier_route.stop_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressEqualTo(String value) {
+            addCriterion("temp_carrier_route.stop_address =", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.stop_address <>", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressGreaterThan(String value) {
+            addCriterion("temp_carrier_route.stop_address >", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.stop_address >=", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressLessThan(String value) {
+            addCriterion("temp_carrier_route.stop_address <", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.stop_address <=", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressLike(String value) {
+            addCriterion("temp_carrier_route.stop_address like", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressNotLike(String value) {
+            addCriterion("temp_carrier_route.stop_address not like", value, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressIn(List<String> values) {
+            addCriterion("temp_carrier_route.stop_address in", values, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.stop_address not in", values, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.stop_address between", value1, value2, "stopAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andStopAddressNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.stop_address not between", value1, value2, "stopAddress");
             return (Criteria) this;
         }
 

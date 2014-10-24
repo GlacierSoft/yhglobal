@@ -288,10 +288,16 @@ public class CarrierRouterService {
 	 * @return Object    返回类型  
 	 * @throws
 	 */
-/*	public Object GenerationRouteNumber(){
-		String number="YH"+Double.toString(Math.random()*9000+1000); 
-		CarrierRouteExample carrierRouteExample=new CarrierRouteExample();
-		carrierRouteExample.createCriteria().andRouteNameEqualTo(number); 
-		int i =carrierRouteMapper.selectByExample(carrierRouteExample).size();  
-	}*/
+   public String GenerationRouteNumber(){ 
+		CarrierRouteExample carrierRouteExample=new CarrierRouteExample(); 
+		int i;
+		String number;
+		//班线编号重复
+		 do{
+			 number="YH-"+(int)Math.random()*9000+1000; 
+			 carrierRouteExample.createCriteria().andRouteNameEqualTo(number); 
+			 i=carrierRouteMapper.selectByExample(carrierRouteExample).size();
+		 }while(i>0); 
+		 return number;
+	} 
 }

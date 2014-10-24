@@ -51,6 +51,12 @@
 			<td><input class="spinner" style="width:180px"  value="${carrierRouteData.routeStop}" readonly="readonly"/></td>
 		</tr> 
 		<tr>
+			<td>发货站地址：</td>
+			<td><input class="spinner" style="width:180px"  value="${carrierRouteData.originAddress}" readonly="readonly"/></td>
+		    <td style="padding-left:10px;">到货站地址：</td>
+			<td><input class="spinner" style="width:180px"  value="${carrierRouteData.stopAddress}" readonly="readonly"/></td>
+		</tr> 
+		<tr>
 			<td>发车时间：</td>
 			<td>
 				<input class="spinner" style="height:18px;width:180px" readonly="readonly"  value="<fmt:formatDate value="${carrierRouteData.startofTime}" pattern="HH:mm"/>"/>

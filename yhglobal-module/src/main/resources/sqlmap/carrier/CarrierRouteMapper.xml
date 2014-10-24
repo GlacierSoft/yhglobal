@@ -6,7 +6,9 @@
     <result column="temp_carrier_route_route_name" property="routeName" jdbcType="VARCHAR" />
     <result column="temp_carrier_route_status" property="status" jdbcType="CHAR" />
     <result column="temp_carrier_route_route_origin" property="routeOrigin" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_origin_address" property="originAddress" jdbcType="VARCHAR" />
     <result column="temp_carrier_route_route_stop" property="routeStop" jdbcType="VARCHAR" />
+    <result column="temp_carrier_route_stop_address" property="stopAddress" jdbcType="VARCHAR" />
     <result column="temp_carrier_route_route_type" property="routeType" jdbcType="CHAR" />
     <result column="temp_carrier_route_route_bytime" property="routeBytime" jdbcType="INTEGER" />
     <result column="temp_carrier_route_route_number" property="routeNumber" jdbcType="VARCHAR" />
@@ -30,7 +32,7 @@
     <result column="temp_carrier_route_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_carrier_route_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_carrier_route_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <!-- 自定义扩展字段 -->
+      <!-- 自定义扩展字段 -->
     <result column="temp_carrier_route_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
     <result column="temp_carrier_route_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> 
     <result column="temp_carrier_route_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> 
@@ -97,7 +99,8 @@
   <sql id="Base_Column_List" >
     temp_carrier_route.router_id as temp_carrier_route_router_id, temp_carrier_route.route_name as temp_carrier_route_route_name, 
     temp_carrier_route.status as temp_carrier_route_status, temp_carrier_route.route_origin as temp_carrier_route_route_origin, 
-    temp_carrier_route.route_stop as temp_carrier_route_route_stop, temp_carrier_route.route_type as temp_carrier_route_route_type, 
+    temp_carrier_route.origin_address as temp_carrier_route_origin_address, temp_carrier_route.route_stop as temp_carrier_route_route_stop, 
+    temp_carrier_route.stop_address as temp_carrier_route_stop_address, temp_carrier_route.route_type as temp_carrier_route_route_type, 
     temp_carrier_route.route_bytime as temp_carrier_route_route_bytime, temp_carrier_route.route_number as temp_carrier_route_route_number, 
     temp_carrier_route.startof_time as temp_carrier_route_startof_time, temp_carrier_route.available_position as temp_carrier_route_available_position, 
     temp_carrier_route.box_type as temp_carrier_route_box_type, temp_carrier_route.cease_take_delivery_time as temp_carrier_route_cease_take_delivery_time, 
@@ -130,7 +133,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_carrier_route temp_carrier_route
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -145,7 +148,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_carrier_route temp_carrier_route
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_carrier_route.router_id = #{routerId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -153,32 +156,34 @@
     where router_id = #{routerId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" >
-    delete from t_carrier_route temp_carrier_route
+    delete temp_carrier_route from t_carrier_route temp_carrier_route
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
     insert into t_carrier_route (router_id, route_name, status, 
-      route_origin, route_stop, route_type, 
-      route_bytime, route_number, startof_time, 
-      available_position, box_type, cease_take_delivery_time, 
-      starting_price, weight_goods_price, light_goods_price, 
-      extract_goods_time, premium, telephone, 
-      mileage, audit_state, audit, 
-      audit_opinion, audit_time, remark, 
-      creater, create_time, updater, 
-      update_time)
+      route_origin, origin_address, route_stop, 
+      stop_address, route_type, route_bytime, 
+      route_number, startof_time, available_position, 
+      box_type, cease_take_delivery_time, starting_price, 
+      weight_goods_price, light_goods_price, extract_goods_time, 
+      premium, telephone, mileage, 
+      audit_state, audit, audit_opinion, 
+      audit_time, remark, creater, 
+      create_time, updater, update_time
+      )
     values (#{routerId,jdbcType=VARCHAR}, #{routeName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
-      #{routeOrigin,jdbcType=VARCHAR}, #{routeStop,jdbcType=VARCHAR}, #{routeType,jdbcType=CHAR}, 
-      #{routeBytime,jdbcType=INTEGER}, #{routeNumber,jdbcType=VARCHAR}, #{startofTime,jdbcType=TIMESTAMP}, 
-      #{availablePosition,jdbcType=REAL}, #{boxType,jdbcType=CHAR}, #{ceaseTakeDeliveryTime,jdbcType=TIMESTAMP}, 
-      #{startingPrice,jdbcType=DECIMAL}, #{weightGoodsPrice,jdbcType=DECIMAL}, #{lightGoodsPrice,jdbcType=DECIMAL}, 
-      #{extractGoodsTime,jdbcType=VARCHAR}, #{premium,jdbcType=DECIMAL}, #{telephone,jdbcType=VARCHAR}, 
-      #{mileage,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{audit,jdbcType=VARCHAR}, 
-      #{auditOpinion,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{routeOrigin,jdbcType=VARCHAR}, #{originAddress,jdbcType=VARCHAR}, #{routeStop,jdbcType=VARCHAR}, 
+      #{stopAddress,jdbcType=VARCHAR}, #{routeType,jdbcType=CHAR}, #{routeBytime,jdbcType=INTEGER}, 
+      #{routeNumber,jdbcType=VARCHAR}, #{startofTime,jdbcType=TIMESTAMP}, #{availablePosition,jdbcType=REAL}, 
+      #{boxType,jdbcType=CHAR}, #{ceaseTakeDeliveryTime,jdbcType=TIMESTAMP}, #{startingPrice,jdbcType=DECIMAL}, 
+      #{weightGoodsPrice,jdbcType=DECIMAL}, #{lightGoodsPrice,jdbcType=DECIMAL}, #{extractGoodsTime,jdbcType=VARCHAR}, 
+      #{premium,jdbcType=DECIMAL}, #{telephone,jdbcType=VARCHAR}, #{mileage,jdbcType=VARCHAR}, 
+      #{auditState,jdbcType=CHAR}, #{audit,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
     insert into t_carrier_route
@@ -195,8 +200,14 @@
       <if test="routeOrigin != null" >
         route_origin,
       </if>
+      <if test="originAddress != null" >
+        origin_address,
+      </if>
       <if test="routeStop != null" >
         route_stop,
+      </if>
+      <if test="stopAddress != null" >
+        stop_address,
       </if>
       <if test="routeType != null" >
         route_type,
@@ -281,8 +292,14 @@
       <if test="routeOrigin != null" >
         #{routeOrigin,jdbcType=VARCHAR},
       </if>
+      <if test="originAddress != null" >
+        #{originAddress,jdbcType=VARCHAR},
+      </if>
       <if test="routeStop != null" >
         #{routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="stopAddress != null" >
+        #{stopAddress,jdbcType=VARCHAR},
       </if>
       <if test="routeType != null" >
         #{routeType,jdbcType=CHAR},
@@ -357,7 +374,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" resultType="java.lang.Integer" >
     select count(*) from t_carrier_route temp_carrier_route
-    <include refid="Base_extend" />
+	 <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -377,8 +394,14 @@
       <if test="record.routeOrigin != null" >
         temp_carrier_route.route_origin = #{record.routeOrigin,jdbcType=VARCHAR},
       </if>
+      <if test="record.originAddress != null" >
+        temp_carrier_route.origin_address = #{record.originAddress,jdbcType=VARCHAR},
+      </if>
       <if test="record.routeStop != null" >
         temp_carrier_route.route_stop = #{record.routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stopAddress != null" >
+        temp_carrier_route.stop_address = #{record.stopAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.routeType != null" >
         temp_carrier_route.route_type = #{record.routeType,jdbcType=CHAR},
@@ -460,7 +483,9 @@
       temp_carrier_route.route_name = #{record.routeName,jdbcType=VARCHAR},
       temp_carrier_route.status = #{record.status,jdbcType=CHAR},
       temp_carrier_route.route_origin = #{record.routeOrigin,jdbcType=VARCHAR},
+      temp_carrier_route.origin_address = #{record.originAddress,jdbcType=VARCHAR},
       temp_carrier_route.route_stop = #{record.routeStop,jdbcType=VARCHAR},
+      temp_carrier_route.stop_address = #{record.stopAddress,jdbcType=VARCHAR},
       temp_carrier_route.route_type = #{record.routeType,jdbcType=CHAR},
       temp_carrier_route.route_bytime = #{record.routeBytime,jdbcType=INTEGER},
       temp_carrier_route.route_number = #{record.routeNumber,jdbcType=VARCHAR},
@@ -500,8 +525,14 @@
       <if test="routeOrigin != null" >
         route_origin = #{routeOrigin,jdbcType=VARCHAR},
       </if>
+      <if test="originAddress != null" >
+        origin_address = #{originAddress,jdbcType=VARCHAR},
+      </if>
       <if test="routeStop != null" >
         route_stop = #{routeStop,jdbcType=VARCHAR},
+      </if>
+      <if test="stopAddress != null" >
+        stop_address = #{stopAddress,jdbcType=VARCHAR},
       </if>
       <if test="routeType != null" >
         route_type = #{routeType,jdbcType=CHAR},
@@ -580,7 +611,9 @@
     set route_name = #{routeName,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
       route_origin = #{routeOrigin,jdbcType=VARCHAR},
+      origin_address = #{originAddress,jdbcType=VARCHAR},
       route_stop = #{routeStop,jdbcType=VARCHAR},
+      stop_address = #{stopAddress,jdbcType=VARCHAR},
       route_type = #{routeType,jdbcType=CHAR},
       route_bytime = #{routeBytime,jdbcType=INTEGER},
       route_number = #{routeNumber,jdbcType=VARCHAR},

@@ -2,6 +2,10 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path -->
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <style> 
 .ark-poptip{ position: absolute; color: #db7c22; z-index: 101; line-height: 1.5; zoom: 1; }
 .ark-poptip-shadow{ background-color: rgba(229,169,107,0.15); FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#26e5a96b,endColorstr=#26e5a96b); border-radius: 2px; padding: 2px; zoom: 1; _display: inline; }
@@ -19,22 +23,25 @@
 .ark-poptip-content{ float: none; display: inline; *zoom: 1; }
 .ark-poptip-content:after{ visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 :root .ark-poptip-shadow{ FILTER: none\9; }
-</style>  
-<form method="post" style="padding:15px">
-	<table class="formtable">
+</style>   
+ <form id="carrierAddRoute_form" method="post" style="padding:15px;width: 605px">
+<div title="基本信息" style="padding:15px">
+    	<fieldset id="user_mgr_user_form_userGenfieldset" style="padding:10px;" class="spinner">
+			<legend>班线基本信息</legend>  
+			<table class="formtable">
 		<tr>
 			<td>班次编号：</td>
 			<td>
 				  <input type="text" class="easyui-validatebox spinner"  required="true" name="routeNumber" style="height:18px;width:180px" value="${routeNub}" readonly="readonly" />
 			</td> 
-		 	  <td colspan="3" style="padding-left:10px;">查看
+		 	 <!--  <td colspan="3" style="padding-left:10px;">查看
 		 	     <a href="#" style="color:blue; text-decoration:none;" onmouseover="showdiv(this)" onmouseout="hidediv()">[货物发/收区域]</a>
-		 	  </td>
+		 	  </td> -->
 		 </tr>
 		 <tr>
 		    <td>班线名称：</td>
 			<td><input class="easyui-validatebox spinner" required="true" 
-			style="height:18px;width:180px"  name="routeName" value="${carrierRouteData.routeName}"/></td>
+			style="height:18px;width:180px"  name="routeName"/></td>
 		    <td  style="padding-left:10px;">承运商：</td>
 			<td>
 				<input id="carrier_mgr_carInformation_form_carrierMemberId" required="true" class="easyui-validatebox spinner" style="height:18px;width:180px" name="carrierDisplay" value="${carrierRouteData.carrierDisplay}"/>
@@ -51,7 +58,9 @@
 	    </tr>
 		<tr>
 			<td>班线起点：</td>
-			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeOrigin"  value="${carrierRouteData.routeOrigin}"/></td>
+			<td>
+			 <input name="routeOrigin" id="remark" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+	        </td>
 		    <td style="padding-left:10px;"> 联系电话：</td>
 			<td>
 				<input class="easyui-validatebox spinner" maxlength="11" required="true" style="height:18px;width:180px" name="telephone"  value="${carrierRouteData.telephone}"  
@@ -61,8 +70,9 @@
 		</tr> 
 		<tr>
 		    <td >班线终点：</td>
-			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
-		
+			<td>
+          <input name="routeOrigin" id="remark" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+	       
 			<td style="padding-left:10px;">发车时间：</td>
 			<td> 
 				<input class="easyui-validatebox spinner" required="true"
@@ -138,13 +148,40 @@
 		<tr>   
 		     <td>备注：</td>
 			 <td colspan="3"><textarea name="remark"  class=" easyui-validatebox spinner"  style="width:470px;height: 80px" >${carrierRouteData.remark}</textarea></td>
-		</tr> 
-		<tr>    
-			 <td colspan="4"><input type="button" value="添加发货区域">----<input type="button" value="添加收货区域"></td>
-		</tr> 
-	</table>   
- <input id="routeid" value="${carrierRouteData.routerId }" type="hidden">
- <div id="Prew" class="ark-poptip" style="top: 70px;margin-left: 320px;width: 234px;visibility:hidden;"  >
+		</tr>  
+	</table> 
+		</fieldset>
+    </div>
+    <div title="收/发区域" style="padding:15px">
+    	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
+			<legend>收/发货物区域</legend>  
+			<table  class="detailtable"> 
+			<tr>   
+		     <td>发货区域1：</td>
+			 <td><input class="easyui-validatebox spinner" required="true" 
+			style="height:18px;width:180px"  name="routeName"/></td>
+			   <td>收货区域1：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="extractGoodsTime" value="${carrierRouteData.extractGoodsTime}"/>
+			  </td>
+		  </tr>  
+			<tr>   
+		     <td>发货区域2：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="extractGoodsTime" value="${carrierRouteData.extractGoodsTime}"/>
+			  </td>
+			   <td>收货区域2：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner" required="true" style="height:18px;width:180px" name="extractGoodsTime" value="${carrierRouteData.extractGoodsTime}"/>
+			  </td>
+		  </tr> 
+			
+			</table>
+		</fieldset>
+    </div> 
+     
+</form> 
+    <!--  <div id="Prew" class="ark-poptip" style="top: 70px;margin-left: 320px;width: 234px;visibility:hidden;"  >
 	<div class="ark-poptip-shadow">
 		<div class="ark-poptip-container">
 			<div class="ark-poptip-arrow ark-poptip-arrow-a">
@@ -166,11 +203,90 @@
 			</div>
 		</div>
 	</div>
-</div>  
-</form>
+</div> 
+  -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 	<!--弹出省省市-->
+	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-350px;top:50%;margin-top:-35px;">
+	  <div class="tabsArea clearfix">
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div> 
+<script src="${ctx}/resources/area/js/public.js"></script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 
 <script type="text/javascript">  
+
+$('#carrierAddRoute_form').tabs({
+	border:true,
+	onSelect:function(){
+		$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
+	}
+}); 
     //隐藏层
 	function hidediv() {
 	$(".te").remove(); 

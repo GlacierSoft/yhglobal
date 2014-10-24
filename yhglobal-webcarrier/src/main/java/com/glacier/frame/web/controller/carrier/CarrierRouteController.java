@@ -77,9 +77,8 @@ public class CarrierRouteController extends AbstractController {
     @RequestMapping(value = "/addForm.htm")
     private Object intoAuditMember() {
         ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierAddRoute_form");
-    	String number="YH"+Double.toString(Math.random()*9000+1000);  
-        mav.addObject("routeNub", number);   
-         return mav;
+        mav.addObject("routeNub", carrierRouterService.GenerationRouteNumber());   
+        return mav;
     }
       
     //查询收货发货区域

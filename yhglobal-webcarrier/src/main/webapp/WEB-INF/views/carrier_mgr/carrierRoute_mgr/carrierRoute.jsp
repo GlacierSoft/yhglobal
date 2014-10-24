@@ -77,6 +77,11 @@
 							width : 120,
 							sortable : true
 						},{
+							field : 'originAddress',
+							title : '发货站地址',
+							width : 120,
+							sortable : true
+						},{
 							field : 'routeBytime',
 							title : '在途时间(小时)',
 							width : 120,
@@ -84,6 +89,11 @@
 						},{
 							field : 'routeStop',
 							title : '班线终点',
+							width : 120,
+							sortable : true
+						},{
+							field : 'stopAddress',
+							title : '到货站地址',
 							width : 120,
 							sortable : true
 						},{
@@ -249,8 +259,8 @@
 	glacier.carrier_mgr.carrierRoute_mgr.route.addRoute = function(){ 
 		glacier.basicAddOrEditDialog({
 			title : '【班线】- 增加',
-			width : 610,
-			height : 480,
+			width : 670,
+			height : 550,
 			queryUrl : ctx + '/do/carrierRoute/addForm.htm',
 			submitUrl : ctx + '/do/carrierRoute/add.json',
 			successFun : function (){
@@ -344,7 +354,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="routeGridPanel" data-options="region:'center',border:true">
 		<table id="routeDataGrid">
-			<glacierui:toolbar panelEnName="carrierRouteList"
+			<glacierui:toolbar panelEnName="routeList"
 				toolbarId="routeDataGrid_toolbar" menuEnName="carrierRoute" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>

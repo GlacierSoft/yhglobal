@@ -57,6 +57,10 @@ public class CarrierRoute {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
+    
+    private String originAddress; 
+
+    private String stopAddress;
 
     private String remark;
 
@@ -97,6 +101,22 @@ public class CarrierRoute {
 
 	public void setOutTime(String outTime) {
 		this.outTime = outTime;
+	}
+
+	public String getOriginAddress() {
+		return originAddress;
+	}
+
+	public void setOriginAddress(String originAddress) {
+		this.originAddress = originAddress;
+	}
+
+	public String getStopAddress() {
+		return stopAddress;
+	}
+
+	public void setStopAddress(String stopAddress) {
+		this.stopAddress = stopAddress;
 	}
 
 	public String getIntTime() {
