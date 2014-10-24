@@ -87,6 +87,13 @@ public class OrdersDispatchingController {
     private Object auditStorehouseStorageGoodsrun(String dispatchingId) {
         return ordersDispatchingService.changeOrdersDispatchingStatus(dispatchingId);
     }
+    
+    //货物损坏信息查询
+    @RequestMapping(value = "/checkNumb.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object checkOrdersDispatchingNumb(String belaidupId) {
+    	return ordersDispatchingService.checkOrdersDispatchingNumb(belaidupId);
+    }
    	
     
 }

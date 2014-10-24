@@ -96,6 +96,10 @@ public class CarrierCarInformationQueryDTO extends CarrierCarInformation{
    	 if(null != this.getCarStatus()){//状态Enum查询
         queryCriteria.andCarStatusEqualTo(this.getCarStatus().toString());
    	 }
+   	 if(null!=this.getTransportStatus())
+   		queryCriteria.andTransportStatusEqualTo(this.getTransportStatus());
+   	 
+   	 
      if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
      }else{

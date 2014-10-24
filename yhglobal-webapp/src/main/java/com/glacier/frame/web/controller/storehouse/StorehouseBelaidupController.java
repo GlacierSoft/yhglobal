@@ -97,4 +97,27 @@ public class StorehouseBelaidupController extends AbstractController{
     public Object delGrade(@RequestParam List<String> belaidupIds,@RequestParam List<String> belaidupName) {
     	return belaidupService.delBelaidup(belaidupIds, belaidupName);
     }
+    
+    
+    //添加货物配送页
+     @RequestMapping(value = "/intoDispatchingForm.htm")
+     private Object intoDispatchingForm(String belaidupId) {
+         ModelAndView mav = new ModelAndView("orders_mgr/ordersDispatching_mgr/ordersDispatching_form");
+         if(StringUtils.isNotBlank(belaidupId)){
+             mav.addObject("belaidupDate", belaidupService.getBelaidup(belaidupId));
+         }
+         return mav;
+     }
+        
+    //添加货物损坏页 
+     @RequestMapping(value = "/intoStorehouseDamage_form.htm")
+     private Object intoStorehouseDamageAudit(String belaidupId) {
+         ModelAndView mav = new ModelAndView("storehouse_mgr/storehouseDamage_mgr/storehouseDamage_form");
+         if(StringUtils.isNotBlank(belaidupId)){
+             mav.addObject("belaidupDate", belaidupService.getBelaidup(belaidupId));
+         }
+         return mav;
+     }
+    
+    
 }

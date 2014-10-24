@@ -105,5 +105,22 @@ public class StorehouseDamageController {
         }
         return storehouseDamageServcie.auditStorehouseDamage(storehouseDamage);
     }
+    
+    //增加货物损坏信息
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addContractManagerForm(@Valid StorehouseDamage storehouseDamage, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            //return returnErrorBindingResult(bindingResult);
+        }
+        return storehouseDamageServcie.addStorehouseDamage(storehouseDamage);
+    }
+    
+    //货物损坏信息查询
+    @RequestMapping(value = "/checkNumb.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object checkStoreDamageNumb(String belaidupId) {
+        return storehouseDamageServcie.checkStoreDamageNumb(belaidupId);
+    }
    	
 }  

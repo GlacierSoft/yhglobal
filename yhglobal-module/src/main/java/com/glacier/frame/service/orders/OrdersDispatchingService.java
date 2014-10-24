@@ -29,10 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
+import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
+import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
+import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
+import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -52,6 +57,12 @@ public class OrdersDispatchingService {
    
 	@Autowired
 	private OrdersDispatchingMapper ordersDispatchingMapper;
+	
+	@Autowired
+	private OrdersOrder_infoMapper ordersOrder_infoMapper;
+	
+	@Autowired
+	private OrdersOrdispatchingDetailedMapper ordersOrdispatchingDetailedMapper;
 	 
 	
 	 /**
@@ -125,5 +136,31 @@ public class OrdersDispatchingService {
 	   		   returnResult.setMsg("发生未知错误,【"+ordersDispatching.getCarrierDisplay()+"】配送记录信息"+str+"操作失败!");
 	    	}
 	    	return returnResult;
+	 }
+	 
+
+	 /**
+	    * @Title: checkOrdersDispatchingNumb 
+	    * @Description: 货物配送记录信息查询
+	    * @param  @param belaidupId
+	    * @param  @return
+	    * @throws 
+	    * 备注<p>已检查测试:Green<p> 
+	  */
+	 @Transactional(readOnly = false)
+	 public Object checkOrdersDispatchingNumb(String belaidupId){
+		 JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		 OrdersOrder_infoExample ordersOrder_infoExample= new OrdersOrder_infoExample();
+		 ordersOrder_infoExample.createCriteria().andBelaidupIdEqualTo(belaidupId);
+		 List<OrdersOrder_info> ordersOrder_info=ordersOrder_infoMapper.selectByExample(ordersOrder_infoExample);
+		 String id=ordersOrder_info.get(0).getOrderId();
+		 OrdersOrdispatchingDetailedExample ordersOrdispatchingDetailedExample=new OrdersOrdispatchingDetailedExample();
+		 ordersOrdispatchingDetailedExample.createCriteria().andOrderIdEqualTo(id);
+		 int numb=ordersOrdispatchingDetailedMapper.countByExample(ordersOrdispatchingDetailedExample);
+		 if(numb<=0)
+			 returnResult.setSuccess(true);
+		 else
+			 returnResult.setSuccess(false);
+		 return returnResult;
 	 }
 }

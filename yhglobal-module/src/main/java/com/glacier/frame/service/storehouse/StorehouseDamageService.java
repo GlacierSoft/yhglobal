@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.storehouse.StorehouseDamageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseDamageQueryDTO;
 import com.glacier.frame.entity.storehouse.StorehouseDamage;
@@ -128,5 +129,64 @@ public class StorehouseDamageService {
 		}
 	    return returnResult;
 	}
-
+	    
+	    /**
+	     * @Title: addStorehouseDamage 
+	     * @Description: T损坏记录添加
+	     * @param @param storehouseDamage
+	     * @param @return    设定文件 
+	     * @return Object    返回类型 
+	     * @throws
+	     */ 
+	    @Transactional(readOnly = false)
+	    public Object addStorehouseDamage(StorehouseDamage storehouseDamage){
+	    	   Subject pricipalSubject = SecurityUtils.getSubject();
+	    	        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+	    	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	    	        String str="损坏";
+	    	        if(storehouseDamage.getRemark()!="")
+	    	        	  str=storehouseDamage.getRemark();
+	    	        storehouseDamage.setDamageId(RandomGUID.getRandomGUID());
+	    	        storehouseDamage.setRemark("苹果");
+	    	        storehouseDamage.setYesOrNo("no");
+	    	        storehouseDamage.setRemark(str);
+	    	        storehouseDamage.setAuditStatus("authstr");
+	    	        storehouseDamage.setAuditor(pricipalUser.getUserId());
+	    	        storehouseDamage.setAuditDate(new Date());
+	    	        storehouseDamage.setCreater(pricipalUser.getUserId());
+	    	        storehouseDamage.setCreateTime(new Date());
+	    	        storehouseDamage.setUpdater(pricipalUser.getUserId());
+	    	        storehouseDamage.setUpdateTime(new Date());
+	    	        int count=0;
+	    	        count = storehouseDamageMapper.insert(storehouseDamage);
+	    	        if (count == 1) {
+	    	            returnResult.setSuccess(true);
+	    	            returnResult.setMsg("添加损坏货物记录操作成功");
+	    	        } else {
+	    	            returnResult.setMsg("发生未知错误，添加货物损坏记录保存失败");
+	    	        }
+	    	        return returnResult;
+	    	    }
+	   
+	     /**
+	     * @Title: checkStoreDamageNumb 
+	     * @Description: T损坏记录添加
+	     * @param @param belaidupId
+	     * @param @return    设定文件 
+	     * @return Object    返回类型 
+	     * @throws
+	     */   
+	    public Object checkStoreDamageNumb(String belaidupId){ 
+	    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	    	StorehouseDamageExample storehouseDamageExample = new StorehouseDamageExample();
+	    	storehouseDamageExample.createCriteria().andBelaidupIdEqualTo(belaidupId);
+	    	int count=storehouseDamageMapper.countByExample(storehouseDamageExample);
+	    	if(count<0){
+	    		returnResult.setSuccess(true);
+	    	}else{
+	    		returnResult.setSuccess(false);
+	    	}
+	    		return returnResult;
+	    }
+	    
 }

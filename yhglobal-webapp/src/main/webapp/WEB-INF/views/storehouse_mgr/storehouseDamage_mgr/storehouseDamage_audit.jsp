@@ -61,7 +61,7 @@
 		</tr>
 		<tr>   
 		     <td valign="top">损坏备注：</td>
-			 <td colspan="3"><textarea name="remark" style="width:420px;" maxlength="255" class="spinner formta" readonly="readonly">${storehouseDamageData.remark}</textarea></td>
+			 <td colspan="3"><textarea name="auditOpinion" style="width:420px;" maxlength="255" class="spinner formta" readonly="readonly">${storehouseDamageData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
