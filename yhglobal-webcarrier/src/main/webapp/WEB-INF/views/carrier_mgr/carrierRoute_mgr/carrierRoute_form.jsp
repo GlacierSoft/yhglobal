@@ -2,6 +2,10 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path -->
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <style> 
 .ark-poptip{ position: absolute; color: #db7c22; z-index: 101; line-height: 1.5; zoom: 1; }
 .ark-poptip-shadow{ background-color: rgba(229,169,107,0.15); FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#26e5a96b,endColorstr=#26e5a96b); border-radius: 2px; padding: 2px; zoom: 1; _display: inline; }
@@ -36,10 +40,10 @@
 		    <td>班线名称：</td>
 			<td><input class="easyui-validatebox spinner" required="true" 
 			style="height:18px;width:180px"  name="routeName" value="${carrierRouteData.routeName}"/></td>
-		    <td  style="padding-left:10px;">承运商：</td>
+		      <td  style="padding-left:10px;">承运商：</td>
 			<td>
-				<input id="carrier_mgr_carInformation_form_carrierMemberId" required="true" class="easyui-validatebox spinner" style="height:18px;width:180px" name="carrierDisplay" value="${carrierRouteData.carrierDisplay}"/>
-			</td>
+				<input type="text" readonly="readonly" class="easyui-validatebox spinner" style="height:18px;width:180px" name="carrierDisplay" value="${carrierRouteData.carrierDisplay}"/>
+			</td> 
 		</tr>
 		<tr>
 			<td>班线状态：</td>
@@ -52,16 +56,23 @@
 	    </tr>
 		<tr>
 			<td>班线起点：</td>
-			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeOrigin"  value="${carrierRouteData.routeOrigin}"/></td>
-		    <td style="padding-left:10px;">发货站地址：</td>
-			<td><input class="spinner" style="height:18px;width:180px"  value="${carrierRouteData.originAddress}" /></td>
+			<td>
+			<input name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="${carrierRouteData.routeOrigin}" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+            <td style="padding-left:10px;">发货站地址：</td>
+			<td> 
+			<input class="spinner" style="height:18px;width:180px" name="originAddress" value="${carrierRouteData.originAddress}" /> 
+			</td>
 		    
 		</tr> 
 		<tr>
 		    <td >班线终点：</td>
-			<td><input class="easyui-validatebox spinner" maxlength="20" required="true" style="height:18px;width:180px" name="routeStop"  value="${carrierRouteData.routeStop}"/></td>
+			<td> 
+			
+			<input name="routeStop" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="${carrierRouteData.routeStop}" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+	       
+	          </td>
 		    <td style="padding-left:10px;">到货站地址：</td>
-			<td><input class="spinner" style="height:18px;width:180px"  value="${carrierRouteData.stopAddress}" /></td>
+			<td><input class="spinner" style="height:18px;width:180px"  name="stopAddress" value="${carrierRouteData.stopAddress}" /></td>
 		 	
 	    </tr>
 	    <tr> <td> 联系电话：</td>
@@ -171,7 +182,58 @@
 		</div>
 	</div>
 </div>  
+ 
 </form>
+ 
+	<!--弹出省省市-->
+	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-480px;top:50%;margin-top:-70px;">
+	  <div class="tabsArea clearfix">
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div> 
+<script src="${ctx}/resources/area/js/public.js"></script>
  
 
 <script type="text/javascript">  

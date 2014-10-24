@@ -2,6 +2,7 @@ package com.glacier.frame.entity.carrier;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Pattern;
 
@@ -94,8 +95,29 @@ public class CarrierRoute {
     @Pattern(regexp = "^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$", message = "{Route.intTime.illegal}")
     private String intTime;
 
+    //发货区域集合
+    private List<CarrierDeliverGoodsArea> deliverList;
     
-    public String getOutTime() {
+    //收货区域集合 
+    private List<CarrierPickUpgoodsArea> pickUpList; 
+    
+    public List<CarrierPickUpgoodsArea> getPickUpList() {
+		return pickUpList;
+	}
+
+	public void setPickUpList(List<CarrierPickUpgoodsArea> pickUpList) {
+		this.pickUpList = pickUpList;
+	}
+
+	public List<CarrierDeliverGoodsArea> getDeliverList() {
+		return deliverList;
+	}
+
+	public void setDeliverList(List<CarrierDeliverGoodsArea> deliverList) {
+		this.deliverList = deliverList;
+	}
+
+	public String getOutTime() {
 		return outTime;
 	}
 

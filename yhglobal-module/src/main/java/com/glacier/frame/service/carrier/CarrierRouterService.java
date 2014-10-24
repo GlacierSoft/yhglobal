@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;  
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.carrier.CarrierAmongRouteMapper;
 import com.glacier.frame.dao.carrier.CarrierDeliverGoodsAreaMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberMapper;
@@ -76,7 +77,7 @@ public class CarrierRouterService {
 	
 	@Autowired
 	private CarrierMemberMapper carrierMemberMapper;
-	
+	 
 	/*** 
 	 * @Title: listAsGrid  
 	 * @Description: TODO(获取班线list)  
@@ -221,8 +222,8 @@ public class CarrierRouterService {
      */ 
 	@Transactional(readOnly = false)
     public Object editRoute(CarrierRoute carrierRoute) {
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+		Subject pricipalSubject = SecurityUtils.getSubject();
+	    CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         CarrierRoute  route=carrierRouteMapper.selectByPrimaryKey(carrierRoute.getRouterId());
         int count = 0; 
@@ -237,9 +238,8 @@ public class CarrierRouterService {
         String s = new String(carrierRoute.getOutTime().trim());  
         String time[] = s.split(":");  
         String s2 = new String(carrierRoute.getIntTime().trim());   
-        String inTime[] = s2.split(":");  
-        //根据ID获取班线信息  
-        carrierRoute.setUpdater(pricipalUser.getUserId());
+        String inTime[] = s2.split(":");   
+        carrierRoute.setUpdater(pricipalUser.getCarrierMemberId());
         carrierRoute.setUpdateTime(new Date());  
         //修改出发和截止收货时间 
         Calendar cal = Calendar.getInstance();
@@ -300,4 +300,86 @@ public class CarrierRouterService {
 		 }while(i>0); 
 		 return number;
 	} 
+   
+   /** 
+    * @Title: addRoute  
+    * @Description: TODO(添加班线)  
+    * @param @param carrierRoute
+    * @param @return    设定文件  
+    * @return Object    返回类型  
+    * @throws
+    */
+   @Transactional(readOnly = false)
+   public Object addRoute(CarrierRoute carrierRoute){
+	    Subject pricipalSubject = SecurityUtils.getSubject();
+        CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+	    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+	    carrierRoute.setRouterId(RandomGUID.getRandomGUID());  
+	    carrierRoute.setCreater(pricipalUser.getCarrierMemberId());
+	    carrierRoute.setCreateTime(new Date());
+	    carrierRoute.setAuditState("authstr");   
+	    //出发和截止收货时间 
+		String s = new String(carrierRoute.getOutTime().trim());  
+		String time[] = s.split(":");  
+		String s2 = new String(carrierRoute.getIntTime().trim());   
+		String inTime[] = s2.split(":");  
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MINUTE,Integer.valueOf(time[1]));
+		Date date=cal.getTime();
+		carrierRoute.setStartofTime(date);     
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(inTime[0]));
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MINUTE,Integer.valueOf(inTime[1]));
+		Date dates=cal.getTime(); 
+		carrierRoute.setCeaseTakeDeliveryTime(dates);  
+	   
+	    int count=carrierRouteMapper.insert(carrierRoute);
+	    if (count == 1) {    
+		 //添加发货区域
+		   if(carrierRoute.getDeliverList()!=null){ 
+			   for (CarrierDeliverGoodsArea deliver : carrierRoute.getDeliverList()) {
+				   if(deliver.getDeliverName().trim()!=""){
+					   deliver.setDeliverGoodsAreaId(RandomGUID.getRandomGUID());
+					   if(deliver.getPrice()==null){
+						   deliver.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+					   }
+					   deliver.setRouterId(carrierRoute.getRouterId());
+					   carrierDeliverGoodsAreaMapper.insert(deliver);
+				   }  
+			   } 
+		   } 
+		   //提交提货区域
+		   if(carrierRoute.getPickUpList()!=null){ 
+			   for (CarrierPickUpgoodsArea pickUp : carrierRoute.getPickUpList()) {
+				   if(pickUp.getDeliverName().trim()!=""){
+					   pickUp.setPickUpGoodsAreaId(RandomGUID.getRandomGUID());
+					   if(pickUp.getPrice()==null){
+						   pickUp.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+					   }
+					   pickUp.setRouterId(carrierRoute.getRouterId());
+					   carrierPickUpgoodsAreaMapper.insert(pickUp);
+				   }  
+			  } 
+		 }   
+		 //查询承运商的id
+		 CarrierMemberExample carrierMemberExample=new CarrierMemberExample();
+		 carrierMemberExample.createCriteria().andMemberNameEqualTo(carrierRoute.getCarrierDisplay());
+		 CarrierMember  carrierMember=   carrierMemberMapper.selectByExample(carrierMemberExample).get(0); 
+		 //添加详情表
+		 CarrierAmongRoute carrierAmongRoute=new CarrierAmongRoute();
+		 carrierAmongRoute.setAmongId(RandomGUID.getRandomGUID());
+		 carrierAmongRoute.setRouterId(carrierRoute.getRouterId());
+		 carrierAmongRoute.setCarrierMemberId(carrierMember.getCarrierMemberId());
+		 carrierAmongRouteMapper.insert(carrierAmongRoute); 
+		 returnResult.setSuccess(true);
+		 returnResult.setMsg("[" + carrierRoute.getRouteName() + "]班线信息已保存");
+        } else {
+           returnResult.setMsg("发生未知错误，班线信息保存失败");
+        }  
+	    return returnResult; 
+    }
 }

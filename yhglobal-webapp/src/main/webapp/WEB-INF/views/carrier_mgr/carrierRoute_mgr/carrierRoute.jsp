@@ -15,8 +15,7 @@
 		toolbarId : 'routeDataGrid_toolbar',
 		actions : {
              status:{flag:'status',controlType:'single'},
-             audit:{flag:'audit',controlType:'single'},
-             edit:{flag:'edit',controlType:'single'}
+             audit:{flag:'audit',controlType:'single'} 
           }
      };
 
@@ -277,7 +276,7 @@
 	};
 	  
 	
-	//点击编辑按钮触发方法
+/* 	//点击编辑按钮触发方法
      glacier.carrier_mgr.carrierRoute_mgr.route.editRoute = function(){
 		var row =glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
@@ -294,7 +293,7 @@
 			}
 		});
 	};
-	
+	 */
 	
 	//点击启用禁用按钮触发方法
 	glacier.carrier_mgr.carrierRoute_mgr.route.editRouteStatus = function(){

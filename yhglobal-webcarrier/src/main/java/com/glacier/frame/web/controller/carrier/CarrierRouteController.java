@@ -20,18 +20,21 @@
 package com.glacier.frame.web.controller.carrier; 
 import javax.validation.Valid; 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseBody; 
 import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.core.controller.AbstractController; 
-import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO; 
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;  
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.service.carrier.CarrierRouterService;
-import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqPager; 
 
 /**
  * @ClassName:  CarrierRouteController
@@ -46,8 +49,8 @@ import com.glacier.jqueryui.util.JqPager;
 public class CarrierRouteController extends AbstractController {
 	
 	@Autowired
-	private CarrierRouterService carrierRouterService;
-	
+	private CarrierRouterService carrierRouterService; 
+
 	// 进入承运商班线展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
@@ -64,7 +67,7 @@ public class CarrierRouteController extends AbstractController {
        
     // 进入班线Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoMemberDetailPage(String routerId) { 
+    private Object intoRouteDetailPage(String routerId) { 
     	ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_detail");
     	 if(StringUtils.isNotBlank(routerId)){ 
 	        mav.addObject("carrierRouteData",carrierRouterService.getRoute(routerId)); 
@@ -75,12 +78,24 @@ public class CarrierRouteController extends AbstractController {
 
     // 班线add表单页面
     @RequestMapping(value = "/addForm.htm")
-    private Object intoAuditMember() {
+    private Object intoAddRoute() {
         ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierAddRoute_form");
+        Subject pricipalSubject = SecurityUtils.getSubject();
+	    CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
         mav.addObject("routeNub", carrierRouterService.GenerationRouteNumber());   
+        mav.addObject("carrierMember", pricipalUser.getMemberName());   
         return mav;
     }
       
+    //新增班线
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addRoute(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }  
+         return carrierRouterService.addRoute(carrierRoute);
+    } 
     //查询收货发货区域
     @RequestMapping(value = "/area.json", method = RequestMethod.POST)
     @ResponseBody
@@ -90,7 +105,7 @@ public class CarrierRouteController extends AbstractController {
      
     // 进入班线Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoGradeFormPnews(String routerId) {
+    private Object intoRouteFormPnews(String routerId) {
         ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_form");
         if(StringUtils.isNotBlank(routerId)){  
             mav.addObject("carrierRouteData", carrierRouterService.getRoute(routerId));
@@ -101,7 +116,7 @@ public class CarrierRouteController extends AbstractController {
     //修改班线
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editGrade(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
+    private Object editRoute(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }

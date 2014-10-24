@@ -114,16 +114,16 @@
     temp_carrier_route.updater as temp_carrier_route_updater, temp_carrier_route.update_time as temp_carrier_route_update_time
    <!-- 以下字段属于扩展 -->
     ,t_carrier_member.member_name as temp_carrier_route_carrier_display
-    ,temp_creater.user_cn_name as temp_carrier_route_creater_display
-    ,temp_updater.user_cn_name as temp_carrier_route_updater_display 
+    ,temp_creater.member_name as temp_carrier_route_creater_display
+    ,temp_updater.member_name as temp_carrier_route_updater_display 
     ,temp_audit.user_cn_name as temp_carrier_route_audit_display
   </sql> 
   <sql id="Base_extend">
     LEFT JOIN t_carrier_among_route  t_carrier_among ON t_carrier_among.router_id = temp_carrier_route.router_id
     LEFT JOIN t_carrier_member t_carrier_member ON t_carrier_member.carrier_member_id = t_carrier_among.carrier_member_id
     
-  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_carrier_route.creater <!-- 扩展 -->
-    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_carrier_route.updater <!-- 扩展 -->
+  	LEFT JOIN t_carrier_member temp_creater ON temp_creater.carrier_member_id = temp_carrier_route.creater <!-- 扩展 -->
+    LEFT JOIN t_carrier_member temp_updater ON temp_updater.carrier_member_id = temp_carrier_route.updater <!-- 扩展 -->
     LEFT JOIN t_user temp_audit ON temp_audit.user_id = temp_carrier_route.audit <!-- 扩展 -->
    </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" >

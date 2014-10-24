@@ -253,14 +253,13 @@
 								enableSaveButton : false
 							});  
 						}
-					});
- 
+					}); 
 	//点击增加按钮触发方法
 	glacier.carrier_mgr.carrierRoute_mgr.route.addRoute = function(){ 
 		glacier.basicAddOrEditDialog({
 			title : '【班线】- 增加',
 			width : 670,
-			height : 550,
+			height : 590,
 			queryUrl : ctx + '/do/carrierRoute/addForm.htm',
 			submitUrl : ctx + '/do/carrierRoute/add.json',
 			successFun : function (){
