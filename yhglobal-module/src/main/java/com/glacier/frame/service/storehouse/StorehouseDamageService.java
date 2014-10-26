@@ -31,8 +31,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dao.storehouse.StorehouseDamageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseDamageQueryDTO;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseDamage;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample.Criteria;
@@ -55,6 +57,9 @@ public class StorehouseDamageService {
    
        @Autowired
        private StorehouseDamageMapper storehouseDamageMapper;
+       
+       @Autowired
+       private StorehouseBelaidupMapper storehouseBelaidupMapper;
        
        /**
 	    * 
@@ -131,42 +136,53 @@ public class StorehouseDamageService {
 	}
 	    
 	    /**
-	     * @Title: addStorehouseDamage 
+	     * @Title: checkStoreDamageNumb 
 	     * @Description: T损坏记录添加
-	     * @param @param storehouseDamage
+	     * @param @param belaidupId
 	     * @param @return    设定文件 
 	     * @return Object    返回类型 
 	     * @throws
-	     */ 
-	    @Transactional(readOnly = false)
-	    public Object addStorehouseDamage(StorehouseDamage storehouseDamage){
-	    	   Subject pricipalSubject = SecurityUtils.getSubject();
-	    	        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
-	    	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	    	        String str="损坏";
-	    	        if(storehouseDamage.getRemark()!="")
-	    	        	  str=storehouseDamage.getRemark();
-	    	        storehouseDamage.setDamageId(RandomGUID.getRandomGUID());
-	    	        storehouseDamage.setRemark("苹果");
-	    	        storehouseDamage.setYesOrNo("no");
-	    	        storehouseDamage.setRemark(str);
-	    	        storehouseDamage.setAuditStatus("authstr");
-	    	        storehouseDamage.setAuditor(pricipalUser.getUserId());
-	    	        storehouseDamage.setAuditDate(new Date());
-	    	        storehouseDamage.setCreater(pricipalUser.getUserId());
-	    	        storehouseDamage.setCreateTime(new Date());
-	    	        storehouseDamage.setUpdater(pricipalUser.getUserId());
-	    	        storehouseDamage.setUpdateTime(new Date());
-	    	        int count=0;
-	    	        count = storehouseDamageMapper.insert(storehouseDamage);
-	    	        if (count == 1) {
-	    	            returnResult.setSuccess(true);
-	    	            returnResult.setMsg("添加损坏货物记录操作成功");
-	    	        } else {
-	    	            returnResult.setMsg("发生未知错误，添加货物损坏记录保存失败");
-	    	        }
-	    	        return returnResult;
-	    	    }
+	     */   
+	 @Transactional(readOnly = false)
+     public Object addStoreDamageNumb(List<String> belaidupIds){
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	int damage_add_count=0;//记录添加损坏数量
+    	for(String belaidupId:belaidupIds){
+    		 StorehouseBelaidup  storehouseBelaidup=storehouseBelaidupMapper.selectByPrimaryKey(belaidupId); 
+    		 if(storehouseBelaidup.getSortingStauts().equals("waitsorting")){
+    			 StorehouseDamageExample storehouseDamageExample = new StorehouseDamageExample();
+    			 storehouseDamageExample.createCriteria().andBelaidupIdEqualTo(belaidupId);
+    			 int count=storehouseDamageMapper.countByExample(storehouseDamageExample);
+    			 if(count<=0){
+    				 StorehouseDamage storehouseDamage=new StorehouseDamage();
+    				 storehouseDamage.setDamageId(RandomGUID.getRandomGUID());
+    				 storehouseDamage.setBelaidupId(belaidupId);
+   	    	         storehouseDamage.setRemark("损坏");
+   	    	         storehouseDamage.setYesOrNo("no");
+   	    	         storehouseDamage.setAuditStatus("authstr");
+   	    	         storehouseDamage.setAuditOpinion("损坏");
+   	    	         storehouseDamage.setAuditor(pricipalUser.getUserId());
+   	    	         storehouseDamage.setAuditDate(new Date());
+   	    	         storehouseDamage.setCreater(pricipalUser.getUserId());
+   	    	         storehouseDamage.setCreateTime(new Date());
+   	    	         storehouseDamage.setUpdater(pricipalUser.getUserId());
+   	    	         storehouseDamage.setUpdateTime(new Date());
+   	    	         int numb= storehouseDamageMapper.insert(storehouseDamage);
+   	    	         damage_add_count+=numb;
+    			 }
+    		 }
+    	}  
+    	 if(damage_add_count==0){
+    		 returnResult.setSuccess(false);
+    		 returnResult.setMsg("【"+belaidupIds.size()+"】条货物信息添加损坏记录失败!");
+    	 }else{
+    		 returnResult.setSuccess(true);
+    		 returnResult.setMsg("【"+damage_add_count+"】条货物信息添加损坏记录成功!");
+    	 }
+    	return returnResult;
+  }
 	   
 	     /**
 	     * @Title: checkStoreDamageNumb 

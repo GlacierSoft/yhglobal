@@ -22,6 +22,7 @@ package com.glacier.frame.web.controller.orders;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.orders.OrdersDispatching;
+import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.service.orders.OrdersDispatchingService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -88,12 +90,20 @@ public class OrdersDispatchingController {
         return ordersDispatchingService.changeOrdersDispatchingStatus(dispatchingId);
     }
     
-    //货物损坏信息查询
+    //货物配送信息查询
     @RequestMapping(value = "/checkNumb.json", method = RequestMethod.POST)
     @ResponseBody
     private Object checkOrdersDispatchingNumb(String belaidupId) {
     	return ordersDispatchingService.checkOrdersDispatchingNumb(belaidupId);
     }
    	
+    
+    //货物配送信息添加
+    @RequestMapping(value = "/addDispatching.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addDispatching(@Valid OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
+    	return ordersDispatchingService.addDispatching(ordersDispatching,ordersOrdispatchingDetailed);
+    }
+    
     
 }

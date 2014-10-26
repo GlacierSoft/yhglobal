@@ -98,6 +98,11 @@ public class CarrierCarInformationQueryDTO extends CarrierCarInformation{
    	 }
    	 if(null!=this.getTransportStatus())
    		queryCriteria.andTransportStatusEqualTo(this.getTransportStatus());
+   	 if(null!=this.getAuditState())
+   		 queryCriteria.andAuditStateEqualTo(this.getAuditState());
+   	 if(null!=this.getCarrierMemberId())
+   		 queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId());
+   	 
    	 
    	 
      if(null != createStartTime && null != createEndTime){//创建时间段查询

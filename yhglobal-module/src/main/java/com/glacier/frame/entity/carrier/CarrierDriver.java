@@ -52,8 +52,42 @@ public class CarrierDriver {
     private String updater;
 
     private Date updateTime;
+    
+    /**
+     *自定义字段 
+     */
+    
+    private  String carrierDisplay; 
+    
+    private  String createrDisplay;
+    
+    private  String updaterDisplay;
+    
+    public String getCarrierDisplay() {
+		return carrierDisplay;
+	}
 
-    public String getDriverId() {
+	public void setCarrierDisplay(String carrierDisplay) {
+		this.carrierDisplay = carrierDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getDriverId() {
         return driverId;
     }
 

@@ -19,25 +19,33 @@
  */
 package com.glacier.frame.service.orders;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
+import com.glacier.frame.dao.orders.OrdersOrderMapper;
 import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
+import com.glacier.frame.entity.orders.OrdersOrder;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
 import com.glacier.frame.entity.orders.OrdersOrder_info;
+import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -63,6 +71,9 @@ public class OrdersDispatchingService {
 	
 	@Autowired
 	private OrdersOrdispatchingDetailedMapper ordersOrdispatchingDetailedMapper;
+	
+	@Autowired
+	private OrdersOrderMapper ordersOrderMapper;
 	 
 	
 	 /**
@@ -163,4 +174,54 @@ public class OrdersDispatchingService {
 			 returnResult.setSuccess(false);
 		 return returnResult;
 	 }
+	 
+	 /**
+	     * @Title: addContractManager 
+	     * @Description: TODO(添加配送记录信息) 
+	     * @param @param memberContractType
+	     * @param @return    设定文件 
+	     * @return Object    返回类型 
+	     * @throws
+	     */ 
+	    @Transactional(readOnly = false)
+	    public Object addDispatching(OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
+	        Subject pricipalSubject = SecurityUtils.getSubject();
+	        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int numb=0;
+	        int numb_two=0;
+	        
+	        OrdersOrder ordersOrder=ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
+	        ordersOrder.setDistributeStatus("hasdistribute");
+	        ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder);
+	        
+	        SimpleDateFormat sf=new SimpleDateFormat("dd_hh_ss");
+	        ordersDispatching.setDispatchingId(RandomGUID.getRandomGUID());
+	        ordersDispatching.setDispatchingCode("ST_"+sf.format(new Date()));
+	        ordersDispatching.setDispatchingSignfor("notsigned");
+	        ordersDispatching.setDispatchingStatus("waitdistribution");
+	        ordersDispatching.setStatus("enable");
+	        ordersDispatching.setDispatchTime(new Date());
+	        ordersDispatching.setArriveTime(new Date());
+	        ordersDispatching.setCreater(pricipalUser.getUserId());
+	        ordersDispatching.setCreateTime(new Date());
+	        ordersDispatching.setUpdater(pricipalUser.getUserId());
+	        ordersDispatching.setUpdateTime(new Date());
+	        numb=ordersDispatchingMapper.insert(ordersDispatching);
+	        if(numb>0){
+	        	ordersOrdispatchingDetailed.setOrdisdetailedId(RandomGUID.getRandomGUID());
+	        	ordersOrdispatchingDetailed.setDispatchingId(ordersDispatching.getDispatchingId());
+	            numb_two=ordersOrdispatchingDetailedMapper.insert(ordersOrdispatchingDetailed);
+	        }
+	        if(numb>0&&numb_two>0){
+	        	returnResult.setSuccess(true);
+	        	returnResult.setMsg("配送成功!");
+	        }else{
+	        	returnResult.setSuccess(false);
+	        	returnResult.setMsg("配送失败!");
+	        }
+	           
+	        
+	        return returnResult;
+	    }
 }

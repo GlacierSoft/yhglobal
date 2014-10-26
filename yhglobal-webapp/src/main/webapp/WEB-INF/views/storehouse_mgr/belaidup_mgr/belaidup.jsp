@@ -14,8 +14,7 @@
 	            edit:{flag:'edit',controlType:'single'},
 	            del:{flag:'del',controlType:'multiple'},
 	            create:{flag:'create',controlType:'multiple'},
-	            dispatching:{flag:'dispatching',controlType:'single'},
-	            damage:{flag:'damage',controlType:'single'},
+	            damage:{flag:'damage',controlType:'multiple'}
 	         }
      };
 
@@ -300,78 +299,30 @@
 			});
 		}
 	};
-	
-	
-	
-	//配送
-	glacier.belaidup_mgr.belaidup_mgr.belaidup.dispatchingBelaidup=function(){
-		var row = glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid("getSelected");
-		if(row.sortingStauts=="hassorting"){
-			$.ajax({
-    	    	type:"post",
-    	    	url:ctx+'/do/ordersDispatching/checkNumb.json',
-    	    	data:{"belaidupId":row.belaidupId},
-    	    	dataType:"json",
-    	    	success:function(data){
-    	    		 if(data.success){
-    	    			 glacier.basicAddOrEditDialog({
-    	    					title : '【'+row.belaidupProdName+'】- 配送',
-    	    					width : 560,
-    	    					height : 200,
-    	    					queryUrl : ctx + '/do/belaidup/intoDispatchingForm.htm',
-    	    					submitUrl : ctx + '/do/belaidup/edit.json',
-    	    					queryParams : {
-    	    						belaidupId : row.belaidupId
-    	    					},
-    	    					successFun : function (){
-    	    						glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid('reload');
-    	    					}
-    	    				});
-    	    		 }else{
-    	    			 $.messager.alert("操作提示", "【"+row.belaidupProdName+"】配送记录中已存在!","info");
-    	    		 }
-    	    	  }
-    	    	});
-			}else{
-			$.messager.alert("操作提示", "【"+row.belaidupProdName+"】未分拣，请选择其他数据!","info");
-		}
-		
-	} 
-	
+
 	//损坏
 	glacier.belaidup_mgr.belaidup_mgr.belaidup.damageBelaidup=function(){
-		var row = glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid("getSelected");
-		if(row.sortingStauts=="waitsorting"){
-			$.ajax({
-	    	    	type:"post",
-	    	    	url:ctx+'/do/storehouseDamage/checkNumb.json',
-	    	    	data:{"belaidupId":row.belaidupId},
-	    	    	dataType:"json",
-	    	    	success:function(data){
-	    	    	   if(data.success){
-	    	    		   glacier.basicAddOrEditDialog({
-	    	   				title : '【'+row.belaidupProdName+'】- 添加损坏',
-	    	   				width : 600,
-	    	   				height : 240,
-	    	   				queryUrl : ctx + '/do/belaidup/intoStorehouseDamage_form.htm',
-	    	   				submitUrl : ctx + '/do/storehouseDamage/add.json',
-	    	   				queryParams : {
-	    	   					belaidupId : row.belaidupId
-	    	   				},
-	    	   				successFun : function (){
-	    	   					glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid('reload');
-	    	   				}
-	    	   			});
-	    	    	   }else{
-	    	    		   $.messager.alert("操作提示", "【"+row.belaidupProdName+"】损坏记录中已存在!","info");
-	    	    	   }
-	    	    	}
-	    	    });
-			
-		}else{
-			$.messager.alert("操作提示", "【"+row.belaidupProdName+"】已分拣，请选择其他数据!","info");
-		}
-	}
+		var rows = glacier.belaidup_mgr.belaidup_mgr.belaidup.belaidupDataGrid.datagrid("getChecked"); 
+        var belaidupIds = [];//id标识
+        for(var i=0;i<rows.length;i++){
+        	belaidupIds.push(rows[i].belaidupId);    	
+        }
+        if(belaidupIds.length>0){
+        	$.messager.confirm('请确认','是否将【'+rows.length+'】条货物信息添加到损坏记录',function(r){
+        		if(r){
+        			$.ajax({ 
+                   		type: "POST",
+                   	    url : ctx+ '/do/storehouseDamage/add.json',
+						data : {'belaidupIds' : belaidupIds.join(',')},
+						dataType : 'json',
+						success:function(r){
+							  $.messager.alert('操作提示',r.msg,'info');
+							}
+						});
+        		}
+        	});
+        }
+   }
 	
 	//模糊查询
 	glacier.belaidup_mgr.belaidup_mgr.belaidup.quickquery = function(value, name) {

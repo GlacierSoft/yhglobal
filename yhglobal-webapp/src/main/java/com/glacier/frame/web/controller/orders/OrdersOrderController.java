@@ -75,4 +75,15 @@ public class OrdersOrderController extends AbstractController{
     public Object delOrder(@RequestParam List<String> orderIds,@RequestParam List<String> orderName) {
     	return orderSetService.delOrder(orderIds, orderName);
     }
+    
+    
+    // 进入订单分配页面
+    @RequestMapping(value = "/intoDispatching.htm")
+    private Object intoDispatching(String orderId) {
+        ModelAndView mav = new ModelAndView("orders_mgr/ordersDispatching_mgr/ordersDispatching_form");
+        if(StringUtils.isNotBlank(orderId)){
+            mav.addObject("orderDate", orderSetService.getOrder(orderId));
+        }
+        return mav;
+    }
 }

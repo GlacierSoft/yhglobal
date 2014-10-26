@@ -30,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,11 +110,8 @@ public class StorehouseDamageController {
     //增加货物损坏信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addContractManagerForm(@Valid StorehouseDamage storehouseDamage, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            //return returnErrorBindingResult(bindingResult);
-        }
-        return storehouseDamageServcie.addStorehouseDamage(storehouseDamage);
+    private Object addContractManagerForm(@RequestParam List<String> belaidupIds) {
+        return storehouseDamageServcie.addStoreDamageNumb(belaidupIds);
     }
     
     //货物损坏信息查询

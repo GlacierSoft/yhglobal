@@ -17,8 +17,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="<%=basePath %>resources/highcharts/exporting.js"></script>
         <script type="text/javascript" src="<%=basePath %>resources/js/lodop/LodopFuncs.js"></script>
         
-        
-        
         <script type="text/javascript" charset="utf-8">
 			$(function(){
 				
