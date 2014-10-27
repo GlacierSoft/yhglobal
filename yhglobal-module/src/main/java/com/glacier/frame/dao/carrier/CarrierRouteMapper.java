@@ -4,6 +4,7 @@ import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.entity.carrier.CarrierRouteExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CarrierRouteMapper {
     int countByExample(CarrierRouteExample example);
@@ -14,8 +15,12 @@ public interface CarrierRouteMapper {
 
     int insert(CarrierRoute record);
 
-    int insertSelective(CarrierRoute record);
-
+    int insertSelective(CarrierRoute record); 
+    
+    //倒序查询班次编号
+    @Select("SELECT route_number FROM t_carrier_route ORDER BY route_number DESC LIMIT 1")
+    String selectTop();
+    
     List<CarrierRoute> selectByExample(CarrierRouteExample example);
 
     CarrierRoute selectByPrimaryKey(String routerId);

@@ -96,7 +96,7 @@
     where among_id = #{amongId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierAmongRouteExample" >
-    delete from t_carrier_among_route temp_carrier_among_route
+    delete temp_carrier_among_route from t_carrier_among_route temp_carrier_among_route
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

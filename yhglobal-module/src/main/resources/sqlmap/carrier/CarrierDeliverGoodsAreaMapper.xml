@@ -104,7 +104,7 @@
     where deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample" >
-    delete from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
+    delete temp_carrier_deliver_goods_area from t_carrier_deliver_goods_area temp_carrier_deliver_goods_area
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
