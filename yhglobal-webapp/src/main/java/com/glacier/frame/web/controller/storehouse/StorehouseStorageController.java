@@ -38,7 +38,6 @@ public class StorehouseStorageController extends AbstractController{
         return mav;
     } 
      
-    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
@@ -63,6 +62,14 @@ public class StorehouseStorageController extends AbstractController{
         if(StringUtils.isNotBlank(storageId)){
             mav.addObject("storageDate", storageService.getStorage(storageId));
         }
+        return mav;
+    }
+    
+    // 进入仓库维修
+    @RequestMapping(value = "/addRepair.htm")
+    private Object intooptgroupValueFormPoptgroupValue(String storageId) {
+        ModelAndView mav = new ModelAndView("storehouse_mgr/storage_mgr/storageRepairs_form");
+        mav.addObject("storageData", storageService.getStorage(storageId));
         return mav;
     }
     

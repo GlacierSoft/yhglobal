@@ -12,7 +12,8 @@
 		toolbarId : 'storageDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
-	            del:{flag:'del',controlType:'multiple'}
+	            del:{flag:'del',controlType:'multiple'},
+	            repair:{flag:'repair',controlType:'single'}
 	         }
      };
 
@@ -243,6 +244,56 @@
 			});
 		}
 	};
+	
+	//点击增加仓库维修方法
+	glacier.storage_mgr.storage_mgr.storage.addRepair = function(){
+		var row = glacier.storage_mgr.storage_mgr.storage.storageDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '【仓库维修】- 增加',
+			width : 740,
+			height : 500,
+			queryUrl : ctx + '/do/storage/addRepair.htm',
+			submitUrl : ctx + '/do/storageRepair/add.json',
+			queryParams : {
+				storageId : row.storageId
+			},
+			successFun : function (){
+				glacier.storage_mgr.storage_mgr.storage.storageDataGrid.datagrid('reload');
+			}
+		});
+	};
+	/* glacier.storage_mgr.repair_mgr.repair.addRepair = function(){
+		$.easyui.showDialog({
+			title : '【下拉值管理】- 增加',
+			href : ctx + '/do/optgroupValue/intoForm.htm',//从controller请求jsp页面进行渲染
+			width : 420,
+			height : 330,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#optgroup_mgr_optgroupValue_form').form('submit', {
+						url: ctx + '/do/optgroupValue/add.json',
+						success: function(r){
+							$.messager.show(r.msg);
+							glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid('reload');
+						    dia.dialog("close");  
+						}
+					});
+				}
+			}],
+			onLoad : function() {
+				var optgroupRow = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
+				if(optgroupRow){//初始化所在菜单以及对应面板
+					$("#optgroup_mgr_optgroupValue_form_optgroupId").combotree('setValue', optgroupRow.optgroupId);
+				}
+			}
+		});
+	}; */
+	
 	//模糊查询
 	glacier.storage_mgr.storage_mgr.storage.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
