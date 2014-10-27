@@ -14,7 +14,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**
  * @ClassName: CaptchaUsernamePasswordToken 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(验证用户名和密码是否正确) 
  * @author xichao.dong	
  * @email 406592176@qq.com
  * @date 2014-8-15 上午11:22:07

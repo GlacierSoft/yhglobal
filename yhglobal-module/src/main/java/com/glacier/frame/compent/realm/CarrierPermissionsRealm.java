@@ -209,7 +209,6 @@ public class CarrierPermissionsRealm extends AuthorizingRealm {
      *             已检查测试:Green
      *             <p>
      */
-
     private void updatePrincipalCarrierMemberInfo(CaptchaUsernamePasswordToken token, CarrierMember principalCarrierMember) {
             CarrierMember lastPrincipalCarrierMember = new CarrierMember();
             lastPrincipalCarrierMember.setCarrierMemberId(principalCarrierMember.getCarrierMemberId());
@@ -217,14 +216,12 @@ public class CarrierPermissionsRealm extends AuthorizingRealm {
             lastPrincipalCarrierMember.setLastLoginTime(new Date());
             lastPrincipalCarrierMember.setLoginCount(principalCarrierMember.getLoginCount() + 1);
             carrierMemberMapper.updateByPrimaryKeySelective(lastPrincipalCarrierMember);//更新用户信息
- /*           CarrierloginLoginlog carrierloginLoginlog = new CarrierloginLoginlog();
-            carrierloginLoginlog.setLoginlogId(RandomGUID.getRandomGUID());
-            carrierloginLoginlog.setLoginIp(token.getHost());
-            carrierloginLoginlog.setLoginTime(new Date());
-            carrierloginLoginlog.setLoginUser(principalCarrierMember.getMemberName());
-            carrierloginLoginlog.setUserId(principalCarrierMember.getCarrierMemberId());
-            carrierloginLoginlogMapper.insert(carrierloginLoginlog);//插入登录日志
-*/          
+//            CarrierloginLoginlog carrierloginLoginlog = new CarrierloginLoginlog();
+//            carrierloginLoginlog.setLoginlogId(RandomGUID.getRandomGUID());
+//            carrierloginLoginlog.setLoginIp(token.getHost());
+//            carrierloginLoginlog.setLoginTime(new Date());
+//            carrierloginLoginlog.setLoginUser(principalCarrierMember.getMemberName());
+//            carrierloginLoginlog.setUserId(principalCarrierMember.getCarrierMemberId());
     }
 
     /**
@@ -256,5 +253,4 @@ public class CarrierPermissionsRealm extends AuthorizingRealm {
         matcher.setHashIterations(CarrierMemberService.HASH_INTERATIONS);
         setCredentialsMatcher(matcher);
     }
-
 }
