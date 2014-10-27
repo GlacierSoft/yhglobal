@@ -2,7 +2,10 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> 
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path -->
+<c:set var="ctx" value="${pageContext.request.contextPath}"/> 
 <form id="belaidup_mgr_belaidup_form" method="post" style="padding:15px">
 	<table class="formtable" width="800">
 		<tr>
@@ -79,11 +82,11 @@
 		<tr>
 			<td>起始站：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_belaidupInitiatin" name="belaidupInitiatin"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupInitiatin}" class="easyui-validatebox spinner" required="true"/>
+				<input name="belaidupInitiatin" id="remark" onkeydown="return false;" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupInitiatin}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 			<td>终点站：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_belaidupTerminu" name="belaidupTerminu"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupTerminu}" class="easyui-validatebox spinner" required="true"/>
+				<input name="belaidupTerminu" id="remark" onkeydown="return false;" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupTerminu}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 		</tr>
 		<tr>
@@ -114,6 +117,57 @@
 		</tr>
 	</table>
 </form>
+
+	<!--弹出省省市-->
+	<div class="provinceCityAll" style="z-index:20;position:absolute;margin-left:-260px;top:50%;margin-top:-30px;">
+	  <div class="tabsArea clearfix">
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div> 
+<script src="${ctx}/resources/area/js/public.js"></script> 
+
 <script type="text/javascript">
 	//用于combogrid的负责人信息绑定
 	$('#belaidup_mgr_belaidup_form_memberId').combogrid({

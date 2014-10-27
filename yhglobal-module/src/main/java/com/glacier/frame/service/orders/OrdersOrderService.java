@@ -129,9 +129,10 @@ public class OrdersOrderService {
         //判断终点目的
         if(belaidupIds.size() > 1){
         	StorehouseBelaidup belaidupTerminu = belaidupMapper.selectByPrimaryKey(belaidupIds.get(0));
+        	String firstTerminu = belaidupTerminu.getBelaidupTerminu().substring(0, belaidupTerminu.getBelaidupTerminu().lastIndexOf("-"));
         	for (String belaidupId : belaidupIds) {
             	StorehouseBelaidup belaidup = belaidupMapper.selectByPrimaryKey(belaidupId);
-            	if(!belaidupTerminu.getBelaidupTerminu().equals(belaidup.getBelaidupTerminu())){
+            	if(!firstTerminu.equals(belaidup.getBelaidupTerminu().substring(0, belaidupTerminu.getBelaidupTerminu().lastIndexOf("-")))){
             		returnResult.setSuccess(false);
                     returnResult.setMsg("[" + belaidup.getBelaidupProdName() + "] 货物信息与所选的货物不为同一目的地,请重新选择！");
                     return returnResult;
