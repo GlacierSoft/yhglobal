@@ -14,10 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 </style>
 
-<object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
-           <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
-</object>
-
 <p><textarea rows="15" id="doc1" cols="102">
 	   
 		甲方：${contractData.memberDisplay }
