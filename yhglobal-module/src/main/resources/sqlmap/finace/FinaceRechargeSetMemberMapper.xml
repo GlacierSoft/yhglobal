@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.finace.FinaceRechargeSetMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinaceRechargeSetMember" >
+    <id column="temp_finace_recharge_set_member_recharge_set_id" property="rechargeSetId" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_recharge_set_name" property="rechargeSetName" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_recharge_set_type" property="rechargeSetType" jdbcType="CHAR" />
+    <result column="temp_finace_recharge_set_member_recharge_rate" property="rechargeRate" jdbcType="DECIMAL" />
+    <result column="temp_finace_recharge_set_member_recharge_money" property="rechargeMoney" jdbcType="DECIMAL" />
+    <result column="temp_finace_recharge_set_member_fee_way" property="feeWay" jdbcType="CHAR" />
+    <result column="temp_finace_recharge_set_member_member_gradeid" property="memberGradeid" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_finace_recharge_set_member_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finace_recharge_set_member_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finace_recharge_set_member_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_set_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finace_recharge_set_member.recharge_set_id as temp_finace_recharge_set_member_recharge_set_id, 
+    temp_finace_recharge_set_member.recharge_set_name as temp_finace_recharge_set_member_recharge_set_name, 
+    temp_finace_recharge_set_member.recharge_set_type as temp_finace_recharge_set_member_recharge_set_type, 
+    temp_finace_recharge_set_member.recharge_rate as temp_finace_recharge_set_member_recharge_rate, 
+    temp_finace_recharge_set_member.recharge_money as temp_finace_recharge_set_member_recharge_money, 
+    temp_finace_recharge_set_member.fee_way as temp_finace_recharge_set_member_fee_way, 
+    temp_finace_recharge_set_member.member_gradeid as temp_finace_recharge_set_member_member_gradeid, 
+    temp_finace_recharge_set_member.auditor as temp_finace_recharge_set_member_auditor, 
+    temp_finace_recharge_set_member.audit_state as temp_finace_recharge_set_member_audit_state, 
+    temp_finace_recharge_set_member.audit_time as temp_finace_recharge_set_member_audit_time, 
+    temp_finace_recharge_set_member.audit_opinion as temp_finace_recharge_set_member_audit_opinion, 
+    temp_finace_recharge_set_member.remark as temp_finace_recharge_set_member_remark, 
+    temp_finace_recharge_set_member.creater as temp_finace_recharge_set_member_creater, 
+    temp_finace_recharge_set_member.create_time as temp_finace_recharge_set_member_create_time, 
+    temp_finace_recharge_set_member.updater as temp_finace_recharge_set_member_updater, 
+    temp_finace_recharge_set_member.update_time as temp_finace_recharge_set_member_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finace_recharge_set_member temp_finace_recharge_set_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finace_recharge_set_member temp_finace_recharge_set_member
+    where temp_finace_recharge_set_member.recharge_set_id = #{rechargeSetId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finace_recharge_set_member
+    where recharge_set_id = #{rechargeSetId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMemberExample" >
+    delete from t_finace_recharge_set_member temp_finace_recharge_set_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMember" >
+    insert into t_finace_recharge_set_member (recharge_set_id, recharge_set_name, recharge_set_type, 
+      recharge_rate, recharge_money, fee_way, 
+      member_gradeid, auditor, audit_state, 
+      audit_time, audit_opinion, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{rechargeSetId,jdbcType=VARCHAR}, #{rechargeSetName,jdbcType=VARCHAR}, #{rechargeSetType,jdbcType=CHAR}, 
+      #{rechargeRate,jdbcType=DECIMAL}, #{rechargeMoney,jdbcType=DECIMAL}, #{feeWay,jdbcType=CHAR}, 
+      #{memberGradeid,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditOpinion,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMember" >
+    insert into t_finace_recharge_set_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rechargeSetId != null" >
+        recharge_set_id,
+      </if>
+      <if test="rechargeSetName != null" >
+        recharge_set_name,
+      </if>
+      <if test="rechargeSetType != null" >
+        recharge_set_type,
+      </if>
+      <if test="rechargeRate != null" >
+        recharge_rate,
+      </if>
+      <if test="rechargeMoney != null" >
+        recharge_money,
+      </if>
+      <if test="feeWay != null" >
+        fee_way,
+      </if>
+      <if test="memberGradeid != null" >
+        member_gradeid,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rechargeSetId != null" >
+        #{rechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeSetName != null" >
+        #{rechargeSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeSetType != null" >
+        #{rechargeSetType,jdbcType=CHAR},
+      </if>
+      <if test="rechargeRate != null" >
+        #{rechargeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeMoney != null" >
+        #{rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="feeWay != null" >
+        #{feeWay,jdbcType=CHAR},
+      </if>
+      <if test="memberGradeid != null" >
+        #{memberGradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditOpinion != null" >
+        #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_finace_recharge_set_member temp_finace_recharge_set_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finace_recharge_set_member temp_finace_recharge_set_member
+    <set >
+      <if test="record.rechargeSetId != null" >
+        temp_finace_recharge_set_member.recharge_set_id = #{record.rechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeSetName != null" >
+        temp_finace_recharge_set_member.recharge_set_name = #{record.rechargeSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeSetType != null" >
+        temp_finace_recharge_set_member.recharge_set_type = #{record.rechargeSetType,jdbcType=CHAR},
+      </if>
+      <if test="record.rechargeRate != null" >
+        temp_finace_recharge_set_member.recharge_rate = #{record.rechargeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rechargeMoney != null" >
+        temp_finace_recharge_set_member.recharge_money = #{record.rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeWay != null" >
+        temp_finace_recharge_set_member.fee_way = #{record.feeWay,jdbcType=CHAR},
+      </if>
+      <if test="record.memberGradeid != null" >
+        temp_finace_recharge_set_member.member_gradeid = #{record.memberGradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_finace_recharge_set_member.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_finace_recharge_set_member.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        temp_finace_recharge_set_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditOpinion != null" >
+        temp_finace_recharge_set_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_finace_recharge_set_member.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finace_recharge_set_member.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finace_recharge_set_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finace_recharge_set_member.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finace_recharge_set_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finace_recharge_set_member temp_finace_recharge_set_member
+    set temp_finace_recharge_set_member.recharge_set_id = #{record.rechargeSetId,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.recharge_set_name = #{record.rechargeSetName,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.recharge_set_type = #{record.rechargeSetType,jdbcType=CHAR},
+      temp_finace_recharge_set_member.recharge_rate = #{record.rechargeRate,jdbcType=DECIMAL},
+      temp_finace_recharge_set_member.recharge_money = #{record.rechargeMoney,jdbcType=DECIMAL},
+      temp_finace_recharge_set_member.fee_way = #{record.feeWay,jdbcType=CHAR},
+      temp_finace_recharge_set_member.member_gradeid = #{record.memberGradeid,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_finace_recharge_set_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      temp_finace_recharge_set_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finace_recharge_set_member.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finace_recharge_set_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMember" >
+    update t_finace_recharge_set_member
+    <set >
+      <if test="rechargeSetName != null" >
+        recharge_set_name = #{rechargeSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeSetType != null" >
+        recharge_set_type = #{rechargeSetType,jdbcType=CHAR},
+      </if>
+      <if test="rechargeRate != null" >
+        recharge_rate = #{rechargeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeMoney != null" >
+        recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="feeWay != null" >
+        fee_way = #{feeWay,jdbcType=CHAR},
+      </if>
+      <if test="memberGradeid != null" >
+        member_gradeid = #{memberGradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recharge_set_id = #{rechargeSetId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinaceRechargeSetMember" >
+    update t_finace_recharge_set_member
+    set recharge_set_name = #{rechargeSetName,jdbcType=VARCHAR},
+      recharge_set_type = #{rechargeSetType,jdbcType=CHAR},
+      recharge_rate = #{rechargeRate,jdbcType=DECIMAL},
+      recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+      fee_way = #{feeWay,jdbcType=CHAR},
+      member_gradeid = #{memberGradeid,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where recharge_set_id = #{rechargeSetId,jdbcType=VARCHAR}
+  </update>
+</mapper>

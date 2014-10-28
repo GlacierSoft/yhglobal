@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.finace.FinanceCarrierMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinanceCarrier" >
+    <id column="temp_finance_carrier_carrier_id" property="carrierId" jdbcType="VARCHAR" />
+    <result column="temp_finance_carrier_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_carrier_carrier_income" property="carrierIncome" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_carrier_freeze" property="carrierFreeze" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_carrier_deduct" property="carrierDeduct" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_carrier_return" property="carrierReturn" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_carrier_recharge" property="carrierRecharge" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_carrier_withdraw" property="carrierWithdraw" jdbcType="DECIMAL" />
+    <result column="temp_finance_carrier_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_carrier_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_carrier_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_carrier_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_carrier_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_carrier.carrier_id as temp_finance_carrier_carrier_id, temp_finance_carrier.carrier_member_id as temp_finance_carrier_carrier_member_id, 
+    temp_finance_carrier.carrier_income as temp_finance_carrier_carrier_income, temp_finance_carrier.carrier_freeze as temp_finance_carrier_carrier_freeze, 
+    temp_finance_carrier.carrier_deduct as temp_finance_carrier_carrier_deduct, temp_finance_carrier.carrier_return as temp_finance_carrier_carrier_return, 
+    temp_finance_carrier.carrier_recharge as temp_finance_carrier_carrier_recharge, temp_finance_carrier.carrier_withdraw as temp_finance_carrier_carrier_withdraw, 
+    temp_finance_carrier.remark as temp_finance_carrier_remark, temp_finance_carrier.creater as temp_finance_carrier_creater, 
+    temp_finance_carrier.create_time as temp_finance_carrier_create_time, temp_finance_carrier.updater as temp_finance_carrier_updater, 
+    temp_finance_carrier.update_time as temp_finance_carrier_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceCarrierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_carrier temp_finance_carrier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_carrier temp_finance_carrier
+    where temp_finance_carrier.carrier_id = #{carrierId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finance_carrier
+    where carrier_id = #{carrierId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinanceCarrierExample" >
+    delete from t_finance_carrier temp_finance_carrier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinanceCarrier" >
+    insert into t_finance_carrier (carrier_id, carrier_member_id, carrier_income, 
+      carrier_freeze, carrier_deduct, carrier_return, 
+      carrier_recharge, carrier_withdraw, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{carrierId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, #{carrierIncome,jdbcType=DECIMAL}, 
+      #{carrierFreeze,jdbcType=DECIMAL}, #{carrierDeduct,jdbcType=DECIMAL}, #{carrierReturn,jdbcType=DECIMAL}, 
+      #{carrierRecharge,jdbcType=DECIMAL}, #{carrierWithdraw,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinanceCarrier" >
+    insert into t_finance_carrier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carrierId != null" >
+        carrier_id,
+      </if>
+      <if test="carrierMemberId != null" >
+        carrier_member_id,
+      </if>
+      <if test="carrierIncome != null" >
+        carrier_income,
+      </if>
+      <if test="carrierFreeze != null" >
+        carrier_freeze,
+      </if>
+      <if test="carrierDeduct != null" >
+        carrier_deduct,
+      </if>
+      <if test="carrierReturn != null" >
+        carrier_return,
+      </if>
+      <if test="carrierRecharge != null" >
+        carrier_recharge,
+      </if>
+      <if test="carrierWithdraw != null" >
+        carrier_withdraw,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carrierId != null" >
+        #{carrierId,jdbcType=VARCHAR},
+      </if>
+      <if test="carrierMemberId != null" >
+        #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="carrierIncome != null" >
+        #{carrierIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierFreeze != null" >
+        #{carrierFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierDeduct != null" >
+        #{carrierDeduct,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierReturn != null" >
+        #{carrierReturn,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierRecharge != null" >
+        #{carrierRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierWithdraw != null" >
+        #{carrierWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinanceCarrierExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_carrier temp_finance_carrier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_carrier temp_finance_carrier
+    <set >
+      <if test="record.carrierId != null" >
+        temp_finance_carrier.carrier_id = #{record.carrierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carrierMemberId != null" >
+        temp_finance_carrier.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carrierIncome != null" >
+        temp_finance_carrier.carrier_income = #{record.carrierIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="record.carrierFreeze != null" >
+        temp_finance_carrier.carrier_freeze = #{record.carrierFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="record.carrierDeduct != null" >
+        temp_finance_carrier.carrier_deduct = #{record.carrierDeduct,jdbcType=DECIMAL},
+      </if>
+      <if test="record.carrierReturn != null" >
+        temp_finance_carrier.carrier_return = #{record.carrierReturn,jdbcType=DECIMAL},
+      </if>
+      <if test="record.carrierRecharge != null" >
+        temp_finance_carrier.carrier_recharge = #{record.carrierRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.carrierWithdraw != null" >
+        temp_finance_carrier.carrier_withdraw = #{record.carrierWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_carrier.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_carrier.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_carrier.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_carrier.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_carrier.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_carrier temp_finance_carrier
+    set temp_finance_carrier.carrier_id = #{record.carrierId,jdbcType=VARCHAR},
+      temp_finance_carrier.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
+      temp_finance_carrier.carrier_income = #{record.carrierIncome,jdbcType=DECIMAL},
+      temp_finance_carrier.carrier_freeze = #{record.carrierFreeze,jdbcType=DECIMAL},
+      temp_finance_carrier.carrier_deduct = #{record.carrierDeduct,jdbcType=DECIMAL},
+      temp_finance_carrier.carrier_return = #{record.carrierReturn,jdbcType=DECIMAL},
+      temp_finance_carrier.carrier_recharge = #{record.carrierRecharge,jdbcType=DECIMAL},
+      temp_finance_carrier.carrier_withdraw = #{record.carrierWithdraw,jdbcType=DECIMAL},
+      temp_finance_carrier.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_carrier.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_carrier.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_carrier.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_carrier.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinanceCarrier" >
+    update t_finance_carrier
+    <set >
+      <if test="carrierMemberId != null" >
+        carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="carrierIncome != null" >
+        carrier_income = #{carrierIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierFreeze != null" >
+        carrier_freeze = #{carrierFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierDeduct != null" >
+        carrier_deduct = #{carrierDeduct,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierReturn != null" >
+        carrier_return = #{carrierReturn,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierRecharge != null" >
+        carrier_recharge = #{carrierRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="carrierWithdraw != null" >
+        carrier_withdraw = #{carrierWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where carrier_id = #{carrierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinanceCarrier" >
+    update t_finance_carrier
+    set carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      carrier_income = #{carrierIncome,jdbcType=DECIMAL},
+      carrier_freeze = #{carrierFreeze,jdbcType=DECIMAL},
+      carrier_deduct = #{carrierDeduct,jdbcType=DECIMAL},
+      carrier_return = #{carrierReturn,jdbcType=DECIMAL},
+      carrier_recharge = #{carrierRecharge,jdbcType=DECIMAL},
+      carrier_withdraw = #{carrierWithdraw,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where carrier_id = #{carrierId,jdbcType=VARCHAR}
+  </update>
+</mapper>
