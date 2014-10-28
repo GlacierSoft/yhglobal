@@ -15,7 +15,8 @@
 		toolbarId : 'routeDataGrid_toolbar',
 		actions : { 
              add:{flag:'add',controlType:'add'},
-             edit:{flag:'edit',controlType:'single'}
+             edit:{flag:'edit',controlType:'single'}, 
+             del:{flag:'del',controlType:'multiple'}
           }
      };
 
@@ -274,8 +275,8 @@
 		var row =glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【'+row.routeName+'】-班线编辑',
-			width : 610,
-			height : 480,
+			width : 670,
+			height : 590,
 			queryUrl : ctx + '/do/carrierRoute/intoForm.htm',
 			submitUrl : ctx + '/do/carrierRoute/edit.json',
 			queryParams : {
@@ -285,41 +286,51 @@
 				glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
 			}
 		});
-	};
-	
-	
-	//点击启用禁用按钮触发方法
-	glacier.carrier_mgr.carrierRoute_mgr.route.editRouteStatus = function(){
-      var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
-      $.messager.confirm('请确认', '是否要启用/禁用该班线?', function(r){
-		if (r){ 
-		    $.ajax({
-				   type: "POST",
-				   url: ctx + '/do/carrierRoute/status.json',
-				   data: {routerId:row.routerId}, 
-				   dataType:'json',
-				   success: function(r){
-					   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-						   $.messager.show({
-								title:'提示',
-								timeout:3000,
-								msg:r.msg
-							});
-						   glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
-					   }else{
-							$.messager.show({//后台验证弹出错误提示信息框
-								title:'错误提示',
-								width:380,
-								height:120,
-								msg: '<span style="color:red">'+r.msg+'<span>',
-								timeout:4500
-							});
-						}
-				   }
-			 });  
-          }
-		});
 	}; 
+	
+	//点击删除按钮触发方法
+	glacier.carrier_mgr.carrierRoute_mgr.route.delRoute= function() { 
+		var rows =glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getChecked");
+		var carrierRouteIds = [];//删除的id标识
+		var carrierRouteNames = [];
+		for ( var i = 0; i < rows.length; i++) {
+			carrierRouteIds.push(rows[i].routerId);
+			carrierRouteNames.push(rows[i].routeName);
+		}
+		if (carrierRouteIds.length > 0) {
+			$.messager.confirm('请确认','是否要删除该记录',function(r){
+                   if (r){
+                   	 $.ajax({ 
+                   		type: "POST",
+                   	    url : ctx+ '/do/carrierRoute/del.json',
+						data : {
+							carrierRouteIds : carrierRouteIds.join(','),
+							carrierRouteNames : carrierRouteNames.join(',')
+						},
+						dataType : 'json',
+						success : function(r) {
+							if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+								$.messager.show({
+									title : '提示',
+									timeout : 3000,
+									msg : r.msg
+								});
+								glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
+								} else {
+								$.messager.show({//后台验证弹出错误提示信息框
+											title : '错误提示',
+											width : 380,
+											height : 120,
+											msg : '<span style="color:red">'+ r.msg+ '<span>',
+											timeout : 4500
+										});
+							}
+						}
+					});
+				}
+			});
+		}
+	};
 	//班线资料模糊查询
 	glacier.carrier_mgr.carrierRoute_mgr.route.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
@@ -397,7 +408,7 @@
 </div> 
  
 									<!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-170px;top:50%;margin-top:-55px;">
+	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-13%;top:50%;margin-top:-5%;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>

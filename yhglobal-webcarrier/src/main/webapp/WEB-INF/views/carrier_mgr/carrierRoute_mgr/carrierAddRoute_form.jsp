@@ -244,7 +244,7 @@
 
 
   <!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-350px;top:50%;margin-top:-20px;">
+	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-52%;top:50%;margin-top:-2%;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>

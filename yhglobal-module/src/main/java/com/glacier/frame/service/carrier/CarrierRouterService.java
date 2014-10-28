@@ -21,6 +21,7 @@ package com.glacier.frame.service.carrier;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;  
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -28,8 +29,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;  
-
+import org.springframework.transaction.annotation.Transactional;   
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.carrier.CarrierAmongRouteMapper;
 import com.glacier.frame.dao.carrier.CarrierDeliverGoodsAreaMapper;
@@ -38,7 +39,7 @@ import com.glacier.frame.dao.carrier.CarrierPickUpgoodsAreaMapper;
 import com.glacier.frame.dao.carrier.CarrierRouteMapper;
 import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO; 
 import com.glacier.frame.entity.carrier.CarrierAmongRoute;
-import com.glacier.frame.entity.carrier.CarrierAmongRouteExample;
+import com.glacier.frame.entity.carrier.CarrierAmongRouteExample; 
 import com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea;
 import com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample;
 import com.glacier.frame.entity.carrier.CarrierMember;
@@ -114,8 +115,19 @@ public class CarrierRouterService {
       * @return Object    返回类型  
       * @throws
       */ 
-	  public CarrierRoute getRoute(String routeId) {  
-	    	return carrierRouteMapper.selectByPrimaryKey(routeId);
+	  public CarrierRoute getRoute(String routeId) { 
+		  CarrierRoute route=carrierRouteMapper.selectByPrimaryKey(routeId);
+		  CarrierDeliverGoodsAreaExample  carrierDeliverGoodsAreaExample =new CarrierDeliverGoodsAreaExample();
+	      carrierDeliverGoodsAreaExample.createCriteria().andRouterIdEqualTo(routeId);
+	      //查询发货区域
+	      List<CarrierDeliverGoodsArea> celiverList=carrierDeliverGoodsAreaMapper.selectByExample(carrierDeliverGoodsAreaExample);
+	      route.setDeliverList(celiverList); 
+	      CarrierPickUpgoodsAreaExample carrierPickUpgoodsAreaExample =new CarrierPickUpgoodsAreaExample();
+	      carrierPickUpgoodsAreaExample.createCriteria().andRouterIdEqualTo(routeId);
+	      //查询收货区域
+	      List<CarrierPickUpgoodsArea>  pickUpList=carrierPickUpgoodsAreaMapper.selectByExample(carrierPickUpgoodsAreaExample);
+	      route.setPickUpList(pickUpList);   
+	      return route;
 	  } 
      
      /*** 
@@ -262,6 +274,58 @@ public class CarrierRouterService {
         carrierRoute.setCreater(route.getCreater());
         carrierRoute.setCreateTime(route.getCreateTime()); 
         count = carrierRouteMapper.updateByPrimaryKey(carrierRoute);
+        //修改发货区域信息 
+        for (CarrierDeliverGoodsArea str: carrierRoute.getDeliverList()) { 
+        	 //是否存在该发货区域 
+        	 if(str.getDeliverGoodsAreaId().trim().equals("")==false){
+        		 if(str.getDeliverName().trim().equals("")==false){//存在区域就修改
+           		  //如果不填写价格，则默认为起步价格
+           		  if(str.getPrice()==null){
+           			  str.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+   				   }
+           		  str.setRouterId(carrierRoute.getRouterId());
+	           	  carrierDeliverGoodsAreaMapper.updateByPrimaryKeySelective(str);
+	           	  }else{  //否则就把多余的记录清掉
+	           		  carrierDeliverGoodsAreaMapper.deleteByPrimaryKey(str.getDeliverGoodsAreaId()); 
+	           	  }
+        	 }else{   //id不存在
+        		  if(str.getDeliverName().trim().equals("")==false){//但存在区域，就添加区域数据
+        			 str.setDeliverGoodsAreaId(RandomGUID.getRandomGUID());
+        			 str.setRouterId(carrierRoute.getRouterId());
+        			 //如果不填写价格，则默认为起步价格
+               		 if(str.getPrice()==null){
+               			  str.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+       				   } 
+    	           	carrierDeliverGoodsAreaMapper.insertSelective(str); 
+        		  }
+        	 } 
+		} 
+        //修改提货区域信息 
+        for (CarrierPickUpgoodsArea pick: carrierRoute.getPickUpList()) { 
+        	 //是否存在该提货区域  
+        	 if(pick.getPickUpGoodsAreaId().equals("")==false){
+        		 if(pick.getDeliverName().trim()!=""){//存在区域就修改
+	           		  //如果不填写价格，则默认为起步价格
+	           		  if(pick.getPrice()==null){ 
+	           			  pick.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+	   				   }
+	           		   pick.setRouterId(carrierRoute.getRouterId());
+		           	   carrierPickUpgoodsAreaMapper.updateByPrimaryKeySelective(pick);
+		           }else{  //否则就把多余的记录清掉
+		           		carrierPickUpgoodsAreaMapper.deleteByPrimaryKey(pick.getPickUpGoodsAreaId()); 
+	           	  }
+        	 }else{  //id不存在
+        		  if(pick.getDeliverName().trim().equals("")==false){//但存在区域，就添加区域数据
+        			  pick.setPickUpGoodsAreaId(RandomGUID.getRandomGUID());
+        			  pick.setRouterId(carrierRoute.getRouterId());
+        			  //如果不填写价格，则默认为起步价格
+               		  if(pick.getPrice()==null){
+               			  pick.setPrice(carrierRoute.getStartingPrice());//如果价格没写，那就默认按起步价来算
+       				   }  
+               		  carrierPickUpgoodsAreaMapper.insert(pick);
+        		  }
+        	 } 
+		} 
         //取出详情表的信息，修改班线绑定的承运商
         CarrierAmongRouteExample carrierAmongRouteExample=new CarrierAmongRouteExample();
         carrierAmongRouteExample.createCriteria().andRouterIdEqualTo(carrierRoute.getRouterId());
@@ -288,17 +352,17 @@ public class CarrierRouterService {
 	 * @return Object    返回类型  
 	 * @throws
 	 */
-   public String GenerationRouteNumber(){ 
-		CarrierRouteExample carrierRouteExample=new CarrierRouteExample(); 
-		int i;
-		String number;
-		//班线编号重复
-		 do{
-			 number="YH-"+(int)Math.random()*9000+1000; 
-			 carrierRouteExample.createCriteria().andRouteNameEqualTo(number); 
-			 i=carrierRouteMapper.selectByExample(carrierRouteExample).size();
-		 }while(i>0); 
-		 return number;
+   public String GenerationRouteNumber(){  
+		String route=carrierRouteMapper.selectTop();   
+		if(route==null){
+			String number="YH-"+10000;
+			return number;
+		}
+		String str = new String(route);   
+        String strs[] = str.split("-");
+        int num=Integer.parseInt(strs[1])+1;
+        String number="YH-"+num;
+		return number;
 	} 
    
    /** 
@@ -335,8 +399,7 @@ public class CarrierRouterService {
 		cal.set(Calendar.SECOND,0);
 		cal.set(Calendar.MINUTE,Integer.valueOf(inTime[1]));
 		Date dates=cal.getTime(); 
-		carrierRoute.setCeaseTakeDeliveryTime(dates);  
-	   
+		carrierRoute.setCeaseTakeDeliveryTime(dates);   
 	    int count=carrierRouteMapper.insert(carrierRoute);
 	    if (count == 1) {    
 		 //添加发货区域
@@ -376,10 +439,70 @@ public class CarrierRouterService {
 		 carrierAmongRoute.setCarrierMemberId(carrierMember.getCarrierMemberId());
 		 carrierAmongRouteMapper.insert(carrierAmongRoute); 
 		 returnResult.setSuccess(true);
-		 returnResult.setMsg("[" + carrierRoute.getRouteName() + "]班线信息已保存");
+		 returnResult.setMsg("[" + carrierRoute.getRouteName() + "]班线信息已提交，等待审核");
         } else {
            returnResult.setMsg("发生未知错误，班线信息保存失败");
         }  
 	    return returnResult; 
     }
+   
+    /** 
+     * @Title: delRoute  
+     * @Description: TODO(删除班线)  
+     * @param @param carrierRouteIds
+     * @param @param carrierRouteNames
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+   @Transactional(readOnly = false)
+   public Object delRoute(List<String> carrierRouteIds, List<String> carrierRouteNames) {
+       JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+       int count = 0;
+       String str=null;
+       if (carrierRouteIds.size() > 0) { 
+    	    Iterator<String> iter = carrierRouteIds.iterator();  
+    	    int i=0;
+    	    while(iter.hasNext()){   
+    	       String s = iter.next();  
+    	       CarrierRoute  route=carrierRouteMapper.selectByPrimaryKey(s);
+               if(route.getAuditState().equals("authstr")==false){
+            	   iter.remove();  
+            	   carrierRouteNames.remove(i);
+            	   str="["+route.getRouteName()+"] ";
+                   break;
+               }  
+               i++;
+        	   CarrierAmongRouteExample carrierAmongRouteExample = new CarrierAmongRouteExample();
+        	   carrierAmongRouteExample.createCriteria().andRouterIdEqualTo(s);
+               carrierAmongRouteMapper.deleteByExample(carrierAmongRouteExample); 
+    	    }     	   
+    	    if(str!=null){
+    	    	str=",其中班线"+str+"已进行审核操作，不可删除!";
+    	    }else{
+    	    	str="";
+    	    }   
+    	    //删除发货区域
+    	    CarrierDeliverGoodsAreaExample carrierDeliverGoodsAreaExample=new CarrierDeliverGoodsAreaExample();
+    	    carrierDeliverGoodsAreaExample.createCriteria().andRouterIdIn(carrierRouteIds);
+    	    carrierDeliverGoodsAreaMapper.deleteByExample(carrierDeliverGoodsAreaExample);
+    	    //删除收货区域
+    	    CarrierPickUpgoodsAreaExample carrierPickUpgoodsAreaExample=new CarrierPickUpgoodsAreaExample();
+    	    carrierPickUpgoodsAreaExample.createCriteria().andRouterIdIn(carrierRouteIds);
+    	    carrierPickUpgoodsAreaMapper.deleteByExample(carrierPickUpgoodsAreaExample);
+    	    //删除班线
+    	    CarrierRouteExample carrierRouteExample=new CarrierRouteExample();
+    	    carrierRouteExample.createCriteria().andRouterIdIn(carrierRouteIds);
+    	    count= carrierRouteMapper.deleteByExample(carrierRouteExample);
+    	    if(count>0){
+    	        returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(carrierRouteNames, ",") + " ]班线"+str);
+            }else{
+        	    returnResult.setMsg("发生未知错误，班线信息删除失败");
+            } 
+          } else {
+           returnResult.setMsg("没有可删除的数据");
+        } 
+        return returnResult;
+   }
 }

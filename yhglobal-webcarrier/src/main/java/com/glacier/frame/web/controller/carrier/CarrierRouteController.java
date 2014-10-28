@@ -18,6 +18,8 @@
  * 
  */
 package com.glacier.frame.web.controller.carrier; 
+import java.util.List;
+
 import javax.validation.Valid; 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
 import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.core.controller.AbstractController; 
@@ -58,7 +61,7 @@ public class CarrierRouteController extends AbstractController {
         return mav;
     } 
       
-    // 查询显示所有的承运商会员信息
+    // 查询显示所有班线信息
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO,String q) {
@@ -74,8 +77,7 @@ public class CarrierRouteController extends AbstractController {
     	}
 	     return mav;
     }
-      
-
+       
     // 班线add表单页面
     @RequestMapping(value = "/addForm.htm")
     private Object intoAddRoute() {
@@ -96,6 +98,7 @@ public class CarrierRouteController extends AbstractController {
         }  
          return carrierRouterService.addRoute(carrierRoute);
     } 
+    
     //查询收货发货区域
     @RequestMapping(value = "/area.json", method = RequestMethod.POST)
     @ResponseBody
@@ -123,4 +126,10 @@ public class CarrierRouteController extends AbstractController {
         return carrierRouterService.editRoute(carrierRoute);
     }
     
+    //批量删除班线
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delGrade(@RequestParam List<String> carrierRouteIds,@RequestParam List<String> carrierRouteNames) {
+    	return carrierRouterService.delRoute(carrierRouteIds, carrierRouteNames);
+    }
 }

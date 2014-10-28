@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.finace.FinanceMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinanceMember" >
+    <id column="temp_finance_member_mrechage_id" property="mrechageId" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_mrechage_add" property="mrechageAdd" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_mrechage_pay" property="mrechagePay" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_mrechage_prefer" property="mrechagePrefer" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_mrechage_remain" property="mrechageRemain" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_mrecharge_mark" property="mrechargeMark" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_member_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_member.mrechage_id as temp_finance_member_mrechage_id, temp_finance_member.member_id as temp_finance_member_member_id, 
+    temp_finance_member.mrechage_add as temp_finance_member_mrechage_add, temp_finance_member.mrechage_pay as temp_finance_member_mrechage_pay, 
+    temp_finance_member.mrechage_prefer as temp_finance_member_mrechage_prefer, temp_finance_member.mrechage_remain as temp_finance_member_mrechage_remain, 
+    temp_finance_member.mrecharge_mark as temp_finance_member_mrecharge_mark, temp_finance_member.remark as temp_finance_member_remark, 
+    temp_finance_member.creater as temp_finance_member_creater, temp_finance_member.create_time as temp_finance_member_create_time, 
+    temp_finance_member.updater as temp_finance_member_updater, temp_finance_member.update_time as temp_finance_member_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_member temp_finance_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_member temp_finance_member
+    where temp_finance_member.mrechage_id = #{mrechageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finance_member
+    where mrechage_id = #{mrechageId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinanceMemberExample" >
+    delete from t_finance_member temp_finance_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinanceMember" >
+    insert into t_finance_member (mrechage_id, member_id, mrechage_add, 
+      mrechage_pay, mrechage_prefer, mrechage_remain, 
+      mrecharge_mark, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{mrechageId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{mrechageAdd,jdbcType=DECIMAL}, 
+      #{mrechagePay,jdbcType=DECIMAL}, #{mrechagePrefer,jdbcType=DECIMAL}, #{mrechageRemain,jdbcType=DECIMAL}, 
+      #{mrechargeMark,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinanceMember" >
+    insert into t_finance_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mrechageId != null" >
+        mrechage_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="mrechageAdd != null" >
+        mrechage_add,
+      </if>
+      <if test="mrechagePay != null" >
+        mrechage_pay,
+      </if>
+      <if test="mrechagePrefer != null" >
+        mrechage_prefer,
+      </if>
+      <if test="mrechageRemain != null" >
+        mrechage_remain,
+      </if>
+      <if test="mrechargeMark != null" >
+        mrecharge_mark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mrechageId != null" >
+        #{mrechageId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="mrechageAdd != null" >
+        #{mrechageAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechagePay != null" >
+        #{mrechagePay,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechagePrefer != null" >
+        #{mrechagePrefer,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechageRemain != null" >
+        #{mrechageRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechargeMark != null" >
+        #{mrechargeMark,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinanceMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_member temp_finance_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_member temp_finance_member
+    <set >
+      <if test="record.mrechageId != null" >
+        temp_finance_member.mrechage_id = #{record.mrechageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_finance_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mrechageAdd != null" >
+        temp_finance_member.mrechage_add = #{record.mrechageAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrechagePay != null" >
+        temp_finance_member.mrechage_pay = #{record.mrechagePay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrechagePrefer != null" >
+        temp_finance_member.mrechage_prefer = #{record.mrechagePrefer,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrechageRemain != null" >
+        temp_finance_member.mrechage_remain = #{record.mrechageRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrechargeMark != null" >
+        temp_finance_member.mrecharge_mark = #{record.mrechargeMark,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_member.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_member.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_member.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_member temp_finance_member
+    set temp_finance_member.mrechage_id = #{record.mrechageId,jdbcType=VARCHAR},
+      temp_finance_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_finance_member.mrechage_add = #{record.mrechageAdd,jdbcType=DECIMAL},
+      temp_finance_member.mrechage_pay = #{record.mrechagePay,jdbcType=DECIMAL},
+      temp_finance_member.mrechage_prefer = #{record.mrechagePrefer,jdbcType=DECIMAL},
+      temp_finance_member.mrechage_remain = #{record.mrechageRemain,jdbcType=DECIMAL},
+      temp_finance_member.mrecharge_mark = #{record.mrechargeMark,jdbcType=DECIMAL},
+      temp_finance_member.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_member.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_member.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinanceMember" >
+    update t_finance_member
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="mrechageAdd != null" >
+        mrechage_add = #{mrechageAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechagePay != null" >
+        mrechage_pay = #{mrechagePay,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechagePrefer != null" >
+        mrechage_prefer = #{mrechagePrefer,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechageRemain != null" >
+        mrechage_remain = #{mrechageRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="mrechargeMark != null" >
+        mrecharge_mark = #{mrechargeMark,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mrechage_id = #{mrechageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinanceMember" >
+    update t_finance_member
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      mrechage_add = #{mrechageAdd,jdbcType=DECIMAL},
+      mrechage_pay = #{mrechagePay,jdbcType=DECIMAL},
+      mrechage_prefer = #{mrechagePrefer,jdbcType=DECIMAL},
+      mrechage_remain = #{mrechageRemain,jdbcType=DECIMAL},
+      mrecharge_mark = #{mrechargeMark,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where mrechage_id = #{mrechageId,jdbcType=VARCHAR}
+  </update>
+</mapper>
