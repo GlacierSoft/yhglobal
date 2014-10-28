@@ -27,9 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class CommonController {
-    
-    
-    
 
     /**
      * @Title: login
@@ -76,5 +73,4 @@ public class CommonController {
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, userName);
         return "login";
     }
-     
 }

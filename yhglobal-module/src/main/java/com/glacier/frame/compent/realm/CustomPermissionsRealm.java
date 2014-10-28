@@ -159,7 +159,6 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
      *             已检查测试:Green
      *             <p>
      */
-
     private void updatePrincipalUserInfo(CaptchaUsernamePasswordToken token, User principalUser) {
             User lastPrincipalUser = new User();
             lastPrincipalUser.setUserId(principalUser.getUserId());
@@ -205,5 +204,4 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
         matcher.setHashIterations(UserService.HASH_INTERATIONS);
         setCredentialsMatcher(matcher);
     }
-
 }

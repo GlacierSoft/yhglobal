@@ -90,5 +90,4 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throw new IncorrectCaptchaException("验证码错误！");
         }
     }
-    
 }

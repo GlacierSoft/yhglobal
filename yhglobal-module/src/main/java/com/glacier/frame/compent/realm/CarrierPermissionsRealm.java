@@ -47,7 +47,6 @@ import com.glacier.frame.service.carrier.CarrierMemberService;
 import com.glacier.security.util.Encodes;
 
 /**
- * 
  * @ClassName: CustomPermissionsRealm
  * @Description: TODO(管理员进行自定义执行认证和授权的类)
  * @author xichao.dong  
@@ -146,53 +145,6 @@ public class CarrierPermissionsRealm extends AuthorizingRealm {
         }
         return null;
     }
-    
-/*    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-        CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
-        String carrierloginUsername = token.getUsername();
-        if (null != carrierloginUsername && !"".equals(carrierloginUsername)) {
-            CarrierloginUserExample carrierloginUserExample = new CarrierloginUserExample();
-            carrierloginUserExample.createCriteria().andUsernameEqualTo(carrierloginUsername);
-            CarrierloginUser principalCarrierloginUser = carrierloginUserMapper.selectByExample(carrierloginUserExample).get(0);
-            if (null != principalCarrierloginUser) {
-                // 用户状态为启用或隐藏让其通过认证
-                byte[] salt = Encodes.decodeHex(principalCarrierloginUser.getSalt());
-                CarrierloginUser carrierloginUser = carrierloginUserMapper.selectByPrimaryKey(principalCarrierloginUser.getUserId());
-                AuthenticationInfo info = new SimpleAuthenticationInfo(carrierloginUser, principalCarrierloginUser.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
-                clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
-                updatePrincipalCarrierloginUserInfo(token, principalCarrierloginUser);// 更新用户登录信息
-                return info;
-            } else {
-                throw new DisabledAccountException();
-            }
-        }
-        return null;
-    }
-*/
-/*    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-        CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
-        String username = token.getUsername(); 
-        if (null != username && !"".equals(username)) {
-            ShipperMemberTokenExample shipperMemberTokenExample = new ShipperMemberTokenExample();
-            shipperMemberTokenExample.createCriteria().andMemberNameEqualTo(username);
-            ShipperMemberToken tokenMember= shipperMemberTokenMapper.selectByExample(shipperMemberTokenExample).get(0);
-            if (null != tokenMember) {
-                // 用户状态为启用或隐藏让其通过认证
-                byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
-                //通过会员id来获取会员信息
-                ShipperMember principalMember = shipperMemberMapper.selectByPrimaryKey(tokenMember.getMemberId());
-                AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
-                clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
-                updatePrincipalMemberInfo(token, principalMember);// 更新用户登录信息
-                return info;
-            } else {
-                throw new DisabledAccountException();
-            }
-        }
-        return null;
-    }*/
     
     /**
      * @param token
