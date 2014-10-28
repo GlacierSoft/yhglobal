@@ -167,12 +167,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 	</head>
 	<body  onload="disptime()">
-	    <div id="ajaxLoading" style="width: 100%;height: 100%;top: 0;left: 0;position: absolute;z-index: 9999;background:none repeat scroll 0 0 #CCCCCC;opacity: 0.4;filter:alpha(opacity=50);text-align: center;display: none;">
-	        <div style="width: 340px;height: 50px;border: 1px solid #86A5AD;background-color: white;margin: 0px auto;margin-top: 26%;">
-	            <div style="width:40px;height:30px;border:0px solid gray;float: left;margin-top: 10px;margin-left: 15px;"><img src="<%=basePath %>resources/images/loading.gif" style="vertical-align: center;"></div>                        
-	            <div style="width:250px;height:30px;border:0px solid gray;float: left;margin-top: 10px;line-height: 30px;text-align: center;font-weight: bold;">数据正在还原中,其他操作请稍后进行!!!!</div>
-	         </div>
-	    </div> 
 		<div id="index_layout" class="easyui-layout" data-options="fit:true,border:false">
 			<div data-options="region:'north',border:false" class="logo">
 				<div id="sessionInfoDiv" style="position: absolute; right: 0px; top: 0px;width: 350px" class="login_name">
