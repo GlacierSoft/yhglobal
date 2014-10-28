@@ -115,4 +115,11 @@ public class CarrierMemberController extends AbstractController{
         }
         return carriermemberService.enterpriserAudit(carrierEnterpriserMember);
     }
+    
+    //承运商修改登录密码
+    @RequestMapping(value = "/modifyPsd.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object modifyPsd(String oldPassword, String newPassword) {
+        return carriermemberService.modifyPsd(oldPassword, newPassword);
+    }
 }

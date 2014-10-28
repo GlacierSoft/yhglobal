@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      					iconCls : 'icon-ok',
 	      					handler : function() {
 	      						$('#modifyPsdFrom').form('submit', {
-	      							url: ctx + '/do/user/modifyPsd.json',
+	      							url: ctx + '/do/carrierMember/modifyPsd.json',
 	      							dataType:'json',
 	     						   success: function(r){
 	     							   if(r.success){
@@ -124,38 +124,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      			}]
 	      		});
 	      	}; 
-	      	
-	      	
-	      	//数据还原
-	      	function doBackUp(){
-	      		$.messager.confirm('警告','您确认想要还原数据吗？',function(r){    
-	      			 if (r){
-	      				 $("#ajaxLoading").show();
-	      				 $.ajax({
-		      		    	 type:"post",
-		           		     url:ctx + '/do/res/dataBcakUp.json',
-		           		     dataType:"json",
-		           		     success:function(data){
-		           		    	$("#ajaxLoading").hide();
-		           		        if(data[0].data){
-		           		          $.messager.show({
- 										title:'提示',
- 										timeout:3000,
- 										msg:"数据还原成功，请刷新操作！！"
- 									});
-		           		         }else{
-		           		        	$.messager.show({
- 										title:'提示',
- 										timeout:3000,
- 										msg:"数据还原失败，请联系管理员！！"
- 									});
-		           		         }
-		           		         
-		           		     }
-		      		       });
-		      		    }    
-	      		});  
-	      	}
 	      	
 	      	//动态时钟显示
 	      	function disptime()
@@ -230,10 +198,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
 					<div onclick="userModifyPsd();" data-options="iconCls:'icon-edit'">修改密码</div>
-					<div class="menu-sep"></div>	
-					<!-- <div onclick="checkAuth();" data-options="iconCls:'icon-dortmund-customers'">查看权限</div> -->
-					<div class="menu-sep"></div>
-					<div onclick="doBackUp();" data-options="iconCls:'icon-dortmund-customers'" title="还原数据为前一天数据!!">数据还原</div>
 				</div>
 			</div>
 			<div data-options="region:'west',split:true" style="width:160px;overflow:hidden;">

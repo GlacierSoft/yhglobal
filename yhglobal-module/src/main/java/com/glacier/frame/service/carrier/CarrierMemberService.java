@@ -410,4 +410,61 @@ public class CarrierMemberService {
         return returnResult;
     }
     
+    /**
+     * @Title: modifyPsd 
+     * @Description: TODO(修改承运商密码方法) 
+     * @param  @param oldPassword
+     * @param  @param newPassword
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    public Object modifyPsd(String oldPassword,String memberPassword){
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        CarrierMember principalCarrier = (CarrierMember) SecurityUtils.getSubject().getPrincipal();// 获取通过认证用户
+        CarrierMemberToken cToken = carrierMemberTokenMapper.selectByPrimaryKey(principalCarrier.getCarrierMemberId());//通过承运商Id查找Token
+        //将前台传来的密码进行加密，
+        byte[] salt = Encodes.decodeHex(cToken.getSalt());
+        byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
+        String encodeHexPwd = Encodes.encodeHex(hashPassword);
+        int count = 0;
+        int countMT = 0; 
+        //将加密后的密码和存在数据库里的密码进行比较。
+        if ((principalCarrier.getMemberPassword()).equals(encodeHexPwd)) {
+            //会员表的修改
+            principalCarrier.setUpdater(principalCarrier.getCarrierMemberId());
+            principalCarrier.setUpdateTime(new Date());
+            cToken.setPassword(memberPassword);
+            //将新密码进行加密
+            this.updatePassword(cToken);
+            //更新member和memberToken 
+            principalCarrier.setMemberPassword(cToken.getPassword());
+            countMT = carrierMemberTokenMapper.updateByPrimaryKeySelective(cToken);
+            count = carrierMemberMapper.updateByPrimaryKeySelective(principalCarrier);
+            if(count ==1 && countMT==1){
+                returnResult.setSuccess(true);
+                returnResult.setMsg("密码修改成功！");
+            }else{
+                returnResult.setMsg("密码修改失败！");
+            }
+        }else{
+          returnResult.setMsg("原密码不正确！");
+        }  
+        return returnResult;
+    }
+    
+    /**
+     * @Title: updatePassword 
+     * @Description: TODO(加密新密码) 
+     * @param  @param cToken
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    private void updatePassword(CarrierMemberToken cToken) {
+        byte[] salt = Digests.generateSalt(SALT_SIZE);
+        cToken.setSalt(Encodes.encodeHex(salt));
+        byte[] hashPassword = Digests.sha1(cToken.getPassword().getBytes(), salt, HASH_INTERATIONS);
+        cToken.setPassword(Encodes.encodeHex(hashPassword));
+    }
 }
