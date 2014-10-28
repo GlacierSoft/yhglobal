@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.glacier.frame.entity.carrier.CarrierDriver" >
     <id column="temp_carrier_driver_driver_id" property="driverId" jdbcType="VARCHAR" />
     <result column="temp_carrier_driver_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
-    <result column="temp_carrier_driver_driver_carrier_id" property="driverCarrierId" jdbcType="VARCHAR" />
     <result column="temp_carrier_driver_driver_name" property="driverName" jdbcType="VARCHAR" />
     <result column="temp_carrier_driver_age" property="age" jdbcType="INTEGER" />
     <result column="temp_carrier_driver_driver_age" property="driverAge" jdbcType="INTEGER" />
@@ -27,11 +26,12 @@
     <result column="temp_carrier_driver_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_carrier_driver_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_carrier_driver_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    
+ 
     <result column="temp_carrier_driver_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
     <result column="temp_carrier_driver_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_carrier_driver_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    
+    <result column="temp_carrier_driver_audit_display" property="auditDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+     
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -93,10 +93,9 @@
   </sql>
   <sql id="Base_Column_List" >
     temp_carrier_driver.driver_id as temp_carrier_driver_driver_id, temp_carrier_driver.carrier_member_id as temp_carrier_driver_carrier_member_id, 
-    temp_carrier_driver.driver_carrier_id as temp_carrier_driver_driver_carrier_id, temp_carrier_driver.driver_name as temp_carrier_driver_driver_name, 
-    temp_carrier_driver.age as temp_carrier_driver_age, temp_carrier_driver.driver_age as temp_carrier_driver_driver_age, 
-    temp_carrier_driver.sex as temp_carrier_driver_sex, temp_carrier_driver.driver_license_id as temp_carrier_driver_driver_license_id, 
-    temp_carrier_driver.driver_license_time as temp_carrier_driver_driver_license_time, 
+    temp_carrier_driver.driver_name as temp_carrier_driver_driver_name, temp_carrier_driver.age as temp_carrier_driver_age, 
+    temp_carrier_driver.driver_age as temp_carrier_driver_driver_age, temp_carrier_driver.sex as temp_carrier_driver_sex, 
+    temp_carrier_driver.driver_license_id as temp_carrier_driver_driver_license_id, temp_carrier_driver.driver_license_time as temp_carrier_driver_driver_license_time, 
     temp_carrier_driver.phone as temp_carrier_driver_phone, temp_carrier_driver.address as temp_carrier_driver_address, 
     temp_carrier_driver.card_id as temp_carrier_driver_card_id, temp_carrier_driver.driver_photo as temp_carrier_driver_driver_photo, 
     temp_carrier_driver.status as temp_carrier_driver_status, temp_carrier_driver.driver_status as temp_carrier_driver_driver_status, 
@@ -105,20 +104,19 @@
     temp_carrier_driver.audit_time as temp_carrier_driver_audit_time, temp_carrier_driver.remark as temp_carrier_driver_remark, 
     temp_carrier_driver.creater as temp_carrier_driver_creater, temp_carrier_driver.create_time as temp_carrier_driver_create_time, 
     temp_carrier_driver.updater as temp_carrier_driver_updater, temp_carrier_driver.update_time as temp_carrier_driver_update_time
-    
+ 
     ,temp_carrier_member.member_name as temp_carrier_driver_carrier_display 
-    ,temp_creater.user_cn_name as  temp_carrier_driver_creater_display
-    ,temp_updater.user_cn_name as  temp_carrier_driver_updater_display   
-    
+    ,temp_creater.member_name as  temp_carrier_driver_creater_display
+    ,temp_updater.member_name as  temp_carrier_driver_updater_display   
+    ,temp_audit.user_cn_name as temp_carrier_driver_audit_display
   </sql>
   
   <sql id="Base_extend">
     LEFT JOIN t_carrier_member  temp_carrier_member ON temp_carrier_member.carrier_member_id =temp_carrier_driver.carrier_member_id<!-- 扩展 -->
-   	LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_carrier_driver.creater <!-- 扩展 -->
-    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_carrier_driver.updater <!-- 扩展 -->
-  
-   </sql>
-  
+   	LEFT JOIN t_carrier_member temp_creater ON temp_creater.carrier_member_id =temp_carrier_driver.creater <!-- 扩展 -->
+    LEFT JOIN t_carrier_member temp_updater ON temp_updater.carrier_member_id =temp_carrier_driver.updater <!-- 扩展 -->
+    LEFT JOIN t_user temp_audit ON temp_audit.user_id =temp_carrier_driver.audit <!-- 扩展 -->
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierDriverExample" >
     select
     <if test="distinct" >
@@ -126,7 +124,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_carrier_driver temp_carrier_driver
-      <include refid="Base_extend" />
+     <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -149,30 +147,28 @@
     where driver_id = #{driverId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.carrier.CarrierDriverExample" >
-    delete from t_carrier_driver temp_carrier_driver
+    delete temp_carrier_driver from t_carrier_driver temp_carrier_driver
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierDriver" >
-    insert into t_carrier_driver (driver_id, carrier_member_id, driver_carrier_id, 
-      driver_name, age, driver_age, 
-      sex, driver_license_id, driver_license_time, 
-      phone, address, card_id, 
-      driver_photo, status, driver_status, 
-      email, audit_state, audit, 
-      audit_opinion, audit_time, remark, 
-      creater, create_time, updater, 
-      update_time)
-    values (#{driverId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, #{driverCarrierId,jdbcType=VARCHAR}, 
-      #{driverName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{driverAge,jdbcType=INTEGER}, 
-      #{sex,jdbcType=CHAR}, #{driverLicenseId,jdbcType=INTEGER}, #{driverLicenseTime,jdbcType=TIMESTAMP}, 
-      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, 
-      #{driverPhoto,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{driverStatus,jdbcType=CHAR}, 
-      #{email,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{audit,jdbcType=VARCHAR}, 
-      #{auditOpinion,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into t_carrier_driver (driver_id, carrier_member_id, driver_name, 
+      age, driver_age, sex, driver_license_id, 
+      driver_license_time, phone, address, 
+      card_id, driver_photo, status, 
+      driver_status, email, audit_state, 
+      audit, audit_opinion, audit_time, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{driverId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{driverAge,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{driverLicenseId,jdbcType=INTEGER}, 
+      #{driverLicenseTime,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{driverPhoto,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{driverStatus,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, 
+      #{audit,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierDriver" >
     insert into t_carrier_driver
@@ -182,9 +178,6 @@
       </if>
       <if test="carrierMemberId != null" >
         carrier_member_id,
-      </if>
-      <if test="driverCarrierId != null" >
-        driver_carrier_id,
       </if>
       <if test="driverName != null" >
         driver_name,
@@ -260,9 +253,6 @@
       <if test="carrierMemberId != null" >
         #{carrierMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="driverCarrierId != null" >
-        #{driverCarrierId,jdbcType=VARCHAR},
-      </if>
       <if test="driverName != null" >
         #{driverName,jdbcType=VARCHAR},
       </if>
@@ -333,7 +323,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierDriverExample" resultType="java.lang.Integer" >
     select count(*) from t_carrier_driver temp_carrier_driver
-     <include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -346,9 +336,6 @@
       </if>
       <if test="record.carrierMemberId != null" >
         temp_carrier_driver.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.driverCarrierId != null" >
-        temp_carrier_driver.driver_carrier_id = #{record.driverCarrierId,jdbcType=VARCHAR},
       </if>
       <if test="record.driverName != null" >
         temp_carrier_driver.driver_name = #{record.driverName,jdbcType=VARCHAR},
@@ -425,7 +412,6 @@
     update t_carrier_driver temp_carrier_driver
     set temp_carrier_driver.driver_id = #{record.driverId,jdbcType=VARCHAR},
       temp_carrier_driver.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
-      temp_carrier_driver.driver_carrier_id = #{record.driverCarrierId,jdbcType=VARCHAR},
       temp_carrier_driver.driver_name = #{record.driverName,jdbcType=VARCHAR},
       temp_carrier_driver.age = #{record.age,jdbcType=INTEGER},
       temp_carrier_driver.driver_age = #{record.driverAge,jdbcType=INTEGER},
@@ -457,9 +443,6 @@
     <set >
       <if test="carrierMemberId != null" >
         carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
-      </if>
-      <if test="driverCarrierId != null" >
-        driver_carrier_id = #{driverCarrierId,jdbcType=VARCHAR},
       </if>
       <if test="driverName != null" >
         driver_name = #{driverName,jdbcType=VARCHAR},
@@ -533,7 +516,6 @@
   <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.carrier.CarrierDriver" >
     update t_carrier_driver
     set carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
-      driver_carrier_id = #{driverCarrierId,jdbcType=VARCHAR},
       driver_name = #{driverName,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       driver_age = #{driverAge,jdbcType=INTEGER},

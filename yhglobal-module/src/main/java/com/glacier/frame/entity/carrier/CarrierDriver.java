@@ -2,12 +2,12 @@ package com.glacier.frame.entity.carrier;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class CarrierDriver {
     private String driverId;
 
     private String carrierMemberId;
-
-    private String driverCarrierId;
 
     private String driverName;
 
@@ -18,7 +18,8 @@ public class CarrierDriver {
     private String sex;
 
     private Integer driverLicenseId;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date driverLicenseTime;
 
     private String phone;
@@ -40,28 +41,32 @@ public class CarrierDriver {
     private String audit;
 
     private String auditOpinion;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String remark;
 
     private String creater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-    
-    /**
+	
+     /**
      *自定义字段 
-     */
-    
+     */ 
     private  String carrierDisplay; 
     
     private  String createrDisplay;
     
     private  String updaterDisplay;
+	
+    private  String  auditDisplay; 
     
     public String getCarrierDisplay() {
 		return carrierDisplay;
@@ -87,6 +92,14 @@ public class CarrierDriver {
 		this.updaterDisplay = updaterDisplay;
 	}
 
+	public String getAuditDisplay() {
+		return auditDisplay;
+	}
+
+	public void setAuditDisplay(String auditDisplay) {
+		this.auditDisplay = auditDisplay;
+	}
+
 	public String getDriverId() {
         return driverId;
     }
@@ -101,14 +114,6 @@ public class CarrierDriver {
 
     public void setCarrierMemberId(String carrierMemberId) {
         this.carrierMemberId = carrierMemberId;
-    }
-
-    public String getDriverCarrierId() {
-        return driverCarrierId;
-    }
-
-    public void setDriverCarrierId(String driverCarrierId) {
-        this.driverCarrierId = driverCarrierId;
     }
 
     public String getDriverName() {
@@ -301,7 +306,6 @@ public class CarrierDriver {
         CarrierDriver other = (CarrierDriver) that;
         return (this.getDriverId() == null ? other.getDriverId() == null : this.getDriverId().equals(other.getDriverId()))
             && (this.getCarrierMemberId() == null ? other.getCarrierMemberId() == null : this.getCarrierMemberId().equals(other.getCarrierMemberId()))
-            && (this.getDriverCarrierId() == null ? other.getDriverCarrierId() == null : this.getDriverCarrierId().equals(other.getDriverCarrierId()))
             && (this.getDriverName() == null ? other.getDriverName() == null : this.getDriverName().equals(other.getDriverName()))
             && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
             && (this.getDriverAge() == null ? other.getDriverAge() == null : this.getDriverAge().equals(other.getDriverAge()))
@@ -332,7 +336,6 @@ public class CarrierDriver {
         int result = 1;
         result = prime * result + ((getDriverId() == null) ? 0 : getDriverId().hashCode());
         result = prime * result + ((getCarrierMemberId() == null) ? 0 : getCarrierMemberId().hashCode());
-        result = prime * result + ((getDriverCarrierId() == null) ? 0 : getDriverCarrierId().hashCode());
         result = prime * result + ((getDriverName() == null) ? 0 : getDriverName().hashCode());
         result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
         result = prime * result + ((getDriverAge() == null) ? 0 : getDriverAge().hashCode());
