@@ -19,6 +19,24 @@
  */
 package com.glacier.frame.web.controller.finace;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.frame.dto.query.finace.FinaceRechargeMemberQueryDTO;
+import com.glacier.frame.entity.finace.FinaceRechargeMember;
+import com.glacier.frame.service.finace.FinaceRechargeMemberService;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+
 /**
  * @ClassName: FinaceRechargeMemberController 
  * @Description: TODO(会员充值控制层) 
@@ -26,6 +44,44 @@ package com.glacier.frame.web.controller.finace;
  * @email 1203807137@qq.com
  * @date 2014-10-28 上午9:53:57
  */
-public class FinaceRechargeMemberController {
 
+
+@Controller
+@RequestMapping(value="finaceRechargeMemberController")
+public class FinaceRechargeMemberController {
+  
+	  @Autowired
+	  private FinaceRechargeMemberService finaceRechargeMemberService;
+	  
+	//进入承运商合同记录展示页面
+    @RequestMapping(value = "/index.htm")
+    private Object intoIndexPservice() {
+        ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember");
+        return mav;
+    }
+	  
+    
+    //获取表格结构的所有合同记录信息
+   	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
+   	@ResponseBody
+   	private Object listActionAsGridByMenuId(JqPager jqPager, FinaceRechargeMemberQueryDTO finaceRechargeMemberQueryDTO, String q,HttpSession session) {
+   		JqGridReturn returnResult=(JqGridReturn)finaceRechargeMemberService.listAsGrid(jqPager, finaceRechargeMemberQueryDTO, q);
+   	    if(returnResult!=null){
+ 	    	@SuppressWarnings("unchecked")
+ 	    	List<FinaceRechargeMember> list=(List<FinaceRechargeMember>) returnResult.getRows();
+ 	    	session.setAttribute("list", list);
+ 	    }	
+   		return returnResult;
+   	}
+   	
+  //仓库货品损坏记录信息详情页
+   	@RequestMapping(value = "/intoDetail.htm")
+   	private Object intoFinaceRechargeMemberDetailPage(String rechargeId) {
+   	    ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember_detail");
+   	    if(StringUtils.isNotBlank(rechargeId)){
+   	          mav.addObject("finaceRechargeMemberData", finaceRechargeMemberService.getFinaceRechargeMemberPro(rechargeId));
+   	    }
+   	    return mav;
+   	}
+   	
 }

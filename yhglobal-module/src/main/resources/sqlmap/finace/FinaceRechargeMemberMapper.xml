@@ -20,6 +20,15 @@
     <result column="temp_finace_recharge_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finace_recharge_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finace_recharge_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_finace_recharge_member_fee_way" property="feeWay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_recharge_Type" property="rechargeSetType" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_recharge_set_name" property="rechargeSetName" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_member_display" property="memberDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_auditor_display" property="auditorDisplay" jdbcType="VARCHAR" />
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -94,7 +103,29 @@
     temp_finace_recharge_member.auditor as temp_finace_recharge_member_auditor, temp_finace_recharge_member.remark as temp_finace_recharge_member_remark, 
     temp_finace_recharge_member.creater as temp_finace_recharge_member_creater, temp_finace_recharge_member.create_time as temp_finace_recharge_member_create_time, 
     temp_finace_recharge_member.updater as temp_finace_recharge_member_updater, temp_finace_recharge_member.update_time as temp_finace_recharge_member_update_time
+  
+     <!-- 以下字段属于扩展 -->
+    ,temp_recharge_set_name.recharge_set_name as  temp_finace_recharge_member_recharge_set_name 
+    ,temp_recharge_set_type.recharge_set_type as  temp_finace_recharge_member_recharge_set_type
+    ,temp_recharge_fee_way.fee_way as  temp_finace_recharge_member_fee_way
+    ,temp_creater.user_cn_name as   temp_finace_recharge_member_creater_display
+    ,temp_updater.user_cn_name as   temp_finace_recharge_member_updater_display
+    ,temp_shipper_member.member_name as   temp_finace_recharge_member_member_display
+    ,temp_auditor.user_cn_name as   temp_finace_recharge_member_auditor_display
   </sql>
+  
+  <sql id="Base_extend">
+	LEFT JOIN t_finace_recharge_set_member temp_recharge_set_name ON  temp_recharge_set_name.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
+    LEFT JOIN t_finace_recharge_set_member  temp_recharge_set_type ON temp_recharge_set_type.recharge_set_id =temp_finace_recharge_member.recharge_set_id <!-- 扩展 -->
+    LEFT JOIN t_finace_recharge_set_member  temp_recharge_fee_way ON temp_recharge_fee_way.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finace_recharge_member.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finace_recharge_member.updater <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_finace_recharge_member.member_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_auditor ON temp_auditor.user_id =temp_finace_recharge_member.auditor <!-- 扩展 -->
+  </sql>
+  
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceRechargeMemberExample" >
     select
     <if test="distinct" >
@@ -102,6 +133,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finace_recharge_member temp_finace_recharge_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -116,6 +148,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finace_recharge_member temp_finace_recharge_member
+    <include refid="Base_extend" />
     where temp_finace_recharge_member.recharge_id = #{rechargeId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -261,6 +294,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinaceRechargeMemberExample" resultType="java.lang.Integer" >
     select count(*) from t_finace_recharge_member temp_finace_recharge_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceRechargeMember {
     private String rechargeId;
 
@@ -26,6 +28,7 @@ public class FinaceRechargeMember {
 
     private String auditOpinion;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditor;
@@ -34,13 +37,94 @@ public class FinaceRechargeMember {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段 
+     */
+    
+    private String createrDisplay;
+    private String updaterDisplay;
+    private String rechargeSetName;
+    private String rechargeSetType;
+    private String feeWay;
+    private  String memberDisplay;
+    private String auditorDisplay;
+    
+    
+    public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
 
-    public String getRechargeId() {
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	private String memberDispaly;
+    public String getMemberDispaly() {
+		return memberDispaly;
+	}
+
+	public void setMemberDispaly(String memberDispaly) {
+		this.memberDispaly = memberDispaly;
+	}
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+    
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getRechargeSetName() {
+		return rechargeSetName;
+	}
+
+	public void setRechargeSetName(String rechargeSetName) {
+		this.rechargeSetName = rechargeSetName;
+	}
+
+	public String getRechargeSetType() {
+		return rechargeSetType;
+	}
+
+	public void setRechargeSetType(String rechargeSetType) {
+		this.rechargeSetType = rechargeSetType;
+	}
+
+	public String getFeeWay() {
+		return feeWay;
+	}
+
+	public void setFeeWay(String feeWay) {
+		this.feeWay = feeWay;
+	}
+
+	public String getRechargeId() {
         return rechargeId;
     }
 

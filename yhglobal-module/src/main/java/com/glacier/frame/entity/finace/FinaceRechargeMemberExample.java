@@ -105,6 +105,12 @@ public class FinaceRechargeMemberExample {
             return criteria;
         }
 
+        
+        public Criteria andMemberDisplayLike(String value) {
+        	addCriterion("temp_shipper_member.member_name like",value,"memberDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
