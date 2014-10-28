@@ -82,11 +82,11 @@
 		<tr>
 			<td>起始站：</td>
 			<td>
-				<input name="belaidupInitiatin" id="remark" onkeydown="return false;" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupInitiatin}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
+				<input name="belaidupInitiatin" id="remark" onkeydown="return false;" onfocus="adjustCssDel();" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupInitiatin}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 			<td>终点站：</td>
 			<td>
-				<input name="belaidupTerminu" id="remark" onkeydown="return false;" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupTerminu}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
+				<input name="belaidupTerminu" id="remark" onkeydown="return false;" onfocus="adjustCssAdd();" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupTerminu}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 		</tr>
 		<tr>
@@ -116,10 +116,8 @@
 			</td>
 		</tr>
 	</table>
-</form>
-<div style="border:0px solid red;width: 100px;">
 	<!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;margin-left: -260px;margin-top: -30px;">
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:20;position:absolute;margin-left: 85px;margin-top: -180px;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -166,11 +164,23 @@
 	    </div>
 	  </div>
 	</div>
-</div>
-	
+</form>
+
 <script src="${ctx}/resources/area/js/public.js"></script> 
 
 <script type="text/javascript">
+	//终点站的增加距离
+	function adjustCssAdd(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "490px";
+	}	
+	
+	//终点站的减少距离
+	function adjustCssDel(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "85px";
+	}
+	
 	//用于combogrid的负责人信息绑定
 	$('#belaidup_mgr_belaidup_form_memberId').combogrid({
 		panelWidth:450,
