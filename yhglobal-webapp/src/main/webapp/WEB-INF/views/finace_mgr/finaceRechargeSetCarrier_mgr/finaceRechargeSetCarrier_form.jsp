@@ -17,16 +17,6 @@
 	    	</td>
 		</tr>
 		<tr>
-			<td>手续费率:</td>
-	    	<td>
-	    	<input id="finace_mgr_rechargeSetCarrier_form_rechargeRate" style="width:268px;height: 20px;" value="${rechargeSetCarrierData.rechargeRate}" name="rechargeRate" class="easyui-spinner" required="true"/>
-	    	</td>
-	    	<td>固定金额收取 ：</td>
-			<td>
-				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${rechargeSetCarrierData.rechargeMoney}" class="easyui-numberbox"  required="true"/>
-			</td>
-		</tr>
-		<tr>
 			<td>取费方式:</td>
 	    	<td>
 	    	<input id="finace_mgr_rechargeSetCarrier_form_feeWay" style="width:268px;height: 20px;" type="text" name="feeWay"  value="${rechargeSetCarrierData.feeWay}" required="true" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.feeWay"/>
@@ -34,6 +24,16 @@
 	    	<td>承运商等级：</td>
 			<td>
 				<input id="finace_mgr_rechargeSetCarrier_form_gradeId" style="width:268px;height: 20px;" disabled="disabled" name="gradeId" value="${rechargeSetCarrierData.gradeId}" required="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td>手续费率:</td>
+	    	<td>
+	    	<input id="finace_mgr_rechargeSetCarrier_form_rechargeRate" style="width:268px;height: 20px;" value="${rechargeSetCarrierData.rechargeRate}" name="rechargeRate" class="easyui-numberbox" disabled="disabled" required="true" data-options="min:0,precision:4"/>
+	    	</td>
+	    	<td>固定金额收取 ：</td>
+			<td>
+				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${rechargeSetCarrierData.rechargeMoney}" class="easyui-numberbox"disabled="disabled" required="true" data-options="min:0,precision:4"/>
 			</td>
 		</tr>
 		<tr>
@@ -45,6 +45,36 @@
 	</table>
 </form>
 <script type="text/javascript">
+
+	
+	
+	$(function(){
+		var record = $("#finace_mgr_rechargeSetCarrier_form_feeWay").val();
+		if(record != ""){
+			if("proportion" == record){
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",false);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",true);
+			}else{
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",false);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",true);
+			}
+		}
+	});
+
+	$("#finace_mgr_rechargeSetCarrier_form_feeWay").combobox({
+		onSelect:function(record){
+			if("proportion" == record.value){
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",false);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",true);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").val(0);
+			}else{
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",false);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",true);
+				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").val(0);
+			}
+		}
+	});
+
 	//用于combogrid的客户信息绑定
 	$('#finace_mgr_rechargeSetCarrier_form_gradeId').combogrid({
 		panelWidth:450,
