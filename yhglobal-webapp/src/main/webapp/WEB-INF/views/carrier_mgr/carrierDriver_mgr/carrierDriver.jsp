@@ -9,10 +9,8 @@
 	//定义toolbar的操作，对操作进行控制
 	glacier.carrier_mgr.carrierDriver_mgr.driver.param = {
 		toolbarId : 'driverDataGrid_toolbar',
-		actions : { 
-             add:{flag:'add',controlType:'add'},
-             edit:{flag:'edit',controlType:'single'}, 
-             del:{flag:'del',controlType:'multiple'}
+		actions : {  
+             audit:{flag:'audit',controlType:'single'}  
           }
      }; 
 
@@ -28,7 +26,7 @@
 						singleSelect : true,//限制单选
 						checkOnSelect : false,//选择复选框的时候选择该行
 						selectOnCheck : false,//选择的时候复选框打勾
-						url : ctx + '/do/carrierDriver/list.json',
+						url : ctx + '/do/carrierDriver/listAll.json',
 						sortName : 'createTime',//排序字段名称
 						sortOrder : 'DESC',//升序还是降序
 						remoteSort : true,//开启远程排序，默认为false
@@ -211,147 +209,25 @@
 						}
 					}); 
 	
-	
-	// 增加驾驶员信息
-	glacier.carrier_mgr.carrierDriver_mgr.driver.addDriver = function(){
-		glacier.carrier_mgr.carrierDriver_mgr.driver.driverDialog('新增【驾驶员】',false,'/do/carrierDriver/addDriver.json');
-	};
-	
-	//编辑驾驶员信息
-	glacier.carrier_mgr.carrierDriver_mgr.driver.editDriver= function(){
-		glacier.carrier_mgr.carrierDriver_mgr.driver.driverDialog('编辑【驾驶员】',true,'/do/carrierDriver/edit.json');
-	};
-	
-	/**
-	打开新建或者编辑窗口
-	title:要打开的窗口标题
-	editModel: true or false ，是否复制当前选择行数据到form中
-	url:点击保存按钮请求的url
-	*/
-	glacier.carrier_mgr.carrierDriver_mgr.driver.driverDialog = function(title,editModel,url){
-		$.easyui.showDialog({
-			href : ctx + '/do/carrierDriver/intoForm.htm',//从controller请求jsp页面进行渲染
-			width : 555,
-			height : 400,
-			resizable: false,
-			enableSaveButton : false,
-			enableApplyButton : false,
-			title : title,
-			buttons : [{
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-					$('#driverForm').form('submit', {
-						url: ctx + url,
-						success: function(r){
-							glacier.show({msg:r.msg,result:r.success});
-							glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('reload');
-						    dia.dialog("close"); 
-						}
-					});
+	//点击审核按钮触发方法 
+	glacier.carrier_mgr.carrierDriver_mgr.driver.audit= function(){
+		var row = glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getSelected");
+	  	glacier.basicAddOrEditDialog({
+				title : '驾驶员【'+row.driverName+'】-审核',
+				height : 550,
+				width:575,
+				queryUrl : ctx + '/do/carrierDriver/intoAudit.htm',
+				submitUrl : ctx + '/do/carrierDriver/audit.json',
+				queryParams : {
+					driverId : row.driverId
+				},
+				successFun : function (){
+					glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('reload'); 
 				}
-			}],
-			onLoad : function() {
-				if(editModel){//编辑模式
-					var row =glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getSelected");
-					if(row){
-						$('#driverForm').form('load', row );
-					}else{
-						$.messager.show({//提示用户
-							title : '提示',
-							timeout:3000,
-							msg : '请选择一行数据进行编辑'
-						});
-					}
-				}
-			}
-		});
-	};
+			});  
+	};  
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/* 
-	//点击增加按钮触发方法
-	glacier.carrier_mgr.carrierDriver_mgr.driver.addDriver = function(){ 
-		glacier.basicAddOrEditDialog({
-			title : '【驾驶员】- 增加',
-			height : 400,
-			width:555,
-			queryUrl : ctx + '/do/carrierDriver/intoForm.htm',
-			submitUrl : ctx + '/do/carrierDriver/addDriver.json',
-			successFun : function (){
-				glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('reload');
-			}
-		});
-	}; 
-	  
-	
-	//点击编辑按钮触发方法
-     glacier.carrier_mgr.carrierDriver_mgr.driver.editDriver = function(){
-		var row =glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【'+row.driverName+'】-驾驶员编辑',
-			height : 400,
-			width:555,
-			queryUrl : ctx + '/do/carrierDriver/intoForm.htm',
-			submitUrl : ctx + '/do/carrierDriver/edit.json',
-			queryParams : {
-				driverId : row.driverId
-			},
-			successFun : function (){
-				glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('reload');
-			}
-		});
-	}; 
-	 */
-	//点击删除按钮触发方法
-	glacier.carrier_mgr.carrierDriver_mgr.driver.delDriver= function() { 
-		var rows =glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getChecked");
-		var carrierDriverIds = [];//删除的id标识 
-		for ( var i = 0; i < rows.length; i++) {
-			carrierDriverIds.push(rows[i].driverId); 
-		}
-		if (carrierDriverIds.length > 0) {
-			$.messager.confirm('请确认','是否要删除该记录',function(r){
-                   if (r){
-                   	 $.ajax({ 
-                   		type: "POST",
-                   	    url : ctx+ '/do/carrierDriver/del.json',
-						data : {
-							carrierDriverIds : carrierDriverIds.join(',') 
-						},
-						dataType : 'json',
-						success : function(r) {
-							if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
-								$.messager.show({
-									title : '提示',
-									timeout : 3000,
-									msg : r.msg
-								});
-								glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('reload');
-								} else {
-								$.messager.show({//后台验证弹出错误提示信息框
-											title : '错误提示',
-											width : 380,
-											height : 120,
-											msg : '<span style="color:red">'+ r.msg+ '<span>',
-											timeout : 4500
-										});
-							}
-						}
-					});
-				}
-			});
-		}
-	};
-	//班线资料模糊查询
+	//驾驶员资料模糊查询
 	glacier.carrier_mgr.carrierDriver_mgr.driver.quickquery = function(value, name) {
 		var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid('load',obj);

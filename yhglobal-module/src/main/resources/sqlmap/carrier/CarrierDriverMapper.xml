@@ -124,7 +124,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_carrier_driver temp_carrier_driver
-     <include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -2,6 +2,10 @@ package com.glacier.frame.entity.carrier;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class CarrierDriver {
@@ -9,8 +13,10 @@ public class CarrierDriver {
 
     private String carrierMemberId;
 
+    @Length(min = 2, max = 10, message = "{Driver.driverName.illegal}")
     private String driverName;
 
+    @Max(value =100, message = "{Driver.age.illegal}")
     private Integer age;
 
     private Integer driverAge;
@@ -19,7 +25,7 @@ public class CarrierDriver {
 
     private Integer driverLicenseId;
     
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd ")
     private Date driverLicenseTime;
 
     private String phone;

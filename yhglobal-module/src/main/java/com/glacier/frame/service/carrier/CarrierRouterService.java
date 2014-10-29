@@ -239,14 +239,12 @@ public class CarrierRouterService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         CarrierRoute  route=carrierRouteMapper.selectByPrimaryKey(carrierRoute.getRouterId());
         int count = 0; 
-        if(route.getAuditState().equals("authstr")==false){
+        if(route.getAuditState().equals("pass")){
         	 returnResult.setMsg("该班线已经进行过审核操作，不可修改！");
              return returnResult;
-        } 
-        if(route.getStatus().equals("disable")){
-      		 returnResult.setMsg("该班线未启用，不可进行修改操作");
-      		 return returnResult;
-      	 }   
+        }  
+        //修改后默认审核状态为审核中
+        carrierRoute.setAudit("authstr");
         String s = new String(carrierRoute.getOutTime().trim());  
         String time[] = s.split(":");  
         String s2 = new String(carrierRoute.getIntTime().trim());   

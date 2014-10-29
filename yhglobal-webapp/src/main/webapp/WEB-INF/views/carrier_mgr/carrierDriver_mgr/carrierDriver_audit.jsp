@@ -2,9 +2,11 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> 
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<form method="post" style="padding:15px">
-	<table  class="detailtable">  
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 获取项目根path --> 
+<div style="margin: 15px;">
+	<table  class="detailtable" style="margin: 15px;">  
 			<tr>  
 			    <td>姓名：</td>
 			    <td>
@@ -80,13 +82,44 @@
 		    </tr>
 			<tr>
 				<td>备 注：</td>
-				<td colspan="3"> <textarea   name="remark" class="spinner" style="width:435px;" readonly="readonly" >${carrierDriverData.remark}</textarea></td>
+				<td colspan="3"> <textarea   name="remark" class="spinner" style="height:30px; width:410px;" readonly="readonly" >${carrierDriverData.remark}</textarea></td>
 			</tr>
-	 </table>
+	 </table> 
+ </div>
+
+ <form  method="post" style="padding:15px">
+	<table class="formtable" style="margin-left: 15px">
+		<tr>
+			<td >审核状态：</td>
+			<td>
+				<input type="hidden" name="driverId" value="${carrierDriverData.driverId}" />
+			 	<input id="carrierDriver_mgr_driver_audit_authState" name="auditState" type="radio" value="authstr"  /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<input id="carrierDriver_mgr_driver_audit_authState" name="auditState" type="radio" value="pass"  /><span>审核通过</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="carrierDriver_mgr_driver_audit_authState" name="auditState" type="radio" value="failure"  /><span>审核失败</span>
+			</td>
+		 	</tr>
+		<tr>
+			<td>审核说明：</td>
+			<td colspan="3">
+				<textarea name="auditOpinion" class="spinner" style="height:50px;width:420px">${carrierDriverData.auditOpinion}</textarea>
+			</td>
+		</tr>
+	</table> 
 </form>
 <script type="text/javascript">
 	$('#status').val(renderGridValue('${carrierDriverData.status}',fields.status));
 	$('#sex').val(renderGridValue('${carrierDriverData.sex}',fields.sex));
 	$('#driverStatus').val(renderGridValue('${carrierDriverData.driverStatus}',fields.driverStatus));
 	$('#auditState').val(renderGridValue('${carrierDriverData.auditState}',fields.auditState));
+	//审核按钮初始化 
+	if(${carrierDriverData.auditState== 'pass'}){
+		document.all("carrierDriver_mgr_driver_audit_authState")[1].checked=true;
+	}else if(${carrierDriverData.auditState == 'failure'}){
+		document.all("carrierDriver_mgr_driver_audit_authState")[2].checked=true;
+	}else{
+		document.all("carrierDriver_mgr_driver_audit_authState")[0].checked=true;
+	}   
 </script> 

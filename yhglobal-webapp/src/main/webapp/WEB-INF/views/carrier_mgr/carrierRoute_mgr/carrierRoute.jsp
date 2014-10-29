@@ -273,28 +273,7 @@
 					glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload'); 
 				}
 			});  
-	};
-	  
-	
-/* 	//点击编辑按钮触发方法
-     glacier.carrier_mgr.carrierRoute_mgr.route.editRoute = function(){
-		var row =glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【'+row.routeName+'】-班线编辑',
-			width : 610,
-			height : 480,
-			queryUrl : ctx + '/do/carrierRoute/intoForm.htm',
-			submitUrl : ctx + '/do/carrierRoute/edit.json',
-			queryParams : {
-				routerId : row.routerId
-			},
-			successFun : function (){
-				glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
-			}
-		});
-	};
-	 */
-	
+	}; 
 	//点击启用禁用按钮触发方法
 	glacier.carrier_mgr.carrierRoute_mgr.route.editRouteStatus = function(){
       var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");

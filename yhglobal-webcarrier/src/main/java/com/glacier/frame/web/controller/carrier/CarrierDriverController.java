@@ -19,6 +19,8 @@
  */
 package com.glacier.frame.web.controller.carrier;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,12 +31,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;  
 import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.carrier.CarrierDriverQueryDTO; 
 import com.glacier.frame.entity.carrier.CarrierDriver;
-import com.glacier.frame.entity.carrier.CarrierMember;  
+import com.glacier.frame.entity.carrier.CarrierMember;   
 import com.glacier.frame.service.carrier.CarrierDriverService; 
 import com.glacier.jqueryui.util.JqPager;
 
@@ -88,9 +91,8 @@ public class CarrierDriverController extends AbstractController{
         }
         return mav;
     }
-    
-      
-    //新增班线
+     
+    //新增驾驶员
     @RequestMapping(value = "/addDriver.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addRoute(@Valid CarrierDriver carrierDriver, BindingResult bindingResult) { 
@@ -99,5 +101,21 @@ public class CarrierDriverController extends AbstractController{
          }  
     	 return carrierDriverService.addDriver(carrierDriver);
     }
- 
+    
+    //修改驾驶员信息
+    @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object editDriver(@Valid CarrierDriver carrierDriver, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return carrierDriverService.editDriver(carrierDriver);
+    }
+  
+    //批量删除驾驶员
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delDriver(@RequestParam List<String> carrierDriverIds) {
+    	return carrierDriverService.delDriver(carrierDriverIds);
+    }
 }

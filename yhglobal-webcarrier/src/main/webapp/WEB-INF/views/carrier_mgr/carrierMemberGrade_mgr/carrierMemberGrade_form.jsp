@@ -56,7 +56,7 @@
 					url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
 						//'../php/upload_json.php?dir=file'
 					afterUpload : function(data) {
-						if (data.error === 0) {
+						if (data.error == 0) {
 							var url = K.formatUrl(data.url, 'domain');
 							K('#url').val(url);
 							//K('#url').html(url);

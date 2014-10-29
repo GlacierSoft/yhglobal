@@ -101,31 +101,10 @@ public class CarrierRouteController extends AbstractController {
         return carrierRouterService.audit(carrierRoute);
     }
      
-    //班线审核
+    //班线发货收货区域查询
     @RequestMapping(value = "/area.json", method = RequestMethod.POST)
     @ResponseBody
     private Object selectArea(String routeid) {  
          return carrierRouterService.selectArea(routeid);
-      }
-     
-    // 进入班线Form表单页面
-    @RequestMapping(value = "/intoForm.htm")
-    private Object intoGradeFormPnews(String routerId) {
-        ModelAndView mav = new ModelAndView("carrier_mgr/carrierRoute_mgr/carrierRoute_form");
-        if(StringUtils.isNotBlank(routerId)){  
-            mav.addObject("carrierRouteData", carrierRouterService.getRoute(routerId));
-        } 
-        return mav;
-    } 
-    
-    //修改班线
-    @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object editGrade(@Valid CarrierRoute carrierRoute, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return carrierRouterService.editRoute(carrierRoute);
-    }
-    
+      } 
 }
