@@ -16,10 +16,10 @@
 		<tr>
 			<td>充值类型：</td>
 			<td>
-				<input name="sumFine"  value="${finaceRechargeMemberData.rechargeSetType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input name="sumFine"   id="finaceRechargeMember_detail_rechargeSetType"  class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 			<td>取费方式：</td>
-			<td><input class="spinner" style="width:168px"  value="${finaceRechargeMemberData.feeWay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"   id="finaceRechargeMember_detail_feeWay" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>充值金额：</td>
@@ -84,6 +84,8 @@
 
 <script type="text/javascript">
 	$('#finaceRechargeMember_detail_auditState').val(renderGridValue('${finaceRechargeMemberData.auditState}',fields.auditState));
+	$('#finaceRechargeMember_detail_rechargeSetType').val(renderGridValue('${finaceRechargeMemberData.rechargeSetType}',fields.rechargeType));
+	$('#finaceRechargeMember_detail_feeWay').val(renderGridValue('${finaceRechargeMemberData.feeWay}',fields.feeWay));
 </script>
 	
 

@@ -78,10 +78,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							width : 120,
 							sortable : true
 						},  {
+							field : 'feeWay',
+							title : '取费方式',
+							width : 140,
+							sortable : true,
+							formatter : function(value, row, index) {//数据格式化
+								return renderGridValue(value, fields.feeWay);
+							}
+						},{
 							field : 'rechargeSetType',
 							title : '充值方式',
 							width : 140,
 							sortable : true,
+							formatter : function(value, row, index) {//数据格式化
+								return renderGridValue(value, fields.rechargeType);
+							}
 						},{
 							field : 'memberDisplay',
 							title : '会员',
@@ -183,23 +194,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});
 	
 	glacier.finace_mgr.finaceRechargeMember_mgr.finaceRechargeMember.expFinaceRechargeMember=function(){
-		
+		location.href=ctx+"/do/finaceRechargeMemberController/exp.json";
 	}
 	
 	
 	
 	
-	//状态下拉项
-	$('#bankCardSearchForm_status').combobox({
-			valueField : 'value',
-			//height:18,
-			width : 80,
-			textField : 'label',
-			panelHeight : 'auto',
-			editable : false,
-			//required:true,
-			data : fields.auditState
-		});
+	//下拉项的值
+	$('#finaceRechargeSetMemberSearchForm_type').combobox({
+		valueField : 'value',
+		//height:18,
+		width : 80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.rechargeType
+	});
 
 </script>
 
@@ -220,6 +231,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>会员名称：</td>
 					<td><input name="memberDispaly" style="width: 80px;"
 						class="spinner" /></td>
+					<td>充值类型：</td>
+					<td><input id="finaceRechargeSetMemberSearchForm_type" name="rechargeSetType" style="width: 80px;"
+						class="spinner" /></td> 	
+					<td>创建时间：</td>
+					<td><input name="createStartTime" class="easyui-datetimebox"
+						style="width: 100px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.finace_mgr.finaceRechargeMember_mgr.finaceRechargeMember.finaceRechargeMemberDataGrid.datagrid('load',glacier.serializeObject($('#finaceRechargeMemberSearchForm')));">查询</a>

@@ -111,6 +111,12 @@ public class FinaceRechargeMemberExample {
             return (Criteria) this;
         }
         
+        public Criteria andRechargeSetTypeEqualTo(String value) {
+            addCriterion("temp_recharge_set_type.recharge_set_type=", value, "rechargeSetType");
+            return (Criteria) this;
+        }
+        
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -221,7 +227,7 @@ public class FinaceRechargeMemberExample {
             addCriterion("temp_finace_recharge_member.recharge_code <>", value, "rechargeCode");
             return (Criteria) this;
         }
-
+        
         public Criteria andRechargeCodeGreaterThan(String value) {
             addCriterion("temp_finace_recharge_member.recharge_code >", value, "rechargeCode");
             return (Criteria) this;

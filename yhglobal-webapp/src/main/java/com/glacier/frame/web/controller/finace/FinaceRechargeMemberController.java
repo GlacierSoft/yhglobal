@@ -19,11 +19,18 @@
  */
 package com.glacier.frame.web.controller.finace;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,5 +90,22 @@ public class FinaceRechargeMemberController {
    	    }
    	    return mav;
    	}
+   	
+    //合同记录信息导出
+  	 @RequestMapping(value = "/exp.json")
+  	 private void expContractRecord(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+     	  	@SuppressWarnings("unchecked")
+     	  	List<FinaceRechargeMember> list=(List<FinaceRechargeMember>)session.getAttribute("list");
+     	  	HSSFWorkbook wb=null;
+     	  	wb = finaceRechargeMemberService.export(list); 
+     	  	response.setContentType("application/vnd.ms-excel");    
+     	  	SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
+     	  	String filename="RechargeRecord_"+sf.format(new Date());
+     	  	response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
+     	  	OutputStream ouputStream = response.getOutputStream();    
+     	  	wb.write(ouputStream);    
+     	  	ouputStream.flush();    
+     	  	ouputStream.close();   
+  	   }
    	
 }

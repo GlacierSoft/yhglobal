@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceRechargeSetMember {
     private String rechargeSetId;
 
@@ -22,6 +24,7 @@ public class FinaceRechargeSetMember {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -30,13 +33,59 @@ public class FinaceRechargeSetMember {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String gradeDisplay;
+    
+    private String auditorDisplay;
+    
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    public String getRechargeSetId() {
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getGradeDisplay() {
+		return gradeDisplay;
+	}
+
+	public void setGradeDisplay(String gradeDisplay) {
+		this.gradeDisplay = gradeDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getRechargeSetId() {
         return rechargeSetId;
     }
 

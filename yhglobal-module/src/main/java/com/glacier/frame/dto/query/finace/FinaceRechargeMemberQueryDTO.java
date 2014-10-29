@@ -1,13 +1,52 @@
 package com.glacier.frame.dto.query.finace;
 
+import java.util.Date;
+
 import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample.Criteria;
 
 public class FinaceRechargeMemberQueryDTO extends FinaceRechargeMember{
+	
+	private Date createStartTime;
 
-	public void setQueryCondition(Criteria queryCriteria, String q) {
+    private Date createEndTime;
+    
+    public Date getCreateStartTime() {
+		return createStartTime;
+	}
+
+   public void setCreateStartTime(Date createStartTime) {
+		this.createStartTime = createStartTime;
+	}
+
+    public Date getCreateEndTime() {
+		return createEndTime;
+	}
+
+   
+    public void setCreateEndTime(Date createEndTime) {
+		this.createEndTime = createEndTime;
+	}
+	
+    public void setQueryCondition(Criteria queryCriteria, String q) {
 	      if(this.getMemberDispaly()!=null)
 	    	     queryCriteria.andMemberDisplayLike("%" + this.getMemberDispaly() + "%");
-	}
+	      
+	      if(this.getRechargeSetType()!=null)
+	    	    queryCriteria.andRechargeSetTypeEqualTo(this.getRechargeSetType().toString());
+	      
+	      if(null != createStartTime && null != createEndTime){//创建时间段查询
+	            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
+	      }else{
+	           if(null != createStartTime){
+	               queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
+	           }
+	           if(null != createEndTime){
+	               queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
+	           } 
+	        }  
+	      
+	      
+	 }
 
 }

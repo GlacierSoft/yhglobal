@@ -21,12 +21,22 @@ package com.glacier.frame.web.controller.finace;
 
 
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.frame.dto.query.finace.FinaceRechargeSetMemberQueryDTO;
+import com.glacier.frame.entity.finace.FinaceRechargeSetMember;
 import com.glacier.frame.service.finace.FinaceRechargeMemberSetService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -42,6 +52,7 @@ import com.glacier.jqueryui.util.JqPager;
 @RequestMapping(value="finaceRechargeSetMemberController")
 public class FinaceRechargeMemberSetController {
       
+	@Autowired
 	private FinaceRechargeMemberSetService finaceRechargeMemberSetService;
 	
 	//进入承运商合同记录展示页面
@@ -52,22 +63,46 @@ public class FinaceRechargeMemberSetController {
     }
 	  
     
-  //获取表格结构的所有合同管理记录信息
-  	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
-  	@ResponseBody
-  	private Object listActionAsGridByMenuId(JqPager jqPager) {
-  	     return finaceRechargeMemberSetService.listAsGrid(jqPager);
-  	}
-   	
-  //仓库货品损坏记录信息详情页
+ // 获取表格结构的所有菜单数据
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listActionAsGridByMenuId(JqPager jqPager, FinaceRechargeSetMemberQueryDTO finaceRechargeSetMemberQueryDTO) {
+        return finaceRechargeMemberSetService.listAsGrid(jqPager, finaceRechargeSetMemberQueryDTO);
+    }
+
+    //仓库货品损坏记录信息详情页
    	@RequestMapping(value = "/intoDetail.htm")
    	private Object intoFinaceRechargeSetMemberDetailPage(String rechargeSetId) {
-   	    ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeSetMember_detail");
+   	    ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeSetMember_mgr/finaceRechargeSetMember_detail");
    	    if(StringUtils.isNotBlank(rechargeSetId)){
    	          mav.addObject("finaceRechargeSetMemberData", finaceRechargeMemberSetService.getFinaceRechargeSetMemberPro(rechargeSetId));
    	    }
    	    return mav;
    	}
+   	
+    // 批量删除设置信息
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delFinaceRechargeSetMember(@RequestParam List<String> rechargeSetIds) {
+    	return finaceRechargeMemberSetService.delFinaceRechargeSetMember(rechargeSetIds);
+    }
+    
+    // 进入承运商充值类型audit表单页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoAuditRechargeSetCarrier(String rechargeSetId) {
+        ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeSetMember_mgr/finaceRechargeSetMember_audit");
+        if(StringUtils.isNotBlank(rechargeSetId)){
+        	mav.addObject("finaceRechargeSetMemberData", finaceRechargeMemberSetService.getFinaceRechargeSetMemberPro(rechargeSetId));
+        }
+        return mav;
+    }
+    
+    // 审核充值类型
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object auditRechargeSet(@Valid FinaceRechargeSetMember finaceRechargeSetMember, BindingResult bindingResult) {
+        return finaceRechargeMemberSetService.auditRechargeSetMember(finaceRechargeSetMember);
+    }
 	
 	
 }

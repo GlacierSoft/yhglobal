@@ -22,7 +22,7 @@
     <result column="temp_finace_recharge_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     
     <result column="temp_finace_recharge_member_fee_way" property="feeWay" jdbcType="VARCHAR" />
-    <result column="temp_finace_recharge_member_recharge_Type" property="rechargeSetType" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_recharge_set_Type" property="rechargeSetType" jdbcType="VARCHAR" />
     <result column="temp_finace_recharge_member_recharge_set_name" property="rechargeSetName" jdbcType="VARCHAR" />
     <result column="temp_finace_recharge_member_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
     <result column="temp_finace_recharge_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
