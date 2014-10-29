@@ -44,7 +44,13 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 
-
+/**
+ * @ClassName:  CarrierDriverService
+ * @Description: TODO(驾驶员service)
+ * @author songjundong
+ * @email 985776597@QQ.com
+ * @date2014-10-28 下午1:32:04 
+ */
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class CarrierDriverService {
