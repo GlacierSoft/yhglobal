@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceWithdrawMember {
     private String withdrawId;
 
@@ -22,6 +24,7 @@ public class FinaceWithdrawMember {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -30,10 +33,12 @@ public class FinaceWithdrawMember {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     
@@ -41,13 +46,63 @@ public class FinaceWithdrawMember {
      * 自定义字段 
      */
     
+    
+    private String createrDisplay;
     private String updaterDisplay;
+    private String withdrawSetName;
+    private String withdrawFeeWay;
+    private  String memberDisplay;
+    private String auditorDisplay;
     
-    
-    		
-    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    public String getWithdrawId() {
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getWithdrawSetName() {
+		return withdrawSetName;
+	}
+
+	public void setWithdrawSetName(String withdrawSetName) {
+		this.withdrawSetName = withdrawSetName;
+	}
+
+	public String getWithdrawFeeWay() {
+		return withdrawFeeWay;
+	}
+
+	public void setWithdrawFeeWay(String withdrawFeeWay) {
+		this.withdrawFeeWay = withdrawFeeWay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getWithdrawId() {
         return withdrawId;
     }
 
