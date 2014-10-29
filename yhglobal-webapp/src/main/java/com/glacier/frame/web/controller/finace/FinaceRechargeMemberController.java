@@ -59,10 +59,10 @@ import com.glacier.jqueryui.util.JqPager;
 @RequestMapping(value="finaceRechargeMemberController")
 public class FinaceRechargeMemberController {
   
-	  @Autowired
-	  private FinaceRechargeMemberService finaceRechargeMemberService;
+	@Autowired
+	private FinaceRechargeMemberService finaceRechargeMemberService;
 	  
-	//进入承运商合同记录展示页面
+	//进入会员充值记录展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPservice() {
         ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember");
@@ -70,7 +70,7 @@ public class FinaceRechargeMemberController {
     }
 	  
     
-    //获取表格结构的所有合同记录信息
+    //获取表格结构的所有会员充值记录信息
    	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
    	@ResponseBody
    	private Object listActionAsGridByMenuId(JqPager jqPager, FinaceRechargeMemberQueryDTO finaceRechargeMemberQueryDTO, String q,HttpSession session) {
@@ -93,7 +93,7 @@ public class FinaceRechargeMemberController {
    	    return mav;
    	}
    	
-    //合同记录信息导出
+     //会员充值记录记录信息导出
   	 @RequestMapping(value = "/exp.json")
   	 private void expContractRecord(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
      	  	@SuppressWarnings("unchecked")
@@ -110,7 +110,7 @@ public class FinaceRechargeMemberController {
      	  	ouputStream.close();   
   	   }
   	 
-  	 // 进入承运商充值记录audit表单页面
+  	 // 进入会员充值记录audit表单页面
      @RequestMapping(value = "/intoAudit.htm")
      private Object intoAuditRechargeCarrier(String rechargeId) {
          ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember_audit");
@@ -120,7 +120,7 @@ public class FinaceRechargeMemberController {
          return mav;
      }
      
-     // 审核充值记录
+     // 审核会员充值记录
      @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
      @ResponseBody
      private Object auditRecharge(@Valid FinaceRechargeMember finaceRechargeMember, BindingResult bindingResult) {

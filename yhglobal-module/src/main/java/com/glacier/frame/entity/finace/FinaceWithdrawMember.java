@@ -35,6 +35,17 @@ public class FinaceWithdrawMember {
     private String updater;
 
     private Date updateTime;
+    
+    
+    /**
+     * 自定义字段 
+     */
+    
+    private String updaterDisplay;
+    
+    
+    		
+    
 
     public String getWithdrawId() {
         return withdrawId;

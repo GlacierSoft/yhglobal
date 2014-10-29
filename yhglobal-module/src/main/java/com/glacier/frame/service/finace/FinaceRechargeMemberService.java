@@ -95,8 +95,7 @@ public class FinaceRechargeMemberService {
       return finaceRechargeMemberMapper.selectByPrimaryKey(rechargeId); 
 	}
 	
-public HSSFWorkbook export(List<FinaceRechargeMember> list) {
-		
+    public HSSFWorkbook export(List<FinaceRechargeMember> list) {
 		//定义导出变量
 		String[] excelHeader = { "充值编号", "充值名称", "充值金额", "优惠金额", "手续费","返现金额", "到账金额","取费方式", "充值方式", "充值会员","创建人", "创建时间" };
 		int[] excelHeaderWidth = { 100, 100, 100, 150, 100,150, 100, 100,100, 100,100,100 };
@@ -106,28 +105,28 @@ public HSSFWorkbook export(List<FinaceRechargeMember> list) {
 		HSSFRow row = sheet.createRow((int) 0);
 		
 		// 生成一个样式  
-       HSSFCellStyle style = wb.createCellStyle();  
-       //设置这些样式  
-       style.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
-       style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-       style.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-       style.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-       style.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-       style.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-       style.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
-       // 生成另一个字体  
-       HSSFFont font= wb.createFont();  
-       font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
-       // 把字体应用到当前的样式  
-       style.setFont(font); 
-       
-       HSSFCellStyle style2 = wb.createCellStyle();  
-       style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
-       style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
-       style2.setBorderRight(HSSFCellStyle.BORDER_THIN);  
-       style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
-       style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
-       style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); 
+	   HSSFCellStyle style = wb.createCellStyle();  
+	   //设置这些样式  
+	   style.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
+	   style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+	   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+	   style.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+	   style.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+	   style.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+	   style.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+	   // 生成另一个字体  
+	   HSSFFont font= wb.createFont();  
+	   font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+	   // 把字体应用到当前的样式  
+	   style.setFont(font); 
+	   
+	   HSSFCellStyle style2 = wb.createCellStyle();  
+	   style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+	   style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+	   style2.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+	   style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+	   style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+	   style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); 
 		
 		for (int i = 0; i < excelHeader.length; i++) {
 			HSSFCell cell = row.createCell(i);
@@ -206,11 +205,11 @@ public HSSFWorkbook export(List<FinaceRechargeMember> list) {
 			}
 		}
 		return wb;
-	}
+  }
 	
 	/**
 	 * @Title: auditRechargeMember 
-	 * @Description: TODO(审核充值记录) 
+	 * @Description: TODO(审核会员充值记录) 
 	 * @param @param finaceRechargeMember
 	 * @param @return    设定文件 
 	 * @return Object    返回记录 

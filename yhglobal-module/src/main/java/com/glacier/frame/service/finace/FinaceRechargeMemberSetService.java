@@ -64,6 +64,14 @@ public class FinaceRechargeMemberSetService {
 	@Autowired
 	private  FinaceRechargeMemberMapper finaceRechargeMemberMapper;
 	
+	/**
+     * @Title: listAsGrid 
+     * @Description: TODO(设置信息展示) 
+     * @param @param jqPager，FinaceRechargeSetMemberQueryDTO
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */ 
 	public Object listAsGrid(JqPager jqPager, FinaceRechargeSetMemberQueryDTO finaceRechargeSetMemberQueryDTO) {
         JqGridReturn returnResult = new JqGridReturn();
         FinaceRechargeSetMemberExample finaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample(); 

@@ -70,7 +70,7 @@ public class FinaceRechargeMemberSetController {
         return finaceRechargeMemberSetService.listAsGrid(jqPager, finaceRechargeSetMemberQueryDTO);
     }
 
-    //仓库货品损坏记录信息详情页
+    //会员充值信息详情页
    	@RequestMapping(value = "/intoDetail.htm")
    	private Object intoFinaceRechargeSetMemberDetailPage(String rechargeSetId) {
    	    ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeSetMember_mgr/finaceRechargeSetMember_detail");
@@ -87,7 +87,7 @@ public class FinaceRechargeMemberSetController {
     	return finaceRechargeMemberSetService.delFinaceRechargeSetMember(rechargeSetIds);
     }
     
-    // 进入承运商充值类型audit表单页面
+    // 进入会员充值类型audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
     private Object intoAuditRechargeSetCarrier(String rechargeSetId) {
         ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeSetMember_mgr/finaceRechargeSetMember_audit");
