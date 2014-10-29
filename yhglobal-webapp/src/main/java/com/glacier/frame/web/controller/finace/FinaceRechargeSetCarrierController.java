@@ -18,7 +18,7 @@ import com.glacier.frame.entity.finace.FinaceRechargeSetCarrier;
 import com.glacier.frame.service.finace.FinaceRechargeSetCarrierService;
 
 /*** 
- * @ClassName:  CarrierCarInfomationController
+ * @ClassName:  FinaceRechargeSetCarrierController
  * @Description: TODO(承运商充值类型controller)
  * @author wuting
  * @email 920339213@QQ.com

@@ -105,6 +105,11 @@ public class FinaceRechargeCarrierExample {
             return criteria;
         }
 
+        public Criteria andRechargeSetDisplayLike(String value) {
+            addCriterion("temp_rechargeSet.recharge_name like", value, "rechargeSetDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
