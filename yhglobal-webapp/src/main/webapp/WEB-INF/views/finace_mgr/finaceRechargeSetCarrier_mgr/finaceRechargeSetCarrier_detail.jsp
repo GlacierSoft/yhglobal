@@ -19,11 +19,11 @@
 		<tr>
 			<td>手续费率:</td>
 	    	<td>
-	    	<input id="finace_mgr_rechargeSetCarrier_form_rechargeRate" style="width:268px;height: 20px;" name="carrierMemberId" value="${rechargeSetCarrierData.rechargeRate}" class="spinner" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
+	    	<input id="finace_mgr_rechargeSetCarrier_form_rechargeRate" style="width:268px;height: 20px;" name="carrierMemberId" value="<fmt:formatNumber value='${rechargeSetCarrierData.rechargeRate}' pattern="#,#00.00元"/>" class="spinner" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
 	    	</td>
 	    	<td>固定金额收取 ：</td>
 			<td>
-				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${rechargeSetCarrierData.rechargeMoney}" class="easyui-validatebox spinner" readonly="readonly"  required="true"/>
+				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="<fmt:formatNumber value='${rechargeSetCarrierData.rechargeMoney}' pattern="#,#00.00元"/>" class="easyui-validatebox spinner" readonly="readonly"  required="true"/>
 			</td>
 		</tr>
 		<tr>

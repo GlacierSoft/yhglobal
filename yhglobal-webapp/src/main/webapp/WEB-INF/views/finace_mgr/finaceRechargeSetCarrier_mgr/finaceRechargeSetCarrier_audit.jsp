@@ -88,6 +88,7 @@
 			<td>充值类型信息审核：</td>
 			<td>
 				<input type="hidden" id="finace_mgr_rechargeSetCarrier_form_rechargeSetId" name="rechargeSetId" value="${rechargeSetCarrierData.rechargeSetId}" />
+				<input type="hidden" id="finace_mgr_rechargeSetCarrier_form_rechargeName2" name="rechargeName" value="${rechargeSetCarrierData.rechargeName}" />
 				<input id="carrier_mgr_carInformation_form_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="carrier_mgr_carInformation_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
