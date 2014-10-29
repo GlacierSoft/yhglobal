@@ -104,7 +104,7 @@ public class FinaceRechargeMemberSetController {
         return finaceRechargeMemberSetService.auditRechargeSetMember(finaceRechargeSetMember);
     }
     
- // 进入会员类型Form表单页面
+    //进入会员类型Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String rechargeSetId) {
         ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeSetMember_mgr/finaceRechargeSetMember_form");
@@ -114,7 +114,7 @@ public class FinaceRechargeMemberSetController {
         return mav;
     }
     
-    //修改承运商充值类型
+    //修改会员充值类型
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editGrade(@Valid FinaceRechargeSetMember finaceRechargeSetMember, BindingResult bindingResult) {
@@ -122,7 +122,7 @@ public class FinaceRechargeMemberSetController {
     }
     
     
-    // 增加承运商充值类型
+    // 增加会员充值类型
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addGrade(@Valid FinaceRechargeSetMember finaceRechargeSetMember, BindingResult bindingResult) {

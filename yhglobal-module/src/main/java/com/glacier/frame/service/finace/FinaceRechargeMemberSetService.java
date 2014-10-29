@@ -207,9 +207,9 @@ public class FinaceRechargeMemberSetService {
     
     
     /**
-     * @Title: addRechargeSetCarrier 
-     * @Description: TODO(新增承运商充值类型) 
-     * @param @param memberRechargeSetCarrier
+     * @Title: addRechargeSetMember 
+     * @Description: TODO(新增会员充值类型) 
+     * @param @param rechargeSetMember
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
@@ -234,11 +234,16 @@ public class FinaceRechargeMemberSetService {
         FinaceRechargeSetMemberExample_Second.createCriteria().andMemberGradeidEqualTo(rechargeSetMember.getMemberGradeid());
         List<FinaceRechargeSetMember> pro=finaceRechargeSetMemberMapper.selectByExample(FinaceRechargeSetMemberExample_Second);
         if(pro.size()>0&&pro!=null){
-        	FinaceRechargeSetMember rechargeSetMember_way=pro.get(0);
-        	if(rechargeSetMember_way.getFeeWay().equals(rechargeSetMember.getFeeWay())){
-        		returnResult.setMsg("发生未知错误，会员充值类型信息已存在!");
-        		return returnResult;
+        	for(int i=0;i<pro.size();i++){
+        		FinaceRechargeSetMember rechargeSetMember_way=pro.get(i);
+            	if(rechargeSetMember_way.getFeeWay().equals(rechargeSetMember.getFeeWay())){
+            		if(rechargeSetMember_way.getRechargeSetType().equals(rechargeSetMember.getRechargeSetType())){
+            			returnResult.setMsg("数据填写错误，会员充值类型信息已存在!");
+                		return returnResult;
+            		}
+            	}
         	}
+        	
         }
         rechargeSetMember.setAuditState("authstr");
         rechargeSetMember.setAuditor(pricipalUser.getUserId());

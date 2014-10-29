@@ -17,35 +17,62 @@
 	    	</td>
 		</tr>
 		<tr>
-			<td>手续费率:</td>
-	    	<td>
-	    	<input id="finace_mgr_rechargeSetCarrier_form_rechargeRate" style="width:268px;height: 20px;" value="${finaceRechargeSetMemberData.rechargeRate}" name="rechargeRate" class="easyui-numberbox"  required="true"/>
-	    	</td>
-	    	<td>固定金额收取 ：</td>
-			<td>
-				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${finaceRechargeSetMemberData.rechargeMoney}" class="easyui-numberbox"  required="true"/>
-			</td>
-		</tr>
-		<tr>
-			<td>取费方式:</td>
-	    	<td>
-	    	<input id="finace_mgr_rechargeSetCarrier_form_feeWay" style="width:268px;height: 20px;" type="text" name="feeWay"  value="${finaceRechargeSetMemberData.feeWay}" required="true" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.feeWay"/>
-	    	</td>
-	    	<td>会员等级：</td>
+			<td>会员等级：</td>
 			<td>
 			    <input  type="hidden" name="memberGradeid" id="finace_mgr_rechargeSetMember_form_gradeId_hidden" value="${finaceRechargeSetMemberData.memberGradeid }" >
 				<input id="finace_mgr_rechargeSetMember_form_gradeId" style="width:268px;height: 20px;" disabled="disabled"  value="${finaceRechargeSetMemberData.gradeDisplay}" required="true"/>
+			</td>
+			<td>取费方式:</td>
+	    	<td>
+	    	<input id="finace_mgr_rechargeSetMember_form_feeWay" style="width:268px;height: 20px;" type="text" name="feeWay"  value="${finaceRechargeSetMemberData.feeWay}" required="true" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.feeWay"/>
+	    	</td>
+		</tr>
+			<tr>
+			<td>手续费率:</td>
+	    	<td>
+	    	<input id="finace_mgr_rechargeSetMember_form_rechargeRate" style="width:268px;height: 20px;" value="${finaceRechargeSetMemberData.rechargeRate}" name="rechargeRate" class="easyui-numberbox" disabled="disabled" required="true" data-options="min:0,precision:4"/>
+	    	</td>
+	    	<td>固定金额收取 ：</td>
+			<td>
+				<input id="finace_mgr_rechargeSetMember_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${finaceRechargeSetMemberData.rechargeMoney}" class="easyui-numberbox" disabled="disabled" required="true" data-options="min:0,precision:4"/>
 			</td>
 		</tr>
 		<tr>
 			<td>备注：</td>
 			<td colspan="3">
-				<textarea id="finace_mgr_rechargeSetCarrier_form_remark" name="remark" style="width:660px;" class="spinner formta">${finaceRechargeSetMemberData.remark}</textarea>
+				<textarea id="finace_mgr_rechargeSetMember_form_remark" name="remark" style="width:660px;" class="spinner formta">${finaceRechargeSetMemberData.remark}</textarea>
 			</td>
 		</tr>
 	</table>
 </form>
 <script type="text/javascript">
+      
+		var record = $("#finace_mgr_rechargeSetMember_form_feeWay").val();
+		if(record != ""){
+			if("proportion" == record){
+				$("#finace_mgr_rechargeSetMember_form_rechargeRate").attr("disabled",false);
+				$("#finace_mgr_rechargeSetMember_form_rechargeMoney").attr("disabled",true);
+			}else{
+				$("#finace_mgr_rechargeSetMember_form_rechargeMoney").attr("disabled",false);
+				$("#finace_mgr_rechargeSetMember_form_rechargeRate").attr("disabled",true);
+			}
+		}
+		
+		$("#finace_mgr_rechargeSetMember_form_feeWay").combobox({
+		onSelect:function(record){
+			if("proportion" == record.value){
+				$("#finace_mgr_rechargeSetMember_form_rechargeRate").attr("disabled",false);
+				$("#finace_mgr_rechargeSetMember_form_rechargeMoney").attr("disabled",true);
+				$('#finace_mgr_rechargeSetMember_form_rechargeMoney').numberbox('setValue', 0);
+			}else{
+				$("#finace_mgr_rechargeSetMember_form_rechargeMoney").attr("disabled",false);
+				$("#finace_mgr_rechargeSetMember_form_rechargeRate").attr("disabled",true);
+				$('#finace_mgr_rechargeSetMember_form_rechargeRate').numberbox('setValue', 0);
+			}
+		}
+		});
+
+
 	//用于combogrid的客户信息绑定
 	$('#finace_mgr_rechargeSetMember_form_gradeId').combogrid({
 		panelWidth:450,
