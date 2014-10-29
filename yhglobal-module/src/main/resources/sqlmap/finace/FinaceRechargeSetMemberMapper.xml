@@ -18,6 +18,8 @@
     <result column="temp_finace_recharge_set_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finace_recharge_set_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finace_recharge_set_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    
     <result column="temp_finace_recharge_set_member_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finace_recharge_set_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finace_recharge_set_member_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -102,11 +104,14 @@
     ,temp_creater.user_cn_name as temp_finace_recharge_set_member_creater_display
     ,temp_updater.user_cn_name as temp_finace_recharge_set_member_updater_display
     ,temp_auditor.user_cn_name as temp_finace_recharge_set_member_auditor_display
+    ,temp_grade.grade_name as temp_finace_recharge_set_member_grade_display
+    
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finace_recharge_set_member.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finace_recharge_set_member.updater <!-- 扩展 -->
     LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_finace_recharge_set_member.auditor <!-- 扩展 -->
+    LEFT JOIN t_shipper_member_grade temp_grade ON temp_grade.grade_id = temp_finace_recharge_set_member.member_gradeid <!-- 扩展 -->
     
   </sql>
   

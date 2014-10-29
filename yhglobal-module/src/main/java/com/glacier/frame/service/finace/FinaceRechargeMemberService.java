@@ -20,6 +20,7 @@
 package com.glacier.frame.service.finace;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,8 +44,10 @@ import com.glacier.frame.dto.query.finace.FinaceRechargeMemberQueryDTO;
 import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample.Criteria;
+import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: FinaceRechargeMemberServices 
@@ -203,5 +208,36 @@ public HSSFWorkbook export(List<FinaceRechargeMember> list) {
 		return wb;
 	}
 	
+	/**
+	 * @Title: auditRechargeMember 
+	 * @Description: TODO(审核充值记录) 
+	 * @param @param finaceRechargeMember
+	 * @param @return    设定文件 
+	 * @return Object    返回记录 
+	 * @throws
+	 */
+	@Transactional(readOnly = false)
+	public Object auditRechargeMember(FinaceRechargeMember finaceRechargeMember) {
+	    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+	    if(finaceRechargeMember.getAuditState().equals("authstr")){
+	    	 returnResult.setMsg("无效的操作，请选择是否通过！！"); 
+	         return returnResult; 
+	    } 
+	    int count = 0;
+	    Subject pricipalSubject = SecurityUtils.getSubject();
+	    User pricipalUser = (User) pricipalSubject.getPrincipal();
+	    finaceRechargeMember.setAuditor(pricipalUser.getUserId());
+	    finaceRechargeMember.setAuditTime(new Date());
+	    finaceRechargeMember.setUpdater(pricipalUser.getUserId());
+	    finaceRechargeMember.setUpdateTime(new Date());
+	    count = finaceRechargeMemberMapper.updateByPrimaryKeySelective(finaceRechargeMember);
+	    if (count == 1) {
+	        returnResult.setSuccess(true);
+	        returnResult.setMsg("充值记录审核操作成功");
+	    } else {
+	        returnResult.setMsg("发生未知错误，充值记录审核操作失败");
+	    }
+	    return returnResult;
+	}
 	
 }

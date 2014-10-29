@@ -197,6 +197,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		location.href=ctx+"/do/finaceRechargeMemberController/exp.json";
 	}
 	
+	glacier.finace_mgr.finaceRechargeMember_mgr.finaceRechargeMember.auditFinaceRechargeMember=function(){
+		var row = glacier.finace_mgr.finaceRechargeMember_mgr.finaceRechargeMember.finaceRechargeMemberDataGrid.datagrid("getSelected");
+		var auditState = row.auditState;
+		if ("authstr" == auditState||"failure"==auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【会员充值设置记录】- 审核',
+				width : 600,
+				height : 450,
+				queryUrl : ctx + '/do/finaceRechargeMemberController/intoAudit.htm',
+				submitUrl : ctx + '/do/finaceRechargeMemberController/audit.json',
+				queryParams : {
+					rechargeId : row.rechargeId
+				},
+				successFun : function (){
+					glacier.finace_mgr.finaceRechargeMember_mgr.finaceRechargeMember.finaceRechargeMemberDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			if(row.rechargeSetType=="online")
+			   $.messager.alert("提示","线上充值,审核已通过!","info");
+			else
+				$.messager.alert("提示","该条记录已审核完成!","info");	
+		}
+	}
+	
 	
 	
 	

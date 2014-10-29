@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.finace.FinaceRechargeMemberMapper;
 import com.glacier.frame.dao.finace.FinaceRechargeSetMemberMapper;
 import com.glacier.frame.dto.query.finace.FinaceRechargeSetMemberQueryDTO;
@@ -161,5 +162,100 @@ public class FinaceRechargeMemberSetService {
         return returnResult;
     }
     
+    
+    /**
+     * @Title: editRechargeSetMember 
+     * @Description: TODO(修改会员充值类型) 
+     * @param @param finaceRechargeSetMember
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object editRechargeSetMember(FinaceRechargeSetMember finaceRechargeSetMember) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        FinaceRechargeSetMemberExample finaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample();
+        int count = 0;
+        // 防止承运商充值类型牌号重复
+        finaceRechargeSetMemberExample.createCriteria().andRechargeSetNameEqualTo(finaceRechargeSetMember.getRechargeSetName()).andRechargeSetIdNotEqualTo(finaceRechargeSetMember.getRechargeSetId());
+        count = finaceRechargeSetMemberMapper.countByExample(finaceRechargeSetMemberExample);
+        if (count > 0) {
+            returnResult.setMsg("承运商充值类型名称重复");
+            return returnResult;
+        }
+      //根据ID获取承运商充值类型信息
+        FinaceRechargeSetMember finaceRechargeSetMember_before= (FinaceRechargeSetMember) getFinaceRechargeSetMemberPro(finaceRechargeSetMember.getRechargeSetId());
+        finaceRechargeSetMember.setAuditor(finaceRechargeSetMember_before.getAuditor());
+        finaceRechargeSetMember.setAuditTime(new Date());
+        finaceRechargeSetMember.setAuditState(finaceRechargeSetMember_before.getAuditState());
+        finaceRechargeSetMember.setCreater(finaceRechargeSetMember_before.getCreater());
+        finaceRechargeSetMember.setCreateTime(finaceRechargeSetMember_before.getCreateTime());
+        finaceRechargeSetMember.setUpdater(pricipalUser.getUserId());
+        finaceRechargeSetMember.setUpdateTime(new Date());
+       
+        count = finaceRechargeSetMemberMapper.updateByPrimaryKey(finaceRechargeSetMember);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("承运商充值类型信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，会员充值类型信息保存失败");
+        }
+        return returnResult;
+    }
+    
+    
+    /**
+     * @Title: addRechargeSetCarrier 
+     * @Description: TODO(新增承运商充值类型) 
+     * @param @param memberRechargeSetCarrier
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object addRechargeSetMember(FinaceRechargeSetMember rechargeSetMember) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        // 防止承运商充值类型牌号重复
+        FinaceRechargeSetMemberExample FinaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample();
+        FinaceRechargeSetMemberExample.createCriteria().andRechargeSetNameEqualTo(rechargeSetMember.getRechargeSetName());
+        count = finaceRechargeSetMemberMapper.countByExample(FinaceRechargeSetMemberExample);
+        if (count > 0) {
+            returnResult.setMsg("会员充值类型名称重复");
+            returnResult.setSuccess(false);
+            return returnResult;
+        }
+        //防止无限添加
+        FinaceRechargeSetMemberExample FinaceRechargeSetMemberExample_Second= new FinaceRechargeSetMemberExample();
+        FinaceRechargeSetMemberExample_Second.createCriteria().andMemberGradeidEqualTo(rechargeSetMember.getMemberGradeid());
+        List<FinaceRechargeSetMember> pro=finaceRechargeSetMemberMapper.selectByExample(FinaceRechargeSetMemberExample_Second);
+        if(pro.size()>0&&pro!=null){
+        	FinaceRechargeSetMember rechargeSetMember_way=pro.get(0);
+        	if(rechargeSetMember_way.getFeeWay().equals(rechargeSetMember.getFeeWay())){
+        		returnResult.setMsg("发生未知错误，会员充值类型信息已存在!");
+        		return returnResult;
+        	}
+        }
+        rechargeSetMember.setAuditState("authstr");
+        rechargeSetMember.setAuditor(pricipalUser.getUserId());
+        rechargeSetMember.setAuditTime(new Date());
+        rechargeSetMember.setRechargeSetId(RandomGUID.getRandomGUID());
+        rechargeSetMember.setCreater(pricipalUser.getUserId());
+        rechargeSetMember.setCreateTime(new Date());
+        rechargeSetMember.setUpdater(pricipalUser.getUserId());
+        rechargeSetMember.setUpdateTime(new Date());
+        count = finaceRechargeSetMemberMapper.insert(rechargeSetMember);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员充值类型信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，承运商充值类型信息保存失败");
+        }
+        return returnResult;
+    }
 	
 }

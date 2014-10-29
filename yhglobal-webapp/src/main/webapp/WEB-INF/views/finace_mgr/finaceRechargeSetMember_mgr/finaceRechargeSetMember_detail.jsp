@@ -31,9 +31,9 @@
 	    	<td>
 	    	<input id="finace_mgr_rechargeSetCarrier_form_feeWay" style="width:168px;height: 20px;" type="text" name="feeWay"  value="${finaceRechargeSetMemberData.feeWay}" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
 	    	</td>
-	    	<td>承运商等级：</td>
+	    	<td>会员等级：</td>
 			<td>
-				<input id="finace_mgr_rechargeSetCarrier_form_gradeDisplay" style="width:168px;height: 20px;" name="gradeDisplay" value="${finaceRechargeSetMemberData.memberGradeid}" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
+				<input id="finace_mgr_rechargeSetCarrier_form_gradeDisplay" style="width:168px;height: 20px;" name="gradeDisplay" value="${finaceRechargeSetMemberData.gradeDisplay}" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

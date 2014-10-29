@@ -70,8 +70,8 @@
 								return renderGridValue(value, fields.feeWay);
 							}
 						},{
-							field : 'memberGradeid',
-							title : '承运商等级',
+							field : 'gradeDisplay',
+							title : '会员等级',
 							width : 120,
 							sortable : true
 						},{
@@ -171,19 +171,45 @@
 
 	//点击增加按钮触发方法
 	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.addFinaceRechargeSetMember = function(){
-		
+		 glacier.basicAddOrEditDialog({
+			title : '【充值设置】- 增加',
+			width : 800,
+			height : 300,
+			queryUrl : ctx + '/do/finaceRechargeSetMemberController/intoForm.htm',
+			submitUrl : ctx + '/do/finaceRechargeSetMemberController/add.json',
+			successFun : function (){
+				glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.editFinaceRechargeSetMember = function(){
-	
+		var row = glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid("getSelected");
+		if ("authstr" ==row.auditState||"failure"==row.auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【充值设置】- 编辑',
+				width : 800,
+				height : 300,
+				queryUrl : ctx + '/do/finaceRechargeSetMemberController/intoForm.htm',
+				submitUrl : ctx + '/do/finaceRechargeSetMemberController/edit.json',
+				queryParams : {
+					rechargeSetId : row.rechargeSetId
+				},
+				successFun : function (){
+					glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid('reload');
+				}
+			});
+		}
+		else{
+			$.messager.alert('提示','已审核完毕,无法进行修改操作!','info');
+		}
 	};
 	
 	//点击审核按钮触发方法
 	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.auditFinaceRechargeSet= function(){
 		var row =glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid("getSelected");
 		var auditState = row.auditState;
-		if ("authstr" == auditState) {
-			
+		if ("authstr" == auditState||"failure"==auditState) {
 			glacier.basicAddOrEditDialog({
 				title : '【充值设置】- 审核',
 				width : 660,
@@ -206,43 +232,59 @@
 	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.delFinaceRechargeSetMember = function() {
 		var rows =glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid("getChecked");
 		var rechargeSetIds = [];//删除的id标识 
+		var pass_numb=0;
+		var str;
 		for(var i=0;i<rows.length;i++){
-			rechargeSetIds.push(rows[i].rechargeSetId); 
+			if(rows[i].auditState=="pass"){
+				pass_numb+=1;
+			}else{
+				rechargeSetIds.push(rows[i].rechargeSetId);		
+			}
 		}
+		if(pass_numb>0)
+			str= "<font style='color:red;font-weight: bold;'>【"+pass_numb+"】</font>记录已审核,删除余下<font style='color:red;font-weight: bold;'>【"+rechargeSetIds.length+"】</font>记录？";
+		else
+			str="是否删除<font style='color:red;font-weight: bold;'>【"+rechargeSetIds.length+"】</font>记录信息!";
+		
 		if(rechargeSetIds.length > 0){
-			$.messager.confirm('请确认', '是否要删除该设置', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/finaceRechargeSetMemberController/del.json',
-						   data: {rechargeSetIds:rechargeSetIds.join(',')},
-						   dataType:'json',
-						   success: function(r){
-							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messager.show({
-										title:'提示',
-										width:380,
-										height:120,
-										timeout:3000,
-										msg:r.msg,
-										icon:'info'
-									});
-								   glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid('reload');
-							   }else{
-									$.messager.show({//后台验证弹出错误提示信息框
-										title:'错误提示',
-										width:380,
-										height:120,
-										msg: r.msg,
-										icon:'error',
-										timeout:4500
-									});
-								}
-						   }
-					});
-				}
-			});
-		}
+				$.messager.confirm('请确认',str, function(r){
+						if (r){
+							$.ajax({
+								   type: "POST",
+								   url: ctx + '/do/finaceRechargeSetMemberController/del.json',
+								   data: {rechargeSetIds:rechargeSetIds.join(',')},
+								   dataType:'json',
+								   success: function(r){
+									   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+										   $.messager.show({
+												title:'提示',
+												width:380,
+												height:120,
+												timeout:3000,
+												msg:r.msg,
+												icon:'info'
+											});
+										   glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid('reload');
+									   }else{
+											$.messager.show({//后台验证弹出错误提示信息框
+												title:'错误提示',
+												width:380,
+												height:120,
+												msg: r.msg,
+												icon:'error',
+												timeout:4500
+											});
+										}
+								   }
+							});
+						}
+					});  
+			}else{
+				$.messager.confirm('请确认','记录信息已审核完毕,无法就行删除操作!', function(r){
+					
+				});
+			}
+		
 	};
 	
 	

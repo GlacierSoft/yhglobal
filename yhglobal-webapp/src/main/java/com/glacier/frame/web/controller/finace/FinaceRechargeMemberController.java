@@ -28,11 +28,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,5 +109,22 @@ public class FinaceRechargeMemberController {
      	  	ouputStream.flush();    
      	  	ouputStream.close();   
   	   }
+  	 
+  	 // 进入承运商充值记录audit表单页面
+     @RequestMapping(value = "/intoAudit.htm")
+     private Object intoAuditRechargeCarrier(String rechargeId) {
+         ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember_audit");
+         if(StringUtils.isNotBlank(rechargeId)){
+         	mav.addObject("finaceRechargeMemberData", finaceRechargeMemberService.getFinaceRechargeMemberPro(rechargeId));
+         }
+         return mav;
+     }
+     
+     // 审核充值记录
+     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+     @ResponseBody
+     private Object auditRecharge(@Valid FinaceRechargeMember finaceRechargeMember, BindingResult bindingResult) {
+         return finaceRechargeMemberService.auditRechargeMember(finaceRechargeMember);
+     }
    	
 }
