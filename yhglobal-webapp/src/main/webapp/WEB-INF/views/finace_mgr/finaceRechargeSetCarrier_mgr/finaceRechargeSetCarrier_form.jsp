@@ -33,7 +33,7 @@
 	    	</td>
 	    	<td>固定金额收取 ：</td>
 			<td>
-				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${rechargeSetCarrierData.rechargeMoney}" class="easyui-numberbox"disabled="disabled" required="true" data-options="min:0,precision:4"/>
+				<input id="finace_mgr_rechargeSetCarrier_form_rechargeMoney" style="width:268px;height: 20px;" name="rechargeMoney" value="${rechargeSetCarrierData.rechargeMoney}" class="easyui-numberbox" disabled="disabled" required="true" data-options="min:0,precision:4"/>
 			</td>
 		</tr>
 		<tr>
@@ -47,8 +47,6 @@
 <script type="text/javascript">
 
 	
-	
-	$(function(){
 		var record = $("#finace_mgr_rechargeSetCarrier_form_feeWay").val();
 		if(record != ""){
 			if("proportion" == record){
@@ -59,18 +57,17 @@
 				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",true);
 			}
 		}
-	});
 
 	$("#finace_mgr_rechargeSetCarrier_form_feeWay").combobox({
 		onSelect:function(record){
 			if("proportion" == record.value){
 				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",false);
 				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",true);
-				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").val(0);
+				$('#finace_mgr_rechargeSetCarrier_form_rechargeMoney').numberbox('setValue', 0);
 			}else{
 				$("#finace_mgr_rechargeSetCarrier_form_rechargeMoney").attr("disabled",false);
 				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").attr("disabled",true);
-				$("#finace_mgr_rechargeSetCarrier_form_rechargeRate").val(0);
+				$('#finace_mgr_rechargeSetCarrier_form_rechargeRate').numberbox('setValue', 0);
 			}
 		}
 	});

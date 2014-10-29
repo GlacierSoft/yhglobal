@@ -185,26 +185,31 @@
 	//点击编辑按钮触发方法
 	glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.editRechargeSet = function(){
 		var row = glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【充值设置】- 编辑',
-			width : 800,
-			height : 300,
-			queryUrl : ctx + '/do/finaceRechargeSetCarrier/intoForm.htm',
-			submitUrl : ctx + '/do/finaceRechargeSetCarrier/edit.json',
-			queryParams : {
-				rechargeSetId : row.rechargeSetId
-			},
-			successFun : function (){
-				glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("pass" != auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【充值设置】- 编辑',
+				width : 800,
+				height : 300,
+				queryUrl : ctx + '/do/finaceRechargeSetCarrier/intoForm.htm',
+				submitUrl : ctx + '/do/finaceRechargeSetCarrier/edit.json',
+				queryParams : {
+					rechargeSetId : row.rechargeSetId
+				},
+				successFun : function (){
+					glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经审核成功，不能进行修改。");
+		}
 	};
 	
 	//点击审核按钮触发方法
 	glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.auditRechargeSet = function(){
 		var row = glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid.datagrid("getSelected");
 		var auditState = row.auditState;
-		if ("authstr" == auditState) {
+		if ("pass" != auditState) {
 			glacier.basicAddOrEditDialog({
 				title : '【充值设置】- 审核',
 				width : 830,
@@ -219,7 +224,7 @@
 				}
 			});
 		} else {
-			alert("该记录已经进行了审核，不需要重复操作。");
+			alert("该记录已经审核成功，不需要重复操作。");
 		}
 	};
 	

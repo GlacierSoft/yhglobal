@@ -65,7 +65,7 @@
 			<td><input class="spinner" style="width:268px" value="<fmt:formatDate value="${rechargeSetCarrierData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>车辆描述：</td>
+			<td>备注：</td>
 			<td colspan="3">
 				<textarea id="finace_mgr_rechargeSetCarrier_form_remark" name="remark" style="width:650px;height: 170px;" class="spinner formta" readonly="readonly">${rechargeSetCarrierData.remark}</textarea>
 			</td>

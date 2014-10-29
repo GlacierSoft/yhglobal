@@ -180,11 +180,12 @@ public class FinaceRechargeSetCarrierService {
             returnResult.setMsg("承运商充值类型名称重复");
             return returnResult;
         }
+        
         //根据ID获取承运商充值类型信息
         FinaceRechargeSetCarrier memberRechargeSetCarrierTime = (FinaceRechargeSetCarrier) getRechargeSetCarrier(rechargeSetCarrier.getRechargeSetId());
         rechargeSetCarrier.setAuditor(memberRechargeSetCarrierTime.getAuditor());
         rechargeSetCarrier.setAuditTime(new Date());
-        rechargeSetCarrier.setAuditState(memberRechargeSetCarrierTime.getAuditState());
+        rechargeSetCarrier.setAuditState("authstr");
         rechargeSetCarrier.setCreater(memberRechargeSetCarrierTime.getCreater());
         rechargeSetCarrier.setCreateTime(memberRechargeSetCarrierTime.getCreateTime());
         rechargeSetCarrier.setUpdater(pricipalUser.getUserId());
