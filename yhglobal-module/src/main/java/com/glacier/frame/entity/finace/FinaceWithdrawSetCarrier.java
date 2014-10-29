@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceWithdrawSetCarrier {
     private String withdrawSetId;
 
@@ -20,6 +22,7 @@ public class FinaceWithdrawSetCarrier {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -28,11 +31,24 @@ public class FinaceWithdrawSetCarrier {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date craeteTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String gradeDisplay;
+    
+    private String auditorDisplay;
 
     public String getWithdrawSetId() {
         return withdrawSetId;
@@ -154,7 +170,39 @@ public class FinaceWithdrawSetCarrier {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getGradeDisplay() {
+		return gradeDisplay;
+	}
+
+	public void setGradeDisplay(String gradeDisplay) {
+		this.gradeDisplay = gradeDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
