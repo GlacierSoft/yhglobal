@@ -22,6 +22,8 @@ public class FinancePlatform {
 
     private BigDecimal remainMoney;
 
+    private String bankTacitly;
+
     private String auditor;
 
     private String auditState;
@@ -110,6 +112,14 @@ public class FinancePlatform {
 
     public void setRemainMoney(BigDecimal remainMoney) {
         this.remainMoney = remainMoney;
+    }
+
+    public String getBankTacitly() {
+        return bankTacitly;
+    }
+
+    public void setBankTacitly(String bankTacitly) {
+        this.bankTacitly = bankTacitly;
     }
 
     public String getAuditor() {
@@ -205,6 +215,7 @@ public class FinancePlatform {
             && (this.getBankCode() == null ? other.getBankCode() == null : this.getBankCode().equals(other.getBankCode()))
             && (this.getBankType() == null ? other.getBankType() == null : this.getBankType().equals(other.getBankType()))
             && (this.getRemainMoney() == null ? other.getRemainMoney() == null : this.getRemainMoney().equals(other.getRemainMoney()))
+            && (this.getBankTacitly() == null ? other.getBankTacitly() == null : this.getBankTacitly().equals(other.getBankTacitly()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditTime() == null ? other.getAuditTime() == null : this.getAuditTime().equals(other.getAuditTime()))
@@ -229,6 +240,7 @@ public class FinancePlatform {
         result = prime * result + ((getBankCode() == null) ? 0 : getBankCode().hashCode());
         result = prime * result + ((getBankType() == null) ? 0 : getBankType().hashCode());
         result = prime * result + ((getRemainMoney() == null) ? 0 : getRemainMoney().hashCode());
+        result = prime * result + ((getBankTacitly() == null) ? 0 : getBankTacitly().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditTime() == null) ? 0 : getAuditTime().hashCode());

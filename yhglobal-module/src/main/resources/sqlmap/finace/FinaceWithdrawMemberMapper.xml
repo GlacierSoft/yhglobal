@@ -2,31 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.glacier.frame.dao.finace.FinaceWithdrawMemberMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinaceWithdrawMember" >
-    <id column="tempfinace_withdraw_member_withdraw_id" property="withdrawId" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_withdraw_code" property="withdrawCode" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_withdraw_set_id" property="withdrawSetId" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_withdraw_money" property="withdrawMoney" jdbcType="DECIMAL" />
-    <result column="tempfinace_withdraw_member_charge_money" property="chargeMoney" jdbcType="DECIMAL" />
-    <result column="tempfinace_withdraw_member_withdraw_really_money" property="withdrawReallyMoney" jdbcType="DECIMAL" />
-    <result column="tempfinace_withdraw_member_member_id" property="memberId" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_auditor" property="auditor" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_audit_state" property="auditState" jdbcType="CHAR" />
-    <result column="tempfinace_withdraw_member_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
-    <result column="tempfinace_withdraw_member_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_remark" property="remark" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_creater" property="creater" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="tempfinace_withdraw_member_updater" property="updater" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-   
-    <result column="tempfinace_withdraw_member_withdraw_fee_way" property="withdrawFeeWay" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_withdraw_set_name" property="withdrawSetName" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_member_display" property="memberDisplay" jdbcType="VARCHAR" />
-    <result column="tempfinace_withdraw_member_auditor_display" property="auditorDisplay" jdbcType="VARCHAR" />
+    <id column="temp_finace_withdraw_member_withdraw_id" property="withdrawId" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_withdraw_code" property="withdrawCode" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_withdraw_set_id" property="withdrawSetId" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_withdraw_money" property="withdrawMoney" jdbcType="DECIMAL" />
+    <result column="temp_finace_withdraw_member_charge_money" property="chargeMoney" jdbcType="DECIMAL" />
+    <result column="temp_finace_withdraw_member_withdraw_really_money" property="withdrawReallyMoney" jdbcType="DECIMAL" />
+    <result column="temp_finace_withdraw_member_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_finace_withdraw_member_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finace_withdraw_member_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finace_withdraw_member_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     
-  </resultMap>
+    <result column="temp_finace_withdraw_member_fee_way" property="feeWay" jdbcType="VARCHAR" />
+    <result column="temp_finace_withdraw_member_withdraw_name" property="withdrawName" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_member_display" property="memberDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finace_recharge_member_auditor_display" property="auditorDisplay" jdbcType="VARCHAR" />
+    
+   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -86,27 +86,45 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    tempfinace_withdraw_member.withdraw_id as tempfinace_withdraw_member_withdraw_id, 
-    tempfinace_withdraw_member.withdraw_code as tempfinace_withdraw_member_withdraw_code, 
-    tempfinace_withdraw_member.withdraw_set_id as tempfinace_withdraw_member_withdraw_set_id, 
-    tempfinace_withdraw_member.withdraw_money as tempfinace_withdraw_member_withdraw_money, 
-    tempfinace_withdraw_member.charge_money as tempfinace_withdraw_member_charge_money, 
-    tempfinace_withdraw_member.withdraw_really_money as tempfinace_withdraw_member_withdraw_really_money, 
-    tempfinace_withdraw_member.member_id as tempfinace_withdraw_member_member_id, tempfinace_withdraw_member.auditor as tempfinace_withdraw_member_auditor, 
-    tempfinace_withdraw_member.audit_state as tempfinace_withdraw_member_audit_state, 
-    tempfinace_withdraw_member.audit_time as tempfinace_withdraw_member_audit_time, tempfinace_withdraw_member.audit_opinion as tempfinace_withdraw_member_audit_opinion, 
-    tempfinace_withdraw_member.remark as tempfinace_withdraw_member_remark, tempfinace_withdraw_member.creater as tempfinace_withdraw_member_creater, 
-    tempfinace_withdraw_member.create_time as tempfinace_withdraw_member_create_time, 
-    tempfinace_withdraw_member.updater as tempfinace_withdraw_member_updater, tempfinace_withdraw_member.update_time as tempfinace_withdraw_member_update_time
+    temp_finace_withdraw_member.withdraw_id as temp_finace_withdraw_member_withdraw_id, 
+    temp_finace_withdraw_member.withdraw_code as temp_finace_withdraw_member_withdraw_code, 
+    temp_finace_withdraw_member.withdraw_set_id as temp_finace_withdraw_member_withdraw_set_id, 
+    temp_finace_withdraw_member.withdraw_money as temp_finace_withdraw_member_withdraw_money, 
+    temp_finace_withdraw_member.charge_money as temp_finace_withdraw_member_charge_money, 
+    temp_finace_withdraw_member.withdraw_really_money as temp_finace_withdraw_member_withdraw_really_money, 
+    temp_finace_withdraw_member.member_id as temp_finace_withdraw_member_member_id, temp_finace_withdraw_member.auditor as temp_finace_withdraw_member_auditor, 
+    temp_finace_withdraw_member.audit_state as temp_finace_withdraw_member_audit_state, 
+    temp_finace_withdraw_member.audit_time as temp_finace_withdraw_member_audit_time, 
+    temp_finace_withdraw_member.audit_opinion as temp_finace_withdraw_member_audit_opinion, 
+    temp_finace_withdraw_member.remark as temp_finace_withdraw_member_remark, temp_finace_withdraw_member.creater as temp_finace_withdraw_member_creater, 
+    temp_finace_withdraw_member.create_time as temp_finace_withdraw_member_create_time, 
+    temp_finace_withdraw_member.updater as temp_finace_withdraw_member_updater, temp_finace_withdraw_member.update_time as temp_finace_withdraw_member_update_time
+  
+       <!-- 以下字段属于扩展 -->
+    ,temp_recharge_set_name.recharge_set_name as  temp_finace_recharge_member_recharge_set_name 
+    ,temp_recharge_fee_way.fee_way as  temp_finace_recharge_member_fee_way
+    ,temp_creater.user_cn_name as   temp_finace_recharge_member_creater_display
+    ,temp_updater.user_cn_name as   temp_finace_recharge_member_updater_display
+    ,temp_shipper_member.member_name as   temp_finace_recharge_member_member_display
+    ,temp_auditor.user_cn_name as   temp_finace_recharge_member_auditor_display
   </sql>
-
- <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceWithdrawMemberExample" >
+  
+  <sql id="Base_extend">
+	LEFT JOIN t_finace_withdraw_set_member temp_recharge_set_name ON  temp_recharge_set_name.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
+    LEFT JOIN t_finace_recharge_set_member  temp_recharge_fee_way ON temp_recharge_fee_way.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finace_recharge_member.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finace_recharge_member.updater <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_finace_recharge_member.member_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_auditor ON temp_auditor.user_id =temp_finace_recharge_member.auditor <!-- 扩展 -->
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceWithdrawMemberExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_finace_withdraw_member tempfinace_withdraw_member
+    from t_finace_withdraw_member temp_finace_withdraw_member
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -120,15 +138,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from t_finace_withdraw_member tempfinace_withdraw_member
-    where tempfinace_withdraw_member.withdraw_id = #{withdrawId,jdbcType=VARCHAR}
+    from t_finace_withdraw_member temp_finace_withdraw_member
+    where temp_finace_withdraw_member.withdraw_id = #{withdrawId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_finace_withdraw_member
     where withdraw_id = #{withdrawId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinaceWithdrawMemberExample" >
-    delete from t_finace_withdraw_member tempfinace_withdraw_member
+    delete from t_finace_withdraw_member temp_finace_withdraw_member
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -251,61 +269,61 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinaceWithdrawMemberExample" resultType="java.lang.Integer" >
-    select count(*) from t_finace_withdraw_member tempfinace_withdraw_member
+    select count(*) from t_finace_withdraw_member temp_finace_withdraw_member
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_finace_withdraw_member tempfinace_withdraw_member
+    update t_finace_withdraw_member temp_finace_withdraw_member
     <set >
       <if test="record.withdrawId != null" >
-        tempfinace_withdraw_member.withdraw_id = #{record.withdrawId,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.withdraw_id = #{record.withdrawId,jdbcType=VARCHAR},
       </if>
       <if test="record.withdrawCode != null" >
-        tempfinace_withdraw_member.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
       </if>
       <if test="record.withdrawSetId != null" >
-        tempfinace_withdraw_member.withdraw_set_id = #{record.withdrawSetId,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.withdraw_set_id = #{record.withdrawSetId,jdbcType=VARCHAR},
       </if>
       <if test="record.withdrawMoney != null" >
-        tempfinace_withdraw_member.withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
+        temp_finace_withdraw_member.withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
       </if>
       <if test="record.chargeMoney != null" >
-        tempfinace_withdraw_member.charge_money = #{record.chargeMoney,jdbcType=DECIMAL},
+        temp_finace_withdraw_member.charge_money = #{record.chargeMoney,jdbcType=DECIMAL},
       </if>
       <if test="record.withdrawReallyMoney != null" >
-        tempfinace_withdraw_member.withdraw_really_money = #{record.withdrawReallyMoney,jdbcType=DECIMAL},
+        temp_finace_withdraw_member.withdraw_really_money = #{record.withdrawReallyMoney,jdbcType=DECIMAL},
       </if>
       <if test="record.memberId != null" >
-        tempfinace_withdraw_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.auditor != null" >
-        tempfinace_withdraw_member.auditor = #{record.auditor,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.auditor = #{record.auditor,jdbcType=VARCHAR},
       </if>
       <if test="record.auditState != null" >
-        tempfinace_withdraw_member.audit_state = #{record.auditState,jdbcType=CHAR},
+        temp_finace_withdraw_member.audit_state = #{record.auditState,jdbcType=CHAR},
       </if>
       <if test="record.auditTime != null" >
-        tempfinace_withdraw_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+        temp_finace_withdraw_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.auditOpinion != null" >
-        tempfinace_withdraw_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
-        tempfinace_withdraw_member.remark = #{record.remark,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.remark = #{record.remark,jdbcType=VARCHAR},
       </if>
       <if test="record.creater != null" >
-        tempfinace_withdraw_member.creater = #{record.creater,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.creater = #{record.creater,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
-        tempfinace_withdraw_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        temp_finace_withdraw_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updater != null" >
-        tempfinace_withdraw_member.updater = #{record.updater,jdbcType=VARCHAR},
+        temp_finace_withdraw_member.updater = #{record.updater,jdbcType=VARCHAR},
       </if>
       <if test="record.updateTime != null" >
-        tempfinace_withdraw_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        temp_finace_withdraw_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -313,23 +331,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_finace_withdraw_member tempfinace_withdraw_member
-    set tempfinace_withdraw_member.withdraw_id = #{record.withdrawId,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.withdraw_set_id = #{record.withdrawSetId,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
-      tempfinace_withdraw_member.charge_money = #{record.chargeMoney,jdbcType=DECIMAL},
-      tempfinace_withdraw_member.withdraw_really_money = #{record.withdrawReallyMoney,jdbcType=DECIMAL},
-      tempfinace_withdraw_member.member_id = #{record.memberId,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.auditor = #{record.auditor,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.audit_state = #{record.auditState,jdbcType=CHAR},
-      tempfinace_withdraw_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
-      tempfinace_withdraw_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.remark = #{record.remark,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.creater = #{record.creater,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      tempfinace_withdraw_member.updater = #{record.updater,jdbcType=VARCHAR},
-      tempfinace_withdraw_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update t_finace_withdraw_member temp_finace_withdraw_member
+    set temp_finace_withdraw_member.withdraw_id = #{record.withdrawId,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.withdraw_set_id = #{record.withdrawSetId,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
+      temp_finace_withdraw_member.charge_money = #{record.chargeMoney,jdbcType=DECIMAL},
+      temp_finace_withdraw_member.withdraw_really_money = #{record.withdrawReallyMoney,jdbcType=DECIMAL},
+      temp_finace_withdraw_member.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_finace_withdraw_member.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      temp_finace_withdraw_member.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finace_withdraw_member.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finace_withdraw_member.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

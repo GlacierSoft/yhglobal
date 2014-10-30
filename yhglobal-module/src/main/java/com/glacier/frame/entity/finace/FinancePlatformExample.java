@@ -746,6 +746,76 @@ public class FinancePlatformExample {
             return (Criteria) this;
         }
 
+        public Criteria andBankTacitlyIsNull() {
+            addCriterion("temp_finance_platform.bank_tacitly is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyIsNotNull() {
+            addCriterion("temp_finance_platform.bank_tacitly is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyEqualTo(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly =", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly <>", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyGreaterThan(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly >", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly >=", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyLessThan(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly <", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly <=", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyLike(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly like", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyNotLike(String value) {
+            addCriterion("temp_finance_platform.bank_tacitly not like", value, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyIn(List<String> values) {
+            addCriterion("temp_finance_platform.bank_tacitly in", values, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.bank_tacitly not in", values, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.bank_tacitly between", value1, value2, "bankTacitly");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankTacitlyNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.bank_tacitly not between", value1, value2, "bankTacitly");
+            return (Criteria) this;
+        }
+
         public Criteria andAuditorIsNull() {
             addCriterion("temp_finance_platform.auditor is null");
             return (Criteria) this;

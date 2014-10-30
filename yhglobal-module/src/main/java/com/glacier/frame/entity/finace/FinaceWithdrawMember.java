@@ -3,8 +3,6 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 public class FinaceWithdrawMember {
     private String withdrawId;
 
@@ -24,7 +22,6 @@ public class FinaceWithdrawMember {
 
     private String auditState;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -33,12 +30,10 @@ public class FinaceWithdrawMember {
 
     private String creater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     
@@ -46,15 +41,14 @@ public class FinaceWithdrawMember {
      * 自定义字段 
      */
     
-    
     private String createrDisplay;
     private String updaterDisplay;
-    private String withdrawSetName;
-    private String withdrawFeeWay;
+    private String withdrawName;
+    private String feeWay;
     private  String memberDisplay;
     private String auditorDisplay;
     
-    public String getCreaterDisplay() {
+     public String getCreaterDisplay() {
 		return createrDisplay;
 	}
 
@@ -70,20 +64,20 @@ public class FinaceWithdrawMember {
 		this.updaterDisplay = updaterDisplay;
 	}
 
-	public String getWithdrawSetName() {
-		return withdrawSetName;
+	public String getWithdrawName() {
+		return withdrawName;
 	}
 
-	public void setWithdrawSetName(String withdrawSetName) {
-		this.withdrawSetName = withdrawSetName;
+	public void setWithdrawName(String withdrawName) {
+		this.withdrawName = withdrawName;
 	}
 
-	public String getWithdrawFeeWay() {
-		return withdrawFeeWay;
+	public String getFeeWay() {
+		return feeWay;
 	}
 
-	public void setWithdrawFeeWay(String withdrawFeeWay) {
-		this.withdrawFeeWay = withdrawFeeWay;
+	public void setFeeWay(String feeWay) {
+		this.feeWay = feeWay;
 	}
 
 	public String getMemberDisplay() {

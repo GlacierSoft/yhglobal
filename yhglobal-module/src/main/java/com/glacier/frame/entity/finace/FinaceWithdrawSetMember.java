@@ -3,7 +3,7 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class FinaceWithdrawSetMemberr {
+public class FinaceWithdrawSetMember {
     private String withdrawSetId;
 
     private String withdrawName;
@@ -165,7 +165,7 @@ public class FinaceWithdrawSetMemberr {
         if (getClass() != that.getClass()) {
             return false;
         }
-        FinaceWithdrawSetMemberr other = (FinaceWithdrawSetMemberr) that;
+        FinaceWithdrawSetMember other = (FinaceWithdrawSetMember) that;
         return (this.getWithdrawSetId() == null ? other.getWithdrawSetId() == null : this.getWithdrawSetId().equals(other.getWithdrawSetId()))
             && (this.getWithdrawName() == null ? other.getWithdrawName() == null : this.getWithdrawName().equals(other.getWithdrawName()))
             && (this.getWithdrawRate() == null ? other.getWithdrawRate() == null : this.getWithdrawRate().equals(other.getWithdrawRate()))
