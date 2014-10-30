@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinancePlatform {
     private String platformId;
 
@@ -26,6 +28,7 @@ public class FinancePlatform {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -34,13 +37,48 @@ public class FinancePlatform {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    //创建人
+    private String createrDisplay;
+    
+    //更新人
+    private String updaterDisplay;
+    
+    //审核人
+    private String auditDisplay; 
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    public String getPlatformId() {
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getAuditDisplay() {
+		return auditDisplay;
+	}
+
+	public void setAuditDisplay(String auditDisplay) {
+		this.auditDisplay = auditDisplay;
+	}
+
+	public String getPlatformId() {
         return platformId;
     }
 

@@ -1,45 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.glacier.frame.dao.finace.FinancePlatformMapper">
-  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinancePlatform">
-    <id column="temp_finance_platform_platform_id" jdbcType="VARCHAR" property="platformId" />
-    <result column="temp_finance_platform_platform_code" jdbcType="VARCHAR" property="platformCode" />
-    <result column="temp_finance_platform_platform_name" jdbcType="VARCHAR" property="platformName" />
-    <result column="temp_finance_platform_platform_bank" jdbcType="VARCHAR" property="platformBank" />
-    <result column="temp_finance_platform_bank_stream" jdbcType="VARCHAR" property="bankStream" />
-    <result column="temp_finance_platform_bank_name" jdbcType="VARCHAR" property="bankName" />
-    <result column="temp_finance_platform_bank_code" jdbcType="VARCHAR" property="bankCode" />
-    <result column="temp_finance_platform_bank_type" jdbcType="CHAR" property="bankType" />
-    <result column="temp_finance_platform_remain_money" jdbcType="DECIMAL" property="remainMoney" />
-    <result column="temp_finance_platform_auditor" jdbcType="VARCHAR" property="auditor" />
-    <result column="temp_finance_platform_audit_state" jdbcType="CHAR" property="auditState" />
-    <result column="temp_finance_platform_audit_time" jdbcType="TIMESTAMP" property="auditTime" />
-    <result column="temp_finance_platform_audit_opinion" jdbcType="VARCHAR" property="auditOpinion" />
-    <result column="temp_finance_platform_remark" jdbcType="VARCHAR" property="remark" />
-    <result column="temp_finance_platform_creater" jdbcType="VARCHAR" property="creater" />
-    <result column="temp_finance_platform_create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="temp_finance_platform_updater" jdbcType="VARCHAR" property="updater" />
-    <result column="temp_finance_platform_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.finace.FinancePlatformMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinancePlatform" >
+    <id column="temp_finance_platform_platform_id" property="platformId" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_platform_code" property="platformCode" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_platform_name" property="platformName" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_platform_bank" property="platformBank" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_bank_stream" property="bankStream" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_bank_type" property="bankType" jdbcType="CHAR" />
+    <result column="temp_finance_platform_remain_money" property="remainMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_platform_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_finance_platform_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_platform_audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_platform_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  
+    <result column="temp_finance_platform_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_platform_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_platform_audit_display" property="auditDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -50,25 +54,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -79,7 +83,7 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     temp_finance_platform.platform_id as temp_finance_platform_platform_id, temp_finance_platform.platform_code as temp_finance_platform_platform_code, 
     temp_finance_platform.platform_name as temp_finance_platform_platform_name, temp_finance_platform.platform_bank as temp_finance_platform_platform_bank, 
     temp_finance_platform.bank_stream as temp_finance_platform_bank_stream, temp_finance_platform.bank_name as temp_finance_platform_bank_name, 
@@ -89,41 +93,52 @@
     temp_finance_platform.audit_opinion as temp_finance_platform_audit_opinion, temp_finance_platform.remark as temp_finance_platform_remark, 
     temp_finance_platform.creater as temp_finance_platform_creater, temp_finance_platform.create_time as temp_finance_platform_create_time, 
     temp_finance_platform.updater as temp_finance_platform_updater, temp_finance_platform.update_time as temp_finance_platform_update_time
-  </sql>
-  <select id="selectByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" resultMap="BaseResultMap">
+     <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_finance_platform_creater_display
+    ,temp_updater.user_cn_name as temp_finance_platform_updater_display 
+    ,temp_audit.user_cn_name as temp_finance_platform_audit_display
+  </sql> 
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_platform.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_platform.updater <!-- 扩展 -->
+    LEFT JOIN t_user temp_audit ON temp_audit.user_id = temp_finance_platform.auditor <!-- 扩展 -->
+   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    <if test="limitStart &gt;= 0">
+    <if test="limitStart >= 0" >
       limit ${limitStart} , ${limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
+    <include refid="Base_extend" />
     where temp_finance_platform.platform_id = #{platformId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_finance_platform
     where platform_id = #{platformId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample">
-    delete from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" >
+    delete temp_finance_platform from t_finance_platform temp_finance_platform
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
+  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinancePlatform" >
     insert into t_finance_platform (platform_id, platform_code, platform_name, 
       platform_bank, bank_stream, bank_name, 
       bank_code, bank_type, remain_money, 
@@ -139,190 +154,191 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform" >
     insert into t_finance_platform
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="platformId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="platformId != null" >
         platform_id,
       </if>
-      <if test="platformCode != null">
+      <if test="platformCode != null" >
         platform_code,
       </if>
-      <if test="platformName != null">
+      <if test="platformName != null" >
         platform_name,
       </if>
-      <if test="platformBank != null">
+      <if test="platformBank != null" >
         platform_bank,
       </if>
-      <if test="bankStream != null">
+      <if test="bankStream != null" >
         bank_stream,
       </if>
-      <if test="bankName != null">
+      <if test="bankName != null" >
         bank_name,
       </if>
-      <if test="bankCode != null">
+      <if test="bankCode != null" >
         bank_code,
       </if>
-      <if test="bankType != null">
+      <if test="bankType != null" >
         bank_type,
       </if>
-      <if test="remainMoney != null">
+      <if test="remainMoney != null" >
         remain_money,
       </if>
-      <if test="auditor != null">
+      <if test="auditor != null" >
         auditor,
       </if>
-      <if test="auditState != null">
+      <if test="auditState != null" >
         audit_state,
       </if>
-      <if test="auditTime != null">
+      <if test="auditTime != null" >
         audit_time,
       </if>
-      <if test="auditOpinion != null">
+      <if test="auditOpinion != null" >
         audit_opinion,
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark,
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         creater,
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         updater,
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="platformId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="platformId != null" >
         #{platformId,jdbcType=VARCHAR},
       </if>
-      <if test="platformCode != null">
+      <if test="platformCode != null" >
         #{platformCode,jdbcType=VARCHAR},
       </if>
-      <if test="platformName != null">
+      <if test="platformName != null" >
         #{platformName,jdbcType=VARCHAR},
       </if>
-      <if test="platformBank != null">
+      <if test="platformBank != null" >
         #{platformBank,jdbcType=VARCHAR},
       </if>
-      <if test="bankStream != null">
+      <if test="bankStream != null" >
         #{bankStream,jdbcType=VARCHAR},
       </if>
-      <if test="bankName != null">
+      <if test="bankName != null" >
         #{bankName,jdbcType=VARCHAR},
       </if>
-      <if test="bankCode != null">
+      <if test="bankCode != null" >
         #{bankCode,jdbcType=VARCHAR},
       </if>
-      <if test="bankType != null">
+      <if test="bankType != null" >
         #{bankType,jdbcType=CHAR},
       </if>
-      <if test="remainMoney != null">
+      <if test="remainMoney != null" >
         #{remainMoney,jdbcType=DECIMAL},
       </if>
-      <if test="auditor != null">
+      <if test="auditor != null" >
         #{auditor,jdbcType=VARCHAR},
       </if>
-      <if test="auditState != null">
+      <if test="auditState != null" >
         #{auditState,jdbcType=CHAR},
       </if>
-      <if test="auditTime != null">
+      <if test="auditTime != null" >
         #{auditTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="auditOpinion != null">
+      <if test="auditOpinion != null" >
         #{auditOpinion,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         #{creater,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         #{updater,jdbcType=VARCHAR},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update t_finance_platform temp_finance_platform
-    <set>
-      <if test="record.platformId != null">
+    <set >
+      <if test="record.platformId != null" >
         temp_finance_platform.platform_id = #{record.platformId,jdbcType=VARCHAR},
       </if>
-      <if test="record.platformCode != null">
+      <if test="record.platformCode != null" >
         temp_finance_platform.platform_code = #{record.platformCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.platformName != null">
+      <if test="record.platformName != null" >
         temp_finance_platform.platform_name = #{record.platformName,jdbcType=VARCHAR},
       </if>
-      <if test="record.platformBank != null">
+      <if test="record.platformBank != null" >
         temp_finance_platform.platform_bank = #{record.platformBank,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankStream != null">
+      <if test="record.bankStream != null" >
         temp_finance_platform.bank_stream = #{record.bankStream,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankName != null">
+      <if test="record.bankName != null" >
         temp_finance_platform.bank_name = #{record.bankName,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankCode != null">
+      <if test="record.bankCode != null" >
         temp_finance_platform.bank_code = #{record.bankCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankType != null">
+      <if test="record.bankType != null" >
         temp_finance_platform.bank_type = #{record.bankType,jdbcType=CHAR},
       </if>
-      <if test="record.remainMoney != null">
+      <if test="record.remainMoney != null" >
         temp_finance_platform.remain_money = #{record.remainMoney,jdbcType=DECIMAL},
       </if>
-      <if test="record.auditor != null">
+      <if test="record.auditor != null" >
         temp_finance_platform.auditor = #{record.auditor,jdbcType=VARCHAR},
       </if>
-      <if test="record.auditState != null">
+      <if test="record.auditState != null" >
         temp_finance_platform.audit_state = #{record.auditState,jdbcType=CHAR},
       </if>
-      <if test="record.auditTime != null">
+      <if test="record.auditTime != null" >
         temp_finance_platform.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.auditOpinion != null">
+      <if test="record.auditOpinion != null" >
         temp_finance_platform.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null">
+      <if test="record.remark != null" >
         temp_finance_platform.remark = #{record.remark,jdbcType=VARCHAR},
       </if>
-      <if test="record.creater != null">
+      <if test="record.creater != null" >
         temp_finance_platform.creater = #{record.creater,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
+      <if test="record.createTime != null" >
         temp_finance_platform.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updater != null">
+      <if test="record.updater != null" >
         temp_finance_platform.updater = #{record.updater,jdbcType=VARCHAR},
       </if>
-      <if test="record.updateTime != null">
+      <if test="record.updateTime != null" >
         temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update t_finance_platform temp_finance_platform
     set temp_finance_platform.platform_id = #{record.platformId,jdbcType=VARCHAR},
       temp_finance_platform.platform_code = #{record.platformCode,jdbcType=VARCHAR},
@@ -342,68 +358,68 @@
       temp_finance_platform.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_finance_platform.updater = #{record.updater,jdbcType=VARCHAR},
       temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform" >
     update t_finance_platform
-    <set>
-      <if test="platformCode != null">
+    <set >
+      <if test="platformCode != null" >
         platform_code = #{platformCode,jdbcType=VARCHAR},
       </if>
-      <if test="platformName != null">
+      <if test="platformName != null" >
         platform_name = #{platformName,jdbcType=VARCHAR},
       </if>
-      <if test="platformBank != null">
+      <if test="platformBank != null" >
         platform_bank = #{platformBank,jdbcType=VARCHAR},
       </if>
-      <if test="bankStream != null">
+      <if test="bankStream != null" >
         bank_stream = #{bankStream,jdbcType=VARCHAR},
       </if>
-      <if test="bankName != null">
+      <if test="bankName != null" >
         bank_name = #{bankName,jdbcType=VARCHAR},
       </if>
-      <if test="bankCode != null">
+      <if test="bankCode != null" >
         bank_code = #{bankCode,jdbcType=VARCHAR},
       </if>
-      <if test="bankType != null">
+      <if test="bankType != null" >
         bank_type = #{bankType,jdbcType=CHAR},
       </if>
-      <if test="remainMoney != null">
+      <if test="remainMoney != null" >
         remain_money = #{remainMoney,jdbcType=DECIMAL},
       </if>
-      <if test="auditor != null">
+      <if test="auditor != null" >
         auditor = #{auditor,jdbcType=VARCHAR},
       </if>
-      <if test="auditState != null">
+      <if test="auditState != null" >
         audit_state = #{auditState,jdbcType=CHAR},
       </if>
-      <if test="auditTime != null">
+      <if test="auditTime != null" >
         audit_time = #{auditTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="auditOpinion != null">
+      <if test="auditOpinion != null" >
         audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         creater = #{creater,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         updater = #{updater,jdbcType=VARCHAR},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where platform_id = #{platformId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinancePlatform" >
     update t_finance_platform
     set platform_code = #{platformCode,jdbcType=VARCHAR},
       platform_name = #{platformName,jdbcType=VARCHAR},
@@ -413,445 +429,6 @@
       bank_code = #{bankCode,jdbcType=VARCHAR},
       bank_type = #{bankType,jdbcType=CHAR},
       remain_money = #{remainMoney,jdbcType=DECIMAL},
-      auditor = #{auditor,jdbcType=VARCHAR},
-      audit_state = #{auditState,jdbcType=CHAR},
-      audit_time = #{auditTime,jdbcType=TIMESTAMP},
-      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      creater = #{creater,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where platform_id = #{platformId,jdbcType=VARCHAR}
-  </update>
-  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinancePlatform">
-    <id column="temp_finance_platform_platform_id" jdbcType="VARCHAR" property="platformId" />
-    <result column="temp_finance_platform_platform_code" jdbcType="VARCHAR" property="platformCode" />
-    <result column="temp_finance_platform_platform_name" jdbcType="VARCHAR" property="platformName" />
-    <result column="temp_finance_platform_platform_bank" jdbcType="VARCHAR" property="platformBank" />
-    <result column="temp_finance_platform_bank_stream" jdbcType="VARCHAR" property="bankStream" />
-    <result column="temp_finance_platform_bank_name" jdbcType="VARCHAR" property="bankName" />
-    <result column="temp_finance_platform_bank_code" jdbcType="VARCHAR" property="bankCode" />
-    <result column="temp_finance_platform_bank_type" jdbcType="CHAR" property="bankType" />
-    <result column="temp_finance_platform_remain_money" jdbcType="DECIMAL" property="remainMoney" />
-    <result column="temp_finance_platform_bank_tacitly" jdbcType="CHAR" property="bankTacitly" />
-    <result column="temp_finance_platform_auditor" jdbcType="VARCHAR" property="auditor" />
-    <result column="temp_finance_platform_audit_state" jdbcType="CHAR" property="auditState" />
-    <result column="temp_finance_platform_audit_time" jdbcType="TIMESTAMP" property="auditTime" />
-    <result column="temp_finance_platform_audit_opinion" jdbcType="VARCHAR" property="auditOpinion" />
-    <result column="temp_finance_platform_remark" jdbcType="VARCHAR" property="remark" />
-    <result column="temp_finance_platform_creater" jdbcType="VARCHAR" property="creater" />
-    <result column="temp_finance_platform_create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="temp_finance_platform_updater" jdbcType="VARCHAR" property="updater" />
-    <result column="temp_finance_platform_update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    temp_finance_platform.platform_id as temp_finance_platform_platform_id, temp_finance_platform.platform_code as temp_finance_platform_platform_code, 
-    temp_finance_platform.platform_name as temp_finance_platform_platform_name, temp_finance_platform.platform_bank as temp_finance_platform_platform_bank, 
-    temp_finance_platform.bank_stream as temp_finance_platform_bank_stream, temp_finance_platform.bank_name as temp_finance_platform_bank_name, 
-    temp_finance_platform.bank_code as temp_finance_platform_bank_code, temp_finance_platform.bank_type as temp_finance_platform_bank_type, 
-    temp_finance_platform.remain_money as temp_finance_platform_remain_money, temp_finance_platform.bank_tacitly as temp_finance_platform_bank_tacitly, 
-    temp_finance_platform.auditor as temp_finance_platform_auditor, temp_finance_platform.audit_state as temp_finance_platform_audit_state, 
-    temp_finance_platform.audit_time as temp_finance_platform_audit_time, temp_finance_platform.audit_opinion as temp_finance_platform_audit_opinion, 
-    temp_finance_platform.remark as temp_finance_platform_remark, temp_finance_platform.creater as temp_finance_platform_creater, 
-    temp_finance_platform.create_time as temp_finance_platform_create_time, temp_finance_platform.updater as temp_finance_platform_updater, 
-    temp_finance_platform.update_time as temp_finance_platform_update_time
-  </sql>
-  <select id="selectByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart &gt;= 0">
-      limit ${limitStart} , ${limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_finance_platform temp_finance_platform
-    where temp_finance_platform.platform_id = #{platformId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_finance_platform
-    where platform_id = #{platformId,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample">
-    delete from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
-    insert into t_finance_platform (platform_id, platform_code, platform_name, 
-      platform_bank, bank_stream, bank_name, 
-      bank_code, bank_type, remain_money, 
-      bank_tacitly, auditor, audit_state, 
-      audit_time, audit_opinion, remark, 
-      creater, create_time, updater, 
-      update_time)
-    values (#{platformId,jdbcType=VARCHAR}, #{platformCode,jdbcType=VARCHAR}, #{platformName,jdbcType=VARCHAR}, 
-      #{platformBank,jdbcType=VARCHAR}, #{bankStream,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
-      #{bankCode,jdbcType=VARCHAR}, #{bankType,jdbcType=CHAR}, #{remainMoney,jdbcType=DECIMAL}, 
-      #{bankTacitly,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, 
-      #{auditTime,jdbcType=TIMESTAMP}, #{auditOpinion,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
-    insert into t_finance_platform
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="platformId != null">
-        platform_id,
-      </if>
-      <if test="platformCode != null">
-        platform_code,
-      </if>
-      <if test="platformName != null">
-        platform_name,
-      </if>
-      <if test="platformBank != null">
-        platform_bank,
-      </if>
-      <if test="bankStream != null">
-        bank_stream,
-      </if>
-      <if test="bankName != null">
-        bank_name,
-      </if>
-      <if test="bankCode != null">
-        bank_code,
-      </if>
-      <if test="bankType != null">
-        bank_type,
-      </if>
-      <if test="remainMoney != null">
-        remain_money,
-      </if>
-      <if test="bankTacitly != null">
-        bank_tacitly,
-      </if>
-      <if test="auditor != null">
-        auditor,
-      </if>
-      <if test="auditState != null">
-        audit_state,
-      </if>
-      <if test="auditTime != null">
-        audit_time,
-      </if>
-      <if test="auditOpinion != null">
-        audit_opinion,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="creater != null">
-        creater,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updater != null">
-        updater,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="platformId != null">
-        #{platformId,jdbcType=VARCHAR},
-      </if>
-      <if test="platformCode != null">
-        #{platformCode,jdbcType=VARCHAR},
-      </if>
-      <if test="platformName != null">
-        #{platformName,jdbcType=VARCHAR},
-      </if>
-      <if test="platformBank != null">
-        #{platformBank,jdbcType=VARCHAR},
-      </if>
-      <if test="bankStream != null">
-        #{bankStream,jdbcType=VARCHAR},
-      </if>
-      <if test="bankName != null">
-        #{bankName,jdbcType=VARCHAR},
-      </if>
-      <if test="bankCode != null">
-        #{bankCode,jdbcType=VARCHAR},
-      </if>
-      <if test="bankType != null">
-        #{bankType,jdbcType=CHAR},
-      </if>
-      <if test="remainMoney != null">
-        #{remainMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="bankTacitly != null">
-        #{bankTacitly,jdbcType=CHAR},
-      </if>
-      <if test="auditor != null">
-        #{auditor,jdbcType=VARCHAR},
-      </if>
-      <if test="auditState != null">
-        #{auditState,jdbcType=CHAR},
-      </if>
-      <if test="auditTime != null">
-        #{auditTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="auditOpinion != null">
-        #{auditOpinion,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="creater != null">
-        #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        #{updater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinancePlatformExample" resultType="java.lang.Integer">
-    select count(*) from t_finance_platform temp_finance_platform
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update t_finance_platform temp_finance_platform
-    <set>
-      <if test="record.platformId != null">
-        temp_finance_platform.platform_id = #{record.platformId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.platformCode != null">
-        temp_finance_platform.platform_code = #{record.platformCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.platformName != null">
-        temp_finance_platform.platform_name = #{record.platformName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.platformBank != null">
-        temp_finance_platform.platform_bank = #{record.platformBank,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bankStream != null">
-        temp_finance_platform.bank_stream = #{record.bankStream,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bankName != null">
-        temp_finance_platform.bank_name = #{record.bankName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bankCode != null">
-        temp_finance_platform.bank_code = #{record.bankCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bankType != null">
-        temp_finance_platform.bank_type = #{record.bankType,jdbcType=CHAR},
-      </if>
-      <if test="record.remainMoney != null">
-        temp_finance_platform.remain_money = #{record.remainMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="record.bankTacitly != null">
-        temp_finance_platform.bank_tacitly = #{record.bankTacitly,jdbcType=CHAR},
-      </if>
-      <if test="record.auditor != null">
-        temp_finance_platform.auditor = #{record.auditor,jdbcType=VARCHAR},
-      </if>
-      <if test="record.auditState != null">
-        temp_finance_platform.audit_state = #{record.auditState,jdbcType=CHAR},
-      </if>
-      <if test="record.auditTime != null">
-        temp_finance_platform.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.auditOpinion != null">
-        temp_finance_platform.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null">
-        temp_finance_platform.remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.creater != null">
-        temp_finance_platform.creater = #{record.creater,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        temp_finance_platform.create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updater != null">
-        temp_finance_platform.updater = #{record.updater,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updateTime != null">
-        temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update t_finance_platform temp_finance_platform
-    set temp_finance_platform.platform_id = #{record.platformId,jdbcType=VARCHAR},
-      temp_finance_platform.platform_code = #{record.platformCode,jdbcType=VARCHAR},
-      temp_finance_platform.platform_name = #{record.platformName,jdbcType=VARCHAR},
-      temp_finance_platform.platform_bank = #{record.platformBank,jdbcType=VARCHAR},
-      temp_finance_platform.bank_stream = #{record.bankStream,jdbcType=VARCHAR},
-      temp_finance_platform.bank_name = #{record.bankName,jdbcType=VARCHAR},
-      temp_finance_platform.bank_code = #{record.bankCode,jdbcType=VARCHAR},
-      temp_finance_platform.bank_type = #{record.bankType,jdbcType=CHAR},
-      temp_finance_platform.remain_money = #{record.remainMoney,jdbcType=DECIMAL},
-      temp_finance_platform.bank_tacitly = #{record.bankTacitly,jdbcType=CHAR},
-      temp_finance_platform.auditor = #{record.auditor,jdbcType=VARCHAR},
-      temp_finance_platform.audit_state = #{record.auditState,jdbcType=CHAR},
-      temp_finance_platform.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
-      temp_finance_platform.audit_opinion = #{record.auditOpinion,jdbcType=VARCHAR},
-      temp_finance_platform.remark = #{record.remark,jdbcType=VARCHAR},
-      temp_finance_platform.creater = #{record.creater,jdbcType=VARCHAR},
-      temp_finance_platform.create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      temp_finance_platform.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
-    update t_finance_platform
-    <set>
-      <if test="platformCode != null">
-        platform_code = #{platformCode,jdbcType=VARCHAR},
-      </if>
-      <if test="platformName != null">
-        platform_name = #{platformName,jdbcType=VARCHAR},
-      </if>
-      <if test="platformBank != null">
-        platform_bank = #{platformBank,jdbcType=VARCHAR},
-      </if>
-      <if test="bankStream != null">
-        bank_stream = #{bankStream,jdbcType=VARCHAR},
-      </if>
-      <if test="bankName != null">
-        bank_name = #{bankName,jdbcType=VARCHAR},
-      </if>
-      <if test="bankCode != null">
-        bank_code = #{bankCode,jdbcType=VARCHAR},
-      </if>
-      <if test="bankType != null">
-        bank_type = #{bankType,jdbcType=CHAR},
-      </if>
-      <if test="remainMoney != null">
-        remain_money = #{remainMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="bankTacitly != null">
-        bank_tacitly = #{bankTacitly,jdbcType=CHAR},
-      </if>
-      <if test="auditor != null">
-        auditor = #{auditor,jdbcType=VARCHAR},
-      </if>
-      <if test="auditState != null">
-        audit_state = #{auditState,jdbcType=CHAR},
-      </if>
-      <if test="auditTime != null">
-        audit_time = #{auditTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="auditOpinion != null">
-        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="creater != null">
-        creater = #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        updater = #{updater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where platform_id = #{platformId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinancePlatform">
-    update t_finance_platform
-    set platform_code = #{platformCode,jdbcType=VARCHAR},
-      platform_name = #{platformName,jdbcType=VARCHAR},
-      platform_bank = #{platformBank,jdbcType=VARCHAR},
-      bank_stream = #{bankStream,jdbcType=VARCHAR},
-      bank_name = #{bankName,jdbcType=VARCHAR},
-      bank_code = #{bankCode,jdbcType=VARCHAR},
-      bank_type = #{bankType,jdbcType=CHAR},
-      remain_money = #{remainMoney,jdbcType=DECIMAL},
-      bank_tacitly = #{bankTacitly,jdbcType=CHAR},
       auditor = #{auditor,jdbcType=VARCHAR},
       audit_state = #{auditState,jdbcType=CHAR},
       audit_time = #{auditTime,jdbcType=TIMESTAMP},
