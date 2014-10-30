@@ -104,6 +104,17 @@ public class FinaceWithdrawMemberExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
+        
+        
+        public Criteria andMemberDisplayLike(String value) {
+        	addCriterion("temp_shipper_member.member_name like",value,"memberDisplay");
+            return (Criteria) this;
+        }
+        
+        public Criteria andWithdrawFeeWayEqualTo(String value) {
+            addCriterion("temp_withdraw_fee_way.fee_way=", value, "feeWay");
+            return (Criteria) this;
+        }
 
         protected void addCriterion(String condition) {
             if (condition == null) {

@@ -11,7 +11,7 @@ public class FinaceWithdrawMemberQueryDTO extends FinaceWithdrawMember{
 
     private Date createEndTime;
     
-    public Date getCreateStartTime() {
+   public Date getCreateStartTime() {
 		return createStartTime;
 	}
 
@@ -30,6 +30,13 @@ public class FinaceWithdrawMemberQueryDTO extends FinaceWithdrawMember{
 	
     public void setQueryCondition(Criteria queryCriteria, String q) {
 	      
+    	if(this.getMemberDisplay()!=null)
+   	     queryCriteria.andMemberDisplayLike("%" + this.getMemberDisplay() + "%");
+    	
+    	if(this.getFeeWay()!=null)
+    		queryCriteria.andWithdrawFeeWayEqualTo(this.getFeeWay().toString());
+    	
+    	
     	if(null != createStartTime && null != createEndTime){//创建时间段查询
 	            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
 	      }else{

@@ -81,7 +81,7 @@ public class FinaceWithdrawMemberController {
   //会员提现详情页
    	@RequestMapping(value = "/intoDetail.htm")
    	private Object intoFinaceWithdrawMemberDetailPage(String withdrawId) {
-   	    ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember_detail");
+   	    ModelAndView mav = new ModelAndView("finace_mgr/finaceWithdrawMember_mgr/finaceWithdrawMember_detail");
    	    if(StringUtils.isNotBlank(withdrawId)){
    	          mav.addObject("finaceWithdrawMemberData", finaceWithdrawMemberService.getFinaceWithdrawMemberPro(withdrawId));
    	    }
@@ -91,9 +91,9 @@ public class FinaceWithdrawMemberController {
   	// 进入会员提现记录audit表单页面
      @RequestMapping(value = "/intoAudit.htm")
      private Object intoAuditWithdrawCarrier(String withdrawId) {
-         ModelAndView mav = new ModelAndView("finace_mgr/finaceRechargeMember_mgr/finaceRechargeMember_audit");
+         ModelAndView mav = new ModelAndView("finace_mgr/finaceWithdrawMember_mgr/finaceWithdrawMember_audit");
          if(StringUtils.isNotBlank(withdrawId)){
-         	mav.addObject("finaceRechargeMemberData", finaceWithdrawMemberService.getFinaceWithdrawMemberPro(withdrawId));
+         	mav.addObject("finaceWithdrawMemberData", finaceWithdrawMemberService.getFinaceWithdrawMemberPro(withdrawId));
          }
          return mav;
      }

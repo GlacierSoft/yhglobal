@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceWithdrawMember {
     private String withdrawId;
 
@@ -22,6 +24,7 @@ public class FinaceWithdrawMember {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -30,13 +33,73 @@ public class FinaceWithdrawMember {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    
+    private String feeWay;
+    private String withdrawName;
+    private String createrDisplay;
+    private String updaterDisplay;
+    private String memberDisplay;
+    private String auditorDisplay;
+    
+   
 
-    public String getWithdrawId() {
+    public String getFeeWay() {
+		return feeWay;
+	}
+
+	public void setFeeWay(String feeWay) {
+		this.feeWay = feeWay;
+	}
+
+	public String getWithdrawName() {
+		return withdrawName;
+	}
+
+	public void setWithdrawName(String withdrawName) {
+		this.withdrawName = withdrawName;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getWithdrawId() {
         return withdrawId;
     }
 

@@ -13,7 +13,13 @@
     <result column="temp_finance_member_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_member_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_member_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+    
+    <result column="temp_finance_member_detail_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_detail_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_detail_member_display" property="memberDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_detail_belaidup_display" property="belaidupDisplay" jdbcType="VARCHAR" />
+    
+   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -80,7 +86,21 @@
     temp_finance_member_detail.remark as temp_finance_member_detail_remark, temp_finance_member_detail.creater as temp_finance_member_detail_creater, 
     temp_finance_member_detail.create_time as temp_finance_member_detail_create_time, 
     temp_finance_member_detail.updater as temp_finance_member_detail_updater, temp_finance_member_detail.update_time as temp_finance_member_detail_update_time
+  
+    ,temp_creater.user_cn_name as   temp_finance_member_detail_creater_display
+    ,temp_updater.user_cn_name as   temp_finance_member_detail_updater_display
+    ,temp_shipper_member.member_name as   temp_finance_member_detail_member_display
+    ,temp_belaidup.belaidup_prod_name as temp_finance_member_detail_belaidup_display
   </sql>
+  
+  <sql id="Base_extend">
+	LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finance_member_detail.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finance_member_detail.updater <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_finance_member_detail.member_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_belaidup temp_belaidup ON temp_belaidup.belaidup_id =temp_finance_member_detail.article_id <!-- 扩展 -->
+  </sql>
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceMemberDetailExample" >
     select
     <if test="distinct" >
@@ -88,6 +108,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_member_detail temp_finance_member_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,6 +123,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_member_detail temp_finance_member_detail
+    <include refid="Base_extend" />
     where temp_finance_member_detail.mdetail_id = #{mdetailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -199,6 +221,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinanceMemberDetailExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_member_detail temp_finance_member_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

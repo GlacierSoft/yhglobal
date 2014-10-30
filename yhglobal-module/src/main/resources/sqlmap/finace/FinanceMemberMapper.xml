@@ -14,7 +14,13 @@
     <result column="temp_finance_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+    
+    <result column="temp_finance_member_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_member_display" property="memberDisplay" jdbcType="VARCHAR" />
+    
+   </resultMap>
+   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -80,7 +86,19 @@
     temp_finance_member.mrecharge_mark as temp_finance_member_mrecharge_mark, temp_finance_member.remark as temp_finance_member_remark, 
     temp_finance_member.creater as temp_finance_member_creater, temp_finance_member.create_time as temp_finance_member_create_time, 
     temp_finance_member.updater as temp_finance_member_updater, temp_finance_member.update_time as temp_finance_member_update_time
-  </sql>
+  
+    ,temp_creater.user_cn_name as   temp_finance_member_creater_display
+    ,temp_updater.user_cn_name as   temp_finance_member_updater_display
+    ,temp_shipper_member.member_name as   temp_finance_member_member_display
+     
+ </sql>
+  
+  <sql id="Base_extend">
+  	 LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_member.creater <!-- 扩展 -->
+ 	 LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_member.updater <!-- 扩展 -->
+  	 LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id = temp_finance_member.member_id <!-- 扩展 -->
+   </sql>  
+    
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceMemberExample" >
     select
     <if test="distinct" >
@@ -88,6 +106,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,6 +121,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     where temp_finance_member.mrechage_id = #{mrechageId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -207,6 +227,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinanceMemberExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

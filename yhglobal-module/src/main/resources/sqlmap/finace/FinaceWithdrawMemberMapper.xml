@@ -103,11 +103,12 @@
   
        <!-- 以下字段属于扩展 -->
     ,temp_withdraw_name.withdraw_name as  temp_finace_withdraw_member_withdraw_name 
-    ,temp_recharge_fee_way.fee_way as   temp_finace_withdraw_member_fee_way
+    ,temp_withdraw_fee_way.fee_way as   temp_finace_withdraw_member_fee_way
     ,temp_creater.user_cn_name as    temp_finace_withdraw_member_creater_display
     ,temp_updater.user_cn_name as    temp_finace_withdraw_member_updater_display
     ,temp_shipper_member.member_name as    temp_finace_withdraw_member_member_display
     ,temp_auditor.user_cn_name as  temp_finace_withdraw_member_auditor_display
+  
   </sql>
   
   <sql id="Base_extend">
