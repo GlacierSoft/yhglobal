@@ -18,6 +18,10 @@
     <result column="temp_finance_carrier_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_carrier_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_carrier_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<result column="temp_finance_carrier_detail_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_carrier_detail_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_carrier_detail_carrier_member_display" property="carrierMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_finance_carrier_detail_article_display" property="articleDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -91,6 +95,17 @@
     temp_finance_carrier_detail.remark as temp_finance_carrier_detail_remark, temp_finance_carrier_detail.creater as temp_finance_carrier_detail_creater, 
     temp_finance_carrier_detail.create_time as temp_finance_carrier_detail_create_time, 
     temp_finance_carrier_detail.updater as temp_finance_carrier_detail_updater, temp_finance_carrier_detail.update_time as temp_finance_carrier_detail_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_finance_carrier_detail_creater_display
+    ,temp_updater.user_cn_name as temp_finance_carrier_detail_updater_display
+    ,temp_carrier.member_name as temp_finance_carrier_detail_carrier_member_display
+  	,temp_belaidup.belaidup_prod_name as temp_finance_carrier_detail_article_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_carrier_detail.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_carrier_detail.updater <!-- 扩展 -->
+  	LEFT JOIN t_carrier_member temp_carrier ON temp_carrier.carrier_member_id = temp_finance_carrier_detail.carrier_id <!-- 扩展 -->
+  	LEFT JOIN t_storehouse_belaidup temp_belaidup ON temp_belaidup.belaidup_id = temp_finance_carrier_detail.article_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceCarrierDetailExample" >
     select
@@ -99,6 +114,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_carrier_detail temp_finance_carrier_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -113,6 +129,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_carrier_detail temp_finance_carrier_detail
+    <include refid="Base_extend" />
     where temp_finance_carrier_detail.detail_id = #{detailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -244,6 +261,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinanceCarrierDetailExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_carrier_detail temp_finance_carrier_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

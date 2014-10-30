@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceCarrier {
     private String carrierId;
 
@@ -24,11 +26,22 @@ public class FinanceCarrier {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String carrierMemberDisplay;
 
     public String getCarrierId() {
         return carrierId;
@@ -134,7 +147,31 @@ public class FinanceCarrier {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getCarrierMemberDisplay() {
+		return carrierMemberDisplay;
+	}
+
+	public void setCarrierMemberDisplay(String carrierMemberDisplay) {
+		this.carrierMemberDisplay = carrierMemberDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

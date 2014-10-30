@@ -105,6 +105,11 @@ public class FinaceWithdrawCarrierExample {
             return criteria;
         }
 
+        public Criteria andWithdrawSetDisplayLike(String value) {
+            addCriterion("temp_withdrawSet.withdraw_name like", value, "withdrawSetDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

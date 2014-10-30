@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceWithdrawCarrier {
     private String withdrawId;
 
@@ -22,6 +24,7 @@ public class FinaceWithdrawCarrier {
 
     private String auditState;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 
     private String auditOpinion;
@@ -30,12 +33,27 @@ public class FinaceWithdrawCarrier {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    private String withdrawSetDisplay;
+    
+    private String auditorDisplay;
+    
+    private String carrierDisplay;
+    
     public String getWithdrawId() {
         return withdrawId;
     }
@@ -164,7 +182,47 @@ public class FinaceWithdrawCarrier {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getWithdrawSetDisplay() {
+		return withdrawSetDisplay;
+	}
+
+	public void setWithdrawSetDisplay(String withdrawSetDisplay) {
+		this.withdrawSetDisplay = withdrawSetDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCarrierDisplay() {
+		return carrierDisplay;
+	}
+
+	public void setCarrierDisplay(String carrierDisplay) {
+		this.carrierDisplay = carrierDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

@@ -105,6 +105,11 @@ public class FinanceCarrierExample {
             return criteria;
         }
 
+        public Criteria andCarrierMemberDisplayLike(String value) {
+            addCriterion("temp_carrier.member_name like", value, "carrierMemberDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
