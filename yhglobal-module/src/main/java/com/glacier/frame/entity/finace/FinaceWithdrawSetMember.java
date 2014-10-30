@@ -14,7 +14,7 @@ public class FinaceWithdrawSetMember {
 
     private String feeWay;
 
-    private String memberId;
+    private String gradeId;
 
     private String auditor;
 
@@ -74,12 +74,12 @@ public class FinaceWithdrawSetMember {
         this.feeWay = feeWay;
     }
 
-    public String getMemberId() {
-        return memberId;
+    public String getGradeId() {
+        return gradeId;
     }
 
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
+    public void setGradeId(String gradeId) {
+        this.gradeId = gradeId;
     }
 
     public String getAuditor() {
@@ -171,7 +171,7 @@ public class FinaceWithdrawSetMember {
             && (this.getWithdrawRate() == null ? other.getWithdrawRate() == null : this.getWithdrawRate().equals(other.getWithdrawRate()))
             && (this.getWithdrawMoney() == null ? other.getWithdrawMoney() == null : this.getWithdrawMoney().equals(other.getWithdrawMoney()))
             && (this.getFeeWay() == null ? other.getFeeWay() == null : this.getFeeWay().equals(other.getFeeWay()))
-            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
+            && (this.getGradeId() == null ? other.getGradeId() == null : this.getGradeId().equals(other.getGradeId()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditTime() == null ? other.getAuditTime() == null : this.getAuditTime().equals(other.getAuditTime()))
@@ -192,7 +192,7 @@ public class FinaceWithdrawSetMember {
         result = prime * result + ((getWithdrawRate() == null) ? 0 : getWithdrawRate().hashCode());
         result = prime * result + ((getWithdrawMoney() == null) ? 0 : getWithdrawMoney().hashCode());
         result = prime * result + ((getFeeWay() == null) ? 0 : getFeeWay().hashCode());
-        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
+        result = prime * result + ((getGradeId() == null) ? 0 : getGradeId().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditTime() == null) ? 0 : getAuditTime().hashCode());

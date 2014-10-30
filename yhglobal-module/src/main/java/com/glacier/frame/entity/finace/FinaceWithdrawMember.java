@@ -35,68 +35,8 @@ public class FinaceWithdrawMember {
     private String updater;
 
     private Date updateTime;
-    
-    
-    /**
-     * 自定义字段 
-     */
-    
-    private String createrDisplay;
-    private String updaterDisplay;
-    private String withdrawName;
-    private String feeWay;
-    private  String memberDisplay;
-    private String auditorDisplay;
-    
-     public String getCreaterDisplay() {
-		return createrDisplay;
-	}
 
-	public void setCreaterDisplay(String createrDisplay) {
-		this.createrDisplay = createrDisplay;
-	}
-
-	public String getUpdaterDisplay() {
-		return updaterDisplay;
-	}
-
-	public void setUpdaterDisplay(String updaterDisplay) {
-		this.updaterDisplay = updaterDisplay;
-	}
-
-	public String getWithdrawName() {
-		return withdrawName;
-	}
-
-	public void setWithdrawName(String withdrawName) {
-		this.withdrawName = withdrawName;
-	}
-
-	public String getFeeWay() {
-		return feeWay;
-	}
-
-	public void setFeeWay(String feeWay) {
-		this.feeWay = feeWay;
-	}
-
-	public String getMemberDisplay() {
-		return memberDisplay;
-	}
-
-	public void setMemberDisplay(String memberDisplay) {
-		this.memberDisplay = memberDisplay;
-	}
-
-	public String getAuditorDisplay() {
-		return auditorDisplay;
-	}
-
-	public void setAuditorDisplay(String auditorDisplay) {
-		this.auditorDisplay = auditorDisplay;
-	}
-
-	public String getWithdrawId() {
+    public String getWithdrawId() {
         return withdrawId;
     }
 

@@ -27,7 +27,8 @@
     <result column="temp_finace_withdraw_member_auditor_display" property="auditorDisplay" jdbcType="VARCHAR" />
     
    </resultMap>
-  <sql id="Example_Where_Clause" >
+
+   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
@@ -101,17 +102,17 @@
     temp_finace_withdraw_member.updater as temp_finace_withdraw_member_updater, temp_finace_withdraw_member.update_time as temp_finace_withdraw_member_update_time
   
        <!-- 以下字段属于扩展 -->
-    ,temp_recharge_set_name.recharge_set_name as  temp_finace_recharge_member_recharge_set_name 
-    ,temp_recharge_fee_way.fee_way as  temp_finace_recharge_member_fee_way
-    ,temp_creater.user_cn_name as   temp_finace_recharge_member_creater_display
-    ,temp_updater.user_cn_name as   temp_finace_recharge_member_updater_display
-    ,temp_shipper_member.member_name as   temp_finace_recharge_member_member_display
-    ,temp_auditor.user_cn_name as   temp_finace_recharge_member_auditor_display
+    ,temp_withdraw_name.withdraw_name as  temp_finace_withdraw_member_withdraw_name 
+    ,temp_recharge_fee_way.fee_way as   temp_finace_withdraw_member_fee_way
+    ,temp_creater.user_cn_name as    temp_finace_withdraw_member_creater_display
+    ,temp_updater.user_cn_name as    temp_finace_withdraw_member_updater_display
+    ,temp_shipper_member.member_name as    temp_finace_withdraw_member_member_display
+    ,temp_auditor.user_cn_name as  temp_finace_withdraw_member_auditor_display
   </sql>
   
   <sql id="Base_extend">
-	LEFT JOIN t_finace_withdraw_set_member temp_recharge_set_name ON  temp_recharge_set_name.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
-    LEFT JOIN t_finace_recharge_set_member  temp_recharge_fee_way ON temp_recharge_fee_way.recharge_set_id =temp_finace_recharge_member.recharge_set_id<!-- 扩展 -->
+	LEFT JOIN t_finace_withdraw_set_member temp_withdraw_name ON  temp_withdraw_name.withdraw_set_id =temp_finace_withdraw_member.withdraw_set_id<!-- 扩展 -->
+    LEFT JOIN t_finace_withdraw_set_member temp_withdraw_fee_way ON temp_withdraw_fee_way.withdraw_set_id =temp_finace_withdraw_member.withdraw_set_id<!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finace_withdraw_member.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finace_withdraw_member.updater <!-- 扩展 -->
     LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_finace_withdraw_member.member_id <!-- 扩展 -->
@@ -125,6 +126,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finace_withdraw_member temp_finace_withdraw_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -139,6 +141,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finace_withdraw_member temp_finace_withdraw_member
+    <include refid="Base_extend" />
     where temp_finace_withdraw_member.withdraw_id = #{withdrawId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -270,6 +273,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinaceWithdrawMemberExample" resultType="java.lang.Integer" >
     select count(*) from t_finace_withdraw_member temp_finace_withdraw_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

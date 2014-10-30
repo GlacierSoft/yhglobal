@@ -456,73 +456,73 @@ public class FinaceWithdrawSetMemberExample {
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdIsNull() {
-            addCriterion("temp_finace_withdraw_set_member.member_id is null");
+        public Criteria andGradeIdIsNull() {
+            addCriterion("temp_finace_withdraw_set_member.grade_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdIsNotNull() {
-            addCriterion("temp_finace_withdraw_set_member.member_id is not null");
+        public Criteria andGradeIdIsNotNull() {
+            addCriterion("temp_finace_withdraw_set_member.grade_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdEqualTo(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id =", value, "memberId");
+        public Criteria andGradeIdEqualTo(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id =", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdNotEqualTo(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id <>", value, "memberId");
+        public Criteria andGradeIdNotEqualTo(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id <>", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdGreaterThan(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id >", value, "memberId");
+        public Criteria andGradeIdGreaterThan(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id >", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id >=", value, "memberId");
+        public Criteria andGradeIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id >=", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdLessThan(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id <", value, "memberId");
+        public Criteria andGradeIdLessThan(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id <", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id <=", value, "memberId");
+        public Criteria andGradeIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id <=", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdLike(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id like", value, "memberId");
+        public Criteria andGradeIdLike(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id like", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdNotLike(String value) {
-            addCriterion("temp_finace_withdraw_set_member.member_id not like", value, "memberId");
+        public Criteria andGradeIdNotLike(String value) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id not like", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdIn(List<String> values) {
-            addCriterion("temp_finace_withdraw_set_member.member_id in", values, "memberId");
+        public Criteria andGradeIdIn(List<String> values) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id in", values, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdNotIn(List<String> values) {
-            addCriterion("temp_finace_withdraw_set_member.member_id not in", values, "memberId");
+        public Criteria andGradeIdNotIn(List<String> values) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id not in", values, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdBetween(String value1, String value2) {
-            addCriterion("temp_finace_withdraw_set_member.member_id between", value1, value2, "memberId");
+        public Criteria andGradeIdBetween(String value1, String value2) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id between", value1, value2, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdNotBetween(String value1, String value2) {
-            addCriterion("temp_finace_withdraw_set_member.member_id not between", value1, value2, "memberId");
+        public Criteria andGradeIdNotBetween(String value1, String value2) {
+            addCriterion("temp_finace_withdraw_set_member.grade_id not between", value1, value2, "gradeId");
             return (Criteria) this;
         }
 
