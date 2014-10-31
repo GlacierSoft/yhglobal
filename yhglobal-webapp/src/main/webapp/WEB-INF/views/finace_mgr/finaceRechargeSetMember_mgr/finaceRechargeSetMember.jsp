@@ -15,8 +15,21 @@
              del:{flag:'del',controlType:'multiple'},
              audit:{flag:'audit',controlType:'single'}
           }
+		
      };
 
+	//选中行的时候默认调用的方法 
+	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.alwaySelect = function(){
+		var rows = glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#finaceRechargeSetMember_btn_FinaceRechargeSetMemberList_edit').linkbutton('disable');//置灰修改按钮
+			$('#finaceRechargeSetMember_btn_FinaceRechargeSetMemberList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#finaceRechargeSetMember_btn_FinaceRechargeSetMemberList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
 	//初始化客服DataGrid
 	glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.finaceRechargeSetMemberDataGrid = $('#finaceRechargeSetMemberDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -142,6 +155,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.param,this).select();
+							glacier.finace_mgr.finaceRechargeSetMember_mgr.finaceRechargeSetMember.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
