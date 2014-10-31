@@ -196,443 +196,393 @@ public class FinancePlatformDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIsNull() {
-            addCriterion("temp_finance_platform_detail.article_id is null");
+        public Criteria andPlatformIdIsNull() {
+            addCriterion("temp_finance_platform_detail.platform_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIsNotNull() {
-            addCriterion("temp_finance_platform_detail.article_id is not null");
+        public Criteria andPlatformIdIsNotNull() {
+            addCriterion("temp_finance_platform_detail.platform_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.article_id =", value, "articleId");
+        public Criteria andPlatformIdEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id =", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.article_id <>", value, "articleId");
+        public Criteria andPlatformIdNotEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id <>", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThan(String value) {
-            addCriterion("temp_finance_platform_detail.article_id >", value, "articleId");
+        public Criteria andPlatformIdGreaterThan(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id >", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.article_id >=", value, "articleId");
+        public Criteria andPlatformIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id >=", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThan(String value) {
-            addCriterion("temp_finance_platform_detail.article_id <", value, "articleId");
+        public Criteria andPlatformIdLessThan(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id <", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.article_id <=", value, "articleId");
+        public Criteria andPlatformIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id <=", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLike(String value) {
-            addCriterion("temp_finance_platform_detail.article_id like", value, "articleId");
+        public Criteria andPlatformIdLike(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id like", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotLike(String value) {
-            addCriterion("temp_finance_platform_detail.article_id not like", value, "articleId");
+        public Criteria andPlatformIdNotLike(String value) {
+            addCriterion("temp_finance_platform_detail.platform_id not like", value, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIn(List<String> values) {
-            addCriterion("temp_finance_platform_detail.article_id in", values, "articleId");
+        public Criteria andPlatformIdIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.platform_id in", values, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotIn(List<String> values) {
-            addCriterion("temp_finance_platform_detail.article_id not in", values, "articleId");
+        public Criteria andPlatformIdNotIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.platform_id not in", values, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdBetween(String value1, String value2) {
-            addCriterion("temp_finance_platform_detail.article_id between", value1, value2, "articleId");
+        public Criteria andPlatformIdBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.platform_id between", value1, value2, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotBetween(String value1, String value2) {
-            addCriterion("temp_finance_platform_detail.article_id not between", value1, value2, "articleId");
+        public Criteria andPlatformIdNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.platform_id not between", value1, value2, "platformId");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdIsNull() {
-            addCriterion("temp_finance_platform_detail.carrier_id is null");
+        public Criteria andTradeTargetIsNull() {
+            addCriterion("temp_finance_platform_detail.trade_target is null");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdIsNotNull() {
-            addCriterion("temp_finance_platform_detail.carrier_id is not null");
+        public Criteria andTradeTargetIsNotNull() {
+            addCriterion("temp_finance_platform_detail.trade_target is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id =", value, "carrierId");
+        public Criteria andTradeTargetEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target =", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdNotEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id <>", value, "carrierId");
+        public Criteria andTradeTargetNotEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target <>", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdGreaterThan(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id >", value, "carrierId");
+        public Criteria andTradeTargetGreaterThan(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target >", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id >=", value, "carrierId");
+        public Criteria andTradeTargetGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target >=", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdLessThan(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id <", value, "carrierId");
+        public Criteria andTradeTargetLessThan(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target <", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id <=", value, "carrierId");
+        public Criteria andTradeTargetLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target <=", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdLike(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id like", value, "carrierId");
+        public Criteria andTradeTargetLike(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target like", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdNotLike(String value) {
-            addCriterion("temp_finance_platform_detail.carrier_id not like", value, "carrierId");
+        public Criteria andTradeTargetNotLike(String value) {
+            addCriterion("temp_finance_platform_detail.trade_target not like", value, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdIn(List<String> values) {
-            addCriterion("temp_finance_platform_detail.carrier_id in", values, "carrierId");
+        public Criteria andTradeTargetIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.trade_target in", values, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdNotIn(List<String> values) {
-            addCriterion("temp_finance_platform_detail.carrier_id not in", values, "carrierId");
+        public Criteria andTradeTargetNotIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.trade_target not in", values, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdBetween(String value1, String value2) {
-            addCriterion("temp_finance_platform_detail.carrier_id between", value1, value2, "carrierId");
+        public Criteria andTradeTargetBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.trade_target between", value1, value2, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andCarrierIdNotBetween(String value1, String value2) {
-            addCriterion("temp_finance_platform_detail.carrier_id not between", value1, value2, "carrierId");
+        public Criteria andTradeTargetNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.trade_target not between", value1, value2, "tradeTarget");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeIsNull() {
-            addCriterion("temp_finance_platform_detail.detail_income is null");
+        public Criteria andTradeTypeIsNull() {
+            addCriterion("temp_finance_platform_detail.trade_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeIsNotNull() {
-            addCriterion("temp_finance_platform_detail.detail_income is not null");
+        public Criteria andTradeTypeIsNotNull() {
+            addCriterion("temp_finance_platform_detail.trade_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income =", value, "detailIncome");
+        public Criteria andTradeTypeEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type =", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeNotEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income <>", value, "detailIncome");
+        public Criteria andTradeTypeNotEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type <>", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeGreaterThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income >", value, "detailIncome");
+        public Criteria andTradeTypeGreaterThan(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type >", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income >=", value, "detailIncome");
+        public Criteria andTradeTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type >=", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeLessThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income <", value, "detailIncome");
+        public Criteria andTradeTypeLessThan(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type <", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_income <=", value, "detailIncome");
+        public Criteria andTradeTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type <=", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_income in", values, "detailIncome");
+        public Criteria andTradeTypeLike(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type like", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeNotIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_income not in", values, "detailIncome");
+        public Criteria andTradeTypeNotLike(String value) {
+            addCriterion("temp_finance_platform_detail.trade_type not like", value, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_income between", value1, value2, "detailIncome");
+        public Criteria andTradeTypeIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.trade_type in", values, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIncomeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_income not between", value1, value2, "detailIncome");
+        public Criteria andTradeTypeNotIn(List<String> values) {
+            addCriterion("temp_finance_platform_detail.trade_type not in", values, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforIsNull() {
-            addCriterion("temp_finance_platform_detail.detail_payfor is null");
+        public Criteria andTradeTypeBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.trade_type between", value1, value2, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforIsNotNull() {
-            addCriterion("temp_finance_platform_detail.detail_payfor is not null");
+        public Criteria andTradeTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform_detail.trade_type not between", value1, value2, "tradeType");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor =", value, "detailPayfor");
+        public Criteria andTradeEarnIsNull() {
+            addCriterion("temp_finance_platform_detail.trade_earn is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforNotEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor <>", value, "detailPayfor");
+        public Criteria andTradeEarnIsNotNull() {
+            addCriterion("temp_finance_platform_detail.trade_earn is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforGreaterThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor >", value, "detailPayfor");
+        public Criteria andTradeEarnEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn =", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor >=", value, "detailPayfor");
+        public Criteria andTradeEarnNotEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn <>", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforLessThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor <", value, "detailPayfor");
+        public Criteria andTradeEarnGreaterThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn >", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_payfor <=", value, "detailPayfor");
+        public Criteria andTradeEarnGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn >=", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_payfor in", values, "detailPayfor");
+        public Criteria andTradeEarnLessThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn <", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforNotIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_payfor not in", values, "detailPayfor");
+        public Criteria andTradeEarnLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_earn <=", value, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_payfor between", value1, value2, "detailPayfor");
+        public Criteria andTradeEarnIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_earn in", values, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayforNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_payfor not between", value1, value2, "detailPayfor");
+        public Criteria andTradeEarnNotIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_earn not in", values, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayIsNull() {
-            addCriterion("temp_finance_platform_detail.detail_pay is null");
+        public Criteria andTradeEarnBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_earn between", value1, value2, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayIsNotNull() {
-            addCriterion("temp_finance_platform_detail.detail_pay is not null");
+        public Criteria andTradeEarnNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_earn not between", value1, value2, "tradeEarn");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay =", value, "detailPay");
+        public Criteria andTradeSpendIsNull() {
+            addCriterion("temp_finance_platform_detail.trade_spend is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayNotEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay <>", value, "detailPay");
+        public Criteria andTradeSpendIsNotNull() {
+            addCriterion("temp_finance_platform_detail.trade_spend is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayGreaterThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay >", value, "detailPay");
+        public Criteria andTradeSpendEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend =", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay >=", value, "detailPay");
+        public Criteria andTradeSpendNotEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend <>", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayLessThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay <", value, "detailPay");
+        public Criteria andTradeSpendGreaterThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend >", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_pay <=", value, "detailPay");
+        public Criteria andTradeSpendGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend >=", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_pay in", values, "detailPay");
+        public Criteria andTradeSpendLessThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend <", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayNotIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_pay not in", values, "detailPay");
+        public Criteria andTradeSpendLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_spend <=", value, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_pay between", value1, value2, "detailPay");
+        public Criteria andTradeSpendIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_spend in", values, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailPayNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_pay not between", value1, value2, "detailPay");
+        public Criteria andTradeSpendNotIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_spend not in", values, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveIsNull() {
-            addCriterion("temp_finance_platform_detail.detail_leave is null");
+        public Criteria andTradeSpendBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_spend between", value1, value2, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveIsNotNull() {
-            addCriterion("temp_finance_platform_detail.detail_leave is not null");
+        public Criteria andTradeSpendNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_spend not between", value1, value2, "tradeSpend");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave =", value, "detailLeave");
+        public Criteria andTradeAmountIsNull() {
+            addCriterion("temp_finance_platform_detail.trade_amount is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveNotEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave <>", value, "detailLeave");
+        public Criteria andTradeAmountIsNotNull() {
+            addCriterion("temp_finance_platform_detail.trade_amount is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveGreaterThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave >", value, "detailLeave");
+        public Criteria andTradeAmountEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount =", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave >=", value, "detailLeave");
+        public Criteria andTradeAmountNotEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount <>", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveLessThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave <", value, "detailLeave");
+        public Criteria andTradeAmountGreaterThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount >", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_leave <=", value, "detailLeave");
+        public Criteria andTradeAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount >=", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_leave in", values, "detailLeave");
+        public Criteria andTradeAmountLessThan(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount <", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveNotIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_leave not in", values, "detailLeave");
+        public Criteria andTradeAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_finance_platform_detail.trade_amount <=", value, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_leave between", value1, value2, "detailLeave");
+        public Criteria andTradeAmountIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_amount in", values, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLeaveNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_leave not between", value1, value2, "detailLeave");
+        public Criteria andTradeAmountNotIn(List<BigDecimal> values) {
+            addCriterion("temp_finance_platform_detail.trade_amount not in", values, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailMarkIsNull() {
-            addCriterion("temp_finance_platform_detail.detail_mark is null");
+        public Criteria andTradeAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_amount between", value1, value2, "tradeAmount");
             return (Criteria) this;
         }
 
-        public Criteria andDetailMarkIsNotNull() {
-            addCriterion("temp_finance_platform_detail.detail_mark is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark =", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkNotEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark <>", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkGreaterThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark >", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark >=", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkLessThan(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark <", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("temp_finance_platform_detail.detail_mark <=", value, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_mark in", values, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkNotIn(List<BigDecimal> values) {
-            addCriterion("temp_finance_platform_detail.detail_mark not in", values, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_mark between", value1, value2, "detailMark");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailMarkNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("temp_finance_platform_detail.detail_mark not between", value1, value2, "detailMark");
+        public Criteria andTradeAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_finance_platform_detail.trade_amount not between", value1, value2, "tradeAmount");
             return (Criteria) this;
         }
 

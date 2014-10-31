@@ -167,8 +167,8 @@
 			title : '【充值设置】- 增加',
 			width : 800,
 			height : 300,
-			queryUrl : ctx + '/do/finaceRechargeSetMemberController/intoForm.htm',
-			submitUrl : ctx + '/do/finaceRechargeSetMemberController/add.json',
+			queryUrl : ctx + '/do/finaceWithdrawSetMemberController/intoForm.htm',
+			submitUrl : ctx + '/do/finaceWithdrawSetMemberController/add.json',
 			successFun : function (){
 				glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.finaceWithdrawSetMemberDataGrid.datagrid('reload');
 			}
@@ -182,10 +182,10 @@
 				title : '【充值设置】- 编辑',
 				width : 800,
 				height : 300,
-				queryUrl : ctx + '/do/finaceRechargeSetMemberController/intoForm.htm',
-				submitUrl : ctx + '/do/finaceRechargeSetMemberController/edit.json',
+				queryUrl : ctx + '/do/finaceWithdrawSetMemberController/intoForm.htm',
+				submitUrl : ctx + '/do/finaceWithdrawSetMemberController/edit.json',
 				queryParams : {
-					rechargeSetId : row.rechargeSetId
+					withdrawSetId : row.withdrawSetId
 				},
 				successFun : function (){
 					 glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.finaceWithdrawSetMemberDataGrid.datagrid('reload');

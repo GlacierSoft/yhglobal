@@ -6,19 +6,17 @@ import java.util.Date;
 public class FinancePlatformDetail {
     private String detailId;
 
-    private String articleId;
+    private String platformId;
 
-    private String carrierId;
+    private String tradeTarget;
 
-    private BigDecimal detailIncome;
+    private String tradeType;
 
-    private BigDecimal detailPayfor;
+    private BigDecimal tradeEarn;
 
-    private BigDecimal detailPay;
+    private BigDecimal tradeSpend;
 
-    private BigDecimal detailLeave;
-
-    private BigDecimal detailMark;
+    private BigDecimal tradeAmount;
 
     private String remark;
 
@@ -38,60 +36,52 @@ public class FinancePlatformDetail {
         this.detailId = detailId;
     }
 
-    public String getArticleId() {
-        return articleId;
+    public String getPlatformId() {
+        return platformId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId;
+    public void setPlatformId(String platformId) {
+        this.platformId = platformId;
     }
 
-    public String getCarrierId() {
-        return carrierId;
+    public String getTradeTarget() {
+        return tradeTarget;
     }
 
-    public void setCarrierId(String carrierId) {
-        this.carrierId = carrierId;
+    public void setTradeTarget(String tradeTarget) {
+        this.tradeTarget = tradeTarget;
     }
 
-    public BigDecimal getDetailIncome() {
-        return detailIncome;
+    public String getTradeType() {
+        return tradeType;
     }
 
-    public void setDetailIncome(BigDecimal detailIncome) {
-        this.detailIncome = detailIncome;
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
     }
 
-    public BigDecimal getDetailPayfor() {
-        return detailPayfor;
+    public BigDecimal getTradeEarn() {
+        return tradeEarn;
     }
 
-    public void setDetailPayfor(BigDecimal detailPayfor) {
-        this.detailPayfor = detailPayfor;
+    public void setTradeEarn(BigDecimal tradeEarn) {
+        this.tradeEarn = tradeEarn;
     }
 
-    public BigDecimal getDetailPay() {
-        return detailPay;
+    public BigDecimal getTradeSpend() {
+        return tradeSpend;
     }
 
-    public void setDetailPay(BigDecimal detailPay) {
-        this.detailPay = detailPay;
+    public void setTradeSpend(BigDecimal tradeSpend) {
+        this.tradeSpend = tradeSpend;
     }
 
-    public BigDecimal getDetailLeave() {
-        return detailLeave;
+    public BigDecimal getTradeAmount() {
+        return tradeAmount;
     }
 
-    public void setDetailLeave(BigDecimal detailLeave) {
-        this.detailLeave = detailLeave;
-    }
-
-    public BigDecimal getDetailMark() {
-        return detailMark;
-    }
-
-    public void setDetailMark(BigDecimal detailMark) {
-        this.detailMark = detailMark;
+    public void setTradeAmount(BigDecimal tradeAmount) {
+        this.tradeAmount = tradeAmount;
     }
 
     public String getRemark() {
@@ -147,13 +137,12 @@ public class FinancePlatformDetail {
         }
         FinancePlatformDetail other = (FinancePlatformDetail) that;
         return (this.getDetailId() == null ? other.getDetailId() == null : this.getDetailId().equals(other.getDetailId()))
-            && (this.getArticleId() == null ? other.getArticleId() == null : this.getArticleId().equals(other.getArticleId()))
-            && (this.getCarrierId() == null ? other.getCarrierId() == null : this.getCarrierId().equals(other.getCarrierId()))
-            && (this.getDetailIncome() == null ? other.getDetailIncome() == null : this.getDetailIncome().equals(other.getDetailIncome()))
-            && (this.getDetailPayfor() == null ? other.getDetailPayfor() == null : this.getDetailPayfor().equals(other.getDetailPayfor()))
-            && (this.getDetailPay() == null ? other.getDetailPay() == null : this.getDetailPay().equals(other.getDetailPay()))
-            && (this.getDetailLeave() == null ? other.getDetailLeave() == null : this.getDetailLeave().equals(other.getDetailLeave()))
-            && (this.getDetailMark() == null ? other.getDetailMark() == null : this.getDetailMark().equals(other.getDetailMark()))
+            && (this.getPlatformId() == null ? other.getPlatformId() == null : this.getPlatformId().equals(other.getPlatformId()))
+            && (this.getTradeTarget() == null ? other.getTradeTarget() == null : this.getTradeTarget().equals(other.getTradeTarget()))
+            && (this.getTradeType() == null ? other.getTradeType() == null : this.getTradeType().equals(other.getTradeType()))
+            && (this.getTradeEarn() == null ? other.getTradeEarn() == null : this.getTradeEarn().equals(other.getTradeEarn()))
+            && (this.getTradeSpend() == null ? other.getTradeSpend() == null : this.getTradeSpend().equals(other.getTradeSpend()))
+            && (this.getTradeAmount() == null ? other.getTradeAmount() == null : this.getTradeAmount().equals(other.getTradeAmount()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -166,13 +155,12 @@ public class FinancePlatformDetail {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getDetailId() == null) ? 0 : getDetailId().hashCode());
-        result = prime * result + ((getArticleId() == null) ? 0 : getArticleId().hashCode());
-        result = prime * result + ((getCarrierId() == null) ? 0 : getCarrierId().hashCode());
-        result = prime * result + ((getDetailIncome() == null) ? 0 : getDetailIncome().hashCode());
-        result = prime * result + ((getDetailPayfor() == null) ? 0 : getDetailPayfor().hashCode());
-        result = prime * result + ((getDetailPay() == null) ? 0 : getDetailPay().hashCode());
-        result = prime * result + ((getDetailLeave() == null) ? 0 : getDetailLeave().hashCode());
-        result = prime * result + ((getDetailMark() == null) ? 0 : getDetailMark().hashCode());
+        result = prime * result + ((getPlatformId() == null) ? 0 : getPlatformId().hashCode());
+        result = prime * result + ((getTradeTarget() == null) ? 0 : getTradeTarget().hashCode());
+        result = prime * result + ((getTradeType() == null) ? 0 : getTradeType().hashCode());
+        result = prime * result + ((getTradeEarn() == null) ? 0 : getTradeEarn().hashCode());
+        result = prime * result + ((getTradeSpend() == null) ? 0 : getTradeSpend().hashCode());
+        result = prime * result + ((getTradeAmount() == null) ? 0 : getTradeAmount().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
