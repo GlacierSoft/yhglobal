@@ -96,9 +96,9 @@
     	$('#member_mgr_member_form_status').val(renderGridValue('${carrierMemberData.status}',fields.status));
     	$('#member_mgr_member_form_memberType').val(renderGridValue('${carrierMemberData.memberType}',fields.memberType));
         //审核按钮初始化 
-		if(${enterpriseMemberData.auditState== 'pass'}){
+		if(${carrierMemberData.auditState== 'pass'}){
 			document.all("carrierMember_mgr_member_audit_authState")[1].checked=true;
-		}else if(${enterpriseMemberData.auditState == 'failure'}){
+		}else if(${carrierMemberData.auditState == 'failure'}){
 			document.all("carrierMember_mgr_member_audit_authState")[2].checked=true;
 		}else{
 			document.all("carrierMember_mgr_member_audit_authState")[0].checked=true;

@@ -19,6 +19,21 @@
           }
      };
 
+	//选中行的时候默认调用的方法 
+	glacier.carrier_mgr.carrierRoute_mgr.route.alwaySelect = function(){
+		  var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
+		  if(row.auditState == 'authstr'){ 
+			$('#carrierRoute_btn_routeList_status').linkbutton('disable');//置灰启用/禁用按钮
+		  } 
+		if(row.auditState == 'pass'){
+			$('#carrierRoute_btn_routeList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(row.auditState == 'failure'){
+			$('#carrierRoute_btn_routeList_status').linkbutton('disable');//置灰启用/禁用按钮
+		 	$('#carrierRoute_btn_routeList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
 	//初始化班线DataGrid
 	glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid = $('#routeDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -226,9 +241,9 @@
 						},
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 						  	action_controller(
-										glacier.carrier_mgr.carrierRoute_mgr.route.param,this).select();
-							 
-						},
+									 glacier.carrier_mgr.carrierRoute_mgr.route.param,this).select();
+						  	glacier.carrier_mgr.carrierRoute_mgr.route.alwaySelect(); 
+						 },
 						onUnselectAll : function(rows) {
 							action_controller(
 									glacier.carrier_mgr.carrierRoute_mgr.route.param,this).unSelect();

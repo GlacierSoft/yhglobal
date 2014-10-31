@@ -15,8 +15,27 @@
              audit:{flag:'audit',controlType:'single'},
              auth:{flag:'auth',controlType:'single'}
           }
-     };
+     }; 
 
+	//选中行的时候默认调用的方法 
+	glacier.carrier_mgr.carrierMember_mgr.member.alwaySelect = function(){
+		var row = glacier.carrier_mgr.carrierMember_mgr.member.memberDataGrid.datagrid("getSelected");
+		 if(row.memberType=="individuality"){
+			$('#carrierMember_btn_carrierMemberList_auth').linkbutton('disable');//置灰企业认证按钮
+		  } 
+	    if(row.auditState == 'authstr'){ 
+			$('#carrierMember_btn_carrierMemberList_status').linkbutton('disable');//置灰启用/禁用按钮
+			$('#carrierMember_btn_carrierMemberList_auth').linkbutton('disable');//置灰企业认证按钮
+		} 
+		if(row.auditState == 'pass'){
+			$('#carrierMember_btn_carrierMemberList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(row.auditState == 'failure'){
+			$('#carrierMember_btn_carrierMemberList_status').linkbutton('disable');//置灰启用/禁用按钮
+		 	$('#carrierMember_btn_carrierMemberList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
 	//初始化承运商DataGrid
 	glacier.carrier_mgr.carrierMember_mgr.member.memberDataGrid = $('#memberDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -167,6 +186,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.carrier_mgr.carrierMember_mgr.member.param,this).select();
+							        glacier.carrier_mgr.carrierMember_mgr.member.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
@@ -234,7 +254,7 @@
 				}
 			});  
 		} else {
-			alert("个体会员不需认证!");
+			$.messager.alert('提示信息','个体会员不需要认证!','info'); 
 		} 
 	};
 	

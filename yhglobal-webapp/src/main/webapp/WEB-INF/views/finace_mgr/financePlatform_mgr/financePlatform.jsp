@@ -17,6 +17,19 @@
 			}
 	};
 	
+	//选中行的时候默认调用的方法 
+	glacier.finance_mgr.financePlatform_mgr.financePlatform.param.alwaySelect = function(){
+		var rows = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#financePlatform_btn_financePlatformList_edit').linkbutton('disable');//置灰修改按钮
+			$('#financePlatform_btn_financePlatformList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#financePlatform_btn_financePlatformList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	 
+	
 	//初始化会员提现记录DataGrid
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid = $('#financePlatformDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
@@ -152,6 +165,7 @@
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
 			action_controller(glacier.finance_mgr.financePlatform_mgr.financePlatform.param,this).select();
+			glacier.finance_mgr.financePlatform_mgr.financePlatform.param.alwaySelect(); 
 		},
 		onUnselectAll:function(rows){
 			action_controller(glacier.finance_mgr.financePlatform_mgr.financePlatform.param,this).unSelect();

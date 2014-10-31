@@ -168,17 +168,17 @@ public class FinancePlatformService {
 	    //判断账号代码和账号名称是否相同
         //账号代码
         FinancePlatformExample financePlatformExample = new FinancePlatformExample();
-        financePlatformExample.createCriteria().andPlatformCodeEqualTo(financePlatform.getPlatformCode());
+        financePlatformExample.createCriteria().andPlatformCodeEqualTo(financePlatform.getPlatformCode()).andPlatformIdNotEqualTo(financePlatform.getPlatformId());
         int codeNum = financePlatformMapper.countByExample(financePlatformExample);
         //账号名称
         FinancePlatformExample financePlatformExampleTwo = new FinancePlatformExample();
-        financePlatformExampleTwo.createCriteria().andPlatformNameEqualTo(financePlatform.getPlatformName());
+        financePlatformExampleTwo.createCriteria().andPlatformNameEqualTo(financePlatform.getPlatformName()).andPlatformIdNotEqualTo(financePlatform.getPlatformId());
         int nameNum = financePlatformMapper.countByExample(financePlatformExampleTwo);
         if(codeNum > 0){
         	returnResult.setMsg("平台资金编号信息不能重复，保存失败");
         	return returnResult;
         }
-        if(codeNum > 0 || nameNum >0){
+        if(nameNum >0){
         	returnResult.setMsg("平台资金账号名称信息不能重复，保存失败");
         	return returnResult;
         }  
@@ -255,6 +255,15 @@ public class FinancePlatformService {
     @Transactional(readOnly = false) 
     public Object auditPlatform(FinancePlatform financePlatform) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        FinancePlatform financeInfo=financePlatformMapper.selectByPrimaryKey(financePlatform.getPlatformId());
+	    if(financeInfo.getAuditState().equals("authstr")==false){
+	    	returnResult.setMsg("该资金平台已进行过审核操作！");
+	    	return returnResult;
+	    }  
+	    if(financePlatform.getAuditState().equals("authstr")){
+	    	returnResult.setMsg("无效的操作，请选择审核状态！");
+	    	return returnResult;
+	    } 
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();

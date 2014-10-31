@@ -13,7 +13,18 @@
              audit:{flag:'audit',controlType:'single'}  
           }
      }; 
-
+	//选中行的时候默认调用的方法 
+	glacier.carrier_mgr.carrierDriver_mgr.driver.alwaySelect = function(){
+		var rows = glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			 $('#carrierDriver_btn_driverList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#carrierDriver_btn_driverList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
+	
 	//初始化班线DataGrid
 	glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid = $('#driverDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -181,8 +192,9 @@
 						},
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 						  	action_controller(
-										glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).select();
-						 	},
+									glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).select();
+						  	        glacier.carrier_mgr.carrierDriver_mgr.driver.alwaySelect(); 
+					 	},
 						onUnselectAll : function(rows) {
 							action_controller(
 									glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).unSelect();

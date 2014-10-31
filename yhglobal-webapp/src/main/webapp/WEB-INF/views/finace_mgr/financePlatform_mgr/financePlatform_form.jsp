@@ -45,7 +45,7 @@
 		<tr>
 			<td>余额：</td>
 			<td>
-				<input name="remainMoney" class="easyui-validatebox spinner"   style="width:268px" required="true" value="<fmt:formatNumber value='${financePlatformData.remainMoney}' pattern="#,#00.00元"/>"  validType="customReg['^[0-9]','余额只能输入整数以及保留小数位']"/> 
+				<input name="remainMoney" class="easyui-validatebox spinner"   style="width:268px" required="true" value="<fmt:formatNumber value='${financePlatformData.remainMoney}' pattern="#,#00.00"/>"  validType="customReg['^[0-9]','余额只能输入整数以及保留小数位']"/> 
 			</td>
 		</tr>
 		<tr>

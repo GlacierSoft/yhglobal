@@ -16,6 +16,15 @@
           }
      };
 
+	//选中行的时候默认调用的方法 
+	glacier.member_mgr.member_mgr.member.alwaySelect = function(){
+		 var row =  glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid("getSelected");
+		 if(row.memberType=="individuality"){
+			$('#shipperMember_btn_MemberList_audit').linkbutton('disable');//置灰企业认证按钮
+		  }   
+	};
+	
+	
 	//初始化货主会员DataGrid
 	glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -128,6 +137,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.member_mgr.member_mgr.member.param,this).select();
+						        	glacier.member_mgr.member_mgr.member.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
@@ -178,10 +188,7 @@
 		} else {
 			alert("个体货主会员不需认证!");
 		} 
-	};
-	
-	
-	
+	}; 
 	
 	
 	//点击启用禁用按钮触发方法

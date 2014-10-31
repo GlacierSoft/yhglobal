@@ -39,7 +39,7 @@ public class CarrierDriverQueryDTO extends  CarrierDriver {
 	    if(this.getCarrierMemberId()!=null)
 	    	queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId()); 
 	    if(this.getDriverName()!=null)
-	    	queryCriteria.andDriverNameLike(this.getDriverName());  
+	    	queryCriteria.andDriverNameEqualTo(this.getDriverName());  
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
 	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
 	     }else{
