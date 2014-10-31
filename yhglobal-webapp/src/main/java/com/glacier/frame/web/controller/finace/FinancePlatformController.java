@@ -49,16 +49,16 @@ import com.glacier.jqueryui.util.JqPager;
 public class FinancePlatformController extends AbstractController{
 
     @Autowired
-    private FinancePlatformService financePlatformService;// 注入平台资金记录业务Bean
+    private FinancePlatformService financePlatformService;// 注入资金平台记录业务Bean
     
-    // 进入平台资金展示页面
+    // 进入资金平台展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexFinancePlatform() {
         ModelAndView mav = new ModelAndView("finace_mgr/financePlatform_mgr/financePlatform");
         return mav;
     }
     
-    // 进入平台资金记录Form表单页面
+    // 进入资金平台Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoPlatformForm(String platformId) {
         ModelAndView mav = new ModelAndView("finace_mgr/financePlatform_mgr/financePlatform_form");
@@ -68,7 +68,7 @@ public class FinancePlatformController extends AbstractController{
         return mav;
     }
     
-    // 进入平台资金记录Detail信息页面
+    // 进入资金平台记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoPlatformDetailPage(String platformId) {
         ModelAndView mav = new ModelAndView("finace_mgr/financePlatform_mgr/financePlatform_detail");
@@ -78,7 +78,7 @@ public class FinancePlatformController extends AbstractController{
         return mav;
     }
     
-    // 进入平台资金audit表单页面
+    // 进入资金平台audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
     private Object intoAuditPlatform(String platformId) {
         ModelAndView mav = new ModelAndView("finace_mgr/financePlatform_mgr/financePlatform_audit");
@@ -88,7 +88,7 @@ public class FinancePlatformController extends AbstractController{
         return mav;
     }
     
-    // 审核平台资金记录
+    // 审核资金平台记录
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object auditPlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
@@ -98,14 +98,14 @@ public class FinancePlatformController extends AbstractController{
         return financePlatformService.auditPlatform(financePlatform);
     }
     
-    // 获取表格结构的所有平台资金记录数据
+    // 获取表格结构的所有资金平台数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listPlatformAsGridByPlatformId(FinFinancePlatformQueryDTO financePlatformQueryDTO,JqPager pager) {
         return financePlatformService.listAsGrid(financePlatformQueryDTO,pager);
     }
     
-    // 增加平台资金记录
+    // 增加资金平台
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addFinancePlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
@@ -115,7 +115,7 @@ public class FinancePlatformController extends AbstractController{
         return financePlatformService.addPlatform(financePlatform);
     }
     
-    // 修改平台资金记录
+    // 修改资金平台
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editFinancePlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
@@ -125,14 +125,14 @@ public class FinancePlatformController extends AbstractController{
         return financePlatformService.editPlatform(financePlatform);
     } 
     
-    // 修改平台资金默认账号
+    // 修改资金平台默认账号
     @RequestMapping(value = "/update.json", method = RequestMethod.POST)
     @ResponseBody
     private Object updateFinancePlatform(@Valid FinancePlatform financePlatform) {
          return financePlatformService.updatePlatform(financePlatform);
     }
      
-    // 批量删除平台资金
+    // 批量删除资金平台
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delPlatform(@RequestParam List<String> financePlatformIds,@RequestParam List<String> platformNames) {

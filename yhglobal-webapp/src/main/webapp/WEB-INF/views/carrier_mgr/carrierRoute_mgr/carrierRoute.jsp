@@ -332,7 +332,7 @@
 		editable : false,
 		//required:true,
 		data : fields.routeType
-	});
+	}); 
 </script>
 
 <!-- 所有班线列表面板和表格 -->
@@ -342,7 +342,7 @@
 			<glacierui:toolbar panelEnName="routeList"
 				toolbarId="routeDataGrid_toolbar" menuEnName="carrierRoute" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		</table>
+		</table> 
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
@@ -363,10 +363,10 @@
 						style="width: 80px;" class="spinner" /></td> 
 						<td>始发站：</td>
 					<td>
-					  <input name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeOrigin" id="remark" onkeydown="return false;" onfocus="adjustCssDel();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	             </td> <td>终点站：</td>
 					<td>
-					  <input name="routeStop" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeStop"  id="remark" onkeydown="return false;" onfocus="adjustCssAdd();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td>  
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
@@ -382,7 +382,7 @@
 </div>
 
 									<!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-170px;top:50%;margin-top:-55px;">
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:20;position:absolute;margin-left: 85px;margin-top: -500px;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -430,3 +430,16 @@
 	  </div>
 	</div> 
 <script src="${ctx}/resources/area/js/public.js"></script> 
+<script type="text/javascript">
+	//终点的增加距离
+	function adjustCssAdd(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "850px";
+	}	
+	
+	//始发站的减少距离
+	function adjustCssDel(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "610px";
+	}
+</script>

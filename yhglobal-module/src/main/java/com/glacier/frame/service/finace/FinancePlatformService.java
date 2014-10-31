@@ -31,9 +31,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
 import com.glacier.frame.dao.finace.FinancePlatformMapper;
 import com.glacier.frame.dto.query.finace.FinFinancePlatformQueryDTO;
 import com.glacier.frame.entity.finace.FinancePlatform;
+import com.glacier.frame.entity.finace.FinancePlatformDetailExample;
 import com.glacier.frame.entity.finace.FinancePlatformExample;
 import com.glacier.frame.entity.finace.FinancePlatformExample.Criteria;
 import com.glacier.frame.entity.system.User;
@@ -54,6 +56,8 @@ public class FinancePlatformService {
 	@Autowired
 	private FinancePlatformMapper financePlatformMapper; 
 	
+	@Autowired
+	private FinancePlatformDetailMapper financePlatformDetailMapper;
 	/**
 	 * @Title: getPlatform 
 	 * @Description: TODO(根据平台资金记录Id获取平台资金信息) 
@@ -219,7 +223,7 @@ public class FinancePlatformService {
 	    	return returnResult;
 	    } 
 	    if(financePlatDate.getPlatformId().equals(financePlatform.getPlatformId())){
-	    	 returnResult.setMsg("改账户已经为默认账户！"); 
+	    	 returnResult.setMsg("该账户已经为默认账户！"); 
 	    }else{  
 		    financePlatDate.setBankType("external");//更改为外置账户
 	        financePlatDate.setUpdater(pricipalUser.getUserId());
@@ -293,11 +297,10 @@ public class FinancePlatformService {
 			//匹配删除信息
 			for (int i = 0; i < financePlatformIds.size(); i++) {   
                 // 相关联平台资金记录
-				//FinancePlatformTransactionExample financePlatformTransactionExample = new FinancePlatformTransactionExample();
-				//financePlatformTransactionExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
-				//int count = financePlatformTransactionMapper.countByExample(financePlatformTransactionExample); 
-				// 判断是否关联
-				int count=0;
+				FinancePlatformDetailExample financePlatformDetailExample = new FinancePlatformDetailExample();
+				financePlatformDetailExample.createCriteria().andPlatformIdEqualTo(financePlatformIds.get(i));
+				int count = financePlatformDetailMapper.countByExample(financePlatformDetailExample); 
+				// 判断是否关联 
 				if (count <= 0) {
 				    FinancePlatform financeInfo=financePlatformMapper.selectByPrimaryKey(financePlatformIds.get(i));
 				    if(financeInfo.getBankType().equals("default")){ 
