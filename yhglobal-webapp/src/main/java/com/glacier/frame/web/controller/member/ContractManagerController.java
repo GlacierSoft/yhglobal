@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.frame.dto.query.member.ContractManagerQueryDTO;
 import com.glacier.frame.entity.member.MemberContractType;
 import com.glacier.frame.service.member.ContractManagerService;
 import com.glacier.jqueryui.util.JqPager;
@@ -42,8 +43,8 @@ public class ContractManagerController {
     //获取表格结构的所有合同管理记录信息
 	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	@ResponseBody
-	private Object listActionAsGridByMenuId(JqPager jqPager) {
-	     return contractManagerService.listAsGrid(jqPager);
+	private Object listActionAsGridByMenuId(JqPager jqPager,ContractManagerQueryDTO contractManagerQueryDTO ,String q) {
+	     return contractManagerService.listAsGrid(jqPager,contractManagerQueryDTO,q);
 	}
 	
 	 //合同管理记录详情页

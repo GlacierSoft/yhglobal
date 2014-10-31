@@ -162,7 +162,10 @@
 	//点击审核触发按钮
 	glacier.carrier_mgr.carrierBankCard_mgr.carrierBankCard.checkCarrierBankCard=function(){
 		var row =glacier.carrier_mgr.carrierBankCard_mgr.carrierBankCard.carrierBankCardDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
+		if(row.auditState=="pass"){
+			$.messager.alert("提示","该条记录已被审核！","info");
+		}else{
+			glacier.basicAddOrEditDialog({
 				title :"【"+row.carrierDisplay+"】银行卡信息审核",
 				width : 580,
 				height : 380,
@@ -175,6 +178,7 @@
 					glacier.carrier_mgr.carrierBankCard_mgr.carrierBankCard.carrierBankCardDataGrid.datagrid('reload');
 				}
 			});
+		}
 	};
 	
 	

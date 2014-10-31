@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		actions : {
              edit:{flag:'edit',controlType:'single'},
              del:{flag:'del',controlType:'multiple'},
+             audit:{flag:'audit',controlType:'single'},
              print:{flag:'print',controlType:'single'}
           }
      };

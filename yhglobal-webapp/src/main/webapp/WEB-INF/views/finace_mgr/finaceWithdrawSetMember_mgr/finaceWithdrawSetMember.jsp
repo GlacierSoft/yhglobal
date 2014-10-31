@@ -134,6 +134,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.param,this).select();
+							glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
@@ -160,6 +161,24 @@
 							});
 						}
 					});
+	
+	
+	
+	
+	
+	//选中行的时候默认调用的方法 
+	glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.alwaySelect= function(){
+		var rows = glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.finaceWithdrawSetMemberDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#finaceWithdrawSetMember_btn_FinaceWithdrawSetMemberList_edit').linkbutton('disable');//置灰修改按钮
+			$('#finaceWithdrawSetMember_btn_FinaceWithdrawSetMemberList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#finaceWithdrawSetMember_btn_FinaceWithdrawSetMemberList_audit').linkbutton('disable');//置灰审核按钮
+
+		}
+	};
+	
 
 	//点击增加按钮触发方法
 	glacier.finace_mgr.finaceWithdrawSetMember_mgr.finaceWithdrawSetMember.addFinaceWithdrawSetMember = function(){

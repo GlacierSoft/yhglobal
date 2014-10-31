@@ -96,6 +96,11 @@ public class StorehouseDamageController {
         return mav;
     }
     
+    
+    //加入货物添加页
+    
+    
+    
     //修改货物损坏信息审核状态
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody

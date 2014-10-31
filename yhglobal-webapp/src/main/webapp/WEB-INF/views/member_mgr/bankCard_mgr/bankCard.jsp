@@ -162,7 +162,10 @@
 	//点击启用禁用触发按钮
 	glacier.member_mgr.bankCard_mgr.bankCard.checkBankCard=function(){
 		var row =glacier.member_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
+		if(row.auditState=="pass"){
+			$.messager.alert("提示","该条记录已被审核!","info");
+		}else{
+			glacier.basicAddOrEditDialog({
 				title :"【"+row.memberDisplay+"】银行卡信息审核",
 				width : 580,
 				height : 380,
@@ -175,6 +178,7 @@
 					glacier.member_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('reload');
 				}
 			});
+		}
 	};
 	
 	

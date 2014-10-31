@@ -197,7 +197,10 @@ public class FinaceRechargeMemberSetService {
         FinaceRechargeSetMember finaceRechargeSetMember_before= (FinaceRechargeSetMember) getFinaceRechargeSetMemberPro(finaceRechargeSetMember.getRechargeSetId());
         finaceRechargeSetMember.setAuditor(finaceRechargeSetMember_before.getAuditor());
         finaceRechargeSetMember.setAuditTime(new Date());
-        finaceRechargeSetMember.setAuditState(finaceRechargeSetMember_before.getAuditState());
+        if(finaceRechargeSetMember_before.getAuditState().equals("pass"))
+        	finaceRechargeSetMember.setAuditState("pass");
+        else
+        	finaceRechargeSetMember.setAuditState("authstr");
         finaceRechargeSetMember.setCreater(finaceRechargeSetMember_before.getCreater());
         finaceRechargeSetMember.setCreateTime(finaceRechargeSetMember_before.getCreateTime());
         finaceRechargeSetMember.setUpdater(pricipalUser.getUserId());

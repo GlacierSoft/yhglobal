@@ -204,6 +204,19 @@
 			
 		};
 		
+		 glacier.storehouse_mgr.storehouseDamage.storehouseDamage.addStorehouseDamage=function(){
+             glacier.basicAddOrEditDialog({
+					title : '【损坏商品】- 添加',
+					width : 800,
+					height : 300,
+					queryUrl : ctx + '/do/storehouseDamage/intoForm.htm',
+					submitUrl : ctx + '/do/storehouseDamage/add.json',
+					successFun : function (){
+						glacier.storehouse_mgr.storehouseDamage.storehouseDamage.storehouseDamageDataGrid.datagrid('reload');
+					}
+				});	      
+		 }
+		
 </script>
 
 

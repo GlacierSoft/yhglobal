@@ -28,8 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.member.MemberContractTypeMapper;
 import com.glacier.frame.dao.member.ShipperMemberContractRecordMapper;
+import com.glacier.frame.dto.query.member.ContractManagerQueryDTO;
 import com.glacier.frame.entity.member.MemberContractType;
 import com.glacier.frame.entity.member.MemberContractTypeExample;
+import com.glacier.frame.entity.member.MemberContractTypeExample.Criteria;
 import com.glacier.frame.entity.member.ShipperMemberContractRecordExample;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -61,9 +63,11 @@ public class ContractManagerService {
      * @return Object    返回类型 
      * @throws
      */ 
-    public Object listAsGrid(JqPager jqPager) {
+    public Object listAsGrid(JqPager jqPager,ContractManagerQueryDTO contractManagerQueryDTO ,String q) {
         JqGridReturn returnResult = new JqGridReturn();
         MemberContractTypeExample memberContractTypExample = new MemberContractTypeExample();
+        Criteria queryCriteria=memberContractTypExample.createCriteria();
+        contractManagerQueryDTO.setQueryCondition(queryCriteria, q);
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	memberContractTypExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	memberContractTypExample.setLimitEnd(jqPager.getRows());
