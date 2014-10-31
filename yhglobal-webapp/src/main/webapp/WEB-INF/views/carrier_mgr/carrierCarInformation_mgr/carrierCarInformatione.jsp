@@ -17,7 +17,19 @@
           }
      };
 
-	//初始化客服DataGrid
+	//选中行的时候默认调用的方法 
+	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect = function(){
+		var rows = glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#carrierCarInformation_btn_carrierCarInformationList_edit').linkbutton('disable');//置灰修改按钮
+			$('#carrierCarInformation_btn_carrierCarInformationList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#carrierCarInformation_btn_carrierCarInformationList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
+	//初始化DataGrid
 	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid = $('#carrierCarInformationDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -173,6 +185,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.param,this).select();
+							glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
@@ -200,65 +213,6 @@
 						}
 					});
 
-	// 增加承运商车辆信息
-	/* glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.addMemberGrade = function(){
-		glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDialog('【车辆】- 增加车辆',false,'/do/carrierCarInformation/add.json');
-	}; */
-	
-	/* //编辑承运商车辆信息
-	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.editMemberGrade = function(){
-		glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDialog('【车辆】- 编辑车辆',true,'/do/carrierCarInformation/edit.json');
-	}; */
-	
-	
-	
-	
-	/**
-	打开新建或者编辑窗口
-	title:要打开的窗口标题
-	editModel: true or false ，是否复制当前选择行数据到form中
-	url:点击保存按钮请求的url
-	*/
-	/* glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDialog = function(title,editModel,url){
-		$.easyui.showDialog({
-			href : ctx + '/do/carrierCarInformation/intoForm.htm',//从controller请求jsp页面进行渲染
-			width : 790,
-			height : 420,
-			resizable: false,
-			enableSaveButton : false,
-			enableApplyButton : false,
-			title : title,
-			buttons : [{
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-					$('#carrierCarInformation_mgr_grade_form').form('submit', {
-						url: ctx + url,
-						success: function(r){
-							glacier.show({msg:r.msg,result:r.success});
-							glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid.datagrid('reload');
-						    dia.dialog("close"); 
-						}
-					});
-				}
-			}],
-			onLoad : function() {
-				if(editModel){//编辑模式
-					var row = glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid.datagrid("getSelected");
-					if(row){
-						$('#carrierCarInformation_mgr_grade_form').form('load', row);
-					}else{
-						$.messager.show({//提示用户
-							title : '提示',
-							timeout:3000,
-							msg : '请选择一行数据进行编辑'
-						});
-					}
-				}
-			}
-		});
-	}; */
-	
 	//点击增加按钮触发方法
 	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.addMemberGrade = function(){
 		glacier.basicAddOrEditDialog({
@@ -272,6 +226,7 @@
 			}
 		});
 	};
+	
 	//点击编辑按钮触发方法
 	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.editMemberGrade = function(){
 		var row = glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid.datagrid("getSelected");

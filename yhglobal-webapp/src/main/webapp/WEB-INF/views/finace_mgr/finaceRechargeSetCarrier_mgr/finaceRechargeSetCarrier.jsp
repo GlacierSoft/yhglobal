@@ -17,6 +17,18 @@
           }
      };
 
+	//选中行的时候默认调用的方法 
+	glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.alwaySelect = function(){
+		var rows = glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#finaceRechargeSetCarrier_btn_finaceRechargeSetCarrierList_edit').linkbutton('disable');//置灰修改按钮
+			$('#finaceRechargeSetCarrier_btn_finaceRechargeSetCarrierList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#finaceRechargeSetCarrier_btn_finaceRechargeSetCarrierList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
 	//初始化客服DataGrid
 	glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.finaceRechargeSetCarrierDataGrid = $('#finaceRechargeSetCarrierDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -142,6 +154,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.param,this).select();
+							glacier.rechargeSetCarrier_mgr.rechargeSetCarrier_mgr.finaceRechargeSetCarrier.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(

@@ -17,7 +17,19 @@
           }
      };
 
-	//初始化客服DataGrid
+	//选中行的时候默认调用的方法 
+	glacier.withdrawSetCarrier_mgr.withdrawSetCarrier_mgr.finaceWithdrawSetCarrier.alwaySelect = function(){
+		var rows = glacier.withdrawSetCarrier_mgr.withdrawSetCarrier_mgr.finaceWithdrawSetCarrier.finaceWithdrawSetCarrierDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#finaceWithdrawSetCarrier_btn_finaceWithdrawSetCarrierList_edit').linkbutton('disable');//置灰修改按钮
+			$('#finaceWithdrawSetCarrier_btn_finaceWithdrawSetCarrierList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#finaceWithdrawSetCarrier_btn_finaceWithdrawSetCarrierList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	};
+	
+	//初始化DataGrid
 	glacier.withdrawSetCarrier_mgr.withdrawSetCarrier_mgr.finaceWithdrawSetCarrier.finaceWithdrawSetCarrierDataGrid = $('#finaceWithdrawSetCarrierDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
@@ -134,6 +146,7 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.withdrawSetCarrier_mgr.withdrawSetCarrier_mgr.finaceWithdrawSetCarrier.param,this).select();
+							glacier.withdrawSetCarrier_mgr.withdrawSetCarrier_mgr.finaceWithdrawSetCarrier.alwaySelect();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
