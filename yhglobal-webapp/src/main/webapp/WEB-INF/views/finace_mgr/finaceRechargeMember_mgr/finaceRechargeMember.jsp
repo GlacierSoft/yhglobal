@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		toolbarId : 'finaceRechargeMemberDataGrid_toolbar',
 		actions : {
              edit:{flag:'edit',controlType:'single'},
+             audit:{flag:'audit',controlType:'single'},
              del:{flag:'del',controlType:'multiple'},
              print:{flag:'print',controlType:'single'}
           }
