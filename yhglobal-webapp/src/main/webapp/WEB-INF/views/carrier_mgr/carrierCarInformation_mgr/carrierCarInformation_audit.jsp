@@ -23,7 +23,7 @@
 	    	</td>
 	    	<td>车辆类型：</td>
 			<td>
-				<input id="carrier_mgr_carInformation_form_carType" style="width:268px;height: 20px;" name="carType" value="${carInfoformationData.carType}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
+				<input id="carrier_mgr_carInformation_form_carType" style="width:268px;height: 20px;" name="carType" value="${carInfoformationData.carTypeDisplay}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

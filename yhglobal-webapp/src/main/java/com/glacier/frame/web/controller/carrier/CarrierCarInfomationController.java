@@ -80,7 +80,8 @@ public class CarrierCarInfomationController extends AbstractController{
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addGrade(@Valid CarrierCarInformation carInformation, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+    	if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
         return carrierCarInformationService.addNews(carInformation);

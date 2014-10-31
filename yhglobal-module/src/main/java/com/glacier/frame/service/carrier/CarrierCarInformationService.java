@@ -179,6 +179,8 @@ public class CarrierCarInformationService {
         //根据ID获取承运商车辆信息
         CarrierCarInformation memberGradeTime = (CarrierCarInformation) getCarInformation(carInformation.getCarId());
         carInformation.setAudit(memberGradeTime.getAudit());
+        carInformation.setAuditState("authstr");
+        carInformation.setAuditTime(memberGradeTime.getAuditTime());
         carInformation.setCreater(memberGradeTime.getCreater());
         carInformation.setCreateTime(memberGradeTime.getCreateTime());
         carInformation.setUpdater(pricipalUser.getUserId());

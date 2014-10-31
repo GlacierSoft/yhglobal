@@ -28,6 +28,7 @@
     <result column="temp_carrier_car_information_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_carrier_car_information_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_carrier_car_information_carrier_member_real_name" property="carrierMemberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_carrier_car_information_car_type_display" property="carTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.frame.entity.carrier.CarrierCarInformation" extends="BaseResultMap" >
     <result column="temp_carrier_car_information_car_img" property="carImg" jdbcType="LONGVARCHAR" />
@@ -112,12 +113,14 @@
     ,temp_updater.user_cn_name as temp_carrier_car_information_updater_display
     ,temp_audit.user_cn_name as temp_carrier_car_information_auditor_display
     ,temp_carrier_member.member_name as temp_carrier_car_information_carrier_member_real_name
+    ,temp_car.cartype_name as temp_carrier_car_information_car_type_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_carrier_car_information.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_carrier_car_information.updater <!-- 扩展 -->
     LEFT JOIN t_user temp_audit ON temp_audit.user_id = temp_carrier_car_information.audit <!-- 扩展 -->
     LEFT JOIN t_carrier_member temp_carrier_member ON temp_carrier_member.carrier_member_id = temp_carrier_car_information.carrier_member_id <!-- 扩展 -->
+  	LEFT JOIN t_parameter_carrier_car_type temp_car ON temp_car.cartype_id = temp_carrier_car_information.car_type <!-- 扩展 -->
   </sql>
   <sql id="Blob_Column_List" >
     temp_carrier_car_information.car_img as temp_carrier_car_information_car_img

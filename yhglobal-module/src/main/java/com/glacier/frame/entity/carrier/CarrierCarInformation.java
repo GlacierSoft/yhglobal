@@ -18,6 +18,8 @@ public class CarrierCarInformation {
     
     private String updaterDisplay;
     
+    private String carTypeDisplay;
+    
     private String carrierMemberId;
 
     private Integer routeName;
@@ -281,7 +283,15 @@ public class CarrierCarInformation {
         this.carImg = carImg;
     }
 
-    @Override
+    public String getCarTypeDisplay() {
+		return carTypeDisplay;
+	}
+
+	public void setCarTypeDisplay(String carTypeDisplay) {
+		this.carTypeDisplay = carTypeDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
