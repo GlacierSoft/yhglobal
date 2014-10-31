@@ -23,17 +23,17 @@
 			</td>
 			<td>每年必检修次数：</td>
 			<td>
-				<input id="storage_mgr_storage_form_mustOverhaulNum" name="mustOverhaulNum"  style="width:268px;height: 20px;" value="${storageDate.mustOverhaulNum}" class="easyui-numberbox"  required="true"/>
+				<input id="storage_mgr_storage_form_mustOverhaulNum" name="mustOverhaulNum"  style="width:268px;height: 20px;" value="${storageDate.mustOverhaulNum}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 		</tr>
 		<tr>
 			<td>体重上限：</td>
 			<td>
-				<input id="storage_mgr_storage_form_weightUpperBound" name="weightUpperBound"  style="width:268px;height: 20px;" value="${storageDate.weightUpperBound}" class="easyui-numberbox"  required="true"/>
+				<input id="storage_mgr_storage_form_weightUpperBound" name="weightUpperBound"  style="width:268px;height: 20px;" value="${storageDate.weightUpperBound}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']"  required="true"/>
 			</td>
 			<td>体积上限：</td>
 			<td>
-				<input id="storage_mgr_storage_form_bulkUpperBound" name="bulkUpperBound"  style="width:268px;height: 20px;" value="${storageDate.bulkUpperBound}" class="easyui-numberbox"  required="true"/>
+				<input id="storage_mgr_storage_form_bulkUpperBound" name="bulkUpperBound"  style="width:268px;height: 20px;" value="${storageDate.bulkUpperBound}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']"  required="true"/>
 			</td>
 		</tr>
 		<tr>

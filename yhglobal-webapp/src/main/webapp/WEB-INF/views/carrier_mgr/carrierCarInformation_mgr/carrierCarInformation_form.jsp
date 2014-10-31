@@ -9,7 +9,7 @@
 			<td>车辆编号：</td>
 			<td>
 				<input type="hidden" id="carrier_mgr_carInformation_form_carId" name="carId" value="${carInfoformationData.carId}" />
-				<input id="carrier_mgr_carInformation_form_routeName" style="width:268px;height: 20px;" name="routeName" value="${carInfoformationData.routeName}" class="easyui-validatebox spinner"  required="true"/>
+				<input id="carrier_mgr_carInformation_form_routeName" style="width:268px;height: 20px;" name="routeName" value="${carInfoformationData.routeName}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']"  required="true"/>
 			</td>
 			<td>车辆牌号:</td>
 	    	<td>
@@ -39,11 +39,11 @@
 		<tr>
 			<td>车辆长度：</td>
 			<td>
-				<input id="carrier_mgr_carInformation_form_carLength" style="width:268px;height: 20px;" name="carLength" value="${carInfoformationData.carLength}" class="easyui-numberbox" missingMessage="请输入整数，至少为1。单位默认为米（M）" required="true"/>
+				<input id="carrier_mgr_carInformation_form_carLength" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" style="width:268px;height: 20px;" name="carLength" value="${carInfoformationData.carLength}" class="easyui-validatebox spinner" missingMessage="请输入整数，至少为1。单位默认为米（M）" required="true"/>
 			</td>
 			<td>车辆载重：</td>
 			<td>
-				<input id="carrier_mgr_carInformation_form_carLoad" style="width:268px;height: 20px;" name="carLoad" value="${carInfoformationData.carLoad}" class="easyui-numberbox" missingMessage="请输入整数，至少为1。单位默认为吨（t）" required="true"/>
+				<input id="carrier_mgr_carInformation_form_carLoad" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" style="width:268px;height: 20px;" name="carLoad" value="${carInfoformationData.carLoad}" class="easyui-validatebox spinner" missingMessage="请输入整数，至少为1。单位默认为吨（t）" required="true"/>
 			</td>
 		</tr>
 		<tr>
@@ -53,7 +53,7 @@
 			</td>
 			<td>车辆年龄：</td>
 			<td>
-				<input id="carrier_mgr_carInformation_form_carAge" style="width:268px;height: 20px;" name="carAge" value="${carInfoformationData.carAge}" required="true" class="easyui-validatebox spinner"/>
+				<input id="carrier_mgr_carInformation_form_carAge" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" style="width:268px;height: 20px;" name="carAge" value="${carInfoformationData.carAge}" required="true" class="easyui-validatebox spinner"/>
 			</td>
 		</tr>
 		<tr>

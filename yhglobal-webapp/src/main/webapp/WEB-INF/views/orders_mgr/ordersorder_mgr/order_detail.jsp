@@ -13,7 +13,7 @@
 			</td>
 			<td>订单总金额：</td>
 			<td>
-			<input id="memberGrade_mgr_memberGrade_form_orderPrice" name="orderPrice"  style="width:268px;" readonly="readonly" value="${orderDate.orderPrice}" class="easyui-validatebox spinner" />
+			<input id="memberGrade_mgr_memberGrade_form_orderPrice" name="orderPrice"  style="width:268px;" readonly="readonly" value="<fmt:formatNumber value='${orderDate.orderPrice}' pattern="#,#00.00元"/>" class="easyui-validatebox spinner" />
 			</td>
 		</tr>
 		<tr>

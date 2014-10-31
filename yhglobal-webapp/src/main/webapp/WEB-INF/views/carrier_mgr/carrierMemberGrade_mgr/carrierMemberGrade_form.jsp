@@ -22,13 +22,13 @@
 		<tr>
 			<td>信誉开始值：</td>
 			<td>
-				<input id="memberGrade_mgr_memberGrade_form_scopeStart" style="width:268px;height: 20px;" name="scopeStart" value="${gradeData.scopeStart}" class="easyui-validatebox spinner"  required="true"/>
+				<input id="memberGrade_mgr_memberGrade_form_scopeStart" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" style="width:268px;height: 20px;" name="scopeStart" value="${gradeData.scopeStart}" class="easyui-validatebox spinner"  required="true"/>
 			</td>
 		</tr>
 		<tr>
 			<td>信誉结束值：</td>
 			<td>
-				<input id="memberGrade_mgr_memberGrade_form_scopeStop" style="width:268px;height: 20px;" name="scopeStop" value="${gradeData.scopeStop}" class="easyui-validatebox spinner"  required="true"/>
+				<input id="memberGrade_mgr_memberGrade_form_scopeStop" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" style="width:268px;height: 20px;" name="scopeStop" value="${gradeData.scopeStop}" class="easyui-validatebox spinner"  required="true"/>
 			</td>
 		</tr>
 		<tr>
