@@ -20,6 +20,9 @@
 	//选中行的时候默认调用的方法 
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.param.alwaySelect = function(){
 		var rows = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
+		if(rows.auditState != 'pass'){
+			$('#financePlatform_btn_financePlatformList_update').linkbutton('disable');//置灰设置默认账户按钮
+		 }
 		if(rows.auditState == 'pass'){
 			$('#financePlatform_btn_financePlatformList_edit').linkbutton('disable');//置灰修改按钮
 			$('#financePlatform_btn_financePlatformList_audit').linkbutton('disable');//置灰审核按钮
