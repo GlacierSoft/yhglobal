@@ -22,7 +22,7 @@
 		<tr>
 			<td>货物单价：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_belaidupUnitprice" style="width:268px;height: 20px;" name="belaidupUnitprice" value="${belaidupDate.belaidupUnitprice}" required="true" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']"/>
+				<input id="belaidup_mgr_belaidup_form_belaidupUnitprice" style="width:268px;height: 20px;" name="belaidupUnitprice" value="${belaidupDate.belaidupUnitprice}" required="true" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']"/>
 			</td>
 			<td>货主名称：</td>
 			<td>
@@ -52,31 +52,31 @@
 		<tr>
 			<td>入库物品重量：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_belaidupWeight" name="belaidupWeight"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupWeight}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_belaidupWeight" name="belaidupWeight"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupWeight}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 			<td>入库物品体积：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_belaidupBulk" name="belaidupBulk"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupBulk}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_belaidupBulk" name="belaidupBulk"  style="width:268px;height: 20px;" value="${belaidupDate.belaidupBulk}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 		</tr>
 		<tr>
 			<td>货物仓库费：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_repertoryPrice" name="repertoryPrice"  style="width:268px;height: 20px;" value="${belaidupDate.repertoryPrice}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_repertoryPrice" name="repertoryPrice"  style="width:268px;height: 20px;" value="${belaidupDate.repertoryPrice}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 			<td>货物存货费：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_stockPrice" name="stockPrice"  style="width:268px;height: 20px;" value="${belaidupDate.stockPrice}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_stockPrice" name="stockPrice"  style="width:268px;height: 20px;" value="${belaidupDate.stockPrice}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 		</tr>
 		<tr>
 			<td>物品包装费：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_packPrice" name="packPrice"  style="width:268px;height: 20px;" value="${belaidupDate.packPrice}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_packPrice" name="packPrice"  style="width:268px;height: 20px;" value="${belaidupDate.packPrice}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 			<td>物品运输费：</td>
 			<td>
-				<input id="belaidup_mgr_belaidup_form_freightPrice" name="freightPrice"  style="width:268px;height: 20px;" value="${belaidupDate.freightPrice}" class="easyui-validatebox spinner" validType="customReg['^[0-9]+$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
+				<input id="belaidup_mgr_belaidup_form_freightPrice" name="freightPrice"  style="width:268px;height: 20px;" value="${belaidupDate.freightPrice}" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" required="true"/>
 			</td>
 		</tr>
 		<tr>
