@@ -99,6 +99,16 @@ public class FinaceWithdrawSetMemberController {
             return finaceWithdrawSetMemberService.auditWithdrawSetMember(finaceWithdrawSetMember);
         }	
       	
+        //进入会员类型Form表单页面
+        @RequestMapping(value = "/intoForm.htm")
+        private Object intoGradeFormPnews(String withdrawSetId) {
+            ModelAndView mav = new ModelAndView("finace_mgr/finaceWithdrawSetMember_mgr/finaceWithdrawSetMember_form");
+            if(StringUtils.isNotBlank(withdrawSetId)){
+                mav.addObject("finaceWithdrawSetMemberData", finaceWithdrawSetMemberService.getFinaceRechargeSetMemberPro(withdrawSetId));
+            }
+            return mav;
+        }
+        
         
         // 批量删除设置信息
         @RequestMapping(value = "/del.json", method = RequestMethod.POST)
@@ -106,5 +116,19 @@ public class FinaceWithdrawSetMemberController {
         public Object delFinaceRechargeSetMember(@RequestParam List<String> withdrawSetIds) {
         	return finaceWithdrawSetMemberService.delFinaceRechargeSetMember(withdrawSetIds);
         }
-      	
+     
+        // 增加会员充值类型
+        @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+        @ResponseBody
+        private Object addGrade(@Valid FinaceWithdrawSetMember finaceWithdrawSetMember, BindingResult bindingResult) {
+            return finaceWithdrawSetMemberService.addWithdrawSetMember(finaceWithdrawSetMember);
+        }
+        
+        //修改会员充值类型
+        @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
+        @ResponseBody
+        private Object editGrade(@Valid FinaceWithdrawSetMember finaceWithdrawSetMember, BindingResult bindingResult) {
+            return finaceWithdrawSetMemberService.editRechargeSetMember(finaceWithdrawSetMember);
+        }
+        
 }

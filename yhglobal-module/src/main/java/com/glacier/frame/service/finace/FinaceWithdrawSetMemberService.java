@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.finace.FinaceWithdrawMemberMapper;
 import com.glacier.frame.dao.finace.FinaceWithdrawSetMemberMapper;
 import com.glacier.frame.dto.query.finace.FinaceWithdrawSetMemberQueryDTO;
@@ -171,6 +172,107 @@ public class FinaceWithdrawSetMemberService {
         }
         return returnResult;
     }
+    
+    
+    /**
+     * @Title: addWithdrawSetMember 
+     * @Description: TODO(新增会员提现类型) 
+     * @param @param rechargeSetMember
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object addWithdrawSetMember(FinaceWithdrawSetMember finaceWithdrawSetMember) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        // 防止承运商充值类型牌号重复
+        FinaceWithdrawSetMemberExample finaceWithdrawSetMemberExample = new FinaceWithdrawSetMemberExample();
+        finaceWithdrawSetMemberExample.createCriteria().andWithdrawNameEqualTo(finaceWithdrawSetMember.getWithdrawName());
+        count=finaceWithdrawSetMemberMapper.countByExample(finaceWithdrawSetMemberExample);
+        if (count > 0) {
+            returnResult.setMsg("会员充值类型名称重复");
+            returnResult.setSuccess(false);
+            return returnResult;
+        }
+        //防止无限添加
+        FinaceWithdrawSetMemberExample FinaceWithdrawSetMemberExample_Second= new FinaceWithdrawSetMemberExample();
+        FinaceWithdrawSetMemberExample_Second.createCriteria().andGradeIdEqualTo(finaceWithdrawSetMember.getGradeId());
+        List<FinaceWithdrawSetMember> pro=finaceWithdrawSetMemberMapper.selectByExample(FinaceWithdrawSetMemberExample_Second);
+        if(pro.size()>0&&pro!=null){
+        	for(int i=0;i<pro.size();i++){
+        		 FinaceWithdrawSetMember finaceWithdrawSetMember_TX=pro.get(i);
+        		 if(finaceWithdrawSetMember_TX.getFeeWay().equals(finaceWithdrawSetMember.getFeeWay())){
+        			 returnResult.setMsg("数据填写错误，会员提现类型信息已存在!");
+             		 return returnResult;
+        		 }
+        	}
+        	 
+        }
+        
+        finaceWithdrawSetMember.setWithdrawSetId(RandomGUID.getRandomGUID());
+        finaceWithdrawSetMember.setAuditState("authstr");
+        finaceWithdrawSetMember.setAuditor(pricipalUser.getUserId());
+        finaceWithdrawSetMember.setAuditTime(new Date());
+        finaceWithdrawSetMember.setCreater(pricipalUser.getUserId());
+        finaceWithdrawSetMember.setCreateTime(new Date());
+        finaceWithdrawSetMember.setUpdater(pricipalUser.getUserId());
+        finaceWithdrawSetMember.setUpdateTime(new Date());
+        count = finaceWithdrawSetMemberMapper.insert(finaceWithdrawSetMember);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员提现类型信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，会员提现类型信息保存失败");
+        }
+        return returnResult;
+        
+    }
+    
+    /**
+     * @Title: editRechargeSetMember 
+     * @Description: TODO(修改会员提现设置) 
+     * @param @param finaceRechargeSetMember
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object editRechargeSetMember(FinaceWithdrawSetMember finaceWithdrawSetMember) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        FinaceWithdrawSetMemberExample finaceWithdrawSetMemberExample = new FinaceWithdrawSetMemberExample();
+        int count = 0;
+        // 防止承运商充值类型牌号重复
+        finaceWithdrawSetMemberExample.createCriteria().andWithdrawNameEqualTo(finaceWithdrawSetMember.getWithdrawName()).andWithdrawSetIdNotEqualTo(finaceWithdrawSetMember.getWithdrawSetId());
+        count = finaceWithdrawSetMemberMapper.countByExample(finaceWithdrawSetMemberExample);
+        if (count > 0) {
+            returnResult.setMsg("会员类型名称重复");
+            return returnResult;
+        }
+      //根据ID获取承运商充值类型信息
+        FinaceWithdrawSetMember finaceWithdrawSetMember_before= (FinaceWithdrawSetMember) getFinaceRechargeSetMemberPro(finaceWithdrawSetMember.getWithdrawSetId());
+        finaceWithdrawSetMember.setAuditor(finaceWithdrawSetMember_before.getAuditor());
+        finaceWithdrawSetMember.setAuditTime(new Date());
+        finaceWithdrawSetMember.setAuditState(finaceWithdrawSetMember_before.getAuditState());
+        finaceWithdrawSetMember.setCreater(finaceWithdrawSetMember_before.getCreater());
+        finaceWithdrawSetMember.setCreateTime(finaceWithdrawSetMember_before.getCreateTime());
+        finaceWithdrawSetMember.setUpdater(pricipalUser.getUserId());
+        finaceWithdrawSetMember.setUpdateTime(new Date());
+       
+        count = finaceWithdrawSetMemberMapper.updateByPrimaryKey(finaceWithdrawSetMember);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员提现类型信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，会员提现类型信息保存失败");
+        }
+        return returnResult;
+    }
+    
     
 	
 	
