@@ -230,13 +230,13 @@
 			if(rows[i].auditState=="pass"){
 				pass_numb+=1;
 			}else{
-				withdrawSetIds.push(rows[i].rechargeSetId);		
+				withdrawSetIds.push(rows[i].withdrawSetId);		
 			}
 		}
 		if(pass_numb>0)
 			str= "<font style='color:red;font-weight: bold;'>【"+pass_numb+"】</font>记录已审核,删除余下<font style='color:red;font-weight: bold;'>【"+withdrawSetIds.length+"】</font>记录？";
 		else
-			str="是否删除<font style='color:red;font-weight: bold;'>【"+rechargeSetIds.length+"】</font>记录信息!";
+			str="是否删除<font style='color:red;font-weight: bold;'>【"+withdrawSetIds.length+"】</font>记录信息!";
 		
 		if(withdrawSetIds.length > 0){
 				$.messager.confirm('请确认',str, function(r){
