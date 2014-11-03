@@ -98,7 +98,14 @@ public class StorehouseDamageController {
     
     
     //加入货物添加页
-    
+    @RequestMapping(value="/intoForm.htm")
+    private Object intoGradeFormPnews(String damageId) {
+        ModelAndView mav = new ModelAndView("storehouse_mgr/storehouseDamage_mgr/storehouseDamage_form");
+        if(StringUtils.isNotBlank(damageId)){
+            mav.addObject("storehouseDamageData", storehouseDamageServcie.getStorehouseDamagePro(damageId));
+        }
+        return mav;
+    }
     
     
     //修改货物损坏信息审核状态
