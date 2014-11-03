@@ -15,7 +15,15 @@
              del:{flag:'del',controlType:'multiple'}
           }
      }; 
-
+	
+	//选中行的时候默认调用的方法 
+	glacier.carrier_mgr.carrierDriver_mgr.driver.alwaySelect = function(){
+		var row = glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid.datagrid("getSelected");
+		if(row.auditState == 'pass'){
+			$('#carrierDriver_btn_driverList_edit').linkbutton('disable');//置灰修改按钮
+		} 
+	};
+	
 	//初始化班线DataGrid
 	glacier.carrier_mgr.carrierDriver_mgr.driver.driverDataGrid = $('#driverDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -183,8 +191,9 @@
 						},
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 						  	action_controller(
-										glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).select();
-						 	},
+									glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).select();
+						  	         glacier.carrier_mgr.carrierDriver_mgr.driver.alwaySelect();
+						},
 						onUnselectAll : function(rows) {
 							action_controller(
 									glacier.carrier_mgr.carrierDriver_mgr.driver.param,this).unSelect();

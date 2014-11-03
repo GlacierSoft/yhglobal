@@ -17,6 +17,18 @@
           }
      };
 
+	//选中行的时候默认调用的方法 
+	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect = function(){
+		var rows = glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid.datagrid("getSelected");
+		if(rows.auditState == 'pass'){
+			$('#carrierCarInformation_btn_carrierCarInformationList_edit').linkbutton('disable');//置灰修改按钮
+			$('#carrierCarInformation_btn_carrierCarInformationList_audit').linkbutton('disable');//置灰审核按钮
+		}
+		if(rows.auditState == 'failure'){
+			$('#carrierCarInformation_btn_carrierCarInformationList_audit').linkbutton('disable');//置灰审核按钮
+		}
+	}; 
+	
 	//初始化客服DataGrid
 	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.carrierCarInformationDataGrid = $('#carrierCarInformationDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
@@ -173,7 +185,8 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.param,this).select();
-						},
+							glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect();
+						 },
 						onUnselectAll : function(rows) {
 							action_controller(
 									glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.param,this).unSelect();

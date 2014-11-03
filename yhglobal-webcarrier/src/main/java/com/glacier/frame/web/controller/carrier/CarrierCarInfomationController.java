@@ -3,6 +3,8 @@ package com.glacier.frame.web.controller.carrier;
 import java.util.List;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller; 
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.frame.dto.query.carrier.CarrierCarInformationQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierCarInformation;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.service.carrier.CarrierCarInformationService;
 
 /*** 
@@ -43,7 +46,10 @@ public class CarrierCarInfomationController extends AbstractController{
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, CarrierCarInformationQueryDTO memberGradeQueryDTO) {
-        return carrierCarInformationService.listAsGrid(jqPager, memberGradeQueryDTO);
+    	Subject pricipalSubject = SecurityUtils.getSubject(); 
+        CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+        memberGradeQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId());
+    	return carrierCarInformationService.listAsGrid(jqPager, memberGradeQueryDTO);
     }
       
     // 进入承运商车辆Detail信息页面
