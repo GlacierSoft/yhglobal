@@ -102,31 +102,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              </div>
 			              </td>
 			              <td>用户名：</td>
-			              <td>${currentMember.memberName}</td>
-			              <td>信用积分</td>
-			              <td><img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" /></td>
+			              <td colspan="2">${currentMember.memberName}</td>
 			            </tr>
 			            <tr>
 			              <td>注册时间：</td>
 			              <td><fmt:formatDate value="${currentMember.registrationTime}" type="both"/></td>
 			              <td>会员到期：</td>
-			              <td><fmt:formatDate value="${currentMember.expireTime}" type="both"/></td>
+			              <td><%-- <fmt:formatDate value="${currentMember.expireTime}" type="both"/> --%>待开通</td>
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>
-			              <td><fmt:formatNumber value='${currentMember.integral}' pattern='#,#00'/></td>
+			              <td><%-- <fmt:formatNumber value='${currentMember.integral}' pattern='#,#00'/> --%>100</td>
 			              <td>最后登录ip：</td>
 			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
 			            <tr>
-			              <td>信用额度：</td>
-			              <td>￥<fmt:formatNumber value='${currentMember.creditamount}' pattern='#,#00.00'/></td>
+			              <td>信誉度：</td>
+			              <td>暂定</td>
 			              <td>账户可用余额：</td>
-			              <td>￥<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></td>
+			              <td>￥<%-- <fmt:formatNumber value='${currentMember.lastLoginTime}' pattern='#,#00.00'/> --%>0</td>
 			            </tr>
 			             <tr>
 			              <td>个人统计:</td>
-			              <td>${borrowingLoanNum}条借款记录，${tenderNotesNum}条投标记录</td>
+			              <td>发布&nbsp;10&nbsp;条货源记录，成交&nbsp;5&nbsp;条货源记录</td>
 			              <td></td>
 			              <td></td>
 			            </tr>
@@ -134,34 +132,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <div style="border: 1px solid #DDDDDD;">
 			        <div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></div>
-					  <div class="col-md-2"><span>未读站内信<a  href="#" onclick="doClick('messageNotice/intoMessageNotice.htm?&p=1','${currentMember.memberId}')" class="navbar-link"><span class="badge">${messageNoticCount}</span></a>封</span></div>
+					  <div class="col-md-2"><span>未读站内信<a  href="#" onclick="doClick('messageNotice/intoMessageNotice.htm?&p=1','${currentMember.memberId}')" class="navbar-link"><span class="badge">8</span></a>封</span></div>
 					 
 					 </div>
-					<div class="row" style="padding:10px;">
-					  <div class="col-md-2 text-right"></div>
-					  <div class="col-md-2"><span>等待初审借款<a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumFirstAudit}</span></a>个</span></div>
-					  
-					  
-					  <%-- <div class="col-md-2"><span>等待复审借款<a href="#" class="navbar-link"><span class="badge">${borrowingLoanNumSecondAuditor}</span></a>个</span></div> --%>
-					  <div class="col-md-2"><span>招标中的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumTendering}</span></a>个</span></div>
-					   
-					   
-					  <div class="col-md-3"><span>正在还款的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumRepaymenting}</span></a>个</span></div>
-					  <div class="col-md-2" style="padding-left: 0px;"><span>已还完的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=completed','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumCompleted}</span></a>个</span></div>
-					                            
-					</div>
-					<div class="row" style="padding:10px;">
-					  <div class="col-md-2 text-right"></div>
-					  <div class="col-md-2"><span>未申请认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumNoapply}</span></a>个</span></div>
-					   
-					  
-					  <div class="col-md-2"><span>审核中认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumAuthstr}</span></a>个</span></div>
-					
-					  <div class="col-md-3"><span>通过审核认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumPass}</span></a>个</span></div>
-					
-					  <div class="col-md-2" style="padding-left: 0px;"><span>审核失败认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumFailure}</span></a>个</span></div>
-				
-					</div>
 			        </div>
 			        <div style="margin:40px;text-align:center;vertical-align: middle;">
 			        <table style="width:800px;padding: 10px;">
@@ -176,15 +149,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</tr>
 			        	<tr style="height:40px;margin: 10px;">
 			        		<td><a href="javascript:checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="navbar-link"><span>我要充值</span></a></td>
-			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>我要贷出</span></a></td>
-			        		<td><a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')"  class="navbar-link"><span>投资统计</span></a></td>
-			        		<td><a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')"  class="navbar-link"><span>我要还款</span></a></td>
-			        		<td><a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}')"  class="navbar-link"><span>待收款</span></a></td>
-			        		<td><a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');"  class="navbar-link"><span>资金流水</span></a></td>
-			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>我要借款</span></a></td>
+			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>消费情况</span></a></td>
+			        		<td><a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')"  class="navbar-link"><span>我要订单</span></a></td>
+			        		<td><a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')"  class="navbar-link"><span>我的运单</span></a></td>
+			        		<td><a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}')"  class="navbar-link"><span>我的报表</span></a></td>
+			        		<td><a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');"  class="navbar-link"><span>车辆管理</span></a></td>
+			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>查看档案</span></a></td>
 			        	</tr>
 			        </table>
 			        </div>
+			       	<blockquote>
+					       	<h5 class="text-danger"><strong>信息详情：</strong></h5>
+					</blockquote>
+					<c:if test="${currentMember.memberType == 'individuality'}">
+						<table class="table table-bordered" style="padding: 10px;">
+							<tr>
+								<td><span>真实姓名：${individuality.memberRealName }</span></td>
+								<c:if test="${currentMember.memberType == 'individuality'}">
+									<td><span>会员类型：个体用户</span></td>
+								</c:if>
+								<c:if test="${currentMember.memberType == 'enterprise'}">
+									<td><span>会员类型：企业用户</span></td>
+								</c:if>
+								<c:if test="${currentMember.status == 'enable'}">
+									<td><span>会员状态：正常</span></td>
+								</c:if>
+								<c:if test="${currentMember.status == 'disable'}">
+									<td><span>会员状态：冻结</span></td>
+								</c:if>
+							</tr>
+							<tr>
+								<td><span>年龄：${individuality.memberAge}</span></td>
+								<c:if test="${individuality.sex == 'man'}">
+									<td><span>性别：男</span></td>
+								</c:if>
+								<c:if test="${individuality.sex == 'woman'}">
+									<td><span>性别：女</span></td>
+								</c:if>
+								<td><span>身份证：4********************4</span></td>
+							</tr>
+							<tr>
+								
+								<td><span>QQ：${individuality.memberQq }</span></td>
+								<td><span>邮箱：${currentMember.email}</span></td>
+								<td><span>手机：${individuality.mobileNumber }</span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><span>详细地址：${individuality.detailedAddress }</span></td>
+							</tr>
+						</table>
+					</c:if>
+					<c:if test="${currentMember.memberType == 'enterprise'}">
+						<table class="table table-bordered" style="padding: 10px;">
+							<tr>
+								<td><span>企业名称：${enterprise.enterpriseName }</span></td>
+								<td><span>企业类型：${enterprise.enterpriseType }</span></td>
+								<td><span>企业状态：正常</span></td>
+							</tr>
+							<tr>
+								<td><span>法人代表：${enterprise.deputy }</span></td>
+								<td><span>所属地区：${enterprise.area }</span></td>
+								<td><span>企业性质：${enterprise.property }</span></td>
+							</tr>
+							<tr>
+								
+								<td><span>所属行业：${enterprise.trade }</span></td>
+								<td><span>企业标识：${enterprise.enterpriseName }</span></td>
+								<td><span>企业传真：${enterprise.enterpriseFax }</span></td>
+							</tr>
+							<tr>
+								<td><span>企业电话：${enterprise.enterprisePhone }</span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><span>企业地址：${enterprise.detailedAddress }</span></td>
+							</tr>
+						</table>
+					</c:if>
 			        <blockquote>
 					       	<h5 class="text-danger"><strong>账户详情：</strong></h5>
 					</blockquote>
@@ -193,48 +233,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td colspan="3"><span><strong>账户总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>账户总额：￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></span></td>
-			        		<td><span>可用余额：￥<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></span></td>
-			        		<td><span>冻结金额：￥<fmt:formatNumber value='${financeMemberData.frozenMoney}' pattern='#,#00.00'/></span></td>
+			        		<td><span>账户总额：￥<fmt:formatNumber value='1000' pattern='#,#00.00'/></span></td>
+			        		<td><span>可用余额：￥<fmt:formatNumber value='1000' pattern='#,#00.00'/></span></td>
+			        		<td><span>冻结金额：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>投标奖励：￥<fmt:formatNumber value='${memberStatisticsData.tenderAwards}' pattern='#,#00.00'/></span></td>
-			        		<td><span>线下冲值奖励：￥<fmt:formatNumber value='${memberStatisticsData.uplineDeltaAwards}' pattern='#,#00.00'/></span></td>
-			        		<td><span>续投奖励：￥<fmt:formatNumber value='${memberStatisticsData.continueAwards}' pattern='#,#00.00'/></span></td>
+			        		<td><span>下单奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>线下/线上冲值奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>其它奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td colspan="3"><span><strong>投资总汇：</strong></span></td>
+			        		<td colspan="3"><span><strong>订单总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已收总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已收本金：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomePrincipal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已收利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeInterest}' pattern='#,#00.00'/></span></td>
+			        		<td><span>订单总额：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>订单本金：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>订单利润：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>待收总额：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待收本金：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomePrincipal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待收利息：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeInterest}' pattern='#,#00.00'/></span></td>
-			        	</tr>
-			        	<tr>
-			        		<td colspan="3"><span><strong>借款总汇：</strong></span></td>
+			        		<td colspan="3"><span><strong>消费总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已还总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已还本金：￥<fmt:formatNumber value='${memberStatisticsData.alreadyPrincipal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已还利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyInterest}' pattern='#,#00.00'/></span></td>
-			        	</tr>
-			        	<tr>
-			        		<td><span>待还总额：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待还本金：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoPrincipal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待还利息：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoInterest}' pattern='#,#00.00'/></span></td>
-			        	</tr>
-			        	<tr>
-			        		<td colspan="3"><span><strong>额度总汇：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>借款总额度：￥<fmt:formatNumber value='${memberStatisticsData.totalBorrowings}' pattern='#,#00.00'/></span></td>
-			        		<td><span>可用信用额度：￥<fmt:formatNumber value='${currentMember.creditamount}' pattern='#,#00.00'/></span></td>
-			        		<td><span></span></td>
+			        		<td><span>停车消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>刷卡消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>其他消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        </table>
 				  </div>
@@ -245,8 +267,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   
 	    </div>
 	     <jsp:include page="../foot.jsp"/>
+	     
 	    <!-- CONTAINER START======================== -->
-	    <!-- 测试提交======================== -->
 	    <script>
 	    //功能判断
 	    function checksMember(memberId,url){
@@ -263,6 +285,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                }
 			});
 	    }
+	    
+	    
 	    
 	    //充值提现判断
 	    function checkRechargeWithdraw(memberId,url){

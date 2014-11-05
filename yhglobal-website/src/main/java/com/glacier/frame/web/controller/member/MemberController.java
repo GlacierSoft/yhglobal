@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.frame.entity.member.ShipperEnterpriseMember;
+import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
+import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
 import com.glacier.frame.service.member.ShipperMemberService;
 
 @Controller
@@ -20,17 +24,25 @@ public class MemberController extends AbstractController{
     
     @Autowired
     private ShipperMemberService shipperMemberService;
+    
+    @Autowired
+    private ShipperIndividualityMemberService individualityMemberService;
+    
+    @Autowired
+    private ShipperEnterpriseMemberService enterpriseMemberService;
 
     // 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexMember(HttpServletRequest request,HttpSession session) {
-        ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("/member_mgr/member");
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
-        System.out.println("sssssss=pricipalSubject="+pricipalSubject);
         ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
-        System.out.println("pricipalMember="+pricipalMember);
         //重新获取当前登录用户信息，设置在session中
         ShipperMember member = (ShipperMember) shipperMemberService.getShipperMember(pricipalMember.getMemberId());
+        ShipperIndividualityMember individuality = individualityMemberService.getShipperMember(pricipalMember.getMemberId());
+        ShipperEnterpriseMember enterpriseMember = enterpriseMemberService.getShipperMember(pricipalMember.getMemberId());
+        mav.addObject("individuality", individuality);
+        mav.addObject("enterprise", enterpriseMember);
         session.removeAttribute("currentMember");
         session.setAttribute("currentMember", member);
         return mav;
