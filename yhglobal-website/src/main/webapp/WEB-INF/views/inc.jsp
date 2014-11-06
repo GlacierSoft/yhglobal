@@ -14,7 +14,7 @@
 <link rel="icon" href="${ctx}/resources/images/favicon/favicon.ico"></link>
 
 <!-- jquery form验证 css -->
-<link rel="stylesheet" href="${ctx}/resources/css/jqFormValidata/screen.css"></link>
+<link rel="stylesheet" href="${ctx}/resources/css/jqFormValidata/screen.css"></link> 
 
 <!-- 引入bootstrap样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css"></link>
@@ -32,6 +32,12 @@
 
 <!-- 自定义借款页面样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/kindeditor/themes/default/default.css"></link>
+
+<!-- 增加地区选择器样式 -->
+<link href="${ctx}/resources/area/css/cityLayout.css" type="text/css" rel="stylesheet">
+<link href="${ctx}/resources/area/css/area.css" type="text/css" rel="stylesheet">
+
+
 
  <!--[if lt IE 9]>
  	<link rel="stylesheet" href="${ctx}/resources/css/ie8.css"></link>

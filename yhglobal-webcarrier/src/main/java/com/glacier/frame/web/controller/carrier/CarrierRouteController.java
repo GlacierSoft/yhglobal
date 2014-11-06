@@ -64,8 +64,8 @@ public class CarrierRouteController extends AbstractController {
     // 查询显示所有班线信息
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO,String q) {
-     	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO, q);
+    private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO) {
+     	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO);
     }
        
     // 进入班线Detail信息页面

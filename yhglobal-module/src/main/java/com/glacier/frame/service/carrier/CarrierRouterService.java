@@ -49,7 +49,7 @@ import com.glacier.frame.entity.carrier.CarrierPickUpgoodsAreaExample;
 import com.glacier.frame.entity.carrier.CarrierRoute;
 import com.glacier.frame.entity.carrier.CarrierRouteExample; 
 import com.glacier.frame.entity.carrier.CarrierRouteExample.Criteria;
-import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.User; 
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -78,7 +78,47 @@ public class CarrierRouterService {
 	
 	@Autowired
 	private CarrierMemberMapper carrierMemberMapper;
-	 
+	  
+	
+    /**
+     * @Title: listAsWebsite 
+     * @Description: TODO(前台展示班线信息) 
+     * @param @param pager
+     * @param @param p
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsWebsite(JqPager pager, int p,String routeType,CarrierRouteQueryDTO routeQueryDTO) {
+    	JqGridReturn returnResult = new JqGridReturn();
+    	CarrierRouteExample carrierRouteExample = new CarrierRouteExample();
+    	Criteria queryCriteria = carrierRouteExample.createCriteria(); 
+        routeQueryDTO.setQueryCondition(queryCriteria);
+    	carrierRouteExample.createCriteria().andStatusEqualTo("enable").andRouteTypeEqualTo(routeType); 
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	carrierRouteExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	carrierRouteExample.setLimitEnd(pager.getRows());
+        }
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	carrierRouteExample.setOrderByClause(pager.getOrderBy("temp_carrier_route_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        carrierRouteExample.setLimitStart(startTemp);
+        carrierRouteExample.setLimitEnd(10);
+        List<CarrierRoute>  carrierRoute = carrierRouteMapper.selectByExample(carrierRouteExample); // 查询所有班线列表
+        int total = carrierRouteMapper.countByExample(carrierRouteExample); // 查询总页数
+        returnResult.setRows(carrierRoute);
+        //如果查询出总数小于1，则默认分页为第一页，不然前台页面会有错误信息
+        if(total<1){
+        	total=1;
+        }
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        return returnResult;// 返回ExtGrid表
+    }
+	  
 	/*** 
 	 * @Title: listAsGrid  
 	 * @Description: TODO(获取班线list)  
@@ -88,11 +128,11 @@ public class CarrierRouterService {
 	 * @return Object    返回类型  
 	 * @throws
 	 */
-     public Object listAsGrid(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO, String q) {
+     public Object listAsGrid(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO) {
         JqGridReturn returnResult = new JqGridReturn();
         CarrierRouteExample carrierRouteExample = new CarrierRouteExample(); 
         Criteria queryCriteria = carrierRouteExample.createCriteria(); 
-        routeQueryDTO.setQueryCondition(queryCriteria, q);
+        routeQueryDTO.setQueryCondition(queryCriteria);
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	carrierRouteExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	carrierRouteExample.setLimitEnd(jqPager.getRows());
@@ -106,7 +146,7 @@ public class CarrierRouterService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
       }
-    
+      
      /*** 
       * @Title: getRoute  
       * @Description: TODO(获取班线详情)  

@@ -114,6 +114,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          <div>
 				          <table class="table table-hover">
 				          	<tbody>
+				          	    <c:if test="${empty newsDatas.rows}">
+										<tr>
+							           		<td colspan="3" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							          	</tr>
+								</c:if>
 				          		<c:forEach items="${newsDatas.rows}" var="news">
 						          <tr>
 						            <td class="col-md-7">${news.webNewsTheme}</td>

@@ -185,8 +185,9 @@
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
 									glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.param,this).select();
-							glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect();
-						 },
+						      	glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.alwaySelect();
+							
+						},
 						onUnselectAll : function(rows) {
 							action_controller(
 									glacier.carrierCarInformation_mgr.carrierCarInformation_mgr.carrierCarInformation.param,this).unSelect();

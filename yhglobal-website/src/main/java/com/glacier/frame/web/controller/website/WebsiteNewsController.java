@@ -45,8 +45,7 @@ public class WebsiteNewsController extends AbstractController{
   	public Object newsDetail(String webNewsId,String type){
   		ModelAndView mav = new ModelAndView("about_mgr/newsDetail");
   		mav.addObject("newsData", newsService.getNews(webNewsId));
-  		request.setAttribute("type", type);
-  		System.out.println("<<<<<<<<<<<<<"+type);
+  		request.setAttribute("type", type); 
   		return mav;
   	}
 }

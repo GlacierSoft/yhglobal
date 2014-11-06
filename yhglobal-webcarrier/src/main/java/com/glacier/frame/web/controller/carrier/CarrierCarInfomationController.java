@@ -38,7 +38,7 @@ public class CarrierCarInfomationController extends AbstractController{
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("carrier_mgr/carrierCarInformation_mgr/carrierCarInformatione");
-        return mav;
+        return mav; 
     } 
      
     

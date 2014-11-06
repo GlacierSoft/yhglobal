@@ -34,7 +34,7 @@ import com.glacier.frame.entity.carrier.CarrierRouteExample.Criteria;
  */
 public class CarrierRouteQueryDTO extends CarrierRoute{
   
-	public void setQueryCondition(Criteria queryCriteria, String q){
+	public void setQueryCondition(Criteria queryCriteria){
 		 
      //班线编号
    	 if(null != this.getRouteNumber() && StringUtils.isNotBlank(this.getRouteNumber())){
@@ -55,7 +55,15 @@ public class CarrierRouteQueryDTO extends CarrierRoute{
    	 if(null != this.getRouteStop() && StringUtils.isNotBlank(this.getRouteStop())){
             queryCriteria.andRouteStopLike("%" + this.getRouteStop() + "%");
         } 
-   	  
+   	 //班线类型
+   	 if(null != this.getRouteType() && StringUtils.isNotBlank(this.getRouteType())){
+            queryCriteria.andRouteTypeEqualTo(this.getRouteType());
+        } 
+   	   
+    //承运商名称
+  	 if(null != this.getCarrierDisplay() && StringUtils.isNotBlank(this.getCarrierDisplay())){
+           queryCriteria.andCarrierDisplayLike("%" +this.getCarrierDisplay() +"%");
+       }
    	 if(null != this.getStatus()){//状态Enum查询
         queryCriteria.andStatusEqualTo(this.getStatus().toString());
      	} 
