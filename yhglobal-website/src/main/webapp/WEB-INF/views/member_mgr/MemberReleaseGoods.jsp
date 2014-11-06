@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>冰川网贷平台</title>
    	<!-- 引入公用的js和样式库 -->
-	<jsp:include page="inc.jsp"/>
+	<jsp:include page="../inc.jsp"/>
 	<!--引入地图库  -->
 	<style type="text/css">
 		body {
@@ -42,27 +42,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   <body>
       
-      <jsp:include page="nav.jsp"/>
+      <jsp:include page="../nav.jsp"/>
     
-       <div class="container">
-	  	<div class="row">
+        <div class="container">
+	    <div class="row">
 		    <div class="col-md-2">
-			    <div class="panel-group" id="accordion">
-			    	<div class="panel panel-default">
-				  		<div class="bs-example">
-					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-					        <li><a href="#" >公司简介</a></li>
-					        <li><a href="#">网站公告</a></li>
-						    <li><a href="#">网站新闻</a></li>
-					        <li><a href="#">招纳贤士</a></li>
-					        <li><a href="#">联系我们</a></li>
-					        <li class="active"><a href="#">公司地图</a></li>
-					        <li><a href="#">其他业务</a></li>
-					      </ul>
-				  		</div>
-				  	</div>
+	    		<div class="panel-group" id="accordion">
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					      	  Titles Name
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse in">
+					      <div class="panel-body">
+					        <div class="btn-group-vertical">
+					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">Content1</a>
+					          <a href="${ctx}/member/release.htm" <%-- onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" --%>  class="btn btn-info" role="button">Content2</a>
+					          <a href="${ctx}/member/memberAuth.htm?&p=0" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberAuth.htm?&p=0');" --%> class="btn btn-default" role="button">Content3</a>
+					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" --%> class="btn btn-default" role="button">Content4</a>
+							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
+							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
+							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">Content7</a>
+							</div>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+					         	Titles Name Two
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseTwo" class="panel-collapse collapse">
+					      <div class="panel-body">
+					        <div class="btn-group-vertical">
+							  <a href="#" class="btn btn-default" role="button">Content1</a>
+							  <a href="#" class="btn btn-default" role="button">Content2</a>
+							  <a href="#" class="btn btn-default" role="button">Content3</a>
+							</div>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+					    	     Titles Name Three
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseThree" class="panel-collapse collapse">
+					      <div class="panel-body">
+					      	<div class="btn-group-vertical">
+					      	  <a href="#" class="btn btn-default" role="button">Content1</a>
+					      	  <a href="#" class="btn btn-default" role="button">Content2</a>
+					      	  <a href="#" class="btn btn-default" role="button">Content3</a>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 				</div>
-	  		</div>
+	    	</div>
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
@@ -228,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	    <hr class="featurette-divider2">
 	    </div>
-	    <jsp:include page="foot.jsp"/>
+	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
 

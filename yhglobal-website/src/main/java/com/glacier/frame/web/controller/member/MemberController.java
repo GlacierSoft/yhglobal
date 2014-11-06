@@ -48,4 +48,11 @@ public class MemberController extends AbstractController{
         return mav;
     }
     
+    //加入货源发送地展示页
+    @RequestMapping(value="release.htm")
+    private Object intorelease(){
+    	ModelAndView mav=new ModelAndView("/member_mgr/MemberReleaseGoods");
+    	return mav;
+    }
+    
 }
