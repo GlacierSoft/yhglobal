@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">班线详情</h3>
 				  </div>
 				  <div class="panel-body"> 
-			          <h3  style="text-align: center;">广东-珠海</h3> 
+			          <h3  style="text-align: center;">${routerData.routeName}</h3> 
 			          <div>
 			          <table >
 			            <tr height="30px">
