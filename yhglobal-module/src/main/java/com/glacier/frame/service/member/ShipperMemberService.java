@@ -31,6 +31,7 @@ import com.glacier.frame.dao.member.ShipperMemberMapper;
 import com.glacier.frame.dao.member.ShipperMemberTokenMapper;
 import com.glacier.frame.dto.query.member.ShipperMemberQueryDTO;
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
+import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.member.ShipperMemberExample;
 import com.glacier.frame.entity.member.ShipperMemberExample.Criteria;
@@ -293,7 +294,7 @@ public class ShipperMemberService {
     
     /**
      * @Title: addShipperMemberReception 
-     * @Description: TODO(前台注册会员，同时生成工作表和认证表) 
+     * @Description: TODO(前台注册会员，如果是个体会员生成个体会员详细信息表记录，如果是企业会员，生成企业会员详细信息记录) 
      * @param  @param shipperMember
      * @param  @return设定文件
      * @return Object  返回类型
@@ -342,6 +343,17 @@ public class ShipperMemberService {
         shipperMemberToken.setTradersSalt(shipperMemberToken.getSalt());
         shipperMemberToken.setTradersPassword(shipperMemberToken.getPassword());//交易密码
         countToken = shipperMemberTokenMapper.insert(shipperMemberToken); 
+        //判断会员类型，如果是个体会员生成个体会员详细信息表记录，如果是企业会员，生成企业会员详细信息记录
+        if (shipperMember.getMemberType().equals("enterprise")) {//企业会员，生成企业会员详细信息shipper_enterprise_member
+            ShipperEnterpriseMember shipperEnterpriseMember = new ShipperEnterpriseMember();
+            shipperEnterpriseMember.setMemberId(shipperMemberId);
+            shipperEnterpriseMember.setAuthState("authstr");
+            shipperEnterpriseMemberMapper.insert(shipperEnterpriseMember);
+        } else {//个体会员，生成个体会员详细信息
+            ShipperIndividualityMember shipperIndividualityMember = new ShipperIndividualityMember();
+            shipperIndividualityMember.setMemberId(shipperMemberId);
+            shipperIndividualityMemberMapper.insert(shipperIndividualityMember);
+        }
         //判断增加信息是否成功，成功返回成功提示信息
         if (count == 1 && countToken == 1) {
             returnResult.setSuccess(true);
