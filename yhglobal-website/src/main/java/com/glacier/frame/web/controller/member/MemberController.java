@@ -1,5 +1,7 @@
 package com.glacier.frame.web.controller.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,9 +16,16 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
 import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
 import com.glacier.frame.service.member.ShipperMemberService;
+import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+
+
 
 @Controller
 @RequestMapping(value = "member")
@@ -30,6 +39,10 @@ public class MemberController extends AbstractController{
     
     @Autowired
     private ShipperEnterpriseMemberService enterpriseMemberService;
+    
+    
+    @Autowired
+    private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
 
     // 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
@@ -50,8 +63,13 @@ public class MemberController extends AbstractController{
     
     //加入货源发送地展示页
     @RequestMapping(value="release.htm")
-    private Object intorelease(){
+    private Object intorelease(JqPager jqPager, StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO){
     	ModelAndView mav=new ModelAndView("/member_mgr/MemberReleaseGoods");
+    	storehouseGoodstypeSetQueryDTO.setStatus("enable");
+    	JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(jqPager,storehouseGoodstypeSetQueryDTO);
+    	@SuppressWarnings("unchecked")
+		List<StorehouseGoodstypeSet> StorehouseGoodstypeSetList=(List<StorehouseGoodstypeSet>) returnResult.getRows();
+    	mav.addObject("StorehouseGoodstypeSetList",StorehouseGoodstypeSetList);
     	return mav;
     }
     

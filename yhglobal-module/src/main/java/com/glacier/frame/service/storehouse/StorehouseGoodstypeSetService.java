@@ -78,7 +78,7 @@ public class StorehouseGoodstypeSetService {
         return returnResult;// 返回ExtGrid表
     }
     
-    /**
+	/**
 	 * @Title: getGoodstype 
 	 * @Description: TODO(根据货物类型Id获取货物类型信息) 
 	 * @param @param storagetypeId

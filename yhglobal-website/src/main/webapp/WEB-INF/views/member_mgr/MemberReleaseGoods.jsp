@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <%    
 String path = request.getContextPath();    
@@ -121,106 +121,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								亲，您还未使用过<font color="#428BCA">模板发货功能</font>，快来体验一下快速发货吧！ 立即体验>>
 				       	</dIV>
 				       	
-				       	<div style="width:920px;height:820px;border: 1px solid #DADADA;margin-top: 20PX;float: left;border-radius:5px;z-index:9999;box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);">
-						      <div style="width:900px;height:700px;border:#ccc solid 1px;margin-top: 10px;margin-left: 10px;" >
+				       	<div style="width:920px;height:740px;border: 1px solid #DADADA;margin-top: 20PX;float: left;border-radius:5px;z-index:9999;box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);">
+						      <div style="width:900px;height:650px;border:#ccc solid 1px;margin-top: 10px;margin-left: 10px;" >
+						         <form name="" id="form_release_goods" method="post"> 
 						         <table style="width:900px;margin: 0px auto;border: 1px solid #DDDDDD;height: 430px;" class="table_release">
 						               <tr>
-						                   <td class="td_release">发货地</td>
+						                   <td class="td_release">发货地址</td>
 						                   <td >
-						                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
-						                        <input type="text" name="source_place" style="margin-left: 10px;" placeholder="填写详细地址">
+						                        <input type="text" name="belaidupInitiatin" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
+						                        <input type="text" name="belaidupInitiatin" style="margin-left: 10px;" placeholder="填写详细地址">
 						                   </td>
 						               </tr>
 						               <tr>
-						                   <td class="td_release">收货地</td>
+						                   <td class="td_release">收货地址</td>
 						                   <td >
-						                       <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
-						                       <input type="text" name="source_place" style="margin-left: 10px;" placeholder="填写详细地址">
+						                       <input type="text" name="orderAddress" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
+						                       <input type="text" name="orderAddress" style="margin-left: 10px;" placeholder="填写详细地址">
 						                   </td>
 						               </tr>
 						               <tr>
-						                   <td class="td_release">发货地</td>
+						                   <td class="td_release">类型</td>
 						                   <td >
-						                       <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
-						                       <input type="text" name="source_place" style="margin-left: 10px;" placeholder="填写详细地址">
-						                   </td>
-						               </tr>
-						               <tr>
-						                   <td class="td_release">货物类型</td>
-						                   <td >
-						                          <select class="form-control" name="loanPurposeId" id="loanPurposeId" style="width:200px;margin-left: 10px; " >
+						                          <select name="goodstypeId" id="loanPurposeId" style="width:200px;margin-left: 10px; " >
 												   <option value="">--请选择--</option>
-												    <option value="长期使用">长期使用</option>
-												    <option value="资金周转">资金周转</option>
-												    <option value="短期周转">短期周转</option>
-												    <option value="创业借款">创业借款</option>
-												    <option value="其他借款">其他借款</option>
-												    <option value="普通借款">普通借款</option>
-												    <option value="随便玩玩">随便玩玩</option>
+												       <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
+														   <option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
+													   </c:forEach>
 												  </select>
+												 
 						                   </td>
 						               </tr>
 						               <tr>
-						                   <td class="td_release">车长(米)</td>
+						                   <td class="td_release">名称</td>
 						                   <td >
-						                        <select name="loanPurposeId" id="loanPurposeId" style="width:200px;margin-left: 10px; " >
-												   <option value="">--请选择--</option>
-												    <option value="长期使用">长期使用</option>
-												    <option value="资金周转">资金周转</option>
-												    <option value="短期周转">短期周转</option>
-												    <option value="创业借款">创业借款</option>
-												    <option value="其他借款">其他借款</option>
-												    <option value="普通借款">普通借款</option>
-												    <option value="随便玩玩">随便玩玩</option>
-												  </select>&nbsp;至&nbsp;
-						                          <select name="loanPurposeId"  style="width:200px; " >
-												   <option value="">--请选择--</option>
-												    <option value="长期使用">长期使用</option>
-												    <option value="资金周转">资金周转</option>
-												    <option value="短期周转">短期周转</option>
-												    <option value="创业借款">创业借款</option>
-												    <option value="其他借款">其他借款</option>
-												    <option value="普通借款">普通借款</option>
-												    <option value="随便玩玩">随便玩玩</option>
-												  </select>
-						                   </td>
-						               </tr>
-						               <tr>
-						                   <td class="td_release">有效期</td>
-						                   <td >
-						                         <input type="radio" name="use_time" checked="checked" value="longt_imne" style="margin-left: 10px;">即时货源<span style="color: #BC9999;font-size: 15px;">（当晚12时前或次日晚12时前有效）</span>&nbsp;&nbsp;
-						                         <input type="radio" name="use_time" value="short_time" >长期货源<span style="color: #BC9999;font-size: 15px;">（30天有效）</span>
+						                      <input type="text" name="belaidupProdName" style="margin-left: 10px;width:200px;" placeholder="填写货物名称">
 						                   </td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release" style="margin-top: 5px;">备注</td>
 						                   <td >
-						                          <input type="text" name="source_place" style="margin-left: 10px;width: 540px;">  
+						                          <input type="text" name="remark" style="margin-left: 10px;width: 540px;">  
 						                   </td>
 						               </tr>
 						         </table>  
 						         
-						         <table style="width:650px;margin: 0px auto;border: 0px solid red;height: 230px;margin-left: 20px;" class="table_release_two">
+						         <table style="width:650px;margin: 0px auto;border: 0px solid red;height: 200px;margin-left: 20px;" class="table_release_two">
 						                   <tr>
-							                   <td class="td_release_two">交易手机</td>
+							                   <td class="td_release_two">收货人名称</td>
 							                   <td style="text-align: left;" >
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="交易手机" >
+							                        <input type="text" name="orderConsignee" style="margin-left: 10px;"  placeholder="交易手机" >
 							                   </td>
-							                   <td class="td_release_two">交易电话</td>
+							                   <td class="td_release_two">收货人手机</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="交易手机" >
+							                        <input type="text" name="orderPhone" style="margin-left: 10px;"  placeholder="交易手机" >
 							                   </td>
-							                   <td class="td_release_two">重要程度</td>
+							                   <td class="td_release_two">加急配送</td>
 							                   <td  style="text-align: left;">
-							                          <select name="loanPurposeId" style="margin-left: 10px;width:120px;" >
+							                          <select name="yesOrNo" style="margin-left: 10px;width:120px;" >
 													   <option value="">--请选择--</option>
-													    <option value="长期使用">长期使用</option>
-													    <option value="资金周转">资金周转</option>
-													    <option value="短期周转">短期周转</option>
-													    <option value="创业借款">创业借款</option>
-													    <option value="其他借款">其他借款</option>
-													    <option value="普通借款">普通借款</option>
-													    <option value="随便玩玩">随便玩玩</option>
+													    <option value="yes" selected="selected">是</option>
+													    <option value="no">否</option>
 													  </select>
 							                   </td>
 						               </tr>
@@ -228,39 +188,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <tr>
 						                     <td class="td_release_two">重量(吨)</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="重量(吨)" >
+							                        <input name="belaidupWeight" type="text" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="重量(吨)">
 							                   </td>
 							                   <td class="td_release_two">体积(方)</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="体积(方)" >
+							                        <input type="text" name="belaidupBulk" style="margin-left: 10px;"  placeholder="体积(方)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" >
 							                   </td style="text-align: left;">
 							                   <td class="td_release_two">数量(件)</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="数量(件)" >
+							                        <input type="text" name="belaidupNum"   placeholder="数量(件)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  >
 							                   </td>
 						               </tr>
-						               
-						               <tr>
-						                  <td class="td_release_two">重量(吨)</td>
-							                   <td style="text-align: left;" >
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="重量(吨)" >
-							                   </td>
-							                   <td class="td_release_two">体积(方)</td>
-							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="体积(方)" >
-							                   </td>
-							                   <td class="td_release_two">数量(件)</td>
-							                   <td style="text-align: left;">
-							                        <input type="text" name="source_place" style="margin-left: 10px;"  placeholder="数量(件)" >
-							                   </td>
-						               </tr>
-						               
-						               
 						         </table>
+						        </form>
 						      </div>
 						      
 						      <div style="width:96px;height:33px;margin-top:20px;border: 0px solid black;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 420px;">
-				       	                           确认发布
+				       	          <span onclick="doCheck();" style="cursor: pointer;">发布</span>
+				       	          <span onclick="doClear();" style="cursor: pointer;">重置</span>
 				          	 </dIV>
 					         
 				       	</div>
@@ -276,8 +221,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
-
-	
+        function doCheck(){
+        	alert($("#form_release_goods").serialize());
+        }
 </script>
 </body>
 </html>
