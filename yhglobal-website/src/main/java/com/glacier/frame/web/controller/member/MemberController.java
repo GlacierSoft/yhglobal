@@ -93,4 +93,44 @@ public class MemberController extends AbstractController{
         return belaidupService.addBelaidup_website(belaidup,packageId);
     }
     
+    //个体户的修改信息操作
+    @RequestMapping(value = "/editIndividuality.htm")
+	@ResponseBody
+	public Object editIndividuality(@Valid ShipperIndividualityMember individuality,String email,BindingResult bindingResult,String memberId){
+		if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+		return individualityMemberService.editIndividualityMember(individuality,email,memberId);
+	}
+    
+    //企业用户的修改信息操作
+    @RequestMapping(value = "/editEnterprise.htm")
+	@ResponseBody
+	public Object editEnterprise(@Valid ShipperEnterpriseMember enterprise,String email,BindingResult bindingResult,String memberId){
+		if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+		return individualityMemberService.editEnterpriseMember(enterprise,email,memberId);
+	}
+    
+    // 进入会员个人详细信息展示页面
+    @RequestMapping(value = "/memberDetail.htm")
+    private Object intoMemberDetail(HttpServletRequest request) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+        ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+        ModelAndView mav = null;
+        if(pricipalMember.getMemberType().equals("individuality")){
+        	mav = new ModelAndView("member_mgr/memberDetail");
+        }else{
+        	mav = new ModelAndView("member_mgr/enterpriseMemberDetail");
+        }
+        ShipperMember member = (ShipperMember) shipperMemberService.getShipperMember(pricipalMember.getMemberId());
+        ShipperIndividualityMember individuality = individualityMemberService.getShipperMember(pricipalMember.getMemberId());
+        ShipperEnterpriseMember enterpriseMember = enterpriseMemberService.getShipperMember(pricipalMember.getMemberId());
+        mav.addObject("member", member);
+        mav.addObject("enterprise", enterpriseMember);
+        mav.addObject("individuality", individuality);
+        return mav;
+    }
+    
 }

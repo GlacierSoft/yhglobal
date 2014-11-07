@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
   </head>
+  
   <body>
   <jsp:include page="../nav.jsp"/>
        
@@ -102,35 +103,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						       <div class="tab-pane fade in active" id="tabPersonalBase">
 							       	<br>
 							        <blockquote>
-								  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为个体会员必填项。</p>
+								  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为企业会员必填项。</p>
 									</blockquote>
 							  		  <div class="form-group">
 							  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${member.memberId}" >
 									    <!-- 判断是按保存按钮还是保存并提交审核按钮 -->
 									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
-									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
+									    <label for="enterpriseName" class="col-sm-2 control-label">*企业名称:</label>
 									    <div class="col-sm-4">
-									      <input type="text" maxlength="8" class="form-control" onblur="checkMemberRealName();" id="memberRealName" name="memberRealName" value="${individuality.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
-									      <span id="memberRealNameSpan"></span>
+									      <input type="text" maxlength="8" class="form-control" onblur="checkEnterpriseName();" id="enterpriseName" name="enterpriseName" value="${enterprise.enterpriseName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
+									      <span id="enterpriseNameSpan"></span>
 									    </div>
-									    <label for="educational" class="col-sm-2 control-label">更换手机号码:</label>
+									    <label for="educational" class="col-sm-2 control-label">*企业类型:</label>
 									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="float: left;" name="mobileNumber" id="mobileNumber" value="${individuality.mobileNumber}"  placeholder="如不修改手机请保留为空" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-									      <span id="mobileNumberSpan"></span>
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkEnterpriseType();" style="float: left;" name="enterpriseType" id="enterpriseType" value="${enterprise.enterpriseType}"  placeholder="请填写企业类型">
+									      <span id="enterpriseTypeSpan"></span>
 									    </div>
 									  </div>
+									  <!-- -------------------------------------------------------------------------- -->
+									  <div class="form-group">
+									    <label for="enterpriseName" class="col-sm-2 control-label">*法人代表:</label>
+									    <div class="col-sm-4">
+									      <input type="text" maxlength="8" class="form-control" onblur="checkDeputy();" id="deputy" name="deputy" value="${enterprise.deputy}" placeholder="请填写法人代表" >
+									      <span id="deputySpan"></span>
+									    </div>
+									    <label for="educational" class="col-sm-2 control-label">*企业性质:</label>
+									    <div class="col-sm-4">
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkProperty();" style="float: left;" name="property" id="property" value="${enterprise.property}"  placeholder="请填写企业性质">
+									      <span id="propertySpan"></span>
+									    </div>
+									  </div>
+									  
 									  <div class="form-group">
 									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
 									  </div>
 									  <div class="form-group" >
-									    <label for="mobileNumber" class="col-sm-2 control-label">*旧绑定邮箱:</label>
+									    <label for="enterpriseType" class="col-sm-2 control-label">*旧绑定邮箱:</label>
 									    <div class="col-sm-4" style="width: 300px;float: left;">
 									      <input type="tel"  class="form-control" style="width: 170px;float: left;" name="yanemail"  placeholder="如不修改请保留为空" >
 									      	<button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
-									      <span id="mobileNumberSpan"></span>
+									      <span id="enterpriseTypeSpan"></span>
 					                 </div>
 					                 <div class="form-group" style="float: left;width: 400px" >
-									   <label for="mobileNumber" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
+									   <label for="enterpriseType" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
 									      <div class="col-sm-4" style="float: left;">
 									       	<input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
 									      </div> 
@@ -140,31 +155,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  	<label for="educational" class="col-sm-2 control-label">更换绑定邮箱:</label>
 									    <div class="col-sm-4">
 									      <input type="tel"  class="form-control" style="float: left;" name="email" id="email" placeholder="新手机号码" >
-									      <span id="mobileNumberSpan"></span>
+									      <span id="enterpriseTypeSpan"></span>
 									    </div>
-									    <label for="sex" class="col-sm-2 control-label">性别:</label>
-									  	<div class="col-sm-4">
-									       <select class="form-control col-sm-6" name="sex" id="sex" >
-											  <option value="man">男</option>
-											  <option value="woman">女</option>
-											  <option value="secret">保密</option>
-											</select>
+									    <label for="educational" class="col-sm-2 control-label">*所属地区:</label>
+									    <div class="col-sm-4">
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkArea();" style="float: left;" name="area" id="area" value="${enterprise.area}"  placeholder="请填写所属地区">
+									      <span id="areaSpan"></span>
 									    </div>
 									  </div>
+									  
 									  <div class="form-group">
-									    <label for="educational" class="col-sm-2 control-label">QQ:</label>
+									    <label for="enterpriseName" class="col-sm-2 control-label">*所属行业:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="memberQq" id="memberQq" value="${individuality.memberQq}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="会员QQ">
+									      <input type="text" maxlength="8" class="form-control" onblur="checkTrade();" id="trade" name="trade" value="${enterprise.trade}" placeholder="请填写所属行业" >
+									      <span id="tradeSpan"></span>
 									    </div>
-									    <label for="memberAge" class="col-sm-2 control-label">会员年龄:</label>
+									    <label for="educational" class="col-sm-2 control-label">*企业传真:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" maxlength="3" name="memberAge" id="memberAge" value="${individuality.memberAge}" placeholder="会员年龄" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkEnterpriseFax();" style="float: left;" name="enterpriseFax" id="enterpriseFax" value="${enterprise.enterpriseFax}"  placeholder="请填写企业传真">
+									      <span id="enterpriseFaxSpan"></span>
 									    </div>
+									  </div>
+									  
+									  <div class="form-group">
+									    <label for="educational" class="col-sm-2 control-label">企业电话:</label>
+									    <div class="col-sm-4">
+									      <input type="text" class="form-control" name="enterprisePhone" id="enterprisePhone" value="${enterprise.enterprisePhone}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="请填写企业电话">
+									    </div>
+									    <%-- <label for="personalDes" class="col-sm-2 control-label">企业Logo:</label>
+									    <div class="col-sm-4" style="float: left;">
+											<input class="ke-input-text" type="text" name="enterpriseLogo" id="url" value="${enterprise.enterpriseLogo}" readonly="readonly" />
+											<input type="button" id="uploadButton" value="上传"/>
+									    </div> 
+									    <div class="col-sm-6" id="memberPhotoDiv" style="border: 1px #DDDDDD;">
+											<img id="memberPhotoDivImg"  src="${enterprise.enterpriseLogo}" style="width: 50px;height: 50px ;" />
+										</div> --%>
 									  </div>
 									  <div class="form-group">
 									    <label for="detailedAddress" class="col-sm-2 control-label">*详细地址:</label>
 									    <div class="col-sm-10">
-									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" value="${individuality.detailedAddress}"  placeholder="现居住地址"></textarea>
+									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" value="${enterprise.detailedAddress}"  placeholder="请填写详细地址"></textarea>
 									      <span id="detailedAddressSpan"></span>
 									    </div>
 									  </div>
@@ -208,6 +238,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
   </body>
 <script type="text/javascript"> 
+
+
 	    //禁用Enter键表单自动提交
 	      document.onkeydown = function(event) {
 	          var target, code, tag;
@@ -238,42 +270,109 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          }
 	      };
 
+	      $(function(){
 	    	  $("#personalMessageForm").validate({
-	    		  rules:{
-	      		  },
-	      		  messages:{
-	      		  },
-	    		  submitHandler:function(){
 	    			 $.ajax({
-    				   type: "POST",
-    				   url: ctx+"/member/editIndividuality.htm",
-    				   dataType: "json",
-    				   data: $("#personalMessageForm").serialize(),
+	    			   type: "POST",
+	    			   url: ctx+"/member/editEnterprise.htm",
+	    			   dataType: "json",
+	    			   data: $("#personalMessageForm").serialize(),
 	    			   success: function(r) { 
-	   					 	notClonedialog(r);
-	                    },
-	                    error: function() {
-	                        alert("提交出错！");
-	                    }
-			    	});
-	    		  }
+	    					 	notClonedialog(r);
+	                  },
+	                  error: function() {
+	                      alert("提交出错！");
+	                  }
+	    	    	});
 	    	  });
+	    });
+	      
 	      
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-			return checkMemberRealName()&&checkMobileNumber()&&checkLiveAddress();
+			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea();
 		}
 	    
 		//真实姓名验证
-	 	function checkMemberRealName(){
-			var memberRealName = $("#memberRealName").val();
-			if(memberRealName == ""){
-				document.getElementById("memberRealNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>真实姓名不能为空!</font>";
+	 	function checkEnterpriseName(){
+			var enterpriseName = $("#enterpriseName").val();
+			if(enterpriseName == ""){
+				document.getElementById("enterpriseNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业名称不能为空!</font>";
 				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
-				document.getElementById("memberRealNameSpan").innerHTML="";
+				document.getElementById("enterpriseNameSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+	 	//法人代表验证
+	 	function checkDeputy(){
+			var enterpriseName = $("#deputy").val();
+			if(enterpriseName == ""){
+				document.getElementById("deputySpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>法人代表不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("deputySpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+		//企业性质验证
+	 	function checkProperty(){
+			var enterpriseName = $("#property").val();
+			if(enterpriseName == ""){
+				document.getElementById("propertySpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业性质不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("propertySpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+	 	//所属地区验证
+	 	function checkArea(){
+			var enterpriseName = $("#area").val();
+			if(enterpriseName == ""){
+				document.getElementById("areaSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>所属地区不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("areaSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+	 	
+	 	//所属行业验证
+	 	function checkTrade(){
+			var enterpriseName = $("#trade").val();
+			if(enterpriseName == ""){
+				document.getElementById("tradeSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>所属行业不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("tradeSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+	 	
+	 	//企业传真验证
+	 	function checkEnterpriseFax(){
+			var enterpriseName = $("#enterpriseFax").val();
+			if(enterpriseName == ""){
+				document.getElementById("enterpriseFaxSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业传真不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("enterpriseFaxSpan").innerHTML="";
 				$("#tieshi").html("");
 				return true;
 			}
@@ -294,14 +393,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		//身份证验证
-		function checkMobileNumber(){
-			var mobileNumber = $("#mobileNumber").val();
-			if(mobileNumber == ""){
-				document.getElementById("mobileNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>手机号码不能为空!</font>";
+		function checkEnterpriseType(){
+			var enterpriseType = $("#enterpriseType").val();
+			if(enterpriseType == ""){
+				document.getElementById("enterpriseTypeSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业类型不能为空!</font>";
 				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
-				document.getElementById("mobileNumberSpan").innerHTML="";
+				document.getElementById("enterpriseTypeSpan").innerHTML="";
 				$("#tieshi").html("");
 				return true;
 			}
