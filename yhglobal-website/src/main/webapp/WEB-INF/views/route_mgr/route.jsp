@@ -287,11 +287,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#form").submit(); 
 	  } 
 	
-	//表单重置
+	//表单重置查询
 	function formreset(){
 		$("#carrierDisplay").val(""); 
 		$("#routeOrigin").val("");
 		$("#routeStop").val(""); 
+		$("#form").submit(); 
 	}
 </script>
 

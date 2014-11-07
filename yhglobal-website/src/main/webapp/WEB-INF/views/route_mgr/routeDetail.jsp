@@ -129,9 +129,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </tr>
 			            <tr height="30px">
 			             <td width="200px" align="left" style="padding-left:120px;"><font size="2" color="#0697DA">起步价：</font></td>
-			             <td width="200px"><fmt:formatNumber value='${routerData.startingPrice}' pattern='#,#00.00'/></td>  
+			             <td width="200px"><fmt:formatNumber value='${routerData.startingPrice}' pattern='#,#00.00'/>元</td>  
 			             <td width="200px" align="left" style="padding-left:110px;"><font size="2" color="#0697DA">保险费：</font></td>
-			             <td width="200px"><fmt:formatNumber value='${routerData.premium}' pattern='#,#00.00'/></td>  
+			             <td width="200px"><fmt:formatNumber value='${routerData.premium}' pattern='#,#00.00'/>元</td>  
 			            </tr>
 			            <tr height="30px">
 			             <td width="200px" align="left" style="padding-left:120px;"><font size="2" color="#0697DA">轻货价：</font></td>
