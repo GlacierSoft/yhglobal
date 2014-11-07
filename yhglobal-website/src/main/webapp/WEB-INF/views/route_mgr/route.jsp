@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      <!-- Table --> 
 			       <table class="table table-bordered" style="text-align: center;">
 						<thead>
-					        <tr>
+					          <tr>
 							     <td width="100px"><b>编号</b></td>
 							     <td><b>班线名称</b></td>  
 							     <td><b>承运商</b></td>
@@ -112,8 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     <td><b>发布时间</b></td>
 							     <td><b>操作</b></td>
 							  </tr>
-				          </thead> 
-				          <tbody>
+				            </thead> 
+				        	<tbody>
 				        	    <c:if test="${empty routerDatas.rows}">
 										<tr>
 							           		<td colspan="7" style="text-align:center;vertical-align: middle;"><strong style="color: #0697DA">暂无信息</strong></td>
@@ -130,14 +130,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							          	<td ><a href="#" onclick="doClick('${router.routerId}');"><font size="2" color="#0697DA">查看详细</font></a></td>
 							          </tr>
 						      	</c:forEach>   
-							    <tr>
+							    <tr >
 					            <th colspan="7"> 
 					            	<div align="right"  >
 									    <ul id='pageNews'></ul>
 									</div> 
 								</th>
 					          </tr>
-						 </tbody>
+							 </tbody>
 			        </table> 
 		    	</div>       
            </div> 
@@ -222,10 +222,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		element.bootstrapPaginator(options);
 		}
 		})
-	</script>
-
-	<!--弹出省省市-->
-	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;">
+	</script> 
+	<!--弹出省省市style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;"-->
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix" >
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -234,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
 	    </ul>
 	  </div>
-	  <div class="con" style="height: 150px">
+	  <div class="con" style="height: 150px;">
 	    <div class="hotCityAll invis">
 	      <div class="pre"><a></a></div>
 	      <div class="list">
@@ -269,8 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      </div>
 	      <div class="next"><a class="can"></a></div>
 	    </div>
-	  </div>
-	  
+	  </div> 
 	</div> 
 <script src="${ctx}/resources/area/js/public.js"></script> 
 <script type="text/javascript">
@@ -278,19 +276,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function adjustCssAdd(){
 		var provinceCityAlls = document.getElementById("provinceCityAll");
 		provinceCityAlls.style.marginLeft = "850px";
-	}	
-	
+		provinceCityAlls.style.marginTop = "-820px";
+	}	 
 	//始发站的减少距离
 	function adjustCssDel(){
 		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "610px";
-	}
-	
+		provinceCityAlls.style.marginLeft = "600px";
+		provinceCityAlls.style.marginTop = "-820px";
+	} 
 	//表单提交
 	function formsumit(){    
 		$("#form").submit(); 
-	  } 
-	
+	  }  
 	//表单重置查询
 	function formreset(){
 		$("#carrierDisplay").val(""); 
