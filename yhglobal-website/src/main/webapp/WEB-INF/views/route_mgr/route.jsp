@@ -39,10 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <jsp:include page="../nav.jsp"/>
     <!-- center-center --> 
-	<div style="width: 1340px;height: 590px;"> 
-	       <!-- 左边导航 -->
-	       <div class="col-md-2" style="width: 200px;margin-top:10px; margin-left:40px;float: left;">
-	       <div class="panel-group" id="accordion">
+	<div class="container">  
+	  <div class="row">
+	   <div class="col-md-2">
+	      <!-- 左边导航 -->
+	      <div class="panel-group" id="accordion" style="margin-left: 0px">
 			    <div class="panel panel-default" >
 			  		<div class="bs-example">
 				      <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
@@ -50,19 +51,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <li name="seaTransportation"><a href="${ctx}/route/route.htm?&p=1&routeType=seaTransportation">海运班线</a></li> 
 				        <li name="air"><a href="${ctx}/route/route.htm?&p=1&routeType=air">空运班线</a></li> 
 				      </ul>
-			  		</div>  
+			  	  </div>  
 		        </div>
-	                <div class="panel panel-default" style="margin-top: 20px">
-						<img src="${pageContext.request.contextPath}/resources/images/newbie/about001.jpg" alt="联系我们">
-					</div>
-					<div class="panel panel-default" style="height: 255px">
-						<img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="163px" height="163" alt="联系我们">
-						<p>扫描二维码关注越海物流微信，获取越海物流最新动态 </p>
-					</div>
-	        </div>
-	        </div>
-		    <div style="width: 900px;height: 50px;float: left;margin-left: 70px;text-align: center;">
-				<div class="form-group" style="float: left;">
+	            <div class="panel panel-default" style="margin-top: 20px">
+					<img src="${pageContext.request.contextPath}/resources/images/newbie/about001.jpg" alt="联系我们">
+				</div>
+				<div class="panel panel-default" style="height: 255px">
+					<img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="163px" height="163" alt="联系我们">
+					<p>扫描二维码关注越海物流微信，获取越海物流最新动态 </p>
+				</div>
+	      </div> 
+	   </div>
+	   <!-- 右边布局 -->
+       <div class="col-md-10"> 
 				<form id="form" action="<%=basePath%>route/selectRoute.htm?&p=1" method="post">
 				       <input type="hidden" name="routeType" value="${type}"> 
 					   <label for="name" style="float: left; padding-top: 5px">承运商：</label>
@@ -82,10 +83,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					   data-toggle="button" onclick="formreset()"> 重置
 					   </button>
 			   </form>
-			   </div>
-		  </div> 	 
-		 <div class="col-md-9" style="margin-left: 20px;float: left;" >   
-			 <div class="panel panel-default"> 
+			   <!-- 面板 -->
+			   <div class="panel panel-default" style="margin-top: 10px"> 
 				  <!-- Default panel contents -->
 				  <div class="panel-heading"> <b> 
 					   <c:if test="${type eq 'landCarriage' }">
@@ -136,9 +135,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</th>
 					          </tr>
 							 </tbody>
-			      </table> 
-			</div>     
-	</div> 
+			        </table> 
+		    	</div>       
+           </div> 
+      </div>
 	</div>
 	<jsp:include page="../foot.jsp"/>
 		<!-- 分页显示表格数据 -->
@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 
 	<!--弹出省省市-->
-	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;margin-left: 85px;margin-top: -850px;">
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;">
 	  <div class="tabsArea clearfix" >
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -267,6 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <div class="next"><a class="can"></a></div>
 	    </div>
 	  </div>
+	  
 	</div> 
 <script src="${ctx}/resources/area/js/public.js"></script> 
 <script type="text/javascript">
