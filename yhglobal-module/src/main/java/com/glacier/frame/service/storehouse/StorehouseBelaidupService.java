@@ -28,6 +28,7 @@ import com.glacier.frame.dao.storehouse.StorehousePackCodeMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageGoodsrunMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
+import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehousePackCode;
@@ -186,6 +187,38 @@ public class StorehouseBelaidupService {
         }
         return returnResult;
     }
+    
+    
+    
+    @Transactional(readOnly = false)
+    public Object addBelaidup_website(StorehouseBelaidup belaidup,String packageId) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample(); 
+        int count = 0;
+        // 防止货物名称重复
+        belaidupSetExample.createCriteria().andBelaidupProdNameEqualTo(belaidup.getBelaidupProdName());
+        count = belaidupMapper.countByExample(belaidupSetExample);
+        //获取库房
+      
+        belaidup.setBelaidupId(RandomGUID.getRandomGUID());
+        belaidup.setBelaidupStatus("receiving");
+        belaidup.setSortingStauts("waitsorting");
+        belaidup.setCreater(pricipalUser.getMemberId());
+        belaidup.setCreateTime(new Date());
+        belaidup.setUpdater(pricipalUser.getMemberId());
+        belaidup.setUpdateTime(new Date());
+        count = belaidupMapper.insert(belaidup);
+        if (count == 1) {
+        	 returnResult.setSuccess(true);
+        	returnResult.setMsg("[" + belaidup.getBelaidupProdName() + "] 货物信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，货物信息保存失败");
+        }
+        return returnResult;
+    }
+    
     
     /**
      * @Title: editBelaidup 

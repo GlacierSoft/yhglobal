@@ -35,6 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         .table_release_two input[type='text']{width:120px;height:30px; border:1px solid #CCCCCC; border-radius: 5px;}
         
+        #bg{ display: none; position: absolute; top: 0%; left: 0%; width: 100%; height: 230%; background-color: gray; z-index:1001; opacity:0; filter: alpha(opacity=70);}
+		
+		
         
 		
 	</style>
@@ -128,33 +131,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <tr>
 						                   <td class="td_release">发货地址</td>
 						                   <td >
-						                        <input type="text" name="belaidupInitiatin" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
-						                        <input type="text" name="belaidupInitiatin" style="margin-left: 10px;" placeholder="填写详细地址">
+						                        <input type="text" id="belaidupInitiatin" name="belaidupInitiatin" style="margin-left: 10px;"  placeholder="请选择/输入城市名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                        <input type="text" id="belaidupInitiatin_clear" name="belaidupInitiatin" style="margin-left: 10px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release">收货地址</td>
 						                   <td >
-						                       <input type="text" name="orderAddress" style="margin-left: 10px;"  placeholder="请选择/输入城市名称" >
-						                       <input type="text" name="orderAddress" style="margin-left: 10px;" placeholder="填写详细地址">
+						                       <input type="text" id="orderAddress" name="orderAddress" style="margin-left: 10px;"  placeholder="请选择/输入城市名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                       <input type="text"  id="orderAddress_clear" name="orderAddress" style="margin-left: 10px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release">类型</td>
 						                   <td >
-						                          <select name="goodstypeId" id="loanPurposeId" style="width:200px;margin-left: 10px; " >
+						                          <select name="goodstypeId" id="goodstypeId" style="width:200px;margin-left: 10px; " >
 												   <option value="">--请选择--</option>
 												       <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
 														   <option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
-													   </c:forEach>
+														</c:forEach>
 												  </select>
-												 
+												 <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release">名称</td>
 						                   <td >
-						                      <input type="text" name="belaidupProdName" style="margin-left: 10px;width:200px;" placeholder="填写货物名称">
+						                      <input type="text" name="belaidupProdName" id="belaidupProdName" style="margin-left: 10px;width:200px;" placeholder="填写货物名称(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
 						               <tr>
@@ -169,44 +172,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                   <tr>
 							                   <td class="td_release_two">收货人名称</td>
 							                   <td style="text-align: left;" >
-							                        <input type="text" name="orderConsignee" style="margin-left: 10px;"  placeholder="交易手机" >
+							                        <input type="text" name="orderConsignee" id="orderConsignee" style="margin-left: 10px;"  placeholder="收货人名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 							                   </td>
 							                   <td class="td_release_two">收货人手机</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="orderPhone" style="margin-left: 10px;"  placeholder="交易手机" >
+							                        <input type="text" name="orderPhone"  id="orderPhone" style="margin-left: 10px;"  placeholder="交易手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" ><span style="color: red;font-weight: bold;font-size: 20px;" >*</span>
 							                   </td>
 							                   <td class="td_release_two">加急配送</td>
 							                   <td  style="text-align: left;">
-							                          <select name="yesOrNo" style="margin-left: 10px;width:120px;" >
+							                          <select name="yesOrNo" style="margin-left: 10px;width:120px;height: 20px;" id="yesOrNo" >
 													   <option value="">--请选择--</option>
-													    <option value="yes" selected="selected">是</option>
+													    <option value="yes" >是</option>
 													    <option value="no">否</option>
 													  </select>
+													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 							                   </td>
 						               </tr>
 						               
 						               <tr>
 						                     <td class="td_release_two">重量(吨)</td>
 							                   <td style="text-align: left;">
-							                        <input name="belaidupWeight" type="text" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="重量(吨)">
+							                        <input name="belaidupWeight" id="belaidupWeight" type="text" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="重量(吨)(必填)">
+							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 							                   </td>
 							                   <td class="td_release_two">体积(方)</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="belaidupBulk" style="margin-left: 10px;"  placeholder="体积(方)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" >
+							                        <input type="text"  name="belaidupBulk" id="belaidupBulk" style="margin-left: 10px;"  placeholder="体积(方)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" >
+							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 							                   </td style="text-align: left;">
 							                   <td class="td_release_two">数量(件)</td>
 							                   <td style="text-align: left;">
-							                        <input type="text" name="belaidupNum"   placeholder="数量(件)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  >
+							                        <input type="text" name="belaidupNum" id="belaidupNum"  placeholder="数量(件)(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  >
+							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 							                   </td>
 						               </tr>
 						         </table>
 						        </form>
 						      </div>
 						      
-						      <div style="width:96px;height:33px;margin-top:20px;border: 0px solid black;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 420px;">
-				       	          <span onclick="doCheck();" style="cursor: pointer;">发布</span>
-				       	          <span onclick="doClear();" style="cursor: pointer;">重置</span>
-				          	 </dIV>
+						      <div style="width: 920px;height:33px;border: 0px solid red;float: left;margin-top: 20px;">
+							      <div style="width:96px;height:33px;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 360px;">
+					       	          <span onclick="doCheck();" style="cursor: pointer;">发布</span>
+					       	     </dIV>
+						         
+						         <div style="width:96px;height:33px;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 10px;">
+					       	          <span onclick="doClear();" style="cursor: pointer;">重置</span>
+					          	 </dIV>
+					          </div>
 					         
 				       	</div>
 				       	<div style="width: 920px;margin-top: 25px;border: 1px solid #DDDDDD;height:40px;background: #F5F5F5;line-height: 40px;float: left;border-radius:5px;" >
@@ -216,14 +228,112 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 	    	</div>
 	    </div>
-	    <hr class="featurette-divider2">
+	    
+	    <div id="bg"></div>
+		
+         <hr class="featurette-divider2">
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
-        function doCheck(){
-        	alert($("#form_release_goods").serialize());
-        }
+
+    function doCheck(){
+    	
+    	if($("#belaidupInitiatin").val()!=""&&$("#belaidupInitiatin_clear").val()!=""&&
+           $("#orderAddress").val()!=""&&$("#orderAddress_clear").val()!=""&&$("#goodstypeId").val()!=""&&
+           $("#belaidupProdName").val()!=""&&$("#orderConsignee").val()!=""&&$("#orderPhone").val()!=""&&$("#goodstypeId").val()!=""&&$("#yesOrNo").val()!=""&&
+           $("#belaidupWeight").val()>=0&&$("#belaidupBulk").val()>=0&&$("#belaidupNum").val()>=0&& $("#belaidupWeight").val()!=""&&$("#belaidupBulk").val()!=""&&$("#belaidupNum").val()!=""){
+           
+    		document.getElementById("bg").style.display ="block";
+    		var d = dialog({
+    		    title: '提示',
+    		    width:360,
+    		    height:40,
+    		    lock:false,
+    		    fixed: true,
+    		    content: '你确定要对此货源吗?',
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	$.ajax({
+    					   type: "POST",
+    					   url: ctx + '/member/add.json',
+    					   data: $("#form_release_goods").serialize(),
+    					   dataType:'json',
+    					   success: function(r){
+    						 if(r.success){
+    							 var d = dialog({
+    					    			title:'提示',
+    					    			width:300,
+    					    		    height:30,
+    					    		    fixed: true,
+    					    		    content: '货源发布成功，在记录中查看!',
+    					    		    okValue: '确定',
+    					    		    ok: function () {
+    					    		    	this.close();
+    					    		        return false;
+    					    		    },
+    					    		});
+    					    		d.show();
+    					    		setTimeout(function () {
+    					    		    d.close().remove();
+    					    		}, 5000);
+    					    		doClear();
+    						 }else{
+    							 var d = dialog({
+ 					    			title:'提示',
+ 					    			width:300,
+ 					    		    height:30,
+ 					    		    fixed: true,
+ 					    		    content: '货物发布失败，，请联系管理员!!!!',
+ 					    		    okValue: '确定',
+ 					    		    ok: function () {
+ 					    		    	this.close();
+ 					    		        return false;
+ 					    		    },
+ 					    		    
+ 					    		});
+ 					    		d.show();
+ 					    		setTimeout(function () {
+ 					    		    d.close().remove();
+ 					    		}, 5000);
+ 					    		doClear();
+    						 }   
+    						}
+    					});
+    		    	document.getElementById("bg").style.display ='none';
+    		        this.close();
+    		    },
+    		    cancelValue: '取消',
+    		    cancel: function () {
+    		    	document.getElementById("bg").style.display ='none';
+    		    }
+    		});
+    		d.show();
+    	}else{
+    		var d = dialog({
+    			title:'提示',
+    			width:300,
+    		    height:30,
+    		    fixed: true,
+    		    content: '信息填写不完整，请填写完善之后在坐操作!!!!',
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	this.close();
+    		        return false;
+    		    },
+    		    
+    		});
+    		d.show();
+    		setTimeout(function () {
+    		    d.close().remove();
+    		}, 5000);
+    	}
+    	  
+    }
+    
+    function doClear(){
+    	$('#form_release_goods')[0].reset();
+    }
 </script>
 </body>
 </html>
