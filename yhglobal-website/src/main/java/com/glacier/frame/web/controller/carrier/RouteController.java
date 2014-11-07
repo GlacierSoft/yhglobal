@@ -17,18 +17,16 @@
  * @Review (审核人) ：song.jundong 
  * 
  */
-package com.glacier.frame.web.controller.route;
+package com.glacier.frame.web.controller.carrier;
 
-import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletRequest; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.core.controller.AbstractController; 
-import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
-import com.glacier.frame.entity.carrier.CarrierRoute;
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO; 
 import com.glacier.frame.service.carrier.CarrierRouterService; 
 import com.glacier.jqueryui.util.JqPager;
 
@@ -59,13 +57,8 @@ public class RouteController extends AbstractController{
 	  	
 	  	//班线条件查询
 	  	@RequestMapping(value="/selectRoute.htm")
-	  	public Object selectRoute(JqPager pager,CarrierRoute carrierRoute,@RequestParam int p){ 
-	  		String routeType=request.getParameter("routeType");
-	  	  	CarrierRouteQueryDTO carrierRouteQueryDTO =new CarrierRouteQueryDTO();
-	  		carrierRouteQueryDTO.setRouteOrigin(carrierRoute.getRouteOrigin());
-	  		carrierRouteQueryDTO.setRouteStop(carrierRoute.getRouteStop());
-	  		carrierRouteQueryDTO.setCarrierDisplay(carrierRoute.getCarrierDisplay());
-	  		carrierRouteQueryDTO.setRouteType(routeType);
+	  	public Object selectRoute(JqPager pager,CarrierRouteQueryDTO carrierRouteQueryDTO,@RequestParam int p){ 
+	  		String routeType=request.getParameter("routeType");  
 	  		ModelAndView mav = new ModelAndView("route_mgr/route");
 	  		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager, p,routeType,carrierRouteQueryDTO));
 	  		request.setAttribute("type", routeType); 

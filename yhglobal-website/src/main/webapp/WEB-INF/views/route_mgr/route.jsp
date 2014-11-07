@@ -64,43 +64,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   </div>
 	   <!-- 右边布局 -->
        <div class="col-md-10"> 
-				<form id="form" action="<%=basePath%>route/selectRoute.htm?&p=1" method="post">
-				       <input type="hidden" name="routeType" value="${type}"> 
-					   <label for="name" style="float: left; padding-top: 5px">承运商：</label>
-				       <input type="text" style="width: 180px;float: left;" class="form-control" id="carrierDisplay" 
-				       name="carrierDisplay" placeholder="请输入承运商名称"> 
-				       <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;出发站：</label> 
-				       <input type="text" style="width: 180px;float: left;" 
-				       name="routeOrigin" id="routeOrigin" onkeydown="return false;" onfocus="adjustCssDel();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-		               <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;终点站：</label>
-				       <input type="text" style="width: 180px;float: left;" 
-				       name="routeStop" id="routeStop" onkeydown="return false;" onfocus="adjustCssAdd();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-		               &nbsp;&nbsp;&nbsp; 
-				       <button type="submit" style="margin-top: 5px" class="btn btn-primary"  
-						data-toggle="button" onclick="formsumit()"> 查询
-					   </button>
-					   <button type="reset" style="margin-top: 5px" class="btn btn-primary"  
-					   data-toggle="button" onclick="formreset()"> 重置
-					   </button>
-			   </form>
+	          <!-- 条件查询表单 -->
+		      <form id="form" action="<%=basePath%>route/selectRoute.htm?&p=1" method="post">
+			       <input type="hidden" name="routeType" value="${type}"> 
+				   <label for="name" style="float: left; padding-top: 5px">承运商：</label>
+			       <input type="text" style="width: 180px;float: left;" class="form-control" id="carrierDisplay" 
+			       name="carrierDisplay" value="${carrierRouteQueryDTO.carrierDisplay}" placeholder="请输入承运商名称"/> 
+			       <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;出发站：</label> 
+			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeOrigin}" 
+			       name="routeOrigin" id="routeOrigin" onkeydown="return false;" onfocus="adjustCssDel();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+	               <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;终点站：</label>
+			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeStop}" 
+			       name="routeStop" id="routeStop" onkeydown="return false;" onfocus="adjustCssAdd();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+	               &nbsp;&nbsp;&nbsp; 
+			       <button type="submit" style="margin-top: 5px" class="btn btn-primary"  
+					data-toggle="button" onclick="formsumit()"> 查询
+				   </button>
+				   <button type="reset" style="margin-top: 5px" class="btn btn-primary"  
+				   data-toggle="button" onclick="formreset()"> 重置
+				   </button>
+		       </form>
 			   <!-- 面板 -->
 			   <div class="panel panel-default" style="margin-top: 10px"> 
 				  <!-- Default panel contents -->
-				  <div class="panel-heading"> <b> 
-					   <c:if test="${type eq 'landCarriage' }">
-					              陆运班线查询
-					  </c:if>   
-					  <c:if test="${type eq 'seaTransportation'}">
-					              海运班线查询
-					  </c:if> 
-					  <c:if test="${type eq 'air'}">
-					              空运班线查询
-					  </c:if>   </b>
+				  <div class="panel-heading">
+				     <b> 
+						 <c:if test="${type eq 'landCarriage' }">
+						              陆运班线查询
+						  </c:if>   
+						  <c:if test="${type eq 'seaTransportation'}">
+						              海运班线查询
+						  </c:if> 
+						  <c:if test="${type eq 'air'}">
+						              空运班线查询
+						  </c:if>
+					  </b>
 			      </div>  
 			      <!-- Table --> 
 			       <table class="table table-bordered" style="text-align: center;">
-							<thead>
-					          <tr>
+						<thead>
+					        <tr>
 							     <td width="100px"><b>编号</b></td>
 							     <td><b>班线名称</b></td>  
 							     <td><b>承运商</b></td>
@@ -109,8 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     <td><b>发布时间</b></td>
 							     <td><b>操作</b></td>
 							  </tr>
-				            </thead> 
-				        	<tbody>
+				          </thead> 
+				          <tbody>
 				        	    <c:if test="${empty routerDatas.rows}">
 										<tr>
 							           		<td colspan="7" style="text-align:center;vertical-align: middle;"><strong style="color: #0697DA">暂无信息</strong></td>
@@ -127,14 +130,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							          	<td ><a href="#" onclick="doClick('${router.routerId}');"><font size="2" color="#0697DA">查看详细</font></a></td>
 							          </tr>
 						      	</c:forEach>   
-							    <tr >
+							    <tr>
 					            <th colspan="7"> 
 					            	<div align="right"  >
 									    <ul id='pageNews'></ul>
 									</div> 
 								</th>
 					          </tr>
-							 </tbody>
+						 </tbody>
 			        </table> 
 		    	</div>       
            </div> 
