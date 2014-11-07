@@ -131,39 +131,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <tr>
 						                   <td class="td_release">发货地址</td>
 						                   <td >
-						                        <input type="text" id="belaidupInitiatin" name="belaidupInitiatin" style="margin-left: 10px;"  placeholder="请选择/输入城市名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                        <input type="text" id="belaidupInitiatin_clear" name="belaidupInitiatin" style="margin-left: 10px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                        <input type="text" style="width: 180px;float: left;margin-left: 10px; " name="belaidupInitiatin" id="belaidupInitiatin" onkeydown="return false;" onfocus="adjustCssDel();" autocomplete="off"  placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+						                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                        <input type="text" id="belaidupInitiatin_clear" name="belaidupInitiatin" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release">收货地址</td>
 						                   <td >
-						                       <input type="text" id="orderAddress" name="orderAddress" style="margin-left: 10px;"  placeholder="请选择/输入城市名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                       <input type="text"  id="orderAddress_clear" name="orderAddress" style="margin-left: 10px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                       <input type="text" style="width: 180px;float: left;margin-left: 10px; " name="orderAddress" id="orderAddress" onkeydown="return false;" onfocus="adjustCssAdd();" autocomplete="off" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+						                       <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+						                       <input type="text"  id="orderAddress_clear" name="orderAddress" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
 						               </tr>
-						               <tr>
-						                   <td class="td_release">类型</td>
+						              <tr>
+						                   <td class="td_release">类型/名称</td>
 						                   <td >
-						                          <select name="goodstypeId" id="goodstypeId" style="width:200px;margin-left: 10px; " >
+						                          <select name="goodstypeId" id="goodstypeId" style="width:180px;margin-left: 10px; " >
 												   <option value="">--请选择--</option>
 												       <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
 														   <option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
 														</c:forEach>
 												  </select>
 												 <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+												 <input type="text" name="belaidupProdName" id="belaidupProdName" style="margin-left: 10px;width:180px;" placeholder="填写货物名称(必填)">
+												 <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+												 
 						                   </td>
 						               </tr>
 						               <tr>
-						                   <td class="td_release">名称</td>
-						                   <td >
-						                      <input type="text" name="belaidupProdName" id="belaidupProdName" style="margin-left: 10px;width:200px;" placeholder="填写货物名称(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                   </td>
+						                    <td class="td_release">加急/取货</td>
+							                <td  style="text-align: left;">
+							                          <select name="yesOrNo" style="margin-left: 10px;width:180px;" id="yesOrNo" >
+													   <option value="">--请选择--</option>
+													    <option value="yes" >是</option>
+													    <option value="no">否</option>
+													  </select>
+													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+													  <select name="replenishment" style="margin-left: 10px;width:180px;" id="replenishment" >
+													   <option value="">--请选择--</option>
+													    <option value="storepickup" >送货上门</option>
+													    <option value="deliversm">上门取货</option>
+													  </select>
+													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+												</td>
 						               </tr>
 						               <tr>
 						                   <td class="td_release" style="margin-top: 5px;">备注</td>
 						                   <td >
-						                          <input type="text" name="remark" style="margin-left: 10px;width: 540px;">  
+						                          <input type="text" name="remark" style="margin-left: 10px;width: 540px;" placeholder="写在最后(选填)">  
 						                   </td>
 						               </tr>
 						         </table>  
@@ -178,14 +194,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							                   <td style="text-align: left;">
 							                        <input type="text" name="orderPhone"  id="orderPhone" style="margin-left: 10px;"  placeholder="交易手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" ><span style="color: red;font-weight: bold;font-size: 20px;" >*</span>
 							                   </td>
-							                   <td class="td_release_two">加急配送</td>
+							                   <td class="td_release_two">单价(元)</td>
 							                   <td  style="text-align: left;">
-							                          <select name="yesOrNo" style="margin-left: 10px;width:120px;height: 20px;" id="yesOrNo" >
-													   <option value="">--请选择--</option>
-													    <option value="yes" >是</option>
-													    <option value="no">否</option>
-													  </select>
-													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
+							                        <input type="text" name="belaidupUnitprice"  id="belaidupUnitprice" style="margin-left: 10px;"  placeholder="货物单价(元)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><span style="color: red;font-weight: bold;font-size: 20px;" >*</span>
 							                   </td>
 						               </tr>
 						               
@@ -211,12 +222,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      </div>
 						      
 						      <div style="width: 920px;height:33px;border: 0px solid red;float: left;margin-top: 20px;">
-							      <div style="width:96px;height:33px;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 360px;">
-					       	          <span onclick="doCheck();" style="cursor: pointer;">发布</span>
+							      <div style="float: left;margin-left: 360px;">
+					       	         <button type="button"  class="btn btn-primary" onclick="doCheck();">发布</button>
 					       	     </dIV>
 						         
-						         <div style="width:96px;height:33px;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;margin-left: 10px;">
-					       	          <span onclick="doClear();" style="cursor: pointer;">重置</span>
+						         <div style="float: left;margin-left: 10px;">
+					       	          <button type="button"  class="btn btn-primary" onclick="doClear();">重置</button>
 					          	 </dIV>
 					          </div>
 					         
@@ -231,10 +242,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    <div id="bg"></div>
 		
-         <hr class="featurette-divider2">
+         
+         	<!--弹出省省市-->
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;margin-left: 85px;margin-top: -760px;">
+	  <div class="tabsArea clearfix" >
+	    <ul class="">
+	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
+	      <li><a href="javascript:" tb="provinceAll">省份</a></li>
+	      <li><a href="javascript:" tb="cityAll" id="cityAll">城市</a></li>
+	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
+	    </ul>
+	  </div>
+	  <div class="con" style="height: 150px">
+	    <div class="hotCityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
 	    </div>
-	    <jsp:include page="../foot.jsp"/>
-<!-- 分页显示表格数据 -->
+	    <div class="provinceAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">江西省</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="cityAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	          <!-- 					<li><a href="javascript:"  class="current">南京</a></li> -->
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	    <div class="countyAll invis">
+	      <div class="pre"><a></a></div>
+	      <div class="list">
+	        <ul>
+	        </ul>
+	      </div>
+	      <div class="next"><a class="can"></a></div>
+	    </div>
+	  </div>
+	</div> 
+    <script src="${ctx}/resources/area/js/public.js"></script> 
+         
+   <hr class="featurette-divider2">
+   </div>
+   <jsp:include page="../foot.jsp"/>
+
 <script type="text/javascript">
 
     function doCheck(){
@@ -315,7 +376,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			width:300,
     		    height:30,
     		    fixed: true,
-    		    content: '信息填写不完整，请填写完善之后在坐操作!!!!',
+    		    content: '信息填写不完整，请完善之后再进行操作!',
     		    okValue: '确定',
     		    ok: function () {
     		    	this.close();
@@ -334,6 +395,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     function doClear(){
     	$('#form_release_goods')[0].reset();
     }
+    
+    
+  //始发站的减少距离
+	function adjustCssDel(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "330px";
+		provinceCityAlls.style.marginTop = "-760px";
+		
+	}
+  
+  //终点的增加距离
+	function adjustCssAdd(){
+		var provinceCityAlls = document.getElementById("provinceCityAll");
+		provinceCityAlls.style.marginLeft = "330px";
+		provinceCityAlls.style.marginTop = "-670px";
+	}	
+	
 </script>
 </body>
 </html>
