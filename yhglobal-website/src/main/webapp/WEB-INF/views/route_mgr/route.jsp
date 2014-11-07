@@ -72,10 +72,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       name="carrierDisplay" value="${carrierRouteQueryDTO.carrierDisplay}" placeholder="请输入承运商名称"/> 
 			       <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;出发站：</label> 
 			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeOrigin}" 
-			       name="routeOrigin" id="routeOrigin" onkeydown="return false;" onfocus="adjustCssDel();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+			       name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 	               <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;终点站：</label>
 			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeStop}" 
-			       name="routeStop" id="routeStop" onkeydown="return false;" onfocus="adjustCssAdd();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+			       name="routeStop" id="routeStop"  style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 	               &nbsp;&nbsp;&nbsp; 
 			       <button type="submit" style="margin-top: 5px" class="btn btn-primary"  
 					data-toggle="button" onclick="formsumit()"> 查询
@@ -217,8 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    pageUrl: function(type, page, current){
 		    	return "${ctx}/route/route.htm?"+composeUrlParams()+"&p="+page+"&type="+type;
 		    	}
-		}
-		
+		} 
 		element.bootstrapPaginator(options);
 		}
 		})
@@ -271,19 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  </div> 
 	</div> 
 <script src="${ctx}/resources/area/js/public.js"></script> 
-<script type="text/javascript">
-	//终点的增加距离
-	function adjustCssAdd(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "850px";
-		provinceCityAlls.style.marginTop = "-820px";
-	}	 
-	//始发站的减少距离
-	function adjustCssDel(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "600px";
-		provinceCityAlls.style.marginTop = "-820px";
-	} 
+<script type="text/javascript"> 
 	//表单提交
 	function formsumit(){    
 		$("#form").submit(); 

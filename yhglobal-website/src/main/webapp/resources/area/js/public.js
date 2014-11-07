@@ -1,6 +1,5 @@
 (function() { 
-	$(".proCitySelAll").click(function(event) {
-		
+	$(".proCitySelAll").click(function(event) {  
 		
 	    $(".hotCityAll .list ul").empty();
 	    // if ($("body").data("CitysAll") == null) {
@@ -12,9 +11,9 @@
 		$("#dimCityQuery").hide();
 		var o2 = $(this).offset();
 		var l2 = o2.left;
-		var t2 = o2.top;
+		var t2 = o2.top; 
 		var h2 = $(this).height();
-		$(".provinceCityAll").toggle();//.css("top", t2 + h2 - 1).css("left", 0).
+		$(".provinceCityAll").css("top", t2 + h2 +16).css("left", l2).toggle(); 
 		$(".provinceCityAll").click(function(event) {
 			event.stopPropagation();
 		});
