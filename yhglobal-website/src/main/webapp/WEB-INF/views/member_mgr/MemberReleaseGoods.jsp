@@ -25,20 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		padding: 0;
 		}
 		
-		.td_release{text-align: right;color: balck;font-weight: bold;font-size: 15px;}
-        
-        .table_release input[type='text']{width:180px;height:40px; border:1px solid #CCCCCC; border-radius: 5px;} 
-        
-        .table_release select{width:180px;height:40px; border:1px solid #CCCCCC; border-radius: 5px;} 
-        
-        .table_release_two{text-align: right;color: balck;font-weight: bold;font-size: 12px;}
-        
-        .table_release_two input[type='text']{width:120px;height:30px; border:1px solid #CCCCCC; border-radius: 5px;}
-        
-        #bg{ display: none; position: absolute; top: 0%; left: 0%; width: 100%; height: 230%; background-color: gray; z-index:1001; opacity:0; filter: alpha(opacity=70);}
-		
-		
-        
+		#bg{ display: none; position: absolute; top: 0%; left: 0%; width: 100%; height: 150%; background-color: #F5F5F5; z-index:1001; opacity:0.2; filter: alpha(opacity=70);}
 		
 	</style>
   </head>
@@ -117,128 +104,116 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">个人中心 /发布货源</h3>
 				  </div>
 				  <div class="panel-body">
-				       	<div style="width:96px;height:33px;border: 0px solid black;margin-top: 10px;line-height: 33px;background: #428BCA;color: white;border-radius:5px;text-align: center;float: left;">
-				       	            信息发布
-				       	</dIV>
-				       	 <div style="width:600px;height:33px;border: 0px solid black;margin-top: 10px;line-height: 40px;color: white;border-radius:5px;float: left;color:#404040;margin-left: 10px;font-family:'微软雅黑'">
-								亲，您还未使用过<font color="#428BCA">模板发货功能</font>，快来体验一下快速发货吧！ 立即体验>>
-				       	</dIV>
-				       	
-				       	<div style="width:920px;height:740px;border: 1px solid #DADADA;margin-top: 20PX;float: left;border-radius:5px;z-index:9999;box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);">
-						      <div style="width:900px;height:650px;border:#ccc solid 1px;margin-top: 10px;margin-left: 10px;" >
-						         <form name="" id="form_release_goods" method="post"> 
-						         <table style="width:900px;margin: 0px auto;border: 1px solid #DDDDDD;height: 430px;" class="table_release">
-						               <tr>
-						                   <td class="td_release">发货地址</td>
-						                   <td >
-						                        <!--<input type="text" style="width: 180px;float: left;margin-left: 10px; " name="belaidupInitiatin" id="belaidupInitiatin" onkeydown="return false;" onfocus="adjustCssDel();" autocomplete="off"  placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">  -->
-						                        <input type="text" style="width: 180px;float: left;margin-left: 10px;"name="belaidup_initiatin" id="belaidupInitiatin" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-						                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                        <input type="text" id="belaidupInitiatin_clear" name="belaidupInitiatin" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                   </td>
-						               </tr>
-						               <tr>
-						                   <td class="td_release">收货地址</td>
-						                   <td >
-						                       <!--<input type="text" style="width: 180px;float: left;margin-left: 10px; " name="orderAddress" id="orderAddress" onkeydown="return false;" onfocus="adjustCssAdd();" autocomplete="off" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">  -->
-						                       <input type="text" style="width: 180px;float: left;margin-left: 10px;"name="belaidup_terminu" id="orderAddress" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-						                       <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                       <input type="text"  id="orderAddress_clear" name="orderAddress" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-						                   </td>
-						               </tr>
-						              <tr>
-						                   <td class="td_release">类型/名称</td>
-						                   <td >
-						                          <select name="goodstypeId" id="goodstypeId" style="width:180px;margin-left: 10px; " >
-												   <option value="">--请选择--</option>
-												       <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
-														   <option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
-														</c:forEach>
-												  </select>
-												 <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-												 <input type="text" name="belaidupProdName" id="belaidupProdName" style="margin-left: 10px;width:180px;" placeholder="填写货物名称(必填)">
-												 <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-												 
-						                   </td>
-						               </tr>
-						               <tr>
-						                    <td class="td_release">加急/取货</td>
-							                <td  style="text-align: left;">
-							                          <select name="yesOrNo" style="margin-left: 10px;width:180px;" id="yesOrNo" >
-													   <option value="">--请选择--</option>
-													    <option value="yes" >是</option>
-													    <option value="no">否</option>
-													  </select>
-													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-													  <select name="replenishment" style="margin-left: 10px;width:180px;" id="replenishment" >
-													   <option value="">--请选择--</option>
-													    <option value="storepickup" >送货上门</option>
-													    <option value="deliversm">上门取货</option>
-													  </select>
-													  <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-												</td>
-						               </tr>
-						               <tr>
-						                   <td class="td_release" style="margin-top: 5px;">备注</td>
-						                   <td >
-						                          <input type="text" name="remark" style="margin-left: 10px;width: 540px;" placeholder="写在最后(选填)">  
-						                   </td>
-						               </tr>
-						         </table>  
-						         
-						         <table style="width:650px;margin: 0px auto;border: 0px solid red;height: 200px;margin-left: 20px;" class="table_release_two">
-						                   <tr>
-							                   <td class="td_release_two">收货人名称</td>
-							                   <td style="text-align: left;" >
-							                        <input type="text" name="orderConsignee" id="orderConsignee" style="margin-left: 10px;"  placeholder="收货人名称(必填)" ><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-							                   </td>
-							                   <td class="td_release_two">收货人手机</td>
-							                   <td style="text-align: left;">
-							                        <input type="text" name="orderPhone"  id="orderPhone" style="margin-left: 10px;"  placeholder="交易手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" ><span style="color: red;font-weight: bold;font-size: 20px;" >*</span>
-							                   </td>
-							                   <td class="td_release_two">单价(元)</td>
-							                   <td  style="text-align: left;">
-							                        <input type="text" name="belaidupUnitprice"  id="belaidupUnitprice" style="margin-left: 10px;"  placeholder="货物单价(元)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><span style="color: red;font-weight: bold;font-size: 20px;" >*</span>
-							                   </td>
-						               </tr>
-						               
-						               <tr>
-						                     <td class="td_release_two">重量(吨)</td>
-							                   <td style="text-align: left;">
-							                        <input name="belaidupWeight" id="belaidupWeight" type="text" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="重量(吨)(必填)">
-							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-							                   </td>
-							                   <td class="td_release_two">体积(方)</td>
-							                   <td style="text-align: left;">
-							                        <input type="text"  name="belaidupBulk" id="belaidupBulk" style="margin-left: 10px;"  placeholder="体积(方)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" >
-							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-							                   </td style="text-align: left;">
-							                   <td class="td_release_two">数量(件)</td>
-							                   <td style="text-align: left;">
-							                        <input type="text" name="belaidupNum" id="belaidupNum"  placeholder="数量(件)(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  >
-							                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
-							                   </td>
-						               </tr>
-						         </table>
-						        </form>
-						      </div>
-						      
-						      <div style="width: 920px;height:33px;border: 0px solid red;float: left;margin-top: 20px;">
-							      <div style="float: left;margin-left: 360px;">
-					       	         <button type="button"  class="btn btn-primary" onclick="doCheck();">发布</button>
-					       	     </dIV>
-						         
-						         <div style="float: left;margin-left: 10px;">
-					       	          <button type="button"  class="btn btn-primary" onclick="doClear();">重置</button>
-					          	 </dIV>
-					          </div>
-					         
-				       	</div>
-				       	<div style="width: 920px;margin-top: 25px;border: 1px solid #DDDDDD;height:40px;background: #F5F5F5;line-height: 40px;float: left;border-radius:5px;" >
-				       	          &nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">地址详情 : </span>珠海市唐家镇哈工大路一号工大集团新经济资源开发港博士楼A301E
-				       	</div>
-				  </div>
-				</div>
+				         <div class="row">
+				              <form class="form-horizontal" role="form" id="form_release_goods">
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">发货地址</label>
+								    <div class="col-sm-3">
+								      <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="belaidupInitiatin" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+								    </div>
+								    <div class="col-sm-5">
+								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="belaidupInitiatin_detail">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">收获地址</label>
+								    <div class="col-sm-3">
+								       <!-- <input type="text" class="form-control" placeholder="请选择/输入城市名称" name="belaidupTerminu">  -->
+								       <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="belaidupTerminu" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+								    </div>
+								    <div class="col-sm-5">
+								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="orderAddress">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">类型/名称</label>
+								    <div class="col-sm-4">
+								          <select name="goodstypeId" id="goodstypeId" class="form-control" >
+											<option value="">--请选择--</option>
+											 <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
+												<option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
+											 </c:forEach>
+									     </select>
+								    </div>
+								    <div class="col-sm-4">
+								       <input type="text" class="form-control" name="belaidupProdName" placeholder="填写货物名称(必填)">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">加急/取货</label>
+								    <div class="col-sm-4">
+								      <select name="yesOrNo" class="form-control" id="yesOrNo" >
+										   <option value="">--请选择--</option>
+										   <option value="yes" >是</option>
+										   <option value="no">否</option>
+									  </select>
+								    </div>
+								    <div class="col-sm-4">
+								        <select name="replenishment" class="form-control" >
+										    <option value="">--请选择--</option>
+										    <option value="storepickup" >送货上门</option>
+										    <option value="deliversm">上门取货</option>
+									  </select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">备注</label>
+								    <div class="col-sm-8">
+								      <input type="text" class="form-control" name="remark" placeholder="写在最后(选填)">
+								    </div>
+								  </div>
+								  
+								  <div class="form-group ">
+								    <label for="inputEmail3" class="col-sm-2 control-label">收货人名称</label>
+								    <div class="col-sm-2">
+								      <input type="text" class="form-control" name="orderConsignee" placeholder="收货人名称(必填)">
+								    </div>
+								    <DIV CLASS="col-sm-8">
+									    <label for="inputEmail3" class="col-sm-2 control-label">收货人手机</label>
+									    <div class="col-sm-3">
+									      <input type="text" class="form-control" name="orderPhone" placeholder="收货人手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+									    </div>
+									    <label for="inputEmail3" class="col-sm-2 control-label">单价(元)</label>
+									    <div class="col-sm-3">
+									      <input type="text" class="form-control" name="belaidupUnitprice" placeholder="单价(元)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
+									    </div>
+									 </DIV>
+								  </div>
+								  
+								  <div class="form-group ">
+								    <label for="inputEmail3" class="col-sm-2 control-label">重量(吨)</label>
+								    <div class="col-sm-2">
+								      <input type="text" class="form-control" name="belaidupWeight" placeholder="重量(吨)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
+								    </div>
+								    <DIV CLASS="col-sm-8">
+									    <label for="inputEmail3" class="col-sm-2 control-label">体积(方)</label>
+									    <div class="col-sm-3">
+									      <input type="text" class="form-control" name="belaidupBulk" placeholder="体积(方)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
+									    </div>
+									    <label for="inputEmail3" class="col-sm-2 control-label">数量(件)</label>
+									    <div class="col-sm-3">
+									      <input type="text" class="form-control" name="belaidupNum" placeholder="数量(件)(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+									    </div>
+									 </DIV>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								      <div class="checkbox">
+								        <label>
+								          <input type="checkbox"> Remember me
+								        </label>
+								      </div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								         <button type="submit"  class="btn btn-primary">发布</button>
+								         <button type="button"  class="btn btn-primary" onclick="doClear();">重置</button>
+								    </div>
+								  </div>
+								</form>
+						 </div>
+    			 </div>
 	    	</div>
 	    </div>
 	    
@@ -292,149 +267,199 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	  </div> 
 	</div> 
-<script src="${ctx}/resources/area/js/public.js"></script> 
+	<script src="${ctx}/resources/area/js/public.js"></script> 
          
    <hr class="featurette-divider2">
    </div>
    <jsp:include page="../foot.jsp"/>
-
+   
+   <div id="bg"></div>
+   
 <script type="text/javascript">
-
-    function doCheck(){
-    	
-    	if($("#belaidupInitiatin").val()!=""&&$("#belaidupInitiatin_clear").val()!=""&&$("#yesOrNo").val()!=null&&
-           $("#orderAddress").val()!=""&&$("#orderAddress_clear").val()!=""&&$("#goodstypeId").val()!=""&&$("#belaidupUnitprice").val()>=0&&
-           $("#belaidupProdName").val()!=""&&$("#orderConsignee").val()!=""&&$("#orderPhone").val()!=""&&$("#goodstypeId").val()!=""&&$("#yesOrNo").val()!=""&&
-           $("#belaidupWeight").val()>=0&&$("#belaidupBulk").val()>=0&&$("#belaidupNum").val()>=0&& $("#belaidupWeight").val()!=""&&$("#belaidupBulk").val()!=""&&$("#belaidupNum").val()!=""){
-           
-    		 var reg = /^0*(13|15)\d{9}$/;
-    		 if(reg.test($("#orderPhone").val())){
-    		  document.getElementById("bg").style.display ="block";
-    		  var d = dialog({
-    		    title: '提示',
-    		    width:360,
-    		    height:40,
-    		    lock:false,
-    		    fixed: true,
-    		    content: '你确定要对此货源吗?',
-    		    okValue: '确定',
-    		    ok: function () {
-    		    	$.ajax({
-    					   type: "POST",
-    					   url: ctx + '/member/add.json',
-    					   data: $("#form_release_goods").serialize(),
-    					   dataType:'json',
-    					   success: function(r){
-    						 if(r.success){
-    							 var d = dialog({
-    					    			title:'提示',
-    					    			width:300,
-    					    		    height:30,
-    					    		    fixed: true,
-    					    		    content: '货源发布成功，在记录中查看!',
-    					    		    okValue: '确定',
-    					    		    ok: function () {
-    					    		    	this.close();
-    					    		        return false;
-    					    		    },
-    					    		});
-    					    		d.show();
-    					    		setTimeout(function () {
-    					    		    d.close().remove();
-    					    		}, 5000);
-    					    		doClear();
-    						 }else{
-    							 var d = dialog({
+  //表单提交
+   $("#form_release_goods").validate({
+	    rules:{
+	    	belaidupInitiatin:{
+	    		required:true
+	    	},
+	    	belaidupInitiatin_detail:{
+	    		required:true
+	    	},
+	    	belaidupTerminu:{
+	    		required:true
+	    	},
+	    	orderAddress:{
+	    		required:true
+	    	},
+	    	goodstypeId:{
+	    		required:true
+	    	},
+	    	belaidupProdName:{
+	    		required:true
+	    	},
+	    	yesOrNo:{
+	    		required:true
+	    	},
+	    	replenishment:{
+	    		required:true
+	    	},
+	    	orderConsignee:{
+	    		required:true
+	    	},
+	    	orderPhone:{
+	    		required:true,
+	    		number:true,
+	    		isMobile:true
+	    	},
+	    	belaidupUnitprice:{
+	    		required:true,
+	    		number:true,
+	    		min:0.1,
+	    		
+	    	},
+	    	belaidupWeight:{
+	    		required:true,
+	    		number:true,
+	    		min:0.0001
+	    	},
+	    	belaidupBulk:{
+	    		required:true,
+	    		number:true,
+	    		min:0.0001
+	    	},
+	    	belaidupNum:{
+	    		required:true,
+	    		number:true,
+	    		min:1
+	    	}
+	    },
+	    messages:{
+	    	belaidupInitiatin:{
+	    		required:"发货城市名称不能为空!"
+	    	},
+	    	belaidupInitiatin_detail:{
+	    		required:"发货详细地址不能为空!"
+	    	},
+	    	belaidupTerminu:{
+	    		required:"收货城市名称不能为空!"
+	    	},
+	    	orderAddress:{
+	    		required:"收货详细地址不能为空!"
+	    	},
+	    	goodstypeId:{
+	    		required:"寄送货物类型不能为空!"
+	    	},
+	    	belaidupProdName:{
+	    		required:"寄送货物名称不能为空!"
+	    	},
+	    	yesOrNo:{
+	    		required:"货物是否加急配送!"
+	    	},
+	    	replenishment:{
+	    		required:"取货方式不能为空!"
+	    	},
+	    	orderConsignee:{
+	    		required:"收货人姓名不能为空!"
+	    	},
+	    	orderPhone:{
+	    		required:"收货人手机不能为空!",
+	    		number:"请输入合法手机号码!",
+	    		isMobile:"请输入合法手机号码!"
+	    		
+	    	},
+	    	belaidupUnitprice:{
+	    		required:"货物单价不能为空!",
+	    		number:"请输入整数或者小数!",
+	    		min:"最低单价为0.1(元)"
+	    	},
+	    	belaidupWeight:{
+	    		required:"货物重量不能为空!",
+	    		number:"请输入整数或者小数!",
+		    	min:"最低重量为0.0001(吨)"
+	    	},
+	    	belaidupBulk:{
+	    		required:"货物体积不能为空!",
+	    		number:"请输入整数或者小数!",
+		    	min:"最低体积为0.001(立方米)"
+	    	},
+	    	belaidupNum:{
+	    		required:"货物数量不能为空!",
+	    		number:"请输入整数或者小数!",
+	    	    min:"最低数量为1(个/张)"
+	    	}
+	    },
+	    submitHandler:function(){
+	    	document.getElementById("bg").style.display ="block";
+	    	var d = dialog({
+	    	    title: '提示',
+	    	    content: '你确定要发布此条货物信息吗？',
+	    	    okValue: '确定',
+	    	    ok: function () {
+	    	        this.title('提交中…');
+	    	        $.ajax({
+ 					   type: "POST",
+ 					   url: ctx + '/member/add.json',
+ 					   data: $("#form_release_goods").serialize(),
+ 					   dataType:'json',
+ 					   success: function(r){
+ 						 if(r.success){
+ 							 var d = dialog({
  					    			title:'提示',
  					    			width:300,
  					    		    height:30,
  					    		    fixed: true,
- 					    		    content: '货物发布失败，，请联系管理员!',
+ 					    		    content: '货源发布成功，在记录中查看!',
  					    		    okValue: '确定',
  					    		    ok: function () {
  					    		    	this.close();
+ 					    		    	document.getElementById("bg").style.display ="none";
  					    		        return false;
  					    		    },
- 					    		    
  					    		});
  					    		d.show();
  					    		setTimeout(function () {
  					    		    d.close().remove();
- 					    		}, 5000);
+ 					    		}, 9000);
  					    		doClear();
-    						 }   
-    						}
-    					});
-    		    	document.getElementById("bg").style.display ='none';
-    		        this.close();
-    		    },
-    		    cancelValue: '取消',
-    		    cancel: function () {
-    		    	document.getElementById("bg").style.display ='none';
-    		    }
-    		});
-    		d.show();
-    	 }else{
-    		 var d = dialog({
-     			title:'提示',
-     			width:300,
-     		    height:30,
-     		    fixed: true,
-     		    content: '手机号码格式错误,请重新填写!',
-     		    okValue: '确定',
-     		    ok: function () {
-     		    	this.close();
-     		        return false;
-     		    },
-     		    
-     		});
-     		d.show();
-     		setTimeout(function () {
-     		    d.close().remove();
-     		}, 5000);
-    	 }
-    	}else{
-    		var d = dialog({
-    			title:'提示',
-    			width:300,
-    		    height:30,
-    		    fixed: true,
-    		    content: '信息填写不完整，请完善之后再进行操作!',
-    		    okValue: '确定',
-    		    ok: function () {
-    		    	this.close();
-    		        return false;
-    		    },
-    		    
-    		});
-    		d.show();
-    		setTimeout(function () {
-    		    d.close().remove();
-    		}, 5000);
-    	}
-    	  
-    }
-    
-    function doClear(){
-    	$('#form_release_goods')[0].reset();
-    }
-    
-    
-  //始发站的减少距离
-	function adjustCssDel(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "330px";
-		provinceCityAlls.style.marginTop = "-760px";
-		
-	}
+ 						 }else{
+ 							 var d = dialog({
+					    			title:'提示',
+					    			width:300,
+					    		    height:30,
+					    		    fixed: true,
+					    		    content: '货物发布失败，，请联系管理员!',
+					    		    okValue: '确定',
+					    		    ok: function () {
+					    		    	this.close();
+					    		    	document.getElementById("bg").style.display ="none";
+					    		        return false;
+					    		    },
+					    		    
+					    		});
+					    		d.show();
+					    		setTimeout(function () {
+					    		    d.close().remove();
+					    		}, 9000);
+					    		doClear();
+ 						 }   
+ 						}
+ 					});
+	    	    },
+	    	    cancelValue: '取消',
+	    	    cancel: function () {
+	    	      this.close();
+	    	      document.getElementById("bg").style.display ="none";
+	    	   }
+	    	});
+	    	d.show();
+	    }
+   });
   
-  //终点的增加距离
-	function adjustCssAdd(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "330px";
-		provinceCityAlls.style.marginTop = "-670px";
-	}	
-	
+  //表单重置
+  function doClear(){
+	  $('#form_release_goods')[0].reset();
+    }
+    
 </script>
 </body>
 </html>
