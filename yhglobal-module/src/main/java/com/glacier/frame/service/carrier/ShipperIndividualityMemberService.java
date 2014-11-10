@@ -73,7 +73,7 @@ public class ShipperIndividualityMemberService {
         if(null != email&&email.length() > 0){
         	ShipperMember shipperMember = shipperMemberMapper.selectByPrimaryKey(memberId);
         	shipperMember.setEmail(email);
-        	shipperMemberMapper.updateByPrimaryKey(shipperMember);
+        	shipperMemberMapper.updateByPrimaryKeySelective(shipperMember);
         }
         
         //会员表的修改
@@ -103,11 +103,11 @@ public class ShipperIndividualityMemberService {
         if(null != email&&email.length() > 0){
         	ShipperMember shipperMember = shipperMemberMapper.selectByPrimaryKey(memberId);
         	shipperMember.setEmail(email);
-        	shipperMemberMapper.updateByPrimaryKey(shipperMember);
+        	shipperMemberMapper.updateByPrimaryKeySelective(shipperMember);
         }
         
         //会员表的修改
-        count = enterpriseMemberMapper.updateByPrimaryKey(enterprise);
+        count = enterpriseMemberMapper.updateByPrimaryKeySelective(enterprise);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("保存成功");
