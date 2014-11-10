@@ -396,11 +396,11 @@
 						style="width: 80px;height: 23px;" class="spinner" /></td> 
 						<td>始发站：</td>
 					<td> 
-				        <input name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+				        <input name="routeOrigin"  onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td> 
 					<td>终点站：</td>  
 					<td>  
-					  <input name="routeStop" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeStop" onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td>  
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
@@ -416,7 +416,7 @@
 </div> 
  
 									<!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-13%;top:50%;margin-top:-5%;">
+	<div id="te" class="provinceCityAll" style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -463,5 +463,20 @@
 	    </div>
 	  </div>
 	</div> 
-<script src="${ctx}/resources/area/js/public.js"></script>
-
+ <script src="${ctx}/resources/area/js/public.js"></script> 
+<script type="text/javascript">
+	var l1;
+	var t1;
+	//获取坐标
+	function getCoordinate(te){ 
+	  	var start =$(te).position(); 
+		l1 = start.left; 
+		t1 = start.top;    
+	 };  
+	 
+	 //地区选择器的位置控制
+	  $(".proCitySelAll").click(function(event) {   
+		 $("#te").css("top", t1+60).css("left", l1).toggle();  
+	});   
+ 
+</script>

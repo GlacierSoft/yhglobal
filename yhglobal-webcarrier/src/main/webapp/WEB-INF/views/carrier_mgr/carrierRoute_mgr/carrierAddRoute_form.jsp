@@ -38,8 +38,8 @@
 			<tr>
 			<td>班线起点：</td>
 			<td>
-			 	<input name="routeOrigin" id="remark" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text"
-			 	 value="请选择起点站" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+			 	<input name="routeOrigin" onclick="getCoordinate(this)" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text"
+			 	  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
          </td>
 		    <td style="padding-left:10px;">发货站地址：</td>
 			<td><input class="spinner" style="height:18px;width:180px" name="originAddress"/></td>
@@ -47,7 +47,7 @@
 		</tr> 
 		<tr>
 		    <td >班线终点：</td>
-			<td><input name="routeStop" id="remark" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择终点站" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+			<td><input name="routeStop" onclick="getCoordinate(this)" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	      	</td>
 		    <td style="padding-left:10px;">到货站地址：</td>
 			<td><input class="spinner" style="height:18px;width:180px" name="stopAddress"/></td>
@@ -244,7 +244,7 @@
 
 
   <!--弹出省省市-->
-	<div class="provinceCityAll" style="z-index:20;position:absolute;left:50%;margin-left:-52%;top:50%;margin-top:-2%;">
+	<div id="province" class="provinceCityAll" style="z-index:20;position:absolute;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -298,11 +298,23 @@
   
 
 <script type="text/javascript">  
-
-$('#carrierAddRoute_form').tabs({
-	border:true,
-	onSelect:function(){
-		$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
-	}
-});   
+	var l1;
+	var t1;
+	//获取坐标
+	function getCoordinate(te){ 
+	  	var start =$(te).position(); 
+		l1 = start.left; 
+		t1 = start.top;   
+	 };  
+	 //地区选择器的位置控制
+	$(".proCitySelAll").click(function(event) { 
+		 $("#province").css("top", t1+30).css("left", l1).toggle(); 
+	}); 
+ 
+	$('#carrierAddRoute_form').tabs({
+		border:true,
+		onSelect:function(){
+			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
+		}
+	});   
 </script>  

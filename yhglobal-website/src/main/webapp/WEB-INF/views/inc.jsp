@@ -35,7 +35,7 @@
 
 <!-- 增加地区选择器样式 -->
 <link href="${ctx}/resources/area/css/cityLayout.css" type="text/css" rel="stylesheet">
-<link href="${ctx}/resources/area/css/area.css" type="text/css" rel="stylesheet">
+ <link href="${ctx}/resources/area/css/area.css" type="text/css" rel="stylesheet"> 
 
 
 

@@ -448,6 +448,7 @@
 <script type="text/javascript">
 	var l1;
 	var t1;
+	//获取输入框的坐标
 	function getCoordinate(te){ 
 	  	var start =$(te).position(); 
 		l1 = start.left; 
@@ -455,9 +456,7 @@
 	 }; 
 	 
 	 //地区选择器的位置控制
-	$(".proCitySelAll").click(function(event) {
-		//起点站的位置坐标
-		 var start = $("#belaidupInitiatin").position(); 
+	$(".proCitySelAll").click(function(event) { 
 		 $(".provinceCityAll").css("top", t1+60).css("left", l1).toggle();
 	}); 
 </script>
