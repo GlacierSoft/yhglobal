@@ -69,7 +69,7 @@ public class FinaceRechargeSetCarrierService {
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	memberRechargeSetCarrierExample.setOrderByClause(jqPager.getOrderBy("temp_finace_recharge_set_carrier_"));
         }
-        List<FinaceRechargeSetCarrier>  finaceRechargeSetCarriers = finaceRechargeSetCarrierMapper.selectByExample(memberRechargeSetCarrierExample); // 查询所有会员列表
+        List<FinaceRechargeSetCarrier>  finaceRechargeSetCarriers = finaceRechargeSetCarrierMapper.selectByExample(memberRechargeSetCarrierExample); // 查询所有承运商列表
         int total = finaceRechargeSetCarrierMapper.countByExample(memberRechargeSetCarrierExample); // 查询总页数
         returnResult.setRows(finaceRechargeSetCarriers);
         returnResult.setTotal(total);
@@ -130,7 +130,7 @@ public class FinaceRechargeSetCarrierService {
     
     /**
      * @Title: auditRechargeSetCarrier 
-     * @Description: TODO(审核充值类型) 
+     * @Description: TODO(审核承运商充值类型) 
      * @param @param rechargeSetCarrier
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -168,12 +168,10 @@ public class FinaceRechargeSetCarrierService {
      */
     @Transactional(readOnly = false)
     public Object editRechargeSetCarrier(FinaceRechargeSetCarrier rechargeSetCarrier) {
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinaceRechargeSetCarrierExample memberRechargeSetCarrierExample = new FinaceRechargeSetCarrierExample();
         int count = 0;
-        // 防止承运商充值类型牌号重复
+        // 防止承运商充值类型名称重复
         memberRechargeSetCarrierExample.createCriteria().andRechargeNameEqualTo(rechargeSetCarrier.getRechargeName()).andRechargeSetIdNotEqualTo(rechargeSetCarrier.getRechargeSetId());
         count = finaceRechargeSetCarrierMapper.countByExample(memberRechargeSetCarrierExample);
         if (count > 0) {
@@ -182,15 +180,12 @@ public class FinaceRechargeSetCarrierService {
         }
         
         //根据ID获取承运商充值类型信息
-        FinaceRechargeSetCarrier memberRechargeSetCarrierTime = (FinaceRechargeSetCarrier) getRechargeSetCarrier(rechargeSetCarrier.getRechargeSetId());
-        rechargeSetCarrier.setAuditor(memberRechargeSetCarrierTime.getAuditor());
-        rechargeSetCarrier.setAuditTime(new Date());
-        rechargeSetCarrier.setAuditState("authstr");
-        rechargeSetCarrier.setCreater(memberRechargeSetCarrierTime.getCreater());
-        rechargeSetCarrier.setCreateTime(memberRechargeSetCarrierTime.getCreateTime());
-        rechargeSetCarrier.setUpdater(pricipalUser.getUserId());
-        rechargeSetCarrier.setUpdateTime(new Date());
-        count = finaceRechargeSetCarrierMapper.updateByPrimaryKey(rechargeSetCarrier);
+        FinaceRechargeSetCarrier FinaceRechargeSetCarrier_before = (FinaceRechargeSetCarrier) getRechargeSetCarrier(rechargeSetCarrier.getRechargeSetId());
+        if(FinaceRechargeSetCarrier_before.getAuditState().equals("pass"))
+        	rechargeSetCarrier.setAuditState("pass");
+        else
+        	rechargeSetCarrier.setAuditState("authstr");
+        count = finaceRechargeSetCarrierMapper.updateByPrimaryKeySelective(rechargeSetCarrier);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + rechargeSetCarrier.getRechargeName() + "] 承运商充值类型信息已保存");
@@ -210,20 +205,7 @@ public class FinaceRechargeSetCarrierService {
      */
     @Transactional(readOnly = false)
     public Object delRechargeSetCarrier(List<String> rechargeSetCarrierIds, List<String> rechargeSetCarrierName) {
-        /*JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        if (rechargeSetCarrierIds.size() > 0) {
-        	FinaceRechargeSetCarrierExample memberRechargeSetCarrierExample = new FinaceRechargeSetCarrierExample();
-        	memberRechargeSetCarrierExample.createCriteria().andRechargeSetIdIn(rechargeSetCarrierIds);
-            count = finaceRechargeSetCarrierMapper.deleteByExample(memberRechargeSetCarrierExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(rechargeSetCarrierName, ",") + " ]承运商充值类型");
-            } else {
-                returnResult.setMsg("发生未知错误，承运商充值类型信息删除失败");
-            }
-        }*/
-    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+       JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         // 定义删除成功数据行数量
         int rightNumber = 0;
         // 定义返回结果

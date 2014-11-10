@@ -66,7 +66,7 @@ public class FinaceRechargeMemberSetService {
 	
 	/**
      * @Title: listAsGrid 
-     * @Description: TODO(设置信息展示) 
+     * @Description: TODO(会员充值设置设置信息展示) 
      * @param @param jqPager，FinaceRechargeSetMemberQueryDTO
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -97,7 +97,7 @@ public class FinaceRechargeMemberSetService {
 	
 	 /**
      * @Title: delFinaceRechargeSetMember 
-     * @Description: TODO(删除设置信息) 
+     * @Description: TODO(会员充值设置信息删除) 
      * @param @param rechargeSetIds
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -140,7 +140,7 @@ public class FinaceRechargeMemberSetService {
 	
     /**
      * @Title: auditRechargeSetMember 
-     * @Description: TODO(审核充值类型) 
+     * @Description: TODO(会员充值类型信息审核) 
      * @param @param rechargeSetCarrier
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -181,35 +181,26 @@ public class FinaceRechargeMemberSetService {
      */
     @Transactional(readOnly = false)
     public Object editRechargeSetMember(FinaceRechargeSetMember finaceRechargeSetMember) {
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinaceRechargeSetMemberExample finaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample();
         int count = 0;
-        // 防止承运商充值类型牌号重复
+        // 防止会员充值类型名称重复
         finaceRechargeSetMemberExample.createCriteria().andRechargeSetNameEqualTo(finaceRechargeSetMember.getRechargeSetName()).andRechargeSetIdNotEqualTo(finaceRechargeSetMember.getRechargeSetId());
         count = finaceRechargeSetMemberMapper.countByExample(finaceRechargeSetMemberExample);
         if (count > 0) {
-            returnResult.setMsg("承运商充值类型名称重复");
+            returnResult.setMsg("会员充值类型名称重复");
             return returnResult;
         }
-      //根据ID获取承运商充值类型信息
+        //根据ID获取会员充值类型信息
         FinaceRechargeSetMember finaceRechargeSetMember_before= (FinaceRechargeSetMember) getFinaceRechargeSetMemberPro(finaceRechargeSetMember.getRechargeSetId());
-        finaceRechargeSetMember.setAuditor(finaceRechargeSetMember_before.getAuditor());
-        finaceRechargeSetMember.setAuditTime(new Date());
         if(finaceRechargeSetMember_before.getAuditState().equals("pass"))
         	finaceRechargeSetMember.setAuditState("pass");
         else
         	finaceRechargeSetMember.setAuditState("authstr");
-        finaceRechargeSetMember.setCreater(finaceRechargeSetMember_before.getCreater());
-        finaceRechargeSetMember.setCreateTime(finaceRechargeSetMember_before.getCreateTime());
-        finaceRechargeSetMember.setUpdater(pricipalUser.getUserId());
-        finaceRechargeSetMember.setUpdateTime(new Date());
-       
-        count = finaceRechargeSetMemberMapper.updateByPrimaryKey(finaceRechargeSetMember);
+        count = finaceRechargeSetMemberMapper.updateByPrimaryKeySelective(finaceRechargeSetMember);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("承运商充值类型信息已保存");
+            returnResult.setMsg("会员充值类型信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，会员充值类型信息保存失败");
         }
@@ -231,7 +222,7 @@ public class FinaceRechargeMemberSetService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        // 防止承运商充值类型牌号重复
+        // 防止会员充值类型名称重复
         FinaceRechargeSetMemberExample FinaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample();
         FinaceRechargeSetMemberExample.createCriteria().andRechargeSetNameEqualTo(rechargeSetMember.getRechargeSetName());
         count = finaceRechargeSetMemberMapper.countByExample(FinaceRechargeSetMemberExample);
@@ -269,7 +260,7 @@ public class FinaceRechargeMemberSetService {
             returnResult.setSuccess(true);
             returnResult.setMsg("会员充值类型信息已保存");
         } else {
-            returnResult.setMsg("发生未知错误，承运商充值类型信息保存失败");
+            returnResult.setMsg("发生未知错误，会员充值类型信息保存失败");
         }
         return returnResult;
     }
