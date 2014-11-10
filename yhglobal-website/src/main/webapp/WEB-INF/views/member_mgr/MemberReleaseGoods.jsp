@@ -131,7 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <tr>
 						                   <td class="td_release">发货地址</td>
 						                   <td >
-						                        <input type="text" style="width: 180px;float: left;margin-left: 10px; " name="belaidupInitiatin" id="belaidupInitiatin" onkeydown="return false;" onfocus="adjustCssDel();" autocomplete="off"  placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+						                        <!--<input type="text" style="width: 180px;float: left;margin-left: 10px; " name="belaidupInitiatin" id="belaidupInitiatin" onkeydown="return false;" onfocus="adjustCssDel();" autocomplete="off"  placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">  -->
+						                        <input type="text" style="width: 180px;float: left;margin-left: 10px;"name="belaidup_initiatin" id="belaidupInitiatin" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 						                        <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                        <input type="text" id="belaidupInitiatin_clear" name="belaidupInitiatin" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
@@ -139,7 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <tr>
 						                   <td class="td_release">收货地址</td>
 						                   <td >
-						                       <input type="text" style="width: 180px;float: left;margin-left: 10px; " name="orderAddress" id="orderAddress" onkeydown="return false;" onfocus="adjustCssAdd();" autocomplete="off" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+						                       <!--<input type="text" style="width: 180px;float: left;margin-left: 10px; " name="orderAddress" id="orderAddress" onkeydown="return false;" onfocus="adjustCssAdd();" autocomplete="off" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">  -->
+						                       <input type="text" style="width: 180px;float: left;margin-left: 10px;"name="belaidup_terminu" id="orderAddress" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 						                       <span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                       <input type="text"  id="orderAddress_clear" name="orderAddress" style="margin-left: 10px;width: 250px;margin-top: 4px;" placeholder="填写详细地址(必填)"><span style="color: red;font-weight: bold;font-size: 20px;">*</span>
 						                   </td>
@@ -243,8 +245,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div id="bg"></div>
 		
          
-         	<!--弹出省省市-->
-	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;margin-left: 85px;margin-top: -760px;">
+   <!--弹出省省市style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;"-->
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix" >
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -253,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <li><a href="javascript:" tb="countyAll" id="countyAll">区县</a></li>
 	    </ul>
 	  </div>
-	  <div class="con" style="height: 150px">
+	  <div class="con" style="height: 150px;">
 	    <div class="hotCityAll invis">
 	      <div class="pre"><a></a></div>
 	      <div class="list">
@@ -288,9 +290,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      </div>
 	      <div class="next"><a class="can"></a></div>
 	    </div>
-	  </div>
+	  </div> 
 	</div> 
-    <script src="${ctx}/resources/area/js/public.js"></script> 
+<script src="${ctx}/resources/area/js/public.js"></script> 
          
    <hr class="featurette-divider2">
    </div>
@@ -300,13 +302,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     function doCheck(){
     	
-    	if($("#belaidupInitiatin").val()!=""&&$("#belaidupInitiatin_clear").val()!=""&&
-           $("#orderAddress").val()!=""&&$("#orderAddress_clear").val()!=""&&$("#goodstypeId").val()!=""&&
+    	if($("#belaidupInitiatin").val()!=""&&$("#belaidupInitiatin_clear").val()!=""&&$("#yesOrNo").val()!=null&&
+           $("#orderAddress").val()!=""&&$("#orderAddress_clear").val()!=""&&$("#goodstypeId").val()!=""&&$("#belaidupUnitprice").val()>=0&&
            $("#belaidupProdName").val()!=""&&$("#orderConsignee").val()!=""&&$("#orderPhone").val()!=""&&$("#goodstypeId").val()!=""&&$("#yesOrNo").val()!=""&&
            $("#belaidupWeight").val()>=0&&$("#belaidupBulk").val()>=0&&$("#belaidupNum").val()>=0&& $("#belaidupWeight").val()!=""&&$("#belaidupBulk").val()!=""&&$("#belaidupNum").val()!=""){
            
-    		document.getElementById("bg").style.display ="block";
-    		var d = dialog({
+    		 var reg = /^0*(13|15)\d{9}$/;
+    		 if(reg.test($("#orderPhone").val())){
+    		  document.getElementById("bg").style.display ="block";
+    		  var d = dialog({
     		    title: '提示',
     		    width:360,
     		    height:40,
@@ -345,7 +349,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  					    			width:300,
  					    		    height:30,
  					    		    fixed: true,
- 					    		    content: '货物发布失败，，请联系管理员!!!!',
+ 					    		    content: '货物发布失败，，请联系管理员!',
  					    		    okValue: '确定',
  					    		    ok: function () {
  					    		    	this.close();
@@ -370,6 +374,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		    }
     		});
     		d.show();
+    	 }else{
+    		 var d = dialog({
+     			title:'提示',
+     			width:300,
+     		    height:30,
+     		    fixed: true,
+     		    content: '手机号码格式错误,请重新填写!',
+     		    okValue: '确定',
+     		    ok: function () {
+     		    	this.close();
+     		        return false;
+     		    },
+     		    
+     		});
+     		d.show();
+     		setTimeout(function () {
+     		    d.close().remove();
+     		}, 5000);
+    	 }
     	}else{
     		var d = dialog({
     			title:'提示',
