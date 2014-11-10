@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%    
 String path = request.getContextPath();    
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
 %>
-
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -21,9 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
   </head>
-  
   <body>
-  <jsp:include page="../nav.jsp"/>
+<jsp:include page="../nav.jsp"/>
        
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
@@ -154,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									  	<label for="educational" class="col-sm-2 control-label">更换绑定邮箱:</label>
 									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" style="float: left;" name="email" id="email" placeholder="新手机号码" >
+									      <input type="tel"  class="form-control" style="float: left;" name="email" id="email" placeholder="填写要更换的邮箱" >
 									      <span id="enterpriseTypeSpan"></span>
 									    </div>
 									    <label for="educational" class="col-sm-2 control-label">*所属地区:</label>
@@ -182,19 +179,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <div class="col-sm-4">
 									      <input type="text" class="form-control" name="enterprisePhone" id="enterprisePhone" value="${enterprise.enterprisePhone}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="请填写企业电话">
 									    </div>
-									    <%-- <label for="personalDes" class="col-sm-2 control-label">企业Logo:</label>
+									    <label for="personalDes" class="col-sm-2 control-label">企业Logo:</label>
 									    <div class="col-sm-4" style="float: left;">
 											<input class="ke-input-text" type="text" name="enterpriseLogo" id="url" value="${enterprise.enterpriseLogo}" readonly="readonly" />
 											<input type="button" id="uploadButton" value="上传"/>
+											<img id="memberPhotoDivImg"  src="${enterprise.enterpriseLogo}" style="width: 50px;height: 50px ;margin-left: 20px;" />
 									    </div> 
-									    <div class="col-sm-6" id="memberPhotoDiv" style="border: 1px #DDDDDD;">
-											<img id="memberPhotoDivImg"  src="${enterprise.enterpriseLogo}" style="width: 50px;height: 50px ;" />
-										</div> --%>
 									  </div>
 									  <div class="form-group">
 									    <label for="detailedAddress" class="col-sm-2 control-label">*详细地址:</label>
 									    <div class="col-sm-10">
-									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" value="${enterprise.detailedAddress}"  placeholder="请填写详细地址"></textarea>
+									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" placeholder="请填写详细地址">${enterprise.detailedAddress}</textarea>
 									      <span id="detailedAddressSpan"></span>
 									    </div>
 									  </div>
@@ -209,7 +204,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
 						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保  存</button>
-						      <!-- <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保存并提交审核</button> -->
 						      <div style="float: right;margin-top: 10px;margin-right:300px;"><span id="tieshi"></span></div>
 						    </div>
 						  	</div>
@@ -239,8 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
 <script type="text/javascript"> 
 
-
-	    //禁用Enter键表单自动提交
+	      //禁用Enter键表单自动提交
 	      document.onkeydown = function(event) {
 	          var target, code, tag;
 	          if (!event) {
@@ -270,25 +263,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          }
 	      };
 
-	     /*  function updatesGo(){
-	    	  $.ajax({
-   			   type: "POST",
-   			   url: ctx+"/member/editEnterprise.htm",
-   			   dataType: "json",
-   			   data: $("#personalMessageForm").serialize(),
-   			   success: function(r) { 
-   					 	notClonedialog(r);
-                 },
-                 error: function() {
-                     alert("提交出错！");
-                 }
-   	    	});
-	      } */
+	      
 	    
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea()&&updatesGo();
+			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea();
 		}
 	    
 		//真实姓名验证
@@ -375,21 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	    
-		//身份证验证
-		function checkCardId(){
-			var cardId = $("#cardId").val();
-			if(cardId == ""){
-				document.getElementById("cardIdSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>身份证号码不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("cardIdSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-		
-		//身份证验证
+		//企业类型验证
 		function checkEnterpriseType(){
 			var enterpriseType = $("#enterpriseType").val();
 			if(enterpriseType == ""){
@@ -403,11 +369,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	
-		//居住地址验证
+		//详细地址验证
 		function checkLiveAddress(){
 			var detailedAddress = $("#detailedAddress").val();
 			if(detailedAddress == ""){
-				document.getElementById("detailedAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>居住地址不能为空!</font>";
+				document.getElementById("detailedAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>详细地址不能为空!</font>";
 				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
@@ -417,38 +383,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 		
-	   	//功能判断
-	    function checksMember(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/member/judgeCheckMember.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-               },
-               error: function() {
-            	   location.href="${ctx}/login.htm";
-               }
-			});
-	    }
-	    
-	    //充值提现判断
-	    function checkRechargeWithdraw(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/financeMember/judgeCheckRechargeWithdraw.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-	            },
-	            error: function() {
-	            	location.href="${ctx}/login.htm";
-	            }
-			});
-	    }
-	    
 	  	function successHint(data,url){
 	  		//如果不存在，则转到借款页面
 	  		if(data.success){
@@ -478,107 +412,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	}
 	    }
 	    
-	  	$("#personalMessageForm").validate({
-    		rules:{
-    		},
-    		messages:{
-    		},
-    		submitHandler:function(){
-    			$.ajax({
-    				   type: "POST",
-    				   url: ctx+"/member/editEnterprise.htm",
-    				   dataType: "json",
-    				   data: $("#personalMessageForm").serialize(),
-	    			   success: function(r) {
-	    				   successAddBankCard(r); 
-	                    },
-	                    error: function() {
-	                        alert("提交出错！");
-	                    }
-    			 });
-    		}
-    	});
+	  	$(function(){
+	  		/* KindEditor.ready(function(K) {
+				var uploadbutton = K.uploadbutton({
+					button : K('#uploadButton')[0],
+					fieldName : 'imgFile',
+					url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
+					afterUpload : function(data) {
+						if (data.error == 0) {
+							var url = K.formatUrl(data.url, 'domain');
+							K('#url').val(url);
+							$("#memberPhotoDivImg").attr("src",url);
+						} else {
+							alert(data.message);
+						}
+					},
+					afterError : function(str) {
+						alert('自定义错误信息: ' + str);
+					}
+				});
+				uploadbutton.fileBox.change(function(e) {
+					uploadbutton.submit();
+				});
+			}); */
+	  		$("#personalMessageForm").validate({
+	    		rules:{
+	    		},
+	    		messages:{
+	    		},
+	    		submitHandler:function(){
+	    			$.ajax({
+	    				   type: "POST",
+	    				   url: ctx+"/member/editEnterprise.htm",
+	    				   dataType: "json",
+	    				   data: $("#personalMessageForm").serialize(),
+		    			   success: function(r) {
+		    				   notClonedialog(r); 
+		                    },
+		                    error: function() {
+		                        alert("提交出错！");
+		                    }
+	    			 });
+	    		}
+	    	});
+	  		
+	  	});
 	  	
 	  	
 	  	/*-------------------------------------------------基本信息验证结束---------------------------------------------*/
-	   	//功能判断
-	    function checksMember(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/member/judgeCheckMember.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-               },
-               error: function() {
-            	   location.href="${ctx}/login.htm";
-               }
-			});
-	    }
-	    
-	    function successHint(data,url){
-	  		//如果不存在，则转到借款页面
-	  		if(data.success){
-	    		window.location.href=url;
-	    	}else{//如果存在，则提示错误信息
-	    		KindEditor.ready(function(K) {
-					var dialog = K.dialog({
-				        width : 500,
-				        title : "提示",
-				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-				        closeBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                        dialog.remove();
-			                        window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-			        	},
-				        yesBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                	dialog.remove();
-			                	window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-				        }
-					});
-				});
-	      	}
-	    }
-	    
-	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
-	    $('#postAuthBut').bind('click', function(){    
-	    	$("#postAuth").val("postAuth");
-	    }); 
-	  	//通过判断是待审核或已审核，将表单改为只读状态。
-		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
-			$("form[id='personalMessageForm'] input,textarea[id='remark']").prop("readonly", true);
-			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
-			$("button[id='onlyPost']").prop("disabled", true);
-		} ;
-	    
-      	function addSecretSecuritydialog(data){
-			KindEditor.ready(function(K) {
-			var dialog = K.dialog({
-					        width : 300,
-					        title : '提示信息',
-					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-					        closeBtn : {
-					                name : '关闭',
-					                click : function(e) {
-					                        dialog.remove();
-					                }
-					        },
-					        yesBtn : {
-					                name : '确定',
-					                click : function(e) {
-					                		dialog.remove();
-					                		window.location.href="${ctx}/member/memberDetail.htm";
-					                }
-					        }
-						});
-			});
-		}
       	function notClonedialog(msg){
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
