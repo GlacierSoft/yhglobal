@@ -82,6 +82,11 @@ public class MemberController extends AbstractController{
     	return mav;
     }
     
+    //转到头像上传页面。
+  	@RequestMapping(value = "/memberPhotoInto.htm")
+  	public Object memberPhotoInto(){
+  		return "member_mgr/memberPhoto";
+  	}
     
     // 增加货物信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

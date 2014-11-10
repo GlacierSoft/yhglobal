@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.entity.carrier.CarrierMember;
@@ -93,6 +92,28 @@ public class RegisterController extends AbstractController {
         return "registerCarrier";
     }
 
+    /**
+     * @Title: perfectMemberPhoto
+     * @Description: TODO(前台会员更改头像)
+     * @param @param member
+     * @param @param session
+     * @param @return设定文件
+     * @return Object 返回类型
+     * @throws
+     * 
+     */
+    @RequestMapping(value = "/perfectMemberPhoto.htm", method = RequestMethod.POST)
+    @ResponseBody
+    public Object perfectMemberPhoto(@Valid
+    ShipperMember shipperMember, HttpSession session) {
+        JqReturnJson perfectRegister = (JqReturnJson) shipperMemberService.editMemberPhotoReception(shipperMember);
+        ShipperMember loginMember = (ShipperMember) shipperMemberService.getShipperMember(shipperMember.getMemberId());
+        session.removeAttribute("currentMember");
+        session.setAttribute("currentMember", loginMember);
+        return perfectRegister;
+    }
+    
+    
     /**
      * @Title: register
      * @Description: TODO(前台货主注册功能)
