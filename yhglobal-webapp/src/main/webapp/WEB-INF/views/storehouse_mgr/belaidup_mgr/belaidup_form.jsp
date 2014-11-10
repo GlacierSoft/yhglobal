@@ -82,11 +82,11 @@
 		<tr>
 			<td>起始站：</td>
 			<td>
-				<input name="belaidupInitiatin" id="remark" onkeydown="return false;" onfocus="adjustCssDel();" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupInitiatin}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
+				<input name="belaidupInitiatin" onclick="getCoordinate(this)"  style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupInitiatin}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 			<td>终点站：</td>
 			<td>
-				<input name="belaidupTerminu" id="remark" onkeydown="return false;" onfocus="adjustCssAdd();" style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupTerminu}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
+				<input name="belaidupTerminu" onclick="getCoordinate(this)"  style="width:268px;height: 20px;border-color: #c3d9e0" autocomplete="off" type="text" value="${belaidupDate.belaidupTerminu}" class="city_input  inputFocus proCityQueryAll proCitySelAll" >
 			</td>
 		</tr>
 		<tr>
@@ -115,9 +115,10 @@
 				<textarea id="belaidup_mgr_belaidup_form_remark" name="remark" style="width:670px;" class="spinner formta">${belaidupDate.remark}</textarea>
 			</td>
 		</tr>
-	</table>
-	<!--弹出省省市-->
-	<div class="provinceCityAll" id="provinceCityAll" style="z-index:20;position:absolute;margin-left: 85px;margin-top: -180px;">
+	</table> 
+</form>
+<!--弹出省省市-->
+	<div class="provinceCityAll" id="provinceCityAll" style="z-index:20;position:absolute;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -164,23 +165,25 @@
 	    </div>
 	  </div>
 	</div>
-</form>
-
 <script src="${ctx}/resources/area/js/public.js"></script> 
 
 <script type="text/javascript">
-	//终点站的增加距离
-	function adjustCssAdd(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "490px";
-	}	
-	
-	//终点站的减少距离
-	function adjustCssDel(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "85px";
-	}
-	
+
+    var l1;
+    var t1;
+    function getCoordinate(te){ 
+	  	var start =$(te).position(); 
+		l1 = start.left; 
+		t1 = start.top;   
+     }; 
+     
+	 //地区选择器的位置控制
+	$(".proCitySelAll").click(function(event) {
+		//起点站的位置坐标
+		 var start = $("#belaidupInitiatin").position(); 
+		 $(".provinceCityAll").css("top", t1+30).css("left", l1).toggle();
+	});  
+	 
 	//用于combogrid的负责人信息绑定
 	$('#belaidup_mgr_belaidup_form_memberId').combogrid({
 		panelWidth:450,

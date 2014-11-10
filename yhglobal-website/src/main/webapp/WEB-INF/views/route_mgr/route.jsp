@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       name="carrierDisplay" value="${carrierRouteQueryDTO.carrierDisplay}" placeholder="请输入承运商名称"/> 
 			       <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;出发站：</label> 
 			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeOrigin}" 
-			       name="routeOrigin" id="remark" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+			       name="routeOrigin" id="routeOrigin" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 	               <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;终点站：</label>
 			       <input type="text" style="width: 180px;float: left;" value="${carrierRouteQueryDTO.routeStop}" 
 			       name="routeStop" id="routeStop"  style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">

@@ -6,7 +6,7 @@
 <!-- 引入jstl解析标签 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 获取项目根path -->
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/> 
 <script type="text/javascript">
 	$.util.namespace('glacier.carrier_mgr.carrierRoute_mgr.route');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
@@ -378,10 +378,10 @@
 						style="width: 80px;" class="spinner" /></td> 
 						<td>始发站：</td>
 					<td>
-					  <input name="routeOrigin" id="remark" onkeydown="return false;" onfocus="adjustCssDel();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeOrigin" onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	             </td> <td>终点站：</td>
 					<td>
-					  <input name="routeStop"  id="remark" onkeydown="return false;" onfocus="adjustCssAdd();" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" value="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeStop" onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td>  
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
@@ -396,8 +396,8 @@
 	</div>
 </div>
 
-									<!--弹出省省市-->
-	<div class="provinceCityAll" id="provinceCityAll" style="z-index:20;position:absolute;margin-left: 85px;margin-top: -500px;">
+	<!--弹出省省市-->
+	<div class="provinceCityAll"  style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -444,17 +444,20 @@
 	    </div>
 	  </div>
 	</div> 
-<script src="${ctx}/resources/area/js/public.js"></script> 
+<script src="${ctx}/resources/area/js/public.js"></script>  
 <script type="text/javascript">
-	//终点的增加距离
-	function adjustCssAdd(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "850px";
-	}	
-	
-	//始发站的减少距离
-	function adjustCssDel(){
-		var provinceCityAlls = document.getElementById("provinceCityAll");
-		provinceCityAlls.style.marginLeft = "610px";
-	}
+	var l1;
+	var t1;
+	function getCoordinate(te){ 
+	  	var start =$(te).position(); 
+		l1 = start.left; 
+		t1 = start.top;   
+	 }; 
+	 
+	 //地区选择器的位置控制
+	$(".proCitySelAll").click(function(event) {
+		//起点站的位置坐标
+		 var start = $("#belaidupInitiatin").position(); 
+		 $(".provinceCityAll").css("top", t1+60).css("left", l1).toggle();
+	}); 
 </script>

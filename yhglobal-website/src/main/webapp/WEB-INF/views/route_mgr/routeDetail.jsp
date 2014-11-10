@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </tr>
 			            <tr height="30px">
 			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">联系电话：</font></td>
-			             <td>$elephone}</td>  
+			             <td>${routerData.telephone}</td>  
 			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">发布时间：</font></td>
 			             <td><fmt:formatDate value="${routerData.createTime}" type="both"/></td>  
 			            </tr>
