@@ -94,10 +94,6 @@
 </script>
 
 <!-- 对话框 -->
-<script src="${ctx}/resources/js/artDialog-master/lib/jquery-1.10.2.js"></script>
 <link rel="stylesheet" href="${ctx}/resources/js/artDialog-master/css/ui-dialog.css">
 <script src="${ctx}/resources/js/artDialog-master/dist/dialog-min.js"></script>
-
-
-
 
