@@ -270,28 +270,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          }
 	      };
 
-	      $(function(){
-	    	  $("#personalMessageForm").validate({
-	    			 $.ajax({
-	    			   type: "POST",
-	    			   url: ctx+"/member/editEnterprise.htm",
-	    			   dataType: "json",
-	    			   data: $("#personalMessageForm").serialize(),
-	    			   success: function(r) { 
-	    					 	notClonedialog(r);
-	                  },
-	                  error: function() {
-	                      alert("提交出错！");
-	                  }
-	    	    	});
-	    	  });
-	    });
-	      
-	      
+	     /*  function updatesGo(){
+	    	  $.ajax({
+   			   type: "POST",
+   			   url: ctx+"/member/editEnterprise.htm",
+   			   dataType: "json",
+   			   data: $("#personalMessageForm").serialize(),
+   			   success: function(r) { 
+   					 	notClonedialog(r);
+                 },
+                 error: function() {
+                     alert("提交出错！");
+                 }
+   	    	});
+	      } */
+	    
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea();
+			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea()&&updatesGo();
 		}
 	    
 		//真实姓名验证
@@ -481,6 +478,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	}
 	    }
 	    
+	  	$("#personalMessageForm").validate({
+    		rules:{
+    		},
+    		messages:{
+    		},
+    		submitHandler:function(){
+    			$.ajax({
+    				   type: "POST",
+    				   url: ctx+"/member/editEnterprise.htm",
+    				   dataType: "json",
+    				   data: $("#personalMessageForm").serialize(),
+	    			   success: function(r) {
+	    				   successAddBankCard(r); 
+	                    },
+	                    error: function() {
+	                        alert("提交出错！");
+	                    }
+    			 });
+    		}
+    	});
+	  	
+	  	
 	  	/*-------------------------------------------------基本信息验证结束---------------------------------------------*/
 	   	//功能判断
 	    function checksMember(memberId,url){
@@ -530,7 +549,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
 	    $('#postAuthBut').bind('click', function(){    
 	    	$("#postAuth").val("postAuth");
-	        }); 
+	    }); 
 	  	//通过判断是待审核或已审核，将表单改为只读状态。
 		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
 			$("form[id='personalMessageForm'] input,textarea[id='remark']").prop("readonly", true);

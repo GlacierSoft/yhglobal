@@ -159,12 +159,9 @@ public class CarrierMemberGradeService {
             return returnResult;
         }
         //根据ID获取承运商信誉等级信息
-        CarrierMemberGrade memberGradeTime = (CarrierMemberGrade) getMemberGrade(memberGrade.getGradeId());
-        memberGrade.setCreater(memberGradeTime.getCreater());
-        memberGrade.setCreateTime(memberGradeTime.getCreateTime());
         memberGrade.setUpdater(pricipalUser.getUserId());
         memberGrade.setUpdateTime(new Date());
-        count = carrierMemberGradeMapper.updateByPrimaryKey(memberGrade);
+        count = carrierMemberGradeMapper.updateByPrimaryKeySelective(memberGrade);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + memberGrade.getGradeName() + "] 承运商信誉等级信息已保存");

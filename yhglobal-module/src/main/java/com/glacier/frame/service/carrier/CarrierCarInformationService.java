@@ -181,11 +181,9 @@ public class CarrierCarInformationService {
         carInformation.setAudit(memberGradeTime.getAudit());
         carInformation.setAuditState("authstr");
         carInformation.setAuditTime(memberGradeTime.getAuditTime());
-        carInformation.setCreater(memberGradeTime.getCreater());
-        carInformation.setCreateTime(memberGradeTime.getCreateTime());
         carInformation.setUpdater(pricipalUser.getUserId());
         carInformation.setUpdateTime(new Date());
-        count = carrierCarInformationMapper.updateByPrimaryKey(carInformation);
+        count = carrierCarInformationMapper.updateByPrimaryKeySelective(carInformation);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + carInformation.getPlateNumber() + "] 承运商车辆信息已保存");

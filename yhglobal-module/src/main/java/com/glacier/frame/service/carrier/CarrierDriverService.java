@@ -156,9 +156,7 @@ public class CarrierDriverService {
 		 carrierDriver.setAuditTime(driver.getAuditTime());
 		 carrierDriver.setAuditState("authstr");
 		 carrierDriver.setAuditOpinion(driver.getAuditOpinion());
-		 carrierDriver.setCreater(driver.getCreater());
-		 carrierDriver.setCreateTime(driver.getCreateTime());
-		 int count=carrierDriverMapper.updateByPrimaryKey(carrierDriver);
+		 int count=carrierDriverMapper.updateByPrimaryKeySelective(carrierDriver);
 		 if(count>0){
 			 returnResult.setSuccess(true);
 			 returnResult.setMsg("驾驶员信息修改成功！");
