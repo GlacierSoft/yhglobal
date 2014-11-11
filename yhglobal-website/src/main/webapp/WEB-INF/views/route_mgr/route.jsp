@@ -127,7 +127,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td >${router.routeOrigin}</td>
 							            <td >${router.routeStop}</td> 
 							            <td ><fmt:formatDate value="${router.createTime}" type="both"/></td>
-							          	<td ><a href="#" onclick="doClick('${router.routerId}');"><font size="2" color="#0697DA">查看详细</font></a></td>
+							          	<td >
+							          	 <a href="#" onclick="doClick('${router.routerId}');"><font size="2" color="#0697DA">查看详细</font></a>
+				                         <button type="button" onclick="send('${router.routerId}')" class="btn btn-warning">发货</button>
+				                    	</td>
 							          </tr>
 						      	</c:forEach>   
 							    <tr >
@@ -282,6 +285,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#routeStop").val(""); 
 		$("#form").submit(); 
 	}
+	 
+	//构建表单,进入发货页面
+	function send(str){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>delivery/delivery.htm');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="routeId" />');   
+	    my_input.attr('value', str);   
+	    // 附加到Form  
+	    form.append(my_input);  
+	    //表单设置隐藏
+	    form.css('display','none');
+	    //表单的构建 完成并提交
+	    form.appendTo(document.body).submit();
+	 }
+	 
 </script>
 
 </body>
