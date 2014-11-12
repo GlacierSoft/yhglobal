@@ -263,7 +263,7 @@
 							});  
 						}
 					}); 
-	//点击增加按钮触发方法
+/* 	//点击增加按钮触发方法
 	glacier.carrier_mgr.carrierRoute_mgr.route.addRoute = function(){ 
 		glacier.basicAddOrEditDialog({
 			title : '【班线】- 增加',
@@ -294,7 +294,57 @@
 				glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
 			}
 		});
-	}; 
+	};  */
+	
+	// 增加客服
+	glacier.carrier_mgr.carrierRoute_mgr.route.addRoute = function(){
+		glacier.carrier_mgr.carrierRoute_mgr.route.newServiceDialog('【客服服务】- 增加客服',false,'/do/carrierRoute/add.json');
+	};
+	/**
+		打开新建或者编辑窗口
+		title:要打开的窗口标题
+		editModel: true or false ，是否复制当前选择行数据到form中
+		url:点击保存按钮请求的url
+	*/
+	glacier.carrier_mgr.carrierRoute_mgr.route.newServiceDialog = function(title,editModel,url){
+		$.easyui.showDialog({
+			href : ctx + '/do/carrierRoute/addForm.htm',//从controller请求jsp页面进行渲染
+			width : 670,
+			height : 590,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#carrierAddRoute_form').form('submit', {
+						url: ctx + url,
+						success: function(r){
+							glacier.show({msg:r.msg,result:r.success});
+							glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid('reload');
+						    dia.dialog("close"); 
+						}
+					});
+				}
+			}],
+			onLoad : function() {
+				if(editModel){//编辑模式
+					var row = glacier.carrier_mgr.carrierRoute_mgr.route.routeDataGrid.datagrid("getSelected");
+					if(row){
+						$('#carrierAddRoute_form').form('load', row );
+					}else{
+						$.messager.show({//提示用户
+							title : '提示',
+							timeout:3000,
+							msg : '请选择一行数据进行编辑'
+						});
+					}
+				}
+			}
+		});
+	};
 	
 	//点击删除按钮触发方法
 	glacier.carrier_mgr.carrierRoute_mgr.route.delRoute= function() { 
@@ -396,11 +446,11 @@
 						style="width: 80px;height: 23px;" class="spinner" /></td> 
 						<td>始发站：</td>
 					<td> 
-				        <input name="routeOrigin"  onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+				        <input name="routeOrigin"  onclick="getCoordinate22(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td> 
 					<td>终点站：</td>  
 					<td>  
-					  <input name="routeStop" onclick="getCoordinate(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
+					  <input name="routeStop" onclick="getCoordinate22(this)" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	               </td>  
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
@@ -416,7 +466,7 @@
 </div> 
  
 									<!--弹出省省市-->
-	<div id="te" class="provinceCityAll" style="z-index:30;position:absolute;">
+	<div id="te22" class="provinceCityAll" style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix">
 	    <ul class="">
 	      <li><a href="javascript:" class="current" tb="hotCityAll">热门城市</a></li>
@@ -463,20 +513,20 @@
 	    </div>
 	  </div>
 	</div> 
- <script src="${ctx}/resources/area/js/public.js"></script> 
+ <script src="${ctx}/resources/area/js/public22.js"></script> 
 <script type="text/javascript">
 	var l1;
 	var t1;
 	//获取坐标
-	function getCoordinate(te){ 
-	  	var start =$(te).position(); 
+	function getCoordinate22(te22){ 
+	  	var start =$(te22).position(); 
 		l1 = start.left; 
 		t1 = start.top;    
 	 };  
 	 
 	 //地区选择器的位置控制
 	  $(".proCitySelAll").click(function(event) {   
-		 $("#te").css("top", t1+60).css("left", l1).toggle();  
+		 $("#te22").css("top", t1+60).css("left", l1).toggle();  
 	});   
  
 </script>
