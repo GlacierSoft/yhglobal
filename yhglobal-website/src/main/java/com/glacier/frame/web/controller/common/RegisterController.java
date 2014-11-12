@@ -701,4 +701,16 @@ public class RegisterController extends AbstractController {
     public String retrievePasswordEmail() {
         return "retrievePassword/retrievePasswordEmail";
     }
+    
+    // 转到“违禁物品说明”页面
+    @RequestMapping(value = "/contrabandExplain.htm")
+    public Object contrabandExplain() {
+        return "help_mgr/contrabandExplain";
+    }
+    
+    // 转到“增值服务及收费标准”页面
+    @RequestMapping(value = "/collectFees.htm")
+    public Object collectFees() {
+        return "help_mgr/collectFees";
+    }
 }

@@ -137,7 +137,7 @@
 	</table> 
 		</fieldset> 
     </div>
-   <div title="发/提货区域" style="padding:15px">
+   <div title="发货区域" style="padding:15px">
     	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:20px;" class="spinner">
 			<legend>发货物区域</legend>  
 			<table  class="formtable"> 
@@ -148,6 +148,15 @@
 			   <td style="padding-left:20px;">价格(次)：</td>
 			 <td >
 			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[0].price" />
+			  </td>
+		    </tr> 
+		    <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+			style="height:18px;width:180px"  name="deliverList[0].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[0].telephone" />
 			  </td>
 		    </tr>  
 			<tr>   
@@ -160,6 +169,15 @@
 			  </td>
 		  </tr>
 		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+			style="height:18px;width:180px"  name="deliverList[1].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[1].telephone" />
+			  </td>
+		    </tr> 
+		  <tr>   
 		     <td>发货区域3：</td>
 			 <td><input class="easyui-validatebox spinner"  
 			style="height:18px;width:180px"  name="deliverList[2].deliverName"/></td>
@@ -168,6 +186,15 @@
 			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[2].price" />
 			  </td>
 		  </tr>
+		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+			style="height:18px;width:180px"  name="deliverList[2].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[2].telephone" />
+			  </td>
+		    </tr> 
 		  <tr>   
 		     <td>发货区域4：</td>
 			 <td><input class="easyui-validatebox spinner"  
@@ -178,6 +205,15 @@
 			  </td>
 		  </tr>
 		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+			style="height:18px;width:180px"  name="deliverList[3].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			 <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[3].telephone" />
+			  </td>
+		    </tr> 
+		  <tr>   
 		     <td>发货区域5：</td>
 			 <td><input class="easyui-validatebox spinner"   
 			style="height:18px;width:180px"  name="deliverList[4].deliverName"/></td>
@@ -186,8 +222,21 @@
 			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[4].price" />
 			  </td>
 		  </tr>
+		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="deliverList[4].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="deliverList[4].telephone" />
+			  </td>
+		    </tr> 
 			</table>
 		</fieldset>
+		
+    </div>
+    
+    <div title="提货区域" style="padding:15px"> 
 		
 		<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:20px;" class="spinner">
 			<legend>提货物区域</legend>  
@@ -201,6 +250,15 @@
 			 	<input class="  easyui-validatebox spinner"  style="height:18px;width:180px" name="pickUpList[0].price" />
 			  </td>
 		    </tr>  
+		    <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="pickUpList[0].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="pickUpList[0].telephone" />
+			  </td>
+		    </tr> 
 			<tr>   
 		     <td>提货区域2：</td>
 			 <td><input class="easyui-validatebox spinner"  
@@ -211,6 +269,15 @@
 			  </td>
 		  </tr>
 		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="pickUpList[1].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="pickUpList[1].telephone" />
+			  </td>
+		    </tr> 
+		  <tr>   
 		     <td>提货区域3：</td>
 			 <td><input class="easyui-validatebox spinner"  
 			style="height:18px;width:180px"  name="pickUpList[2].deliverName"/></td>
@@ -219,6 +286,15 @@
 			 	<input class="  easyui-validatebox spinner" style="height:18px;width:180px" name="pickUpList[2].price" />
 			  </td>
 		  </tr>
+		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="pickUpList[2].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="pickUpList[2].telephone" />
+			  </td>
+		    </tr> 
 		  <tr>   
 		     <td>提货区域4：</td>
 			 <td><input class="easyui-validatebox spinner" 
@@ -229,6 +305,15 @@
 			  </td>
 		  </tr>
 		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="pickUpList[3].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="pickUpList[3].telephone" />
+			  </td>
+		    </tr> 
+		  <tr>   
 		     <td>提货区域5：</td>
 			 <td><input class="easyui-validatebox spinner"  
 			style="height:18px;width:180px"  name="pickUpList[4].deliverName"/></td>
@@ -237,9 +322,21 @@
 			 	<input class="easyui-validatebox spinner"  style="height:18px;width:180px" name="pickUpList[4].price"/>
 			  </td>
 		  </tr>
+		  <tr>   
+		     <td>详细地址：</td>
+			 <td><input class="spinner"   
+		    	style="height:18px;width:180px"  name="pickUpList[4].address"/></td>
+			   <td style="padding-left:20px;">联系电话：</td>
+			  <td >
+			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:180px" name="pickUpList[4].telephone" />
+			  </td>
+		    </tr> 
 			</table>
 		</fieldset>
     </div>
+    
+    
+    
 </form>   
 
 

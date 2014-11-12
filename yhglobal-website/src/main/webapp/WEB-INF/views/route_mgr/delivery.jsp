@@ -97,12 +97,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 </div>
 	        </div> 
 	        <div class="col-md-9" > 
-			<!-- 	<div class="panel panel-default" style="width: 863px" >
+	        <form class="form-horizontal" role="search">
+			 <!-- <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">手机验证</b> &nbsp;&nbsp; 输入手机号码后，点击“获取验证码”按钮，验证码将发送到手机（免费），填写短信中的数字并点击“确认”
 					  </div>
 					  <div class="panel-body">
-					     <div class="form-group">
+						  <div class="form-group">
+						     <label for="enterpriseName" class="col-sm-2 control-label">*企业名称:</label>
+							 <div class="col-sm-4">
+								<input type="text" class="form-control" id="inputEmail3" placeholder="请输入手机号码" >
+							 </div>
+						  </div> 
+					   <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">*手机号码:</label>
 						    <div class="col-sm-4">
 						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入手机号码" >
@@ -117,28 +124,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div>
 						  
 					  </div>
-				</div> -->
-				 <div class="panel panel-default" style="width: 863px" >
+				</div>  -->
+				  <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">发货方</b> &nbsp;&nbsp;填写完整、准确信息，物流跟进更及时
 					  </div>
 					  <div class="panel-body">
+					    <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >发货区:</label>
+						    <div class="col-sm-4" align="left">
+						      <label for="inputEmail3" style="color:#0697DA ">${router.routeOrigin}</label> 
+						     </div> 
+						  </div>
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 120px">*联系人:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label">*联系人:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入发货人姓名" >
 						    </div> 
-						  </div><br>
-						  <div class="form-group" style="margin-top: 5px" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 100px">*联系电话:</label>
+						  </div>
+						  <div class="form-group"  >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入发货人联系电话" >
+						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入发货人联系电话" >
 						    </div> 
-						  </div><br>
-						 <div class="form-group" style="margin-top: 5px" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 80px">*所在街道地址:</label>
+						  </div>
+						 <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入所在街道地址" >
+						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入所在街道地址" >
 						    </div> 
 						  </div>
 					  </div>
@@ -148,22 +161,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <b style="size: 3">收货方</b> &nbsp;&nbsp;为了您货物安全，请填写完整、准确信息
 					  </div>
 					  <div class="panel-body">
+					      <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >收货区:</label>
+						    <div class="col-sm-6" align="left">
+						      <label for="inputEmail3" style="color:#0697DA ">${router.routeStop}</label> 
+						     </div> 
+						  </div>
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 120px">*联系人:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系人:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入收货人姓名" >
+						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入收货人姓名" >
 						    </div> 
-						  </div><br>
-						  <div class="form-group" style="margin-top: 5px" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 100px">*联系电话:</label>
+						  </div>
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入收货人联系电话" >
+						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入收货人联系电话" >
 						    </div> 
-						  </div><br>
-						 <div class="form-group" style="margin-top: 5px" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 80px">*所在街道地址:</label>
+						  </div>
+						 <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入所在街道地址" >
+						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入所在街道地址" >
 						    </div> 
 						  </div>
 					  </div>
@@ -174,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 120px">*发货网点:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*发货网点:</label>
 						    <div class="col-sm-6" align="left">
 						   <select class="form-control">
 							  <option>--请选择--</option> 
@@ -184,9 +203,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                       </c:forEach>  
 							</select>
 						    </div> 
-						  </div><br>
-						  <div class="form-group" style="margin-top: 5px" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 120px">*收货网点:</label>
+						  </div>
+						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*收货网点:</label>
 						    <div class="col-sm-6" align="left">
 						    <select class="form-control">
 							  <option>--请选择--</option>
@@ -205,32 +224,134 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 125px">*货物名称:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label">*货物名称:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入物品名称" >
+						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入物品名称" >
 						    </div> 
-						    <a href="#" style="color: blue">禁运品说明</a>
+						    <a href="${ctx}/contrabandExplain.htm" style="color: #FF7300">禁运品说明</a>
 						  </div>
-						  <div class="form-group" style="margin-top: 5px">
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 110px">*包装总件数:</label>
+						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*包装总件数:</label>
 						    <div class="col-sm-6" align="left">
-						     <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入物品包装件数" >
+						     <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入物品包装件数" >
 						    </div> 
 						    <div class="col-sm-3" ></div>
-						  </div> <br><br>
+						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 145px">总重量:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" >总重量:</label>
 						    <div class="col-sm-2" align="left">
 						     <input type="text" class="form-control" id="inputEmail3"  placeholder="公斤" >
 						     </div>  
-						    <label for="inputEmail3"  class="col-sm-2 control-label" ><font style="margin-left: 20px">或</font>    &nbsp;&nbsp;&nbsp;&nbsp;总体积:</label> 
+						    <label for="inputEmail3"  class="col-sm-2 control-label" ><font color="#FF7300">或</font>    &nbsp;&nbsp;&nbsp;&nbsp;总体积:</label> 
 						      <div class="col-sm-2" align="left">
 						     <input type="text" class="form-control" id="inputEmail3" placeholder="立方米" >
 						    </div> 
-						     <a href="#" style="color: blue">什么是重货轻货？</a>
+						     <a href="#" style="color: #FF7300">什么是重货轻货？</a>
+						  </div> 
+						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 122px">注意事项:</label>
+						    <div class="col-sm-6" align="left">
+						   <textarea class="form-control" rows="2"></textarea>
+						    </div> 
+						    <div class="col-sm-3" ></div>
 						  </div> 
 					  </div>
 				</div>
+				
+				<div class="panel panel-default" style="width: 863px" >
+					  <div class="panel-heading">
+					    <b style="size: 3">增值服务</b> &nbsp;&nbsp;<a href="${ctx}/collectFees.htm"style="color: #FF7300">查看收费标准</a>
+					  </div>
+					  <div class="panel-body">
+					     <div class="form-group" >
+						     <div class="col-sm-12"> 
+							     <div class="checkbox" style="float: left;margin-left: 150px">
+								    <label>
+								      <input type="checkbox"> 上面接货<font color="#669900">(包接货费)</font>
+								    </label>
+								  </div>
+								  <div class="checkbox" style="float: left;margin-left: 30px">
+								    <label>
+								      <input type="checkbox"> 货物保价&nbsp; &nbsp;
+								    </label>
+								  </div> 
+								    <input   type="text" class="form-control" style="width: 50px;float: left;"><label style="margin-top: 5px;float: left">元</label>
+							       <div class="checkbox" style="float: left;margin-left: 30px">
+								    <label>
+								      <input type="checkbox"> 送货上门
+								    </label>
+								  </div>  
+						    </div> 
+						  </div>
+						   <div class="form-group" >
+							     <div class="col-sm-12" style="float: left;"> 
+							     <div class="checkbox" style="float: left;margin-left: 150px">
+								    <label style="float: left;">
+								      <input type="checkbox"> 短信通知<font color="#669900">(免费)</font>
+								    </label>
+								  </div>
+								  <div class="checkbox" style="float: left;margin-left: 58px">
+								    <label>
+								      <input type="checkbox"> 签收回单&nbsp; &nbsp;
+								    </label>
+								  </div> 
+								 <select class="form-control" style="width: 183px;float: left">
+								  <option>运单签收联原件返回</option> 
+								  <option>发货单签收联原件返回</option> 
+								</select> 
+							    </div> 
+						   </div> 
+						   <div class="form-group" >
+							     <div class="col-sm-12" style="float: left;">
+							      <div class="checkbox" style="float: left; margin-left: 150px">
+							    <label>
+							      <input type="checkbox">工本费<font color="red">(6元)</font>
+							    </label>
+							  </div>
+							  <div class="checkbox" style="float: left;margin-left: 78px">
+							    <label>
+							     <input type="checkbox">燃油费<font color="red">(4元)</font>
+							    </label>
+							  </div>
+							      </div>
+							</div>
+						  <div class="form-group" >
+						     <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
+							     <div class="col-sm-6" style="float: left;"> 
+								     <div class="radio" style="float: left;">
+									  <label>
+									    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+									    发货人支付
+									  </label>
+									 </div>
+									 
+									 <div class="radio" style="float: left;">
+									  <label>
+									    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+									    收货人支付（到付）
+									  </label>
+									 </div>
+							    </div>
+						  </div> 
+						  
+						    <div class="form-group" >
+						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
+							     <div class="col-sm-9" style="float: left;"> 
+							      <input   type="text" class="form-control" style="width: 100px;float: left;">
+							      <div class="checkbox" style="float: left;margin-left: 20px">
+								    <label>
+								      <input type="checkbox">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="#" style="color: #FF7300">投保协议</a>
+								    </label>
+								   </div> 
+							      </div>
+							</div>
+						  
+					  </div>
+				</div> 
+				<center>
+				<button type="button" class="btn btn-info" style="margin-bottom: 30px;width: 150px">提交运单</button>
+				</center>
+				</form>
 		    </div>
 	</div>
 	
