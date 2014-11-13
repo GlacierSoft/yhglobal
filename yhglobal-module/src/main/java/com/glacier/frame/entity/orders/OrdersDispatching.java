@@ -11,6 +11,8 @@ public class OrdersDispatching {
     private String dispatchingCode;
 
     private String carrierId;
+    
+    private String routerId;
 
     private BigDecimal dispatchingGoodsDeposit;
 
@@ -66,6 +68,14 @@ public class OrdersDispatching {
 
 	public String getCarrierDisplay() {
 		return carrierDisplay;
+	}
+
+	public String getRouterId() {
+		return routerId;
+	}
+
+	public void setRouterId(String routerId) {
+		this.routerId = routerId;
 	}
 
 	public void setCarrierDisplay(String carrierDisplay) {

@@ -26,13 +26,14 @@
     <result column="temp_storehouse_belaidup_belaidup_return_time" property="belaidupReturnTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_belaidup_belaidup_return_poundage" property="belaidupReturnPoundage" jdbcType="DECIMAL" />
     <result column="temp_storehouse_belaidup_belaidup_bar_code" property="belaidupBarCode" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_router_id" property="routerId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_storehouse_id" property="storehouseId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_belaidup_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  	<result column="temp_storehouse_belaidup_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_storehouse_belaidup_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_shipper_member_display" property="shipperMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_goods_type_display" property="goodsTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -117,11 +118,11 @@
     temp_storehouse_belaidup.stauts as temp_storehouse_belaidup_stauts, temp_storehouse_belaidup.belaidup_return_time as temp_storehouse_belaidup_belaidup_return_time, 
     temp_storehouse_belaidup.belaidup_return_poundage as temp_storehouse_belaidup_belaidup_return_poundage, 
     temp_storehouse_belaidup.belaidup_bar_code as temp_storehouse_belaidup_belaidup_bar_code, 
-    temp_storehouse_belaidup.storehouse_id as temp_storehouse_belaidup_storehouse_id, 
+    temp_storehouse_belaidup.router_id as temp_storehouse_belaidup_router_id, temp_storehouse_belaidup.storehouse_id as temp_storehouse_belaidup_storehouse_id, 
     temp_storehouse_belaidup.remark as temp_storehouse_belaidup_remark, temp_storehouse_belaidup.creater as temp_storehouse_belaidup_creater, 
     temp_storehouse_belaidup.create_time as temp_storehouse_belaidup_create_time, temp_storehouse_belaidup.updater as temp_storehouse_belaidup_updater, 
     temp_storehouse_belaidup.update_time as temp_storehouse_belaidup_update_time
-  	<!-- 以下字段属于扩展 -->
+   	<!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_storehouse_belaidup_creater_display
     ,temp_updater.user_cn_name as temp_storehouse_belaidup_updater_display
     ,temp_goodstype.goodstype_name as temp_storehouse_belaidup_goods_type_display
@@ -137,7 +138,7 @@
     LEFT JOIN t_shipper_member temp_member ON temp_member.member_id = temp_storehouse_belaidup.member_id <!-- 扩展 -->
     LEFT JOIN t_storehouse_storage temp_storage ON temp_storage.storage_id = temp_storehouse_belaidup.storehouse_id <!-- 扩展 -->
     LEFT JOIN t_storehouse_pack_code temp_packcode ON temp_packcode.belaidup_id = temp_storehouse_belaidup.belaidup_id <!-- 扩展 -->
-    LEFT JOIN t_storehouse_packagetype_set temp_packagetype ON temp_packagetype.packagetype_id = temp_packcode.packagetype_id <!-- 扩展 -->
+    LEFT JOIN t_storehouse_packagetype_set temp_packagetype ON temp_packagetype.packagetype_id = temp_packcode.packagetype_id <!-- 扩展 --> 
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
     select
@@ -146,7 +147,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_storehouse_belaidup temp_storehouse_belaidup
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -161,7 +162,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_storehouse_belaidup temp_storehouse_belaidup
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_storehouse_belaidup.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -183,9 +184,9 @@
       order_consignee, order_phone, order_address, 
       belaidup_status, sorting_stauts, stauts, 
       belaidup_return_time, belaidup_return_poundage, 
-      belaidup_bar_code, storehouse_id, remark, 
-      creater, create_time, updater, 
-      update_time)
+      belaidup_bar_code, router_id, storehouse_id, 
+      remark, creater, create_time, 
+      updater, update_time)
     values (#{belaidupId,jdbcType=VARCHAR}, #{belaidupProdName,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{belaidupUnitprice,jdbcType=DECIMAL}, #{goodstypeId,jdbcType=VARCHAR}, #{yesOrNo,jdbcType=CHAR}, 
       #{belaidupWeight,jdbcType=REAL}, #{belaidupBulk,jdbcType=REAL}, #{repertoryPrice,jdbcType=DECIMAL}, 
@@ -194,9 +195,9 @@
       #{orderConsignee,jdbcType=VARCHAR}, #{orderPhone,jdbcType=VARCHAR}, #{orderAddress,jdbcType=VARCHAR}, 
       #{belaidupStatus,jdbcType=CHAR}, #{sortingStauts,jdbcType=CHAR}, #{stauts,jdbcType=CHAR}, 
       #{belaidupReturnTime,jdbcType=TIMESTAMP}, #{belaidupReturnPoundage,jdbcType=DECIMAL}, 
-      #{belaidupBarCode,jdbcType=VARCHAR}, #{storehouseId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{belaidupBarCode,jdbcType=VARCHAR}, #{routerId,jdbcType=VARCHAR}, #{storehouseId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidup" >
     insert into t_storehouse_belaidup
@@ -272,6 +273,9 @@
       </if>
       <if test="belaidupBarCode != null" >
         belaidup_bar_code,
+      </if>
+      <if test="routerId != null" >
+        router_id,
       </if>
       <if test="storehouseId != null" >
         storehouse_id,
@@ -365,6 +369,9 @@
       <if test="belaidupBarCode != null" >
         #{belaidupBarCode,jdbcType=VARCHAR},
       </if>
+      <if test="routerId != null" >
+        #{routerId,jdbcType=VARCHAR},
+      </if>
       <if test="storehouseId != null" >
         #{storehouseId,jdbcType=VARCHAR},
       </if>
@@ -387,7 +394,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" resultType="java.lang.Integer" >
     select count(*) from t_storehouse_belaidup temp_storehouse_belaidup
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -467,6 +474,9 @@
       <if test="record.belaidupBarCode != null" >
         temp_storehouse_belaidup.belaidup_bar_code = #{record.belaidupBarCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.routerId != null" >
+        temp_storehouse_belaidup.router_id = #{record.routerId,jdbcType=VARCHAR},
+      </if>
       <if test="record.storehouseId != null" >
         temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
       </if>
@@ -516,6 +526,7 @@
       temp_storehouse_belaidup.belaidup_return_time = #{record.belaidupReturnTime,jdbcType=TIMESTAMP},
       temp_storehouse_belaidup.belaidup_return_poundage = #{record.belaidupReturnPoundage,jdbcType=DECIMAL},
       temp_storehouse_belaidup.belaidup_bar_code = #{record.belaidupBarCode,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.router_id = #{record.routerId,jdbcType=VARCHAR},
       temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
       temp_storehouse_belaidup.remark = #{record.remark,jdbcType=VARCHAR},
       temp_storehouse_belaidup.creater = #{record.creater,jdbcType=VARCHAR},
@@ -598,6 +609,9 @@
       <if test="belaidupBarCode != null" >
         belaidup_bar_code = #{belaidupBarCode,jdbcType=VARCHAR},
       </if>
+      <if test="routerId != null" >
+        router_id = #{routerId,jdbcType=VARCHAR},
+      </if>
       <if test="storehouseId != null" >
         storehouse_id = #{storehouseId,jdbcType=VARCHAR},
       </if>
@@ -644,6 +658,7 @@
       belaidup_return_time = #{belaidupReturnTime,jdbcType=TIMESTAMP},
       belaidup_return_poundage = #{belaidupReturnPoundage,jdbcType=DECIMAL},
       belaidup_bar_code = #{belaidupBarCode,jdbcType=VARCHAR},
+      router_id = #{routerId,jdbcType=VARCHAR},
       storehouse_id = #{storehouseId,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},

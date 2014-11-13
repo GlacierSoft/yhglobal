@@ -77,7 +77,20 @@ public class StorehousePackagetypeSetService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-    
+      
+    /*** 
+     * @Title: selectAll  
+     * @Description: TODO(前台web页面查询类型显示)  
+     * @param @return    设定文件  
+     * @return List<StorehousePackagetypeSet>    返回类型  
+     * @throws
+     */
+    public List<StorehousePackagetypeSet> selectAll(){
+    	StorehousePackagetypeSetExample packagetypeSetExample = new StorehousePackagetypeSetExample(); 
+    	List<StorehousePackagetypeSet> packagetypeSetTypeList = packagetypeSetMapper.selectByExample(packagetypeSetExample); // 查询所有会员列表
+    	return packagetypeSetTypeList; 
+    }
+     
     /**
 	 * @Title: getPackagetype 
 	 * @Description: TODO(根据包装类型Id获取包装类型信息) 

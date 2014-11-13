@@ -105,7 +105,14 @@ public class StorehouseBelaidupExample {
             return criteria;
         }
 
-        //扩展查询条件
+        protected void addCriterion(String condition) {
+            if (condition == null) {
+                throw new RuntimeException("Value for condition cannot be null");
+            }
+            criteria.add(new Criterion(condition));
+        }
+
+		   //扩展查询条件
         public Criteria andStorageDisplayLike(String value) {
             addCriterion("temp_storage.storage_name like ", value, "storageDisplay");
             return (Criteria) this;
@@ -116,13 +123,6 @@ public class StorehouseBelaidupExample {
             return (Criteria) this;
         }
         
-        protected void addCriterion(String condition) {
-            if (condition == null) {
-                throw new RuntimeException("Value for condition cannot be null");
-            }
-            criteria.add(new Criterion(condition));
-        }
-
         protected void addCriterion(String condition, Object value, String property) {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
@@ -1724,6 +1724,76 @@ public class StorehouseBelaidupExample {
 
         public Criteria andBelaidupBarCodeNotBetween(String value1, String value2) {
             addCriterion("temp_storehouse_belaidup.belaidup_bar_code not between", value1, value2, "belaidupBarCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIsNull() {
+            addCriterion("temp_storehouse_belaidup.router_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIsNotNull() {
+            addCriterion("temp_storehouse_belaidup.router_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id =", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id <>", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdGreaterThan(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id >", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id >=", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLessThan(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id <", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id <=", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLike(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id like", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotLike(String value) {
+            addCriterion("temp_storehouse_belaidup.router_id not like", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup.router_id in", values, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup.router_id not in", values, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup.router_id between", value1, value2, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup.router_id not between", value1, value2, "routerId");
             return (Criteria) this;
         }
 

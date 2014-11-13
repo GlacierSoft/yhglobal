@@ -27,9 +27,9 @@
 				  		<div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 					        <li ><a href="${ctx}/contrabandExplain.htm">禁运品说明</a></li> 
-					         <li><a href="${ctx}/contrabandExplain.htm">轻/重货说明</a></li> 
+					         <li><a href="${ctx}/weightExplain.htm">轻/重货说明</a></li> 
 					         <li class="active"><a href="${ctx}/collectFees.htm">增值服务说明</a></li> 
-					         <li><a href="${ctx}/contrabandExplain.htm">货运险承保说明</a></li> 
+					         <li><a href="${ctx}/insuranceExplain.htm">货运险承保说明</a></li> 
 					      </ul>
 				  		</div>
 				  	</div>  
@@ -48,7 +48,7 @@
 				    <h3 class="panel-title">增值服务及收费标准</h3>
 				  </div>
 				  <div class="panel-body">
-			          <h2  align="center">增值服务及收费标准</h2> 
+			          <h2  align="center">增值服务及收费标准</h2> <br>
 			          <table class="table table-bordered" style="text-align: center;" >
                       <tr>
                        <td width="270px">保价收费标准</td>
@@ -94,7 +94,7 @@
 								<br>☆  进仓服务：进仓费用实报实销，进仓服务费30/票</td>
                       </tr>
                        <tr>
-                        <td colspan="2" style="text-align: left;"><font size="3" color="#0697DA">空运速度，汽运价格    安全快速，限时到达</font></td>
+                        <td colspan="2" style="text-align: left;"><font size="3" color="#0697DA">空运速度，汽运价低， 安全快速，限时到达</font></td>
                        </tr>  
                        <tr>
                         <td colspan="2" style="text-align: left;"><font size="3" color="#FF7300">安全</font><br>

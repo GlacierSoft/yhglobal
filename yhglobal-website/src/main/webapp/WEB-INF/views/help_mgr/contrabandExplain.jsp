@@ -27,9 +27,9 @@
 				  		<div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 					        <li class="active"><a href="${ctx}/contrabandExplain.htm">禁运品说明</a></li> 
-					         <li><a href="${ctx}/contrabandExplain.htm">轻/重货说明</a></li> 
+					         <li><a href="${ctx}/weightExplain.htm">轻/重货说明</a></li> 
 					         <li><a href="${ctx}/collectFees.htm">增值服务说明</a></li> 
-					         <li><a href="${ctx}/contrabandExplain.htm">货运险承保说明</a></li> 
+					         <li><a href="${ctx}/insuranceExplain.htm">货运险承保说明</a></li> 
 					      </ul>
 				  		</div>
 				  	</div>  
@@ -48,7 +48,7 @@
 				    <h3 class="panel-title">禁运品说明</h3>
 				  </div>
 				  <div class="panel-body">
-			          <h2  align="center">禁运品说明</h2> 
+			          <h2  align="center">禁运品说明</h2> <br>
 			          <table class="table table-bordered" style="text-align: center;" >
                       <tr>
                        <td width="270px"><b>类别</b></td>

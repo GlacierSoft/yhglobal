@@ -18,15 +18,15 @@
  * 
  */
 package com.glacier.frame.web.controller.carrier;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.core.controller.AbstractController;
+import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.service.carrier.CarrierRouterService;
-
+import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService; 
 /**
  * @ClassName:  StorehouseBelaidupController
  * @Description: TODO(发货控制器)
@@ -41,11 +41,16 @@ public class StorehouseBelaidupController extends AbstractController{
 	@Autowired  
 	private CarrierRouterService routeService;
 	
-	//进入发货页面
+	@Autowired  
+	private StorehousePackagetypeSetService storehousePackagetypeSetService;
+	
+	//进入发货页面 
 	@RequestMapping(value = "/delivery.htm")
 	public Object  bekaudup(String routeId){ 
 		ModelAndView mav = new ModelAndView("route_mgr/delivery");
-		mav.addObject("router", routeService.getRoute(routeId));
-	  	return mav;
+		mav.addObject("router", routeService.getRoute(routeId)); 
+		mav.addObject("storehousePackagetype",storehousePackagetypeSetService.selectAll());
+	  
+		return mav;
 	}
 }

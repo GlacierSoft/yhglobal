@@ -69,6 +69,8 @@ public class StorehouseBelaidup {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    //班线id
+    private String routerId;
     /**
      * 自定义字段
      */
@@ -87,7 +89,15 @@ public class StorehouseBelaidup {
     private String packageCode;
     
     
-    public String getBelaidupId() {
+    public String getRouterId() {
+		return routerId;
+	}
+
+	public void setRouterId(String routerId) {
+		this.routerId = routerId;
+	}
+
+	public String getBelaidupId() {
         return belaidupId;
     }
 

@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 </div>
 	        </div> 
 	        <div class="col-md-9" > 
-	        <form class="form-horizontal" role="search">
+	        <form class="form-horizontal" role="search" method="post"  id="personalMessageForm" >
 			 <!-- <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">手机验证</b> &nbsp;&nbsp; 输入手机号码后，点击“获取验证码”按钮，验证码将发送到手机（免费），填写短信中的数字并点击“确认”
@@ -238,6 +238,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*包装类型:</label>
+						    <div class="col-sm-6" align="left">
+						     <select class="form-control">
+							  <option>--请选择--</option>
+							   <c:forEach items="${storehousePackagetype}" var="ty">  
+					             <option>${ty.packagetypeName} </option>
+					            </c:forEach>   
+							</select>
+						     </div> 
+						    <div class="col-sm-3" ></div>
+						  </div>
+						  
+						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >总重量:</label>
 						    <div class="col-sm-2" align="left">
 						     <input type="text" class="form-control" id="inputEmail3"  placeholder="公斤" >
@@ -246,7 +259,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      <div class="col-sm-2" align="left">
 						     <input type="text" class="form-control" id="inputEmail3" placeholder="立方米" >
 						    </div> 
-						     <a href="#" style="color: #FF7300">什么是重货轻货？</a>
+						     <a href="${ctx}/weightExplain.htm" style="color: #FF7300">什么是重货轻货？</a>
 						  </div> 
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 122px">注意事项:</label>
@@ -340,7 +353,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							      <input   type="text" class="form-control" style="width: 100px;float: left;">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
 								    <label>
-								      <input type="checkbox">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="#" style="color: #FF7300">投保协议</a>
+								      <input type="checkbox">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
 								    </label>
 								   </div> 
 							      </div>
@@ -357,5 +370,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	</div>
 	<jsp:include page="../foot.jsp"/>
+	<script type="text/javascript">
+	  $("#personalMessageForm").validate({
+		  rules:{
+  		  },
+  		  messages:{
+  		  },
+		  submitHandler:function(){
+			 $.ajax({
+			   type: "POST",
+			   url: ctx+"/member/editIndividuality.htm",
+			   dataType: "json",
+			   data: $("#personalMessageForm").serialize(),
+			   success: function(r) { 
+					 	notClonedialog(r);
+                },
+                error: function() {
+                    alert("提交出错！");
+                }
+	    	});
+		  }
+	  });
+	
+	</script>
 </body>
 </html>

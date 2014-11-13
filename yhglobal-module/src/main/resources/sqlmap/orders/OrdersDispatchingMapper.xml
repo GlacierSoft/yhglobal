@@ -9,6 +9,7 @@
     <result column="temp_orders_dispatching_dispatching_status" property="dispatchingStatus" jdbcType="CHAR" />
     <result column="temp_orders_dispatching_driver_id" property="driverId" jdbcType="VARCHAR" />
     <result column="temp_orders_dispatching_dispatching_signfor" property="dispatchingSignfor" jdbcType="CHAR" />
+    <result column="temp_orders_dispatching_router_id" property="routerId" jdbcType="VARCHAR" />
     <result column="temp_orders_dispatching_car_id" property="carId" jdbcType="VARCHAR" />
     <result column="temp_orders_dispatching_dispatch_time" property="dispatchTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_dispatching_arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
@@ -17,13 +18,12 @@
     <result column="temp_orders_dispatching_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_dispatching_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_orders_dispatching_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    
-    <result column="temp_orders_dispatching_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
+	
+	<result column="temp_orders_dispatching_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
 	<result column="temp_orders_dispatching_driver_display"  property="driverDisplay" jdbcType="VARCHAR"/> <!--  自定义扩展字段 -->
     <result column="temp_orders_dispatching_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_orders_dispatching_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_orders_dispatching_car_display" property="carDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    
+    <result column="temp_orders_dispatching_car_display" property="carDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 --> 
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,30 +89,26 @@
     temp_orders_dispatching.carrier_id as temp_orders_dispatching_carrier_id, temp_orders_dispatching.dispatching_goods_deposit as temp_orders_dispatching_dispatching_goods_deposit, 
     temp_orders_dispatching.dispatching_status as temp_orders_dispatching_dispatching_status, 
     temp_orders_dispatching.driver_id as temp_orders_dispatching_driver_id, temp_orders_dispatching.dispatching_signfor as temp_orders_dispatching_dispatching_signfor, 
-    temp_orders_dispatching.car_id as temp_orders_dispatching_car_id, temp_orders_dispatching.dispatch_time as temp_orders_dispatching_dispatch_time, 
-    temp_orders_dispatching.arrive_time as temp_orders_dispatching_arrive_time, temp_orders_dispatching.status as temp_orders_dispatching_status, 
-    temp_orders_dispatching.creater as temp_orders_dispatching_creater, temp_orders_dispatching.create_time as temp_orders_dispatching_create_time, 
-    temp_orders_dispatching.updater as temp_orders_dispatching_updater, temp_orders_dispatching.update_time as temp_orders_dispatching_update_time
-  
-     <!-- 以下字段属于扩展 -->
+    temp_orders_dispatching.router_id as temp_orders_dispatching_router_id, temp_orders_dispatching.car_id as temp_orders_dispatching_car_id, 
+    temp_orders_dispatching.dispatch_time as temp_orders_dispatching_dispatch_time, temp_orders_dispatching.arrive_time as temp_orders_dispatching_arrive_time, 
+    temp_orders_dispatching.status as temp_orders_dispatching_status, temp_orders_dispatching.creater as temp_orders_dispatching_creater, 
+    temp_orders_dispatching.create_time as temp_orders_dispatching_create_time, temp_orders_dispatching.updater as temp_orders_dispatching_updater, 
+    temp_orders_dispatching.update_time as temp_orders_dispatching_update_time
+   <!-- 以下字段属于扩展 -->
     ,temp_carrier_member.member_name as temp_orders_dispatching_carrier_display 
     ,temp_carrier_driver.driver_name as  temp_orders_dispatching_driver_display
     ,temp_creater.user_cn_name as  temp_orders_dispatching_creater_display
     ,temp_updater.user_cn_name as  temp_orders_dispatching_updater_display
     ,temp_carrier_car_information.plate_number as  temp_orders_dispatching_car_display  
   
-  </sql>
-  
-   
-    <sql id="Base_extend">
+  </sql> 
+  <sql id="Base_extend">
 	LEFT JOIN t_carrier_member  temp_carrier_member ON temp_carrier_member.carrier_member_id = temp_orders_dispatching.carrier_id<!-- 扩展 -->
     LEFT JOIN t_carrier_driver  temp_carrier_driver ON temp_carrier_driver.driver_id = temp_orders_dispatching.driver_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_dispatching.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_dispatching.updater <!-- 扩展 -->
     LEFT JOIN t_carrier_car_information  temp_carrier_car_information ON temp_carrier_car_information.car_id= temp_orders_dispatching.car_id <!-- 扩展 -->
   </sql>
-  
-  
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersDispatchingExample" >
     select
@@ -121,7 +117,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_orders_dispatching temp_orders_dispatching
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -136,7 +132,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_orders_dispatching temp_orders_dispatching
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_orders_dispatching.dispatching_id = #{dispatchingId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -144,7 +140,7 @@
     where dispatching_id = #{dispatchingId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.orders.OrdersDispatchingExample" >
-    delete from t_orders_dispatching temp_orders_dispatching
+    delete temp_orders_dispatching from t_orders_dispatching temp_orders_dispatching
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -152,16 +148,16 @@
   <insert id="insert" parameterType="com.glacier.frame.entity.orders.OrdersDispatching" >
     insert into t_orders_dispatching (dispatching_id, dispatching_code, carrier_id, 
       dispatching_goods_deposit, dispatching_status, 
-      driver_id, dispatching_signfor, car_id, 
-      dispatch_time, arrive_time, status, 
-      creater, create_time, updater, 
-      update_time)
+      driver_id, dispatching_signfor, router_id, 
+      car_id, dispatch_time, arrive_time, 
+      status, creater, create_time, 
+      updater, update_time)
     values (#{dispatchingId,jdbcType=VARCHAR}, #{dispatchingCode,jdbcType=VARCHAR}, #{carrierId,jdbcType=VARCHAR}, 
       #{dispatchingGoodsDeposit,jdbcType=DECIMAL}, #{dispatchingStatus,jdbcType=CHAR}, 
-      #{driverId,jdbcType=VARCHAR}, #{dispatchingSignfor,jdbcType=CHAR}, #{carId,jdbcType=VARCHAR}, 
-      #{dispatchTime,jdbcType=TIMESTAMP}, #{arriveTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{driverId,jdbcType=VARCHAR}, #{dispatchingSignfor,jdbcType=CHAR}, #{routerId,jdbcType=VARCHAR}, 
+      #{carId,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, #{arriveTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.orders.OrdersDispatching" >
     insert into t_orders_dispatching
@@ -186,6 +182,9 @@
       </if>
       <if test="dispatchingSignfor != null" >
         dispatching_signfor,
+      </if>
+      <if test="routerId != null" >
+        router_id,
       </if>
       <if test="carId != null" >
         car_id,
@@ -234,6 +233,9 @@
       <if test="dispatchingSignfor != null" >
         #{dispatchingSignfor,jdbcType=CHAR},
       </if>
+      <if test="routerId != null" >
+        #{routerId,jdbcType=VARCHAR},
+      </if>
       <if test="carId != null" >
         #{carId,jdbcType=VARCHAR},
       </if>
@@ -262,7 +264,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersDispatchingExample" resultType="java.lang.Integer" >
     select count(*) from t_orders_dispatching temp_orders_dispatching
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -290,6 +292,9 @@
       </if>
       <if test="record.dispatchingSignfor != null" >
         temp_orders_dispatching.dispatching_signfor = #{record.dispatchingSignfor,jdbcType=CHAR},
+      </if>
+      <if test="record.routerId != null" >
+        temp_orders_dispatching.router_id = #{record.routerId,jdbcType=VARCHAR},
       </if>
       <if test="record.carId != null" >
         temp_orders_dispatching.car_id = #{record.carId,jdbcType=VARCHAR},
@@ -329,6 +334,7 @@
       temp_orders_dispatching.dispatching_status = #{record.dispatchingStatus,jdbcType=CHAR},
       temp_orders_dispatching.driver_id = #{record.driverId,jdbcType=VARCHAR},
       temp_orders_dispatching.dispatching_signfor = #{record.dispatchingSignfor,jdbcType=CHAR},
+      temp_orders_dispatching.router_id = #{record.routerId,jdbcType=VARCHAR},
       temp_orders_dispatching.car_id = #{record.carId,jdbcType=VARCHAR},
       temp_orders_dispatching.dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
       temp_orders_dispatching.arrive_time = #{record.arriveTime,jdbcType=TIMESTAMP},
@@ -361,6 +367,9 @@
       </if>
       <if test="dispatchingSignfor != null" >
         dispatching_signfor = #{dispatchingSignfor,jdbcType=CHAR},
+      </if>
+      <if test="routerId != null" >
+        router_id = #{routerId,jdbcType=VARCHAR},
       </if>
       <if test="carId != null" >
         car_id = #{carId,jdbcType=VARCHAR},
@@ -397,6 +406,7 @@
       dispatching_status = #{dispatchingStatus,jdbcType=CHAR},
       driver_id = #{driverId,jdbcType=VARCHAR},
       dispatching_signfor = #{dispatchingSignfor,jdbcType=CHAR},
+      router_id = #{routerId,jdbcType=VARCHAR},
       car_id = #{carId,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       arrive_time = #{arriveTime,jdbcType=TIMESTAMP},

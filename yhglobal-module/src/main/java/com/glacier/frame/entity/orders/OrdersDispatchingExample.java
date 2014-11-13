@@ -104,13 +104,12 @@ public class OrdersDispatchingExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        
+		
         public Criteria andCarrierDisplay(String value) {
         	addCriterion("temp_carrier_member.member_name like",value,"carrierDisplay");
             return (Criteria) this;
         }
         
-
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -609,6 +608,76 @@ public class OrdersDispatchingExample {
 
         public Criteria andDispatchingSignforNotBetween(String value1, String value2) {
             addCriterion("temp_orders_dispatching.dispatching_signfor not between", value1, value2, "dispatchingSignfor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIsNull() {
+            addCriterion("temp_orders_dispatching.router_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIsNotNull() {
+            addCriterion("temp_orders_dispatching.router_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdEqualTo(String value) {
+            addCriterion("temp_orders_dispatching.router_id =", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotEqualTo(String value) {
+            addCriterion("temp_orders_dispatching.router_id <>", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdGreaterThan(String value) {
+            addCriterion("temp_orders_dispatching.router_id >", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_orders_dispatching.router_id >=", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLessThan(String value) {
+            addCriterion("temp_orders_dispatching.router_id <", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_orders_dispatching.router_id <=", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdLike(String value) {
+            addCriterion("temp_orders_dispatching.router_id like", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotLike(String value) {
+            addCriterion("temp_orders_dispatching.router_id not like", value, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdIn(List<String> values) {
+            addCriterion("temp_orders_dispatching.router_id in", values, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotIn(List<String> values) {
+            addCriterion("temp_orders_dispatching.router_id not in", values, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdBetween(String value1, String value2) {
+            addCriterion("temp_orders_dispatching.router_id between", value1, value2, "routerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRouterIdNotBetween(String value1, String value2) {
+            addCriterion("temp_orders_dispatching.router_id not between", value1, value2, "routerId");
             return (Criteria) this;
         }
 

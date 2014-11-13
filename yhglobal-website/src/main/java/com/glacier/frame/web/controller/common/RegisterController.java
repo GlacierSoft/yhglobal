@@ -713,4 +713,16 @@ public class RegisterController extends AbstractController {
     public Object collectFees() {
         return "help_mgr/collectFees";
     }
+    
+    // 转到“轻重货物说明”页面
+    @RequestMapping(value = "/weightExplain.htm")
+    public Object weightExplain() {
+        return "help_mgr/weightExplain";
+    }
+    
+    // 转到“承运险说明”页面
+    @RequestMapping(value = "/insuranceExplain.htm")
+    public Object insuranceExplain() {
+        return "help_mgr/insuranceExplain";
+    }
 }
