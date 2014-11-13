@@ -319,15 +319,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		 }
     	 },
     	 submitHandler:function(){
-    		 alert("功能正在完善!!!!");
+    		 KindEditor.ready(function(K) {
+   	   		  var dialog = K.dialog({
+   	   	          width : 500,
+   	   	          title : '我要发货',
+   	   	          body : '<div style="margin:10px;"><strong>你确定寄送此货物吗?</strong></div>',
+   	   	          closeBtn : {
+   	   	                  name : '关闭',
+   	   	                  click : function(e) {
+   	   	                          dialog.remove();
+   	   	                  }
+   	   	          },
+   	   	          yesBtn : {
+   	   	                  name : '确定',
+   	   	                  click : function(e) {
+   	   	                      dialog.remove();
+   	   	                      doDailog("对不起,,该功能可能引起服务器崩溃,,技术人员正在 完善中,,稍等!");
+   	   	                   }
+   	   	          },
+   	   	          noBtn : {
+   	   	                  name : '取消',
+   	   	                  click : function(e) {
+   	   	                          dialog.remove();
+   	   	                  }
+   	   	          }
+   	   	    });
+   	   	  }); 
     	 }
      });
    
      function doReset(){
     	 $("#form_delivery")[0].reset();  
      };
-  </script>
-  
+     
+   //公共对话框定义
+     function  doDailog(str){
+   	  KindEditor.ready(function(K) {
+   		  var dialog = K.dialog({
+   		        width : 500,
+   		        title : '发货提示',
+   		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
+   		        closeBtn : {
+    	                  name : '关闭',
+    	                  click : function(e) {
+    	                          dialog.remove();
+    	                  }
+    	          },
+   		     yesBtn : {
+   	                name : '确定',
+   	                click : function(e) {
+   	                	 dialog.remove();
+   	                }
+   	        },
+   	        noBtn : {
+   	                name : '取消',
+   	                click : function(e) {
+   	                		doClear();
+   	                        dialog.remove();
+   	                }
+   	        }
+   		}); 
+   	  });
+     }
+   </script>
   </body>
 </html>
 

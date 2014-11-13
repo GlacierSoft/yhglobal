@@ -433,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  KindEditor.ready(function(K) {
 		  var dialog = K.dialog({
 		        width : 500,
-		        title : '测试窗口',
+		        title : '发布提示',
 		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
 		        closeBtn : {
  	                  name : '关闭',
