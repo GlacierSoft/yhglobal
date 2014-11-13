@@ -17,7 +17,7 @@
  * @Review (审核人) ：xichao.dong
  * 
  */
-package com.glacier.frame.web.controller.common;
+package com.glacier.frame.web.controller.deliveryGoods;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +39,7 @@ public class DeliveryController {
 
       @RequestMapping(value="index.htm")
       private Object intoDeliveryPage(JqPager pager) {
-          ModelAndView mav = new ModelAndView("deliveryGoods");
+          ModelAndView mav = new ModelAndView("deliveryGoods/deliveryGoods");
           // 进入首页初始化导航信息
           return mav;
       }

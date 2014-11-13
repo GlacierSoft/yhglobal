@@ -15,41 +15,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>越海物流</title>
    	<!-- 引入公用的js和样式库 -->
-	<jsp:include page="inc.jsp"/>
+	<jsp:include page="../inc.jsp"/>
 	<!-- Custom styles for this template -->
     
     <style type="text/css">
 		body {
 			padding-top: 75px;
 		}
-		.ark-poptip{ position: absolute; color: #db7c22; z-index: 101; line-height: 1.5; zoom: 1; }
-		.ark-poptip-shadow{ background-color: rgba(229,169,107,0.15); FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#26e5a96b,endColorstr=#26e5a96b); border-radius: 2px; padding: 2px; zoom: 1; _display: inline; }
-		.ark-poptip-container{ position: relative; background-color: #fffcef; border: 1px solid #ffbb76; border-radius: 2px; padding: 5px 22px 5px 10px; zoom: 1; _display: inline; }
-		.ark-poptip:after,.ark-poptip-shadow:after,.ark-poptip-container:after{ visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-		.ark-poptip a.ark-poptip-close{ position: absolute; right: 3px; top: 3px; border: 1px solid #ffc891; text-decoration: none; border-radius: 3px; width: 12px; height: 12px; font-family: tahoma; color: #dd7e00; line-height: 10px; line-height: 10px\0; *line-height: 12px; text-align: center; font-size: 14px; background: #ffd7af; background: -webkit-gradient(linear,left top,left bottom,from(#fff0e1),to(#ffe7cd)); background: -moz-linear-gradient(top,#fff0e1,#ffe7cd); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF0E1',endColorstr='#FFE7CD'); background: -o-linear-gradient(top,#fff0e1,#ffe7cd); background: linear-gradient(top,#fff0e1,#ffe7cd); overflow: hidden; }
-		.ark-poptip a.ark-poptip-close:hover{ border: 1px solid #ffb24c; text-decoration: none; color: #dd7e00; background: #ffd7af; background: -webkit-gradient(linear,left top,left bottom,from(#ffe5ca),to(#ffcc98)); background: -moz-linear-gradient(top,#ffe5ca,#ffcc98); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFE5CA',endColorstr='#FFCC98'); background: -o-linear-gradient(top,#ffe5ca,#ffcc98); background: linear-gradient(top,#ffe5ca,#ffcc98); }
-		.ark-poptip-arrow,.ark-poptip-arrow em,.ark-poptip-arrow span{ position: absolute; font-size: 14px; font-family: SimSun,Hiragino Sans GB; font-style: normal; line-height: 21px; z-index: 10; *zoom: 1; }
-		.ark-poptip-arrow em{ color: #ffbb76; }
-		.ark-poptip-arrow span{ color: #fffcef; top: 0; left: 0; }
-		.ark-poptip-arrow-a{ left: 14px; top: -10px; top: -9px\0; }
-		.ark-poptip-arrow-a em{ top: -1px; left: 0; }
-		.ark-poptip-arrow-b{ right: 28px; top: -10px; top: -9px\0; }
-		.ark-poptip-arrow-b em{ top: -1px; left: 0; }
-		.ark-poptip-arrow-c{ left: 14px; bottom: 10px; }
-		.ark-poptip-arrow-c em{ top: 1px; left: 0; }
-		.ark-poptip-arrow-d{ right: 28px; bottom: 10px; }
-		.ark-poptip-arrow-d em{ top: 1px; left: 0; }
-		.ark-poptip-arrow-e{ top: 6px; left: -6px; }
-		.ark-poptip-arrow-e em{ top: 0; left: -1px; }
-		.ark-poptip-arrow-f{ top: 6px; right: 7px; }
-		.ark-poptip-arrow-f em { top: 0; left: 1px; }
-		.ark-poptip-content{ float: none; display: inline; *zoom: 1; }
-		.ark-poptip-content:after{ visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-		:root .ark-poptip-shadow{ FILTER: none\9; }
 	</style>
 	</head>
   <body>
-  <jsp:include page="nav.jsp"/>
+  <jsp:include page="../nav.jsp"/>
              
     <!--大容器  -->         
     <Div class="Container">       
@@ -234,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 
    
-   <jsp:include page="foot.jsp"/>
+   <jsp:include page="../foot.jsp"/>
    
    <script type="text/javascript">
 	 $("#form_delivery").validate({
