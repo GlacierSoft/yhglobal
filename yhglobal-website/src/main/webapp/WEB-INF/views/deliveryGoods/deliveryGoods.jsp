@@ -28,11 +28,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <jsp:include page="../nav.jsp"/>
              
     <!--大容器  -->         
-    <Div class="Container">       
-        <Div class="row">
-           <Div class="col-md-1"></Div>
-           <Div class="col-md-10">
-               <form action="" method="post" id="form_delivery">
+     <div class="container">
+      	 <form action="" method="post" id="form_delivery">
                  <div class="panel panel-primary">
                     <div class="panel-heading">
     					<h3 class="panel-title">我要发货</h3>
@@ -203,11 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="panel-footer">地址：珠海市唐家镇哈工大路一号工大集团新经济资源开发港博士楼A301E</div>
                  </div>
               </form>
-             </Div>
-           <Div class="col-md-1"></Div>       
-        </Div>       
-    </Div> 
-    
+    </div>
 
    
    <jsp:include page="../foot.jsp"/>

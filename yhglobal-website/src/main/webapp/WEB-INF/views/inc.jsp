@@ -93,7 +93,3 @@
 	   
 </script>
 
-<!-- 对话框 -->
-<link rel="stylesheet" href="${ctx}/resources/js/artDialog-master/css/ui-dialog.css">
-<script src="${ctx}/resources/js/artDialog-master/dist/dialog-min.js"></script>
-

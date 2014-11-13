@@ -380,77 +380,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    },
 	    submitHandler:function(){
-	    	document.getElementById("bg").style.display ="block";
-	    	var d = dialog({
-	    	    title: '提示',
-	    	    content: '你确定要发布此条货物信息吗？',
-	    	    okValue: '确定',
-	    	    ok: function () {
-	    	        this.title('提交中…');
-	    	        $.ajax({
- 					   type: "POST",
- 					   url: ctx + '/member/add.json',
- 					   data: $("#form_release_goods").serialize(),
- 					   dataType:'json',
- 					   success: function(r){
- 						 if(r.success){
- 							 var d = dialog({
- 					    			title:'提示',
- 					    			width:300,
- 					    		    height:30,
- 					    		    fixed: true,
- 					    		    content: '货源发布成功，在记录中查看!',
- 					    		    okValue: '确定',
- 					    		    ok: function () {
- 					    		    	this.close();
- 					    		    	document.getElementById("bg").style.display ="none";
- 					    		        return false;
- 					    		    },
- 					    		});
- 					    		d.show();
- 					    		setTimeout(function () {
- 					    		    d.close().remove();
- 					    		}, 9000);
- 					    		doClear();
- 						 }else{
- 							 var d = dialog({
-					    			title:'提示',
-					    			width:300,
-					    		    height:30,
-					    		    fixed: true,
-					    		    content: '货物发布失败，，请联系管理员!',
-					    		    okValue: '确定',
-					    		    ok: function () {
-					    		    	this.close();
-					    		    	document.getElementById("bg").style.display ="none";
-					    		        return false;
-					    		    },
-					    		    
-					    		});
-					    		d.show();
-					    		setTimeout(function () {
-					    		    d.close().remove();
-					    		}, 9000);
-					    		doClear();
- 						 }   
- 						}
- 					});
-	    	    },
-	    	    cancelValue: '取消',
-	    	    cancel: function () {
-	    	      this.close();
-	    	      document.getElementById("bg").style.display ="none";
-	    	   }
-	    	});
-	    	d.show();
+	    	KindEditor.ready(function(K) {
+	   		  var dialog = K.dialog({
+	   	          width : 500,
+	   	          title : '货源发布',
+	   	          body : '<div style="margin:10px;"><strong>你确定要发布此条货源信息吗?</strong></div>',
+	   	          closeBtn : {
+	   	                  name : '关闭',
+	   	                  click : function(e) {
+	   	                          dialog.remove();
+	   	                  }
+	   	          },
+	   	          yesBtn : {
+	   	                  name : '确定',
+	   	                  click : function(e) {
+	   	                	  $.ajax({
+	   	    					   type: "POST",
+	   	    					   url: ctx + '/member/add.json',
+	   	    					   data: $("#form_release_goods").serialize(),
+	   	    					   dataType:'json',
+	   	    					   success: function(r){
+	   	    						 if(r.success){
+	   	    							dialog.remove();
+	   	    							doDailog("货源发布成功，可在记录中查看该条信息!");
+	   	    						 }
+	   	    						 else{
+	   	    							dialog.remove();
+	   	    							doDailog("货源发布失败，请联系管理员!");
+	   	    						 }
+	   	    					   }
+	   	                	  });
+	   	                  }
+	   	          },
+	   	          noBtn : {
+	   	                  name : '取消',
+	   	                  click : function(e) {
+	   	                          dialog.remove();
+	   	                  }
+	   	          }
+	   	    });
+	   	  });
 	    }
    });
   
   //表单重置
   function doClear(){
 	  $('#form_release_goods')[0].reset();
-    }
-    
+  }
+  
+  //公共对话框定义
+  function  doDailog(str){
+	  KindEditor.ready(function(K) {
+		  var dialog = K.dialog({
+		        width : 500,
+		        title : '测试窗口',
+		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
+		        closeBtn : {
+ 	                  name : '关闭',
+ 	                  click : function(e) {
+ 	                          dialog.remove();
+ 	                  }
+ 	          },
+		     yesBtn : {
+	                name : '确定',
+	                click : function(e) {
+	                	 doClear();
+	                	 dialog.remove();
+	                }
+	        },
+	        noBtn : {
+	                name : '取消',
+	                click : function(e) {
+	                		doClear();
+	                        dialog.remove();
+	                }
+	        }
+		}); 
+	  });
+  }
+  
 </script>
 </body>
 </html>
