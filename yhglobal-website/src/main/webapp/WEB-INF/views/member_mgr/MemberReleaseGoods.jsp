@@ -198,15 +198,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  </div>
 								  <div class="form-group">
 								    <div class="col-sm-offset-2 col-sm-10">
-								      <div class="checkbox">
-								        <label>
-								          <input type="checkbox"> Remember me
-								        </label>
-								      </div>
-								    </div>
-								  </div>
-								  <div class="form-group">
-								    <div class="col-sm-offset-2 col-sm-10">
 								         <button type="submit"  class="btn btn-primary">发布</button>
 								         <button type="button"  class="btn btn-primary" onclick="doClear();">重置</button>
 								    </div>
