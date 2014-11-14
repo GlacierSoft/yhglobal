@@ -146,7 +146,7 @@
 	    </div>
 	    <hr class="featurette-divider2">
 	    </div>
-	    
+	    </div>
 	    <jsp:include page="../foot.jsp"/>
   </body>
 </html>
