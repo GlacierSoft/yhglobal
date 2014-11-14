@@ -1,367 +1,336 @@
 @charset "utf-8";
-/* 代码整理：懒人之家 www.lanrenzhijia.com */
-* {
-	margin:0;
-	padding:0;
-	list-style:none;
+
+footer .wrap {
+    font-size: 12px;
+    margin: 0 auto;
+    width: 980px;
 }
-body {
-	font-size:14px;
+footer .wrap, footer .container {
+    margin-left: auto;
+    margin-right: auto;
 }
-a {
-	text-decoration:none;
+footer .wrap:before, footer .wrap:after, footer .container:before, footer .container:after {
+    content: "";
+    display: table;
+    line-height: 0;
 }
-img {
-	border:0;
+header .wrap:after, header .container:after, footer .wrap:after, footer .container:after {
+    clear: both;
 }
-.fixedBox {
-	background:rgb(255,255,255);
-	border:1px solid rgb(214,214,214);
-	top:200px;
-	width:70px;
-	right:8px;
-	position:fixed;
-	z-index:9999;
-	box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
-	_position:absolute;
+footer hr {
+    box-sizing: content-box;
+    height: 0;
 }
-* html {
-	background-image:url("about:blank");
-	background-attachment:fixed;
+footer hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ccc -moz-use-text-color #fff;
+    border-image: none;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-style: solid none;
+    border-width: 1px 0;
+    margin: 5px 0;
 }
-* html body {
-	background-image:url("about:blank");
-	background-attachment:fixed;
+#footer-p-beta2 {
+    margin-top: 20px;
+    overflow: hidden;
 }
-* html .fixedBox {
-	position:absolute;
+#footer-p-beta2 .copyright {
+    line-height: 22px;
+    margin-top: 15px;
 }
-.fixedBox ul.fixedBoxList {
-	padding:4px 0px 5px;
+#footer-p-beta2 .copyright:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
 }
-.fixedBox ul.fixedBoxList li.fixeBoxLi.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-p-beta2 .copyright, #footer-p-beta2 .copyright a {
+    color: #999;
 }
-.fixedBox ul.fixedBoxList li.hover.cart_bd.fixeBoxLi {
-	background:rgb(255,255,255);
-	padding:9px 0px 0px;
-	border:1px solid rgb(214,214,214);
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-p-beta2 .copyright .copy-side {
+    background: url("../../images/foot/footer-contact-icon.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    float: left;
+    font-size: 14px;
+    line-height: 25px;
+    padding-top: 50px;
+    text-align: center;
+    width: 160px;
 }
-.fixedBox ul.fixedBoxList li.hover.Service.fixeBoxLi {
-	background:rgb(255,255,255);
-	padding:9px 0px 0px;
-	border:1px solid rgb(214,214,214);
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-p-beta2 .copyright .copy-side strong {
+    font-size: 20px;
+    font-weight: 400;
 }
-.fixedBox ul.fixedBoxList li.hover.BackToTop.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	border:0px currentColor;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-p-beta2 .copyright .copy-main {
+    margin-left: 170px;
+    margin-right: -20px;
 }
-.fixedBox ul.fixedBoxList li.hover.Home.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	border:0px currentColor;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-p-beta2 .copyright .copy-main .item {
+    border-left: 1px dotted #d2d2d2;
+    float: left;
+    height: 128px;
+    padding: 0 40px;
 }
-.fixedBox ul.fixedBoxList li.Home.fixeBoxLi a {
-	width:60px;
-	height:55px;
-	text-decoration:none;
-	display:block;
+#footer-p-beta2 .copyright .copy-main .item dl dt {
+    color: #666;
+    font-size: 14px;
+    font-weight: 700;
 }
-.fixedBox ul.fixedBoxList li p.good_cart {
-	background:rgb(58,163,24);
-	padding:0px 4px;
-	top:0px;
-	height:15px;
-	right:0px;
-	color:rgb(255,255,255);
-	line-height:15px;
-	overflow:hidden;
-	font-size:12px;
-	font-weight:bold;
-	display:block;
-	position:absolute;
+#footer-p-beta2 .copyright .copy-main .item-weibo, #footer-p-beta2 .copyright .copy-main .item-apps {
+    color: #666;
+    padding: 0 25px;
+    text-align: center;
 }
-.fixedBox ul.fixedBoxList li.fixeBoxLi strong {
-	height:22px;
-	color:rgb(102,102,102);
-	line-height:22px;
-	font-weight:normal;
-	cursor:pointer;
+#footer-p-beta2 .copyright .copy-main .item-weibo .weibo {
+    background: url("../../images/foot/footer-weibo-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #ccc;
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    vertical-align: middle;
+    width: 44px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox {
-	background:rgb(255,255,255);
-	border:1px solid rgb(214,214,214);
-	left:-280px;
-	top:-1px;
-	width:280px;
-	display:none;
-	position:absolute;
-	z-index:9999;
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-p-beta2 .copyright .copy-main .item-weibo a.btn-sina {
+    background: url("../../images/foot/footer-sina-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin-top: 10px;
+    vertical-align: middle;
+    width: 62px;
 }
-.fixedBox ul.fixedBoxList li.hover.cart_bd .cartBox {
-	display:block;
+#footer-p-beta2 .copyright .copy-main .item-weibo:hover .weibo {
+    background-position: 0 -44px;
 }
-.fixedBox ul.fixedBoxList li.hover .bjfff {
-	background:rgb(255,255,255);
-	top:0px;
-	width:10px;
-	height:64px;
-	right:-5px;
-	position:absolute;
+#footer-p-beta2 .copyright .copy-main .item-apps .mishu, #footer-p-beta2 .copyright .copy-main .item-apps .weixin {
+    border: 1px solid #ccc;
+    display: inline-block;
+    height: 78px;
+    line-height: 78px;
+    vertical-align: middle;
+    width: 78px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxList {
-	height:296px;
-	position:relative;
-	z-index:1000000;
-	overflow-y:auto;
+#footer-p-beta2 .copyright .copy-main .item-apps .mishu {
+    background: url("../../images/foot/icon-mishu.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul {
-	margin:0px auto;
-	width:256px;
+#footer-p-beta2 .copyright .copy-main .item-apps .weixin {
+    background: url("/r/164123/p/beta2/images/icons/icon-weixin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li {
-	height:62px;
-	padding-top:11px;
-	border-bottom-color:rgb(220,223,228);
-	border-bottom-width:1px;
-	border-bottom-style:solid;
+#footer-p-beta2 .copy-footer {
+    background: none repeat scroll 0 0 #f6f6f6;
+    clear: both;
+    color: #999;
+    margin-top: 20px;
+    padding: 20px 0;
+    text-align: center;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-img {
-	border:1px solid rgb(220,223,228);
-	width:48px;
-	height:48px;
-	overflow:hidden;
-	float:left;
+#footer-c-beta2 {
+    margin-top: 20px;
+    overflow: hidden;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-img img {
-	width:48px;
-	height:48px;
+#footer-c-beta2 .copyright {
+    line-height: 22px;
+    margin-top: 15px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-name {
-	width:105px;
-	height:38px;
-	text-align:left;
-	line-height:19px;
-	overflow:hidden;
-	padding-left:8px;
-	float:left;
+#footer-c-beta2 .copyright:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-name a {
-	color:rgb(102,102,102);
+#footer-c-beta2 .copyright, #footer-c-beta2 .copyright a {
+    color: #999;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-detail {
-	width:72px;
-	text-align:left;
-	float:right;
+#footer-c-beta2 .copyright .copy-side {
+    background: url("/r/164123/c/beta2/images/icons/footer-contact-icon.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    float: left;
+    font-size: 14px;
+    line-height: 25px;
+    padding-top: 50px;
+    text-align: center;
+    width: 160px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-detail span.p-price {
-	display:block;
+#footer-c-beta2 .copyright .copy-side strong {
+    font-size: 20px;
+    font-weight: 400;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-detail span.p-price strong {
-	color:red;
-	font-weight:normal;
+#footer-c-beta2 .copyright .copy-main {
+    margin-left: 170px;
+    margin-right: -20px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxC ul li .p-detail a.delete {
-	color:rgb(153,153,153);
+#footer-c-beta2 .copyright .copy-main .item {
+    border-left: 1px dotted #d2d2d2;
+    float: left;
+    height: 128px;
+    padding: 0 40px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .message {
-	background:url("../images/Service4.jpg") no-repeat 15px;
-	height:92px;
-	line-height:92px;
-	padding-left:80px;
+#footer-c-beta2 .copyright .copy-main .item dl dt {
+    color: #666;
+    font-size: 14px;
+    font-weight: 700;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxFoot {
-	margin:0px auto;
-	width:256px;
-	height:48px;
-	text-align:left;
-	line-height:48px;
+#footer-c-beta2 .copyright .copy-main .item-weibo, #footer-c-beta2 .copyright .copy-main .item-apps {
+    color: #666;
+    padding: 0 25px;
+    text-align: center;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxFoot span {
-	color:rgb(153,153,153);
-	line-height:48px;
-	float:left;
+#footer-c-beta2 .copyright .copy-main .item-weibo .weibo {
+    background: url("/r/164123/c/beta2/images/icons/footer-weibo-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #ccc;
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    vertical-align: middle;
+    width: 44px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxFoot em {
-	line-height:48px;
-	float:left;
+#footer-c-beta2 .copyright .copy-main .item-weibo a.btn-sina {
+    background: url("/r/164123/c/beta2/images/icons/footer-sina-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin-top: 10px;
+    vertical-align: middle;
+    width: 62px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxFoot strong {
-	color:red;
-	line-height:48px;
-	font-size:12px;
-	font-weight:bold;
-	float:left;
+#footer-c-beta2 .copyright .copy-main .item-weibo:hover .weibo {
+    background-position: 0 -44px;
 }
-.fixedBox ul.fixedBoxList li.cart_bd .cartBox .cartBoxFoot a#btn-payforgoods {
-	background:rgb(255,102,51);
-	border-radius:2px;
-	border:1px solid rgb(228,109,29);
-	width:80px;
-	height:24px;
-	text-align:center;
-	color:rgb(255,255,255);
-	line-height:24px;
-	margin-top:11px;
-	float:right;
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffac75', endColorstr='#FF822F', GradientType='0');
-	cursor:pointer;
-	box-shadow:inset 1px 1px 0px #f8ccb0, inset -1px -1px 0px #f8ccb0;
-	-moz-border-radius:2px;
+#footer-c-beta2 .copyright .copy-main .item-apps .mishu, #footer-c-beta2 .copyright .copy-main .item-apps .weixin {
+    border: 1px solid #ccc;
+    display: inline-block;
+    height: 78px;
+    line-height: 78px;
+    vertical-align: middle;
+    width: 78px;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox {
-	background:rgb(255,255,255);
-	border:1px solid rgb(214,214,214);
-	left:-182px;
-	top:-1px;
-	width:182px;
-	display:none;
-	position:absolute;
-	z-index:999;
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-c-beta2 .copyright .copy-main .item-apps .mishu {
+    background: url("/r/164123/c/beta2/images/icons/icon-mishu.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-.fixedBox ul.fixedBoxList li.hover.Service .ServiceBox {
-	display:block;
+#footer-c-beta2 .copyright .copy-main .item-apps .weixin {
+    background: url("/r/164123/c/beta2/images/icons/icon-weixin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl {
-	margin:0px auto;
-	width:162px;
-	height:85px;
-	padding-top:10px;
-	border-bottom-color:rgb(214,214,214);
-	border-bottom-width:1px;
-	border-bottom-style:solid;
+#footer-c-beta2 .copy-footer {
+    background: none repeat scroll 0 0 #f6f6f6;
+    clear: both;
+    color: #999;
+    margin-top: 20px;
+    padding: 20px 0;
+    text-align: center;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dt {
-	padding:1px;
-	border:1px solid rgb(225,226,227);
-	width:71px;
-	height:71px;
-	float:left;
+#footer-h-beta2 {
+    margin-top: 20px;
+    overflow: hidden;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dd {
-	width:80px;
-	text-align:left;
-	float:right;
+#footer-h-beta2 .copyright {
+    line-height: 22px;
+    margin-top: 15px;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dd strong {
-	height:20px;
-	color:rgb(51,51,51);
-	line-height:20px;
-	font-weight:bold;
+#footer-h-beta2 .copyright:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dd p.p1 {
-	height:18px;
-	color:rgb(102,102,102);
-	line-height:18px;
-	overflow:hidden;
+#footer-h-beta2 .copyright, #footer-h-beta2 .copyright a {
+    color: #999;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dd p.p2 {
-	height:20px;
-	margin-top:10px;
-	
+#footer-h-beta2 .copyright .copy-side {
+    background: url("/r/164123/h/beta2/images/icons/footer-contact-icon.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+    float: left;
+    font-size: 14px;
+    line-height: 25px;
+    padding-left: 70px;
+    width: 200px;
 }
-.fixedBox ul.fixedBoxList li.Service .ServiceBox dl dd p.p2 a {
-	background:rgb(244,244,244);
-	border:1px solid rgb(216,216,216);
-	width:70px;
-	height:18px;
-	text-align:center;
-	color:rgb(51,51,51);
-	line-height:22px;
-	display:block;
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f2f2f2', GradientType='0');
-	cursor:pointer;
+#footer-h-beta2 .copyright .copy-side strong {
+    font-size: 20px;
+    font-weight: 400;
 }
-.fixedBox ul.fixedBoxList {
-	padding:4px 0px 5px;
+#footer-h-beta2 .copyright .copy-main {
+    margin-left: 210px;
+    margin-right: -20px;
 }
-.fixedBox ul.fixedBoxList li.fixeBoxLi.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-h-beta2 .copyright .copy-main .item {
+    border-left: 1px dotted #d2d2d2;
+    float: left;
+    height: 88px;
+    padding: 0 36px;
 }
-.fixedBox ul.fixedBoxList li.hover.cart_bd.fixeBoxLi {
-	background:rgb(255,255,255);
-	padding:9px 0px 0px;
-	border:1px solid rgb(214,214,214);
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-h-beta2 .copyright .copy-main .item dl dt {
+    color: #666;
+    font-size: 14px;
+    font-weight: 700;
 }
-.fixedBox ul.fixedBoxList li.hover.Service.fixeBoxLi {
-	background:rgb(255,255,255);
-	padding:9px 0px 0px;
-	border:1px solid rgb(214,214,214);
-	box-shadow:0px 0px 5px rgba(0, 0, 0, 0.3);
+#footer-h-beta2 .copyright .copy-main .item-weibo, #footer-h-beta2 .copyright .copy-main .item-apps {
+    color: #666;
+    padding: 0 25px;
+    text-align: center;
 }
-.fixedBox ul.fixedBoxList li.hover.BackToTop.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	border:0px currentColor;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-h-beta2 .copyright .copy-main .item-weibo .weibo {
+    background: url("/r/164123/h/beta2/images/icons/footer-weibo-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 55px;
+    line-height: 55px;
+    vertical-align: middle;
+    width: 62px;
 }
-.fixedBox ul.fixedBoxList li.hover.Home.fixeBoxLi {
-	background:rgb(241,241,241);
-	margin:1px auto 0px;
-	padding:10px 1px 1px;
-	border:0px currentColor;
-	width:60px;
-	height:55px;
-	text-align:center;
-	position:relative;
+#footer-h-beta2 .copyright .copy-main .item-weibo a.btn-sina {
+    background: url("/r/164123/h/beta2/images/icons/footer-sina-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin-top: 5px;
+    vertical-align: middle;
+    width: 62px;
 }
-.fixedBox ul.fixedBoxList li.Home.fixeBoxLi a {
-	width:60px;
-	height:55px;
-	text-decoration:none;
-	display:block;
+#footer-h-beta2 .copyright .copy-main .item-weibo:hover .weibo {
+    background-position: 0 -55px;
 }
-.fixedBox ul.fixedBoxList li p.good_cart {
-	background:rgb(58,163,24);
-	padding:0px 4px;
-	top:0px;
-	height:15px;
-	right:0px;
-	color:rgb(255,255,255);
-	line-height:15px;
-	overflow:hidden;
-	font-size:12px;
-	font-weight:bold;
-	display:block;
-	position:absolute;
+#footer-h-beta2 .copyright .copy-main .item-apps {
+    border-left: 0 none;
+    padding-left: 0;
+    padding-right: 0;
 }
-.fixeBoxLi .fixeBoxSpan {
-	margin:0px auto;
-	width:26px;
-	height:24px;
-	display:block;
-	cursor:pointer;
+#footer-h-beta2 .copyright .copy-main .item-apps .weixin {
+    display: inline-block;
+    height: 80px;
+    line-height: 80px;
+    vertical-align: middle;
+    width: 198px;
 }
-/* 代码整理：懒人之家 www.lanrenzhijia.com */
+#footer-h-beta2 .copyright .copy-main .item-apps .weixin {
+    background: url("/r/164123/h/beta2/images/icons/icon-weixin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#footer-h-beta2 .copy-footer {
+    background: none repeat scroll 0 0 #f6f6f6;
+    clear: both;
+    color: #999;
+    margin-top: 20px;
+    padding: 20px 0;
+    text-align: center;
+}
+#footer-clt-beta2 {
+    background: url("/r/164123/images/v8/footer_line.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    font-family: Arial;
+    margin-top: 20px;
+    padding: 10px 0;
+    text-align: center;
+}
+#footer-clt-beta2 p {
+    color: #999;
+}
+#footer-clt-beta2 p a {
+    padding: 0 15px;
+}
+#footer-clt-beta2 p a.normal {
+    padding: 0 3px;
+}
