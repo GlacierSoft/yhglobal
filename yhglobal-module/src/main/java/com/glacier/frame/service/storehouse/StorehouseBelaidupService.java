@@ -203,6 +203,7 @@ public class StorehouseBelaidupService {
         //获取库房
       
         belaidup.setBelaidupId(RandomGUID.getRandomGUID());
+        belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");
         belaidup.setSortingStauts("waitsorting");
         belaidup.setCreater(pricipalUser.getMemberId());

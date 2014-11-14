@@ -19,10 +19,17 @@
  */
 package com.glacier.frame.web.controller.deliveryGoods;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 
 /**
@@ -37,10 +44,17 @@ import com.glacier.jqueryui.util.JqPager;
 @RequestMapping(value="delivery")
 public class DeliveryController {
 
-      @RequestMapping(value="index.htm")
-      private Object intoDeliveryPage(JqPager pager) {
+	   @Autowired
+	   private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
+	
+	   @RequestMapping(value="index.htm")
+      private Object intoDeliveryPage(JqPager pager,StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO) {
           ModelAndView mav = new ModelAndView("deliveryGoods/deliveryGoods");
-          // 进入首页初始化导航信息
+          storehouseGoodstypeSetQueryDTO.setStatus("enable");
+      	  JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(pager,storehouseGoodstypeSetQueryDTO);
+      	  @SuppressWarnings("unchecked")
+          List<StorehouseGoodstypeSet> StorehouseGoodstypeSetList=(List<StorehouseGoodstypeSet>) returnResult.getRows();
+      	  mav.addObject("StorehouseGoodstypeSetList",StorehouseGoodstypeSetList);
           return mav;
       }
 	
