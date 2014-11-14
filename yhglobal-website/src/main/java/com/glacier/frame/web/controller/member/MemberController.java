@@ -70,7 +70,7 @@ public class MemberController extends AbstractController{
     
     //加入货源发送地展示页
     @RequestMapping(value="release.htm")
-    private Object intorelease(JqPager jqPager, StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO){
+    private Object intoRelease(JqPager jqPager, StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO){
     	ModelAndView mav=new ModelAndView("/member_mgr/memberReleaseGoods");
     	storehouseGoodstypeSetQueryDTO.setStatus("enable");
     	JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(jqPager,storehouseGoodstypeSetQueryDTO);
@@ -86,6 +86,14 @@ public class MemberController extends AbstractController{
   		return "member_mgr/memberPhoto";
   	}
     
+  	
+  	//货源管理展示页
+  	@RequestMapping(value="releaseManager.htm")
+    private Object intoReleaseManager(){
+  		return "member_mgr/memberReleaseManager";
+  	} 	
+  	
+  	
     //个体户的修改信息操作
     @RequestMapping(value = "/editIndividuality.htm")
 	@ResponseBody
