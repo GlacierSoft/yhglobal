@@ -198,10 +198,14 @@ public class StorehouseBelaidupService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addBelaidup_website(StorehouseBelaidup belaidup,String packageId) {
+    public Object addBelaidup_website(StorehouseBelaidup belaidup,String packageId) { 
         Subject pricipalSubject = SecurityUtils.getSubject();
-        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();
+        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        if( pricipalUser==null){
+        	returnResult.setMsg("请先登录，再操作！");
+        	return returnResult;
+        } 
         int count = 0;
         belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setMemberId(pricipalUser.getMemberId());

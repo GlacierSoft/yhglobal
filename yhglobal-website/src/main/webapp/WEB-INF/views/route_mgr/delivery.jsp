@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 </div>
 	        </div> 
 	        <div class="col-md-9" > 
-	        <form class="form-horizontal" role="search" method="post"  id="personalMessageForm" >
+	        <form class="form-horizontal" role="search" method="post"  id="personalMessageForm" action="" >
 			 <!-- <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">手机验证</b> &nbsp;&nbsp; 输入手机号码后，点击“获取验证码”按钮，验证码将发送到手机（免费），填写短信中的数字并点击“确认”
@@ -106,25 +106,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						     <label for="enterpriseName" class="col-sm-2 control-label">*企业名称:</label>
 							 <div class="col-sm-4">
-								<input type="text" class="form-control" id="inputEmail3" placeholder="请输入手机号码" >
+								<input type="text" class="form-control"  placeholder="请输入手机号码" >
 							 </div>
 						  </div> 
 					   <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">*手机号码:</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入手机号码" >
+						      <input type="text" class="form-control"  placeholder="请输入手机号码" >
 						    </div>
 						    <button type="button" class="btn btn-default">获取验证码</button>
 						  </div>
 						   <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">*验证码:</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入手机号码" >
+						      <input type="text" class="form-control"  placeholder="请输入手机号码" >
 						    </div> 
 						  </div>
 						  
 					  </div>
 				</div>  -->
+				<input type="hidden" name="routerId" value="${router.routerId}">
 				  <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">发货方</b> &nbsp;&nbsp;填写完整、准确信息，物流跟进更及时
@@ -139,19 +140,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label">*联系人:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" style="width: " placeholder="请输入发货人姓名" >
+						      <input type="text"  class="form-control"  style="width: " placeholder="请输入发货人姓名" >
 						    </div> 
 						  </div>
 						  <div class="form-group"  >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入发货人联系电话" >
+						      <input type="text" class="form-control"   placeholder="请输入发货人联系电话" >
 						    </div> 
 						  </div>
 						 <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入所在街道地址" >
+						      <input type="text" class="form-control"  placeholder="请输入所在街道地址" >
 						    </div> 
 						  </div>
 					  </div>
@@ -163,6 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div class="panel-body">
 					      <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >收货区:</label>
+						    <input type="hidden" name="belaidupTerminu" value="${router.routeStop}">
 						    <div class="col-sm-6" align="left">
 						      <label for="inputEmail3" style="color:#0697DA ">${router.routeStop}</label> 
 						     </div> 
@@ -170,19 +172,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系人:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入收货人姓名" >
+						      <input type="text" class="form-control"  name="orderConsignee"  placeholder="请输入收货人姓名" >
 						    </div> 
 						  </div>
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入收货人联系电话" >
+						      <input type="text" maxlength="15" class="form-control"  name="orderPhone" onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入收货人联系电话" >
 						    </div> 
 						  </div>
 						 <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3" placeholder="请输入所在街道地址" >
+						      <input type="text" class="form-control" name="orderAddress" placeholder="请输入所在街道地址" >
 						    </div> 
 						  </div>
 					  </div>
@@ -218,7 +220,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div> 
 					  </div>
 				</div>
-				<div class="panel panel-default" style="width: 863px" >
+				<div class="panel panel-default" style="width: 863px" >aaaaa
 					  <div class="panel-heading">
 					    <b style="size: 3">货物信息</b> &nbsp;&nbsp;填写货物信息，便于保证运输中不出现损坏
 					  </div>
@@ -226,21 +228,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label">*货物名称:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入物品名称" >
+						      <input type="text" class="form-control" name="belaidupProdName"  placeholder="请输入物品名称" >
 						    </div> 
 						    <a href="${ctx}/contrabandExplain.htm" style="color: #FF7300">禁运品说明</a>
 						  </div>
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >*包装总件数:</label>
 						    <div class="col-sm-6" align="left">
-						     <input type="text" class="form-control" id="inputEmail3"  placeholder="请输入物品包装件数" >
+						     <input type="text" class="form-control"   placeholder="请输入物品包装件数" >
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*包装类型:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*货物类型:</label>
 						    <div class="col-sm-6" align="left">
-						     <select class="form-control">
+						     <select class="form-control" name="goodstypeId">
 							  <option>--请选择--</option>
 							   <c:forEach items="${storehousePackagetype}" var="ty">  
 					             <option>${ty.packagetypeName} </option>
@@ -249,22 +251,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
-						  
+						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" >*取货方式:</label>
+						    <div class="col-sm-6" align="left">
+						     <select class="form-control" name="goodstypeId">
+							  <option>上门取货</option>  
+							  <option>送货上门</option>  
+							</select>
+						     </div> 
+						    <div class="col-sm-3" ></div>
+						  </div>  
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >总重量:</label>
 						    <div class="col-sm-2" align="left">
-						     <input type="text" class="form-control" id="inputEmail3"  placeholder="公斤" >
+						     <input type="text" class="form-control" name="belaidupWeight"  placeholder="公斤" >
 						     </div>  
 						    <label for="inputEmail3"  class="col-sm-2 control-label" ><font color="#FF7300">或</font>    &nbsp;&nbsp;&nbsp;&nbsp;总体积:</label> 
 						      <div class="col-sm-2" align="left">
-						     <input type="text" class="form-control" id="inputEmail3" placeholder="立方米" >
+						     <input type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" >
 						    </div> 
 						     <a href="${ctx}/weightExplain.htm" style="color: #FF7300">什么是重货轻货？</a>
 						  </div> 
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 122px">注意事项:</label>
 						    <div class="col-sm-6" align="left">
-						   <textarea class="form-control" rows="2"></textarea>
+						   <textarea class="form-control" name="remark" rows="2"></textarea>
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div> 
@@ -280,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     <div class="col-sm-12"> 
 							     <div class="checkbox" style="float: left;margin-left: 150px">
 								    <label>
-								      <input type="checkbox"> 上面接货<font color="#669900">(包接货费)</font>
+								      <input type="checkbox" name="yesOrNo"> 加急配送 
 								    </label>
 								  </div>
 								  <div class="checkbox" style="float: left;margin-left: 30px">
@@ -362,36 +373,220 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 				</div> 
 				<center>
-				<button type="button" class="btn btn-info" style="margin-bottom: 30px;width: 150px">提交运单</button>
+				<button type="button" class="btn btn-info" style="margin-bottom: 30px;width: 150px" id="sub">提交运单</button>
 				</center>
 				</form>
 		    </div>
 	</div>
 	
 	</div>
+	 
+			<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  
+			   aria-labelledby="myModalLabel" aria-hidden="true">
+			   <div class="modal-dialog">
+			      <div class="modal-content">
+			         <div class="modal-header">
+			            <button type="button" class="close" 
+			               data-dismiss="modal" aria-hidden="true">
+			                  &times;
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">
+			                                 提交运单
+			            </h4>
+			         </div>
+			         <div class="modal-body" > 
+			         为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改~
+			         </div>
+			         <div class="modal-footer">
+			            <button type="button" class="btn btn-primary " 
+			               data-dismiss="modal" onclick="sub()">确认
+			            </button>
+			            <button type="button" class="btn  btn-default" data-dismiss="modal">
+			               取消
+			            </button>
+			         </div>
+			      </div> 
+			</div> 
+		</div>
+		
+		
+		
+			<!-- 模态框（Modal） -->
+		<div class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
+			   aria-labelledby="myModalLabel" aria-hidden="true">
+			   <div class="modal-dialog">
+			      <div class="modal-content">
+			         <div class="modal-header">
+			            <button type="button" class="close" 
+			               data-dismiss="modal" aria-hidden="true">
+			                  &times;
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">
+			                            提示信息
+			            </h4>
+			         </div>
+			         <div class="modal-body"  id="msg">
+			            
+			         </div><!-- 
+			          <div class="modal-footer">
+			            <button type="button" class="btn btn-default " 
+			               data-dismiss="modal" onclick="hiden2()">确认
+			            </button> 
+			         </div> --> 
+			      </div> 
+			</div> 
+		</div>
+		
 	<jsp:include page="../foot.jsp"/>
-	<script type="text/javascript">
-	  $("#personalMessageForm").validate({
+	<script type="text/javascript"> 
+	//提交表单
+	function sub(){
+		  $.ajax({
+			   type: "POST",
+			   url: ctx + '/delivery/addBelaidup.json',
+			   data: $("#personalMessageForm").serialize(),
+			   dataType:'json',
+			   success: function(r){
+				   $("#msg").empty();
+				   $("#msg").text(r.msg); 
+				   $('#mymsg').modal('show');   
+				   setTimeout(hiden, 2000)
+			   }
+   	     });
+	} 
+	//隐藏消息提示层，如果是未登录的，直接转到登录页面
+	function hiden( ){ 
+		  $('#mymsg').modal('hide');  
+		     var text=$("#msg").text(); 
+		     if(text== "请先登录，再操作！"){ 
+				 window.location.href=ctx +"/login.htm"; 
+			 }    
+	} 
+	
+	$("#sub").click(function(){
+		 $("#personalMessageForm").submit();
+	});
+	 
+	$("#personalMessageForm").validate({
 		  rules:{
+			  orderConsignee:"required",  
+			  orderPhone:{
+	    			 required:true,
+	    			 number:true,
+	    			 isMobile:true
+	    		 },  
   		  },
   		  messages:{
+  			orderConsignee: "请输入收货人姓名", 
+  			orderPhone:{
+    			required:"发货人手机不能为空!",
+ 	    		number:"请输入合法手机号码!",
+ 	    		isMobile:"请输入合法手机号码!"
+    		 },
   		  },
-		  submitHandler:function(){
-			 $.ajax({
-			   type: "POST",
-			   url: ctx+"/member/editIndividuality.htm",
-			   dataType: "json",
-			   data: $("#personalMessageForm").serialize(),
-			   success: function(r) { 
-					 	notClonedialog(r);
-                },
-                error: function() {
-                    alert("提交出错！");
-                }
-	    	});
+		  submitHandler:function(){     
+			  $('#myModal').modal('show')
 		  }
 	  });
-	
+	   
 	</script>
+	
+	<!-- <script type="text/javascript"> 
+	  $("#personalMessageForm").validate({
+		  rules:{
+			  orderConsignee:"required",  
+			  orderPhone:{
+	    			 required:true,
+	    			 number:true,
+	    			 isMobile:true
+	    		 },  
+  		  },
+  		  messages:{
+  			orderConsignee: "请输入收货人姓名", 
+  			orderPhone:{
+    			required:"发货人手机不能为空!",
+ 	    		number:"请输入合法手机号码!",
+ 	    		isMobile:"请输入合法手机号码!"
+    		 },
+  		  },
+		  submitHandler:function(){    
+	    		 KindEditor.ready(function(K) {
+	   	   		  var dialog = K.dialog({
+	   	   	          width : 500,
+	   	   	          title : '我要发货',
+	   	   	          body : '<div style="margin:10px;"><strong>你确定寄送此货物吗?</strong></div>',
+	   	   	          closeBtn : {
+	   	   	                  name : '关闭',
+	   	   	                  click : function(e) {
+	   	   	                          dialog.remove();
+	   	   	                  }
+	   	   	          },
+	   	   	          yesBtn : {
+	   	   	                  name : '确定',
+	   	   	                  click : function(e) { 
+	   	   	                      dialog.remove();
+		   	   	                      $.ajax({
+			    					   type: "POST",
+			    					   url: ctx + '/delivery/addBelaidup.json',
+			    					   data: $("#personalMessageForm").serialize(),
+			    					   dataType:'json',
+			    					   success: function(r){
+			    						 if(r.success){ 
+			    							doDailog("发货成功,等待后台审核,可在记录中查看该条信息!");
+			    						 }
+			    						 else{ 
+			    							 if(r.msg == "请先登录，再操作！"){
+			    								 doDailog("请先登录！");
+			    								 window.location.href=ctx +"/login.htm"; 
+			    							 }else{
+			    								 doDailog(r.msg);
+			    							 }
+			    							
+			    						 }
+			    					   }
+			                	     });
+	   	   	                 }
+	   	   	          },
+	   	   	          noBtn : {
+	   	   	                  name : '取消',
+	   	   	                  click : function(e) {
+	   	   	                          dialog.remove();
+	   	   	                  }
+	   	   	          }
+	   	   	    });
+	   	   	  }); 
+		  }
+	  });
+	  //公共对话框定义
+	     function  doDailog(str){
+	   	  KindEditor.ready(function(K) {
+	   		  var dialog = K.dialog({
+	   		        width : 500,
+	   		        title : '发货提示',
+	   		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
+	   		        closeBtn : {
+	    	                  name : '关闭',
+	    	                  click : function(e) {
+	    	                          dialog.remove();
+	    	                  }
+	    	          },
+	   		     yesBtn : {
+	   	                name : '确定',
+	   	                click : function(e) {
+	   	                	 dialog.remove();
+	   	                }
+	   	        },
+	   	        noBtn : {
+	   	                name : '取消',
+	   	                click : function(e) {
+	   	                		doClear();
+	   	                        dialog.remove();
+	   	                }
+	   	        }
+	   		}); 
+	   	  });
+	     }
+	</script> -->
 </body>
 </html>

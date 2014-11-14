@@ -29,7 +29,7 @@ import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService; 
 /**
  * @ClassName:  StorehouseBelaidupController
- * @Description: TODO(发货控制器)
+ * @Description: TODO(班线进入发货页面控制器)
  * @author songjundong
  * @email 985776597@QQ.com
  * @date 2014-11-10  下午5:33:16
@@ -50,7 +50,7 @@ public class StorehouseBelaidupController extends AbstractController{
 		ModelAndView mav = new ModelAndView("route_mgr/delivery");
 		mav.addObject("router", routeService.getRoute(routeId)); 
 		mav.addObject("storehousePackagetype",storehousePackagetypeSetService.selectAll());
-	  
+	     
 		return mav;
 	}
 }
