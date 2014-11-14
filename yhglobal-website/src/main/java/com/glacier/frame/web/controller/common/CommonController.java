@@ -98,6 +98,19 @@ public class CommonController {
     }
     
     /**
+     * 
+     * @Title: orderQuery
+     * @Description: TODO(点击“订单查询”去到订单查询页面)
+     * @param @return
+     * @throws 备注
+     */
+    @RequestMapping(value = "/orderQuery.htm")
+    private Object orderQuery() {
+        ModelAndView mav = new ModelAndView("orderQuery/notLoginQuery");
+        return mav;
+    }
+    
+    /**
      * @Title: postLogin 
      * @Description: TODO(跳转到登录页面) 
      * @param  @return设定文件

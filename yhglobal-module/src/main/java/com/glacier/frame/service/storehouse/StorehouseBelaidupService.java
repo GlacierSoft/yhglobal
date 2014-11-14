@@ -21,7 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
+import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
+import com.glacier.frame.dao.orders.OrdersTrackingMapper;
 import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dao.storehouse.StorehouseDamageMapper;
 import com.glacier.frame.dao.storehouse.StorehousePackCodeMapper;
@@ -29,11 +33,17 @@ import com.glacier.frame.dao.storehouse.StorehouseStorageGoodsrunMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
-import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample;
+import com.glacier.frame.entity.orders.OrdersOrder_info;
+import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
+import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
+import com.glacier.frame.entity.orders.OrdersTracking;
+import com.glacier.frame.entity.orders.OrdersTrackingExample;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
-import com.glacier.frame.entity.storehouse.StorehousePackCode;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample.Criteria;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample;
+import com.glacier.frame.entity.storehouse.StorehousePackCode;
 import com.glacier.frame.entity.storehouse.StorehouseStorage;
 import com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun;
 import com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrunExample;
@@ -65,7 +75,52 @@ public class StorehouseBelaidupService {
 	private StorehouseStorageGoodsrunMapper GoodsrunMapper;
 	
 	@Autowired
+	private OrdersOrder_infoMapper order_infoMapper;
+	
+	@Autowired
+	private OrdersOrdispatchingDetailedMapper ordersOrdispatchingDetailedMapper;
+	
+	@Autowired
+	private OrdersTrackingMapper ordersTrackingMapper;
+	
+	@Autowired
 	private StorehouseStorageMapper storageMapper;
+	
+	/**
+     * @Title: notLogin 
+     * @Description: TODO(根据货物条形码获取货物的跟踪信息) 
+     * @param @param code
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public Object notLogin(String code) {
+		List<OrdersTracking> ordersTracking = null;
+		//根据条形码查出货物信息
+		StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
+		storehouseBelaidupExample.createCriteria().andBelaidupBarCodeEqualTo(code);
+		List<StorehouseBelaidup> storehouseBelaidup = belaidupMapper.selectByExample(storehouseBelaidupExample);
+		//根据货物ID查询出是否在订单详情中存在
+		OrdersOrder_infoExample ordersOrder_infoExample = new OrdersOrder_infoExample();
+		ordersOrder_infoExample.createCriteria().andBelaidupIdEqualTo(storehouseBelaidup.get(0).getBelaidupId());
+		List<OrdersOrder_info> ordersOrder_info = order_infoMapper.selectByExample(ordersOrder_infoExample);
+        //判断订单详情是否存在！
+		if(null != ordersOrder_info){
+			//存在--根据订单详情中的订单号查询出配送详情
+			OrdersOrdispatchingDetailedExample ordersOrdispatchingDetailedExample = new OrdersOrdispatchingDetailedExample();
+			ordersOrdispatchingDetailedExample.createCriteria().andOrderIdEqualTo(ordersOrder_info.get(0).getOrderId());
+			List<OrdersOrdispatchingDetailed> ordersOrdispatchingDetailed = ordersOrdispatchingDetailedMapper.selectByExample(ordersOrdispatchingDetailedExample);
+			//判断该订单是否存在配送
+			if(null != ordersOrdispatchingDetailed){
+				//存在--根据配送详情中的配送号查询出跟踪信息
+				OrdersTrackingExample ordersTrackingExample = new OrdersTrackingExample();
+				ordersTrackingExample.createCriteria().andDispatchingIdEqualTo(ordersOrdispatchingDetailed.get(0).getDispatchingId());
+				ordersTracking = ordersTrackingMapper.selectByExample(ordersTrackingExample);
+				return ordersTracking;
+			}
+		}
+		return ordersTracking;
+    }
 	
 	/**
      * @Title: listAsGrid 
