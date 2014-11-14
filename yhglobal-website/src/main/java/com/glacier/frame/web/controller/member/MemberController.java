@@ -71,7 +71,7 @@ public class MemberController extends AbstractController{
     //加入货源发送地展示页
     @RequestMapping(value="release.htm")
     private Object intorelease(JqPager jqPager, StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO){
-    	ModelAndView mav=new ModelAndView("/member_mgr/MemberReleaseGoods");
+    	ModelAndView mav=new ModelAndView("/member_mgr/memberReleaseGoods");
     	storehouseGoodstypeSetQueryDTO.setStatus("enable");
     	JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(jqPager,storehouseGoodstypeSetQueryDTO);
     	@SuppressWarnings("unchecked")
