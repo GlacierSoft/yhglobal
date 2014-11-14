@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +19,6 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
-import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
@@ -87,16 +85,6 @@ public class MemberController extends AbstractController{
   	public Object memberPhotoInto(){
   		return "member_mgr/memberPhoto";
   	}
-    
-    // 增加货物信息
-    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object addGrade(@Valid StorehouseBelaidup belaidup, BindingResult bindingResult,String packageId) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return belaidupService.addBelaidup_website(belaidup,packageId);
-    }
     
     //个体户的修改信息操作
     @RequestMapping(value = "/editIndividuality.htm")

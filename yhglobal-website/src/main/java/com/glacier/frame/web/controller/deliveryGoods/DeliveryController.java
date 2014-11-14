@@ -21,13 +21,20 @@ package com.glacier.frame.web.controller.deliveryGoods;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -46,8 +53,13 @@ public class DeliveryController {
 
 	   @Autowired
 	   private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
+	   
+	   @Autowired
+	   private StorehouseBelaidupService belaidupService;
+
 	
-	   @RequestMapping(value="index.htm")
+	   //我要发货展示页
+	  @RequestMapping(value="index.htm")
       private Object intoDeliveryPage(JqPager pager,StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO) {
           ModelAndView mav = new ModelAndView("deliveryGoods/deliveryGoods");
           storehouseGoodstypeSetQueryDTO.setStatus("enable");
@@ -58,7 +70,12 @@ public class DeliveryController {
           return mav;
       }
 	
-	
+	 // 发布货源信息,我要发货添加
+	 @RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
+	 @ResponseBody
+	private Object addGrade(@Valid StorehouseBelaidup belaidup, BindingResult bindingResult,String packageId) {
+	       return belaidupService.addBelaidup_website(belaidup,packageId);
+	 }
 	
 	
 	

@@ -350,7 +350,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	   	                      dialog.remove();
 	   	   	                      $.ajax({
 		    					   type: "POST",
-		    					   url: ctx + '/member/add.json',
+		    					   url: ctx + '/delivery/addBelaidup.json',
 		    					   data: $("#form_delivery").serialize(),
 		    					   dataType:'json',
 		    					   success: function(r){
@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	 $("#form_delivery")[0].reset();  
      };
      
-   //公共对话框定义
+     //公共对话框定义
      function  doDailog(str){
    	  KindEditor.ready(function(K) {
    		  var dialog = K.dialog({

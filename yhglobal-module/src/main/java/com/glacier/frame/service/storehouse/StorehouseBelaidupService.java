@@ -189,19 +189,20 @@ public class StorehouseBelaidupService {
     }
     
     
-    
+    /**
+     * @Title: addBelaidup_website 
+     * @Description: TODO(前台我要发货，发布货源方法) 
+     * @param @param belaidup，packageId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
     @Transactional(readOnly = false)
     public Object addBelaidup_website(StorehouseBelaidup belaidup,String packageId) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample(); 
         int count = 0;
-        // 防止货物名称重复
-        belaidupSetExample.createCriteria().andBelaidupProdNameEqualTo(belaidup.getBelaidupProdName());
-        count = belaidupMapper.countByExample(belaidupSetExample);
-        //获取库房
-      
         belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");

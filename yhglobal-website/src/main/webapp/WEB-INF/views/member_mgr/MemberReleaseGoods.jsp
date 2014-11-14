@@ -396,7 +396,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   	                  click : function(e) {
 	   	                	  $.ajax({
 	   	    					   type: "POST",
-	   	    					   url: ctx + '/member/add.json',
+	   	    					   url:ctx + '/delivery/addBelaidup.json',
 	   	    					   data: $("#form_release_goods").serialize(),
 	   	    					   dataType:'json',
 	   	    					   success: function(r){
