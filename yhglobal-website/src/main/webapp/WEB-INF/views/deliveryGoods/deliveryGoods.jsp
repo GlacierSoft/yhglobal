@@ -411,7 +411,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      }
    </script>
    
-   ]<!--弹出省省市style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;"-->
+   <!--弹出省省市style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;"-->
 	<div class="provinceCityAll" id="provinceCityAll" style="z-index:30;position:absolute;">
 	  <div class="tabsArea clearfix" >
 	    <ul class="">
