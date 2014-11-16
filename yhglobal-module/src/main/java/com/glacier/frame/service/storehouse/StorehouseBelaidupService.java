@@ -88,6 +88,20 @@ public class StorehouseBelaidupService {
 	
 	/**
      * @Title: notLogin 
+     * @Description: TODO(根据货物条形码获取货物状态) 
+     * @param @param code
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public Object getCodeBelaidup(String code) {
+		StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
+		storehouseBelaidupExample.createCriteria().andBelaidupBarCodeEqualTo(code);
+		List<StorehouseBelaidup> storehouseBelaidup = belaidupMapper.selectByExample(storehouseBelaidupExample);
+		return storehouseBelaidup;
+	}
+	/**
+     * @Title: notLogin 
      * @Description: TODO(根据货物条形码获取货物的跟踪信息) 
      * @param @param code
      * @param @return    设定文件 

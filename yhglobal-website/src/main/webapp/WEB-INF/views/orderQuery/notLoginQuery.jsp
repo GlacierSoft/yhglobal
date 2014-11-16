@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <!-- 左边导航 -->
 		      <div class="panel-group" id="accordion" style="margin-left: 0px">
 				    <div class="panel panel-default" >
-				  		<div class="bs-example">
+				  	  <div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
 					        <li  class="active"><a href="#">订单查询</a></li> 
 					      </ul>
@@ -61,12 +61,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <label for="tisp1" class="control-label col-sm-4"  style="color: #428BCA;">未登录用户可凭单号进行货物跟踪查询</label>
 						  </div>
 					      <div class="form-group col-sm-12">
-							    <label for="orderNumber" class="control-label col-sm-1">订单号</label>
+							    <label for="orderNumber" class="control-label col-sm-1">货物号</label>
 							    <div class="col-sm-4">
 							      <input type="text" placeholder="请输入订单号" class="form-control" name="codeNumber">
 							    </div>
-							    <button type="submit" class="btn btn-primary" style="float: left: ;">查询</button>
+							    <button type="submit" class="btn btn-primary" style="float: left;">查询</button>
 						</div>
+					</div>
+					<!-- 显示返回消息 -->
+					<div id="returnTisp">
+						
 					</div>
                  </div>
               </form>
@@ -96,8 +100,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   dataType: "json",
 				   data: $("#form_delivery").serialize(),
   			   	   success: function(r) {
-  				   		alert(r[0].message); 
-                   },
+  				   		var div='<div class="bs-example" style="margin-left: 40px">';
+  				   			div+='<ul class="nav nav-pills" id="u3" style="width: 300px;text-align: center;">';
+                   			div+='<li><font size="3"><b>货物跟踪</b></font></li>';
+                   			div+='</ul>';
+                   			div+='<table class="table table-bordered" style="text-align: left;">';
+                   			div+='<thead><tr><th>处理时间</th><th>处理信息</th><th>操作人</th></tr></thead>';
+                   			$.each(r,function(index,value){
+                   				var time = new Date(value.createTime);//获取时间
+                   				var years = time.getFullYear();
+                   				var month = time.getMonth()+1;
+                   				var date = time.getDate();
+                   				var hour = time.getHours();
+                   				var minute = time.getMinutes();
+                   				var second = time.getSeconds();
+                   				div+='<tbody>';
+                   				div+='<tr>';
+                   				div+='<td width="250">'+years+"-"+month+"-"+date+" "+hour+":"+minute+":"+second+'</td><td>'+value.message+'</td><td>'+value.createrDisplay+'</td>';
+                   				div+='</tr>';
+                   				div+='</tbody>';
+                   			});
+                   			//脚尾
+                   			$.post("${ctx}/orderQuery/getBelaidup.htm",$("#form_delivery").serialize(),function(data){
+                   				var sortingStauts = "";
+                   				if(data[0].sortingStauts == 'waitsorting'){
+                   					sortingStauts = "正在分拣货物中。。。";
+               					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'receiving'){
+               						sortingStauts = "已分拣货物完毕，等待出库。";
+               					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'delivery'){
+               						sortingStauts = "该货物已出库，请您耐心等待。";
+               					}
+                   				div+='<tfoot>';
+                   				div+='<tr><th colspan="3"><h4 align="center"><a href="#" >'+sortingStauts+'</a></h4></th></tr>';
+                   				div+='</tfoot>';
+                   				div+='</table>';
+                       			div+='</div>';
+                       			$("#returnTisp").append(div);
+                   			},"json");
+  			   	   },
 	               error: function() {
 	                  alert("提交出错！");
 	               }
