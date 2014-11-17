@@ -5,7 +5,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
     	<!-- NAVBAR START============================= -->
-	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="height: 50px;">
 	      <div class="container">
 	        <div class="navbar-header">
 	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

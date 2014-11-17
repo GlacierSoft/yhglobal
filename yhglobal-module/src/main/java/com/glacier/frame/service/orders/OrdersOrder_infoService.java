@@ -13,12 +13,16 @@
 package com.glacier.frame.service.orders; 
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrder_infoQueryDTO;
+import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.orders.OrderQuery;
 import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample.Criteria;
@@ -38,6 +42,26 @@ public class OrdersOrder_infoService {
 	@Autowired
 	private OrdersOrder_infoMapper order_infoMapper;
 	
+	/**
+     * @Title: listAsOrderGrid 
+     * @Description: TODO(获取登陆用户的所有订单货物信息) 
+     * @param @param pager,p
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+	public Object listAsOrderGrid(int p){
+		Subject pricipalSubject = SecurityUtils.getSubject();
+    	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+    	JqGridReturn returnResult = new JqGridReturn();
+		String memberId = pricipalMember.getMemberId();
+		int row = (p-1)*10;
+		List<OrderQuery> getQuery = order_infoMapper.getLoginQuery(memberId,row);
+		returnResult.setTotal(order_infoMapper.getRowQuery(pricipalMember.getMemberId()));
+		returnResult.setRows(getQuery);//设置查询数据
+        returnResult.setP(p);//设置当前页
+		return returnResult;
+	}
 	/**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有订单详情信息) 

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.service.orders.OrdersOrder_infoService;
 import com.glacier.frame.service.website.WebsiteAnnouncementService;
 import com.glacier.frame.service.website.WebsiteNavService;
 import com.glacier.frame.service.website.WebsiteNewsService;
@@ -57,6 +59,9 @@ public class CommonController {
 	
 	@Autowired
 	private WebsiteNavService NavService;//注入网站导航业务类
+	
+	@Autowired
+	private OrdersOrder_infoService order_infoService;//注入订单详情业务类
 	
     /**
      * 
@@ -105,8 +110,16 @@ public class CommonController {
      * @throws 备注
      */
     @RequestMapping(value = "/orderQuery.htm")
-    private Object orderQuery() {
-        ModelAndView mav = new ModelAndView("orderQuery/notLoginQuery");
+    private Object orderQuery(int p) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+    	ModelAndView mav=null;
+    	if(null == pricipalMember){
+    		mav = new ModelAndView("orderQuery/notLoginQuery");
+    	}else{
+    		mav = new ModelAndView("orderQuery/loginQuery");
+    		mav.addObject("getDatas", order_infoService.listAsOrderGrid(p));
+    	}
         return mav;
     }
     

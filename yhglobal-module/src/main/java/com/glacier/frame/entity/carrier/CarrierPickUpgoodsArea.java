@@ -14,6 +14,14 @@ public class CarrierPickUpgoodsArea {
     private String address;
 
     private String telephone;
+    
+    private String latitude;
+
+    private String longitude;
+
+    private String shopHours;
+
+    private String serviceContent;
 
     private String remark;
 
@@ -37,7 +45,39 @@ public class CarrierPickUpgoodsArea {
         return deliverName;
     }
 
-    public void setDeliverName(String deliverName) {
+    public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getShopHours() {
+		return shopHours;
+	}
+
+	public void setShopHours(String shopHours) {
+		this.shopHours = shopHours;
+	}
+
+	public String getServiceContent() {
+		return serviceContent;
+	}
+
+	public void setServiceContent(String serviceContent) {
+		this.serviceContent = serviceContent;
+	}
+
+	public void setDeliverName(String deliverName) {
         this.deliverName = deliverName;
     }
 
