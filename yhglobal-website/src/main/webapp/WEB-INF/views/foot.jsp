@@ -34,41 +34,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="item">
           <dl>
             <dt>简介</dt>
-            <dd><a href="#" target="_blank" rel="nofollow">互联网简介</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">产品服务</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">创新优势</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">友情链接</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">联系我们</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">互联网简介</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">产品服务</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">创新优势</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">友情链接</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">联系我们</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>帮助</dt>
-            <dd><a href="#" target="_blank" rel="nofollow">禁用品说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">轻/重货说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">发货流程说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">货运险承保说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">帮助中心</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">禁用品说明</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">轻/重货说明</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">发货流程说明</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">货运险承保说明</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">帮助中心</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>共赢</dt>
-            <dd><a href="#" target="_blank" rel="nofollow">承运商合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">货主合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">个体司机合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">意见反馈</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">加入互联网</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">承运商合作</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">货主合作</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">个体司机合作</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">意见反馈</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">加入互联网</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>导航</dt>
-            <dd><a href="#" target="_blank" rel="nofollow">我要发货</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">查看班线</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">查看订单</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">个人中心</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow">综合信息</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">我要发货</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">查看班线</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">查看订单</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">个人中心</a></dd>
+            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">综合信息</a></dd>
           </dl>
         </div>
         <div class="item item-weibo">
