@@ -535,6 +535,286 @@ public class CarrierPickUpgoodsAreaExample {
             return (Criteria) this;
         }
 
+        public Criteria andLatitudeIsNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeIsNotNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude =", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeNotEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude <>", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeGreaterThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude >", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude >=", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeLessThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude <", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude <=", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude like", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeNotLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude not like", value, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude in", values, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeNotIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude not in", values, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude between", value1, value2, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLatitudeNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.latitude not between", value1, value2, "latitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIsNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIsNotNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude =", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude <>", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeGreaterThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude >", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude >=", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLessThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude <", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude <=", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude like", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude not like", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude in", values, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude not in", values, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude between", value1, value2, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.longitude not between", value1, value2, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursIsNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursIsNotNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours =", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursNotEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours <>", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursGreaterThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours >", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours >=", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursLessThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours <", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours <=", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours like", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursNotLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours not like", value, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours in", values, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursNotIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours not in", values, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours between", value1, value2, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopHoursNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.shop_hours not between", value1, value2, "shopHours");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentIsNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentIsNotNull() {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content =", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentNotEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content <>", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentGreaterThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content >", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content >=", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentLessThan(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content <", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content <=", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content like", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentNotLike(String value) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content not like", value, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content in", values, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentNotIn(List<String> values) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content not in", values, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content between", value1, value2, "serviceContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceContentNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_pick_up_goods_area.service_content not between", value1, value2, "serviceContent");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("temp_carrier_pick_up_goods_area.remark is null");
             return (Criteria) this;

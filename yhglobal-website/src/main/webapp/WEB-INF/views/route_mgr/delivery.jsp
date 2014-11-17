@@ -138,19 +138,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     </div> 
 						  </div>
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label">*联系人:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>联系人:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text"  class="form-control"  style="width: " placeholder="请输入发货人姓名" >
 						    </div> 
 						  </div>
 						  <div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>联系电话:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control"   placeholder="请输入发货人联系电话" >
 						    </div> 
 						  </div>
 						 <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control"  placeholder="请输入所在街道地址" >
 						    </div> 
@@ -170,19 +170,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     </div> 
 						  </div>
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系人:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>联系人:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control"  name="orderConsignee"  placeholder="请输入收货人姓名" >
 						    </div> 
 						  </div>
 						  <div class="form-group">
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*联系电话:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>联系电话:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" maxlength="15" class="form-control"  name="orderPhone" onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入收货人联系电话" >
 						    </div> 
 						  </div>
 						 <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*所在街道地址:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control" name="orderAddress" placeholder="请输入所在街道地址" >
 						    </div> 
@@ -195,52 +195,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*发货网点:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
 						    <div class="col-sm-6" align="left">
-						   <select class="form-control">
+						   <select class="form-control" >
 							  <option>--请选择--</option> 
 							  <c:forEach items="${router.deliverList}" var="deliver">  
-					            <option>${deliver.deliverName}&nbsp;&nbsp;
-					            &nbsp;&nbsp;<fmt:formatNumber value='${deliver.price}' pattern='#,#00.00'/>元/次</option>
+					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" onclick="selectDeliver(this)"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
+							<div id="info" style="color:#FF7300"></div>
 						    </div> 
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*收货网点:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>收货网点:</label>
 						    <div class="col-sm-6" align="left">
 						    <select class="form-control">
 							  <option>--请选择--</option>
 							  <c:forEach items="${router.pickUpList}" var="deliver">  
-					            <option>${deliver.deliverName}&nbsp;&nbsp;
-					            &nbsp;&nbsp;<fmt:formatNumber value='${deliver.price}' pattern='#,#00.00'/>元/次</option>
+					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" onclick="selectPickUp(this)"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
+							<div id="infos" style="color:#FF7300"></div>
 						    </div> 
 						  </div> 
 					  </div>
 				</div>
-				<div class="panel panel-default" style="width: 863px" >aaaaa
+				<div class="panel panel-default" style="width: 863px" > 
 					  <div class="panel-heading">
 					    <b style="size: 3">货物信息</b> &nbsp;&nbsp;填写货物信息，便于保证运输中不出现损坏
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label">*货物名称:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>货物名称:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control" name="belaidupProdName"  placeholder="请输入物品名称" >
 						    </div> 
 						    <a href="${ctx}/contrabandExplain.htm" style="color: #FF7300">禁运品说明</a>
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*包装总件数:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>包装总件数:</label>
 						    <div class="col-sm-6" align="left">
 						     <input type="text" class="form-control"   placeholder="请输入物品包装件数" >
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*货物类型:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物类型:</label>
 						    <div class="col-sm-6" align="left">
 						     <select class="form-control" name="goodstypeId">
 							  <option>--请选择--</option>
@@ -252,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" >*取货方式:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>取货方式:</label>
 						    <div class="col-sm-6" align="left">
 						     <select class="form-control" name="goodstypeId">
 							  <option>上门取货</option>  
@@ -340,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							      </div>
 							</div>
 						  <div class="form-group" >
-						     <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
+						     <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
 								     <div class="radio" style="float: left;">
 									  <label>
@@ -359,7 +359,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div> 
 						  
 						    <div class="form-group" >
-						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
+						     <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
 							      <input   type="text" class="form-control" style="width: 100px;float: left;">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
@@ -490,6 +490,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  }
 	  });
 	   
+	//发货区域
+	function selectDeliver(str){ 
+	  var address=$(str).attr("name");
+	  var telephone=$(str).attr("class");
+	  var id=$(str).attr("id"); 
+	  $("#info").empty();
+	  $("#info").append(address+"&nbsp;&nbsp;&nbsp;&nbsp;电话："+telephone+"&nbsp;&nbsp;&nbsp;&nbsp;"+
+	  "<a href='${ctx}/delivery/address.htm?type=deliver&id="+id+"' target=_blank style='color:blue'>查看地图</a>");
+	}
+	
+	//收货区域
+	function selectPickUp(str){
+	  var address=$(str).attr("name"); 
+	  var telephone=$(str).attr("class");
+	  var id=$(str).attr("id");
+	  $("#info").empty();
+	  $("#info").append(address+"&nbsp;&nbsp;&nbsp;&nbsp;电话："+telephone+"&nbsp;&nbsp;&nbsp;&nbsp;"+
+	  "<a href='${ctx}/delivery/address.htm?type=pickUp&id="+id+"' target=_blank style='color:blue'>查看地图</a>");
+	 }
+	
 	</script>
 	
 	<!-- <script type="text/javascript"> 
