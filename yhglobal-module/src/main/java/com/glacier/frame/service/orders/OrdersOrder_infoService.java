@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrder_infoQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.orders.OrderQuery;
 import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample.Criteria;
@@ -56,7 +57,7 @@ public class OrdersOrder_infoService {
     	System.out.println("1242357344444444444444444444444444444444:"+pricipalMember.getMemberName());
 		String memberId = pricipalMember.getMemberId();
 		int row = (p-1)*10;
-		List<Object> getQuery = order_infoMapper.getLoginQuery(memberId,row);
+		List<OrderQuery> getQuery = order_infoMapper.getLoginQuery(memberId,row);
 		System.out.println("555555555555555555555555555555555555555:"+pricipalMember.getMemberName());
 		returnResult.setTotal(order_infoMapper.getRowQuery(pricipalMember.getMemberId()));
 		returnResult.setRows(getQuery);//设置查询数据

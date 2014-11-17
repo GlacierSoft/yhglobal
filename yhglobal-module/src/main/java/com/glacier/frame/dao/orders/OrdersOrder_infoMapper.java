@@ -1,5 +1,6 @@
 package com.glacier.frame.dao.orders;
 
+import com.glacier.frame.entity.orders.OrderQuery;
 import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
 import java.util.List;
@@ -25,7 +26,7 @@ public interface OrdersOrder_infoMapper {
     		"from t_orders_order_info orderinfo,t_orders_order orders,t_storehouse_belaidup belaidup " +
     		"where orderinfo.order_id = orders.order_id and orderinfo.belaidup_id = belaidup.belaidup_id " +
     		"and belaidup.member_id = #{memberId} ORDER BY orders.create_time DESC LIMIT #{row},10")
-    List<Object> getLoginQuery(String memberId,int row);
+    List<OrderQuery> getLoginQuery(String memberId,int row);
     
     @Select("SELECT count(*) " +
     		"from t_orders_order_info orderinfo,t_orders_order orders,t_storehouse_belaidup belaidup " +
