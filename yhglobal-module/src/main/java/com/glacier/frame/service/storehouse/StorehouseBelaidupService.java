@@ -32,6 +32,7 @@ import com.glacier.frame.dao.storehouse.StorehousePackCodeMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageGoodsrunMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
+import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
@@ -160,6 +161,43 @@ public class StorehouseBelaidupService {
         int total = belaidupMapper.countByExample(belaidupSetExample); // 查询总页数
         returnResult.setRows(belaidupSetTypeList);
         returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+    
+    /**
+     * @Title: listAsWebsite 
+     * @Description: TODO(前台获取登录会员资金明细记录) 
+     * @param @param pager
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsWebsite(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO, String memberId, int p) {
+
+        JqGridReturn returnResult = new JqGridReturn();
+        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample();
+        Criteria criteria = belaidupSetExample.createCriteria();
+        storehouseBelaidupsQuerysDTO.setQueryConditions(criteria,memberId);//前台条件查询
+        
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	belaidupSetExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	belaidupSetExample.setLimitEnd(pager.getRows());
+        }
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	belaidupSetExample.setOrderByClause(pager.getOrderBy("temp_storehouse_belaidup_"));
+        }
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        belaidupSetExample.setLimitStart(startTemp);
+        belaidupSetExample.setLimitEnd(5);
+        List<StorehouseBelaidup>  StorehouseBelaidups = belaidupMapper.selectByExample(belaidupSetExample); // 查询所有会员资金记录列表
+        int total = belaidupMapper.countByExample(belaidupSetExample); // 查询总页数
+        returnResult.setRows(StorehouseBelaidups);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
     

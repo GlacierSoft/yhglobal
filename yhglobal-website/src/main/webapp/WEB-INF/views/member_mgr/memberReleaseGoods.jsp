@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a>
 					          <a href="${ctx}/member/release.htm" class="btn btn-info" role="button">发布货源</a>
-					          <a href="${ctx}/member/releaseManager.htm"  class="btn btn-default" role="button">货源管理</a>
+					          <a href="${ctx}/member/releaseManager.htm?p=1"  class="btn btn-default" role="button">货源管理</a>
 					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" --%> class="btn btn-default" role="button">Content4</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
@@ -207,6 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			 </div>
 	    	</div>
 	    </div>
+	  </div>
 	    
 	    <div id="bg"></div>
 		

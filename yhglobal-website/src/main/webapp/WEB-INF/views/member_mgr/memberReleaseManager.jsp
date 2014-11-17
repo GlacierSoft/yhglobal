@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" role="button" class="btn btn-default">会员信息</a>
 					          <a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a>
-					          <a href="${ctx}/member/releaseManager.htm" class="btn btn-info" role="button">货源管理</a>
+					          <a href="${ctx}/member/releaseManager.htm?p=1" class="btn btn-info" role="button">货源管理</a>
 					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" --%> class="btn btn-default" role="button">Content4</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
@@ -104,22 +104,151 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">货源管理</h3>
 				  </div>
 				  <div class="panel-body">
-				       <div class="row">
-                          <ul class="nav nav-tabs" role="tablist">
-						  <li role="presentation" class="active " ><a href="#">在屏货源</a></li>
-						  <li role="presentation"><a href="#">已撤货源</a></li>
-						</ul>
-					 </div>
-    			 </div>
+				      <div class="bs-example bs-example-tabs">
+				         <ul id="myTab" class="nav nav-tabs">
+				            <li class="active"><a href="#finance" data-toggle="tab">货物记录</a></li>
+				            <li><a href="#recharge" data-toggle="tab">已发布</a></li>
+				            <li><a href="#withdraw" data-toggle="tab">已撤销</a></li>
+				         </ul>
+				         <div id="myTabContent" class="tab-content">
+				              <div class="tab-pane fade in active" id="finance">
+				                <!-- 查询开始 -->
+					             <div class="panel panel-default">
+							         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
+									     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1" >
+										   <div class="form-group">
+										    <div>
+										        <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
+										                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
+										                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+										      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+											 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
+										        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
+										    </div>
+										   </div>
+									     </form>
+							        </div>
+						       </div>
+						       <table class="table table-bordered">
+						          	<thead>
+							          <tr>
+							            <th width="100px">货物名称</th>
+							            <th>货物数量</th>
+							            <th>货物重量</th>
+							            <th>货物体积</th>
+							            <th>货物类型</th>
+							            <th>货物状态</th>
+							            <th>起始站</th>
+							            <th>终点站</th>
+							            <th>创建时间</th>
+							            <th>操作</th>
+							            </tr>
+							        </thead>
+						          	<tbody>
+						          	<c:if test="${empty returnResult.rows}">
+										<tr>
+								            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+								        </tr>
+									</c:if>	
+									<c:if test="${!empty returnResult.rows}">
+							          <c:forEach items="${returnResult.rows}" var="storehouseBelaidupList">
+								          <tr>
+								            <td>${storehouseBelaidupList.belaidupProdName}</td>
+								          	<td>${storehouseBelaidupList.sortingStauts=="waitsorting"?"等待分拣":"已分拣"}</td>
+								          	<td>${storehouseBelaidupList.belaidupWeight}</td>
+								          	<td>${storehouseBelaidupList.belaidupBulk}</td>
+								          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
+								          	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
+								          	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
+								          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
+								          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
+								            <td>
+								              <button  type="button" class="btn btn-primary" data-toggle="button"> 详情</button>
+				                              <button  type="button" class="btn btn-primary" data-toggle="button"> 撤销</button>
+								            </td>
+								          </tr>
+							      		</c:forEach>
+							      	</c:if>
+							      	</tbody>
+							      	<tfoot>
+							          <tr>
+							            <th colspan="10">
+							               <div align="right">
+											    <ul id='pagefinTransaction'></ul>
+											</div>
+		
+										</th>
+							          </tr>
+							        </tfoot>
+					        </table>
+						 </div>
+				         <!--myTabContent 结束  -->  
+				         </div>   
+				      <!--bs-example bs-example-tabs结束  -->
+				      </div>     
+				 </div>
 	    	</div>
 	    </div>
-	    
-	    <div id="bg"></div>
+	</div>	    
+  </div>	    
 		
          
-   
-   
 <script type="text/javascript">
-</script>
+     
+       $(function(){
+	    	//获得浏览器参数
+	   		$.extend({
+	   			getUrlVars: function(){
+	   				var vars = [], hash;
+	   				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	   				for(var i = 0; i < hashes.length; i++){
+	   					hash = hashes[i].split('=');
+	   					vars.push(hash[0]);
+	   					vars[hash[0]] = hash[1];
+	   				}
+	   				return vars;
+	   			},
+	   			getUrlVar: function(name){
+	   				return $.getUrlVars()[name];
+	   			}
+	   		});
+	    	
+	   	    //封装浏览器参数
+			var composeUrlParams=function(){
+				var param='';
+				$.each($.getUrlVars(), function(i, item) {
+					if(item!='p'){
+						var val=$.getUrlVar(item);
+						if(val) param += "&" + item+"="+val;
+					}
+				});
+				return param;
+			}
+    	   
+    	    var element = $('#pagefinTransaction');
+             
+             //设置分页的总页数
+      	     var total=${returnResult.total}/5;
+             
+             if(parseInt(total)==total){
+      			var total = parseInt(total);
+      		}else {
+      			var total = parseInt(total)+1;
+      		}
+             
+             
+             var options = {
+         		    bootstrapMajorVersion:3,
+         		    currentPage: ${returnResult.p},
+         		    numberOfPages: 5,
+         		    totalPages:total,
+         		    pageUrl: function(type, page, current){
+         		    	return "${ctx}/member/releaseManager.htm?"+composeUrlParams()+"&p="+page;
+         		    }
+         		}
+           element.bootstrapPaginator(options);
+        });
+
+  </script>
 </body>
 </html>
