@@ -46,6 +46,11 @@ public class OrderQueryController extends AbstractController{
 	private Object intoDeliveryPage(String codeNumber) {
 		return belaidupService.notLogin(codeNumber);
 	}
-
 	
+	//根据条形码查询出货物信息
+	@RequestMapping(value="/getBelaidup.htm")
+	@ResponseBody
+	private Object getBelaidupStauts(String codeNumber) {
+		return belaidupService.getCodeBelaidup(codeNumber);
+	}
 }

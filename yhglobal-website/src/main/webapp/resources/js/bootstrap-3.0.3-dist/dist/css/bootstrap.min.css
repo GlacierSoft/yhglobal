@@ -2020,8 +2020,8 @@ textarea.input-lg {
 
 .btn-primary {
 	color: #fff;
-	background-color: #428bca;
-	border-color: #357ebd
+	background-color: #ff5400;
+	border-color: #ff4000
 }
 
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary
@@ -2136,8 +2136,8 @@ textarea.input-lg {
 
 .btn-info {
 	color: #fff;
-	background-color: #5bc0de;
-	border-color: #46b8da
+	background-color: #ff5400;
+	border-color: #ff4000
 }
 
 .btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open .dropdown-toggle.btn-info
@@ -4314,7 +4314,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 
 .navbar-inverse {
 	background-color: #ff5400;
-	border-color: #cc4605
+	border-color: #ff4000
 }
 
 .navbar-inverse .navbar-brand {
@@ -5240,7 +5240,7 @@ a.list-group-item.active .list-group-item-text,a.list-group-item.active:hover .l
 .panel-primary>.panel-heading {
 	color: #fff;
 	background-color: #ff5400;
-	border-color: #ff5400
+	border-color: #ff4000
 }
 
 .panel-primary>.panel-heading+.panel-collapse .panel-body {
