@@ -116,10 +116,8 @@ public class CommonController {
     	ModelAndView mav=null;
     	if(null == pricipalMember){
     		mav = new ModelAndView("orderQuery/notLoginQuery");
-    		System.out.println("111111111111111111111111111111111111111111");
     	}else{
     		mav = new ModelAndView("orderQuery/loginQuery");
-    		System.out.println("22222222222222222222222222222222222222222");
     		mav.addObject("getDatas", order_infoService.listAsOrderGrid(p));
     	}
         return mav;

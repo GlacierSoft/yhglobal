@@ -4,6 +4,7 @@
 <%@ page import="com.glacier.basic.exception.IncorrectCaptchaException"%>
 <!-- 引入jstl解析标签 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%
 String path = request.getContextPath();
@@ -53,12 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	 <form action="" method="post" id="form_delivery">
                  <div class="panel panel-primary">
                     <div class="panel-heading">
-    					<h3 class="panel-title">订单查询-登陆版查询订单</h3>
+    					<h3 class="panel-title">订单查询</h3>
   					</div>
 					<div class="panel-body">
 					      <div class="form-group col-sm-12">
 							    <label for="tisp" class="control-label col-sm-1">提示</label>
-							    <label for="tisp1" class="control-label col-sm-4"  style="color: #428BCA;">未登录用户可凭单号进行货物跟踪查询</label>
+							    <label for="tisp1" class="control-label col-sm-4"  style="color: #428BCA;">可凭单号进行货物跟踪查询</label>
 						  </div>
 					      <div class="form-group col-sm-12">
 							    <label for="orderNumber" class="control-label col-sm-1">货物号</label>
@@ -70,7 +71,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<!-- 显示返回消息 -->
 					<div id="returnTisp">
-						${getDatas.total}
+						<table class="table table-bordered" style="text-align: left;">
+							<thead>
+								<tr>
+									<th>订单编号</th><th>货物名称</th>
+									<th>收货人</th><th>目的站</th>
+									<th>开单日期</th><th>物流状态</th>
+									<th>总费用</th><th>操作</th>
+								</tr>
+							</thead>
+							<c:forEach items="${getDatas.rows}" var="getDatas" varStatus="status">
+								<tr>
+									<td>${getDatas.order_code}</td><td>${getDatas.belaidup_prod_name}</td>
+									<td>${getDatas.order_consignee}</td><td>${getDatas.belaidup_terminu}</td>
+									<td><fmt:formatDate value="${getDatas.create_time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<c:choose>
+										   <c:when test="${getDatas.belaidup_status == 'receiving'}">  
+										   		<td>收货入库</td>
+										   </c:when>
+										   <c:when test="${getDatas.belaidup_status == 'delivery'}">  
+										   		<td>出库运输</td>
+										   </c:when>
+										   <c:when test="${getDatas.belaidup_status == 'return'}">  
+										   		<td>申请退货</td>
+										   </c:when>
+										   <c:when test="${getDatas.belaidup_status == 'completed'}">  
+										   		<td>退货完成</td>
+										   </c:when>
+										   <c:when test="${getDatas.belaidup_status == 'wayback'}">  
+										   		<td>回途中</td>
+										   </c:when>
+										   <c:when test="${getDatas.belaidup_status == 'business'}"> 
+										   		<td>交易完成</td> 
+										   </c:when>
+									</c:choose>
+									<td><fmt:formatNumber value='${getDatas.belaidup_unitprice}' pattern="#,#00.00元"/></td><td>GPS功能</td>
+								</tr>
+							</c:forEach>
+						</table>
 					</div>
                  </div>
               </form>

@@ -54,11 +54,9 @@ public class OrdersOrder_infoService {
 		Subject pricipalSubject = SecurityUtils.getSubject();
     	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
     	JqGridReturn returnResult = new JqGridReturn();
-    	System.out.println("1242357344444444444444444444444444444444:"+pricipalMember.getMemberName());
 		String memberId = pricipalMember.getMemberId();
 		int row = (p-1)*10;
 		List<OrderQuery> getQuery = order_infoMapper.getLoginQuery(memberId,row);
-		System.out.println("555555555555555555555555555555555555555:"+pricipalMember.getMemberName());
 		returnResult.setTotal(order_infoMapper.getRowQuery(pricipalMember.getMemberId()));
 		returnResult.setRows(getQuery);//设置查询数据
         returnResult.setP(p);//设置当前页
