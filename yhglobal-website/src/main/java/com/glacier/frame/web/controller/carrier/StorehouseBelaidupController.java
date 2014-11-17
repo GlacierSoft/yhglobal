@@ -18,13 +18,15 @@
  * 
  */
 package com.glacier.frame.web.controller.carrier;
- 
+  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
+import com.glacier.frame.service.carrier.CarrierDeliverGoodsAreaService;
+import com.glacier.frame.service.carrier.CarrierPickUpGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService; 
 /**
@@ -44,13 +46,32 @@ public class StorehouseBelaidupController extends AbstractController{
 	@Autowired  
 	private StorehousePackagetypeSetService storehousePackagetypeSetService;
 	
+	@Autowired
+	private CarrierDeliverGoodsAreaService deliverGoodsAreaService;
+	
+	@Autowired
+	private CarrierPickUpGoodsAreaService pickUpGoodosAreaService;
+	
+	
 	//进入发货页面 
 	@RequestMapping(value = "/delivery.htm")
 	public Object  bekaudup(String routeId){ 
 		ModelAndView mav = new ModelAndView("route_mgr/delivery");
 		mav.addObject("router", routeService.getRoute(routeId)); 
 		mav.addObject("storehousePackagetype",storehousePackagetypeSetService.selectAll());
-	     
+	   return mav;
+	}
+	
+	
+	//进入地图区域显示页面 
+	@RequestMapping(value = "/address.htm")
+	public Object  address(String type,String id){  
+		ModelAndView mav = new ModelAndView("route_mgr/address");
+		if(type.equals("deliver")){
+			mav.addObject("goodsArea", deliverGoodsAreaService.selectOne(id));
+		}else{
+			mav.addObject("goodsArea", pickUpGoodosAreaService.selectOne(id));
+		} 
 		return mav;
 	}
 }
