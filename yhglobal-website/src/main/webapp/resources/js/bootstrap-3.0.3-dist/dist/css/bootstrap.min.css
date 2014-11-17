@@ -275,7 +275,7 @@ input,button,select,textarea {
 }
 
 a {
-	color: #428bca;
+	color: #ff5400;
 	text-decoration: none
 }
 
@@ -425,7 +425,7 @@ cite {
 }
 
 .text-primary {
-	color: #428bca
+	color: #ff5400
 }
 
 .text-primary:hover {
@@ -2038,12 +2038,12 @@ textarea.input-lg {
 
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active
 	{
-	background-color: #428bca;
-	border-color: #357ebd
+	background-color: #ff5400;
+	border-color: #ff4000
 }
 
 .btn-primary .badge {
-	color: #428bca;
+	color: #ff5400;
 	background-color: #fff
 }
 
@@ -2164,7 +2164,7 @@ textarea.input-lg {
 
 .btn-link {
 	font-weight: normal;
-	color: #428bca;
+	color: #ff5400;
 	cursor: pointer;
 	border-radius: 0
 }
@@ -3154,7 +3154,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 	{
 	color: #fff;
 	text-decoration: none;
-	background-color: #428bca;
+	background-color: #ff5400;
 	outline: 0
 }
 
@@ -3661,7 +3661,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 
 .nav .open>a,.nav .open>a:hover,.nav .open>a:focus {
 	background-color: #eee;
-	border-color: #428bca
+	border-color: #ff5400
 }
 
 .nav .nav-divider {
@@ -4476,8 +4476,8 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #428bca;
-	border-color: #428bca
+	background-color: #ff5400;
+	border-color: #ff5400
 }
 
 .pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus
@@ -4612,7 +4612,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .label-primary {
-	background-color: #428bca
+	background-color: #ff5400
 }
 
 .label-primary[href]:hover,.label-primary[href]:focus {
@@ -4682,7 +4682,7 @@ a.badge:hover,a.badge:focus {
 }
 
 a.list-group-item.active>.badge,.nav-pills>.active>a>.badge {
-	color: #428bca;
+	color: #ff5400;
 	background-color: #fff
 }
 
@@ -4752,7 +4752,7 @@ a.list-group-item.active>.badge,.nav-pills>.active>a>.badge {
 }
 
 a.thumbnail:hover,a.thumbnail:focus,a.thumbnail.active {
-	border-color: #428bca
+	border-color: #ff5400
 }
 
 .thumbnail .caption {
@@ -4889,7 +4889,7 @@ to {
 	line-height: 20px;
 	color: #fff;
 	text-align: center;
-	background-color: #428bca;
+	background-color: #ff5400;
 	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 	-webkit-transition: width .6s ease;
@@ -5047,8 +5047,8 @@ a.list-group-item.active,a.list-group-item.active:hover,a.list-group-item.active
 	{
 	z-index: 2;
 	color: #fff;
-	background-color: #428bca;
-	border-color: #428bca
+	background-color: #ff5400;
+	border-color: #ff5400
 }
 
 a.list-group-item.active .list-group-item-heading,a.list-group-item.active:hover .list-group-item-heading,a.list-group-item.active:focus .list-group-item-heading
@@ -5244,11 +5244,11 @@ a.list-group-item.active .list-group-item-text,a.list-group-item.active:hover .l
 }
 
 .panel-primary>.panel-heading+.panel-collapse .panel-body {
-	border-top-color: #428bca
+	border-top-color: #ff5400
 }
 
 .panel-primary>.panel-footer+.panel-collapse .panel-body {
-	border-bottom-color: #428bca
+	border-bottom-color: #ff5400
 }
 
 .panel-success {
