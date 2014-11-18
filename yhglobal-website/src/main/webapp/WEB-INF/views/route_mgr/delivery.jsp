@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
 						    <div class="col-sm-6" align="left">
 						   <select class="form-control" >
-							  <option>--请选择--</option> 
+							  <option onclick="selectDeliver(this)">--请选择--</option> 
 							  <c:forEach items="${router.deliverList}" var="deliver">  
 					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" onclick="selectDeliver(this)"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>收货网点:</label>
 						    <div class="col-sm-6" align="left">
 						    <select class="form-control">
-							  <option>--请选择--</option>
+							  <option onclick="selectPickUp(this)">--请选择--</option>
 							  <c:forEach items="${router.pickUpList}" var="deliver">  
 					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" onclick="selectPickUp(this)"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
@@ -489,27 +489,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  $('#myModal').modal('show')
 		  }
 	  });
-	   
+	    
 	//发货区域
 	function selectDeliver(str){ 
 	  var address=$(str).attr("name");
 	  var telephone=$(str).attr("class");
-	  var id=$(str).attr("id"); 
+	  var id=$(str).attr("id");  
+	  if(typeof(id) == "undefined"){
+		  $("#info").empty();
+	  }else{
 	  $("#info").empty();
 	  $("#info").append(address+"&nbsp;&nbsp;&nbsp;&nbsp;电话："+telephone+"&nbsp;&nbsp;&nbsp;&nbsp;"+
 	  "<a href='${ctx}/delivery/address.htm?type=deliver&id="+id+"' target=_blank style='color:blue'>查看地图</a>");
-	}
+	  }
+	 }
 	
 	//收货区域
 	function selectPickUp(str){
 	  var address=$(str).attr("name"); 
 	  var telephone=$(str).attr("class");
 	  var id=$(str).attr("id");
-	  $("#info").empty();
-	  $("#info").append(address+"&nbsp;&nbsp;&nbsp;&nbsp;电话："+telephone+"&nbsp;&nbsp;&nbsp;&nbsp;"+
+	  if(typeof(id) == "undefined"){
+		  $("#infos").empty();
+	  }else{
+	  $("#infos").empty();
+	  $("#infos").append(address+"&nbsp;&nbsp;&nbsp;&nbsp;电话："+telephone+"&nbsp;&nbsp;&nbsp;&nbsp;"+
 	  "<a href='${ctx}/delivery/address.htm?type=pickUp&id="+id+"' target=_blank style='color:blue'>查看地图</a>");
 	 }
-	
+	}
 	</script>
 	
 	<!-- <script type="text/javascript"> 

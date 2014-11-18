@@ -141,7 +141,264 @@
    <div title="发货区域" style="padding:15px">
     	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:20px;" class="spinner">
 			<legend>发货物区域</legend>  
-			<table  class="formtable"> 
+			<div id="tt" class="easyui-tabs" style="width:530px;height:350px;">   
+			    <div title="区域1" style="padding:20px;">   
+			     <input type="hidden" name="deliverList[0].deliverGoodsAreaId" value="${carrierRouteData.deliverList[0].deliverGoodsAreaId}" />
+			     <table  class="formtable"> 
+						<tr>   
+					     <td>发货区名：</td>
+						 <td><input class="easyui-validatebox spinner"   
+						style="height:18px;width:150px"  name="deliverList[0].deliverName" value="${carrierRouteData.deliverList[0].deliverName}"/></td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[0].price" value="<fmt:formatNumber value="${carrierRouteData.deliverList[0].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].shopHours" value="${carrierRouteData.deliverList[0].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].telephone" value="${carrierRouteData.deliverList[0].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="deliverList[0].longitude" value="${carrierRouteData.deliverList[0].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].latitude" value="${carrierRouteData.deliverList[0].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[0].serviceContent" value="${carrierRouteData.deliverList[0].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[0].address" value="${carrierRouteData.deliverList[0].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="deliverList[0].remark">${carrierRouteData.deliverList[0].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>   
+			    </div>   
+			    <div title="区域2" style="padding:20px;">   
+			     <input type="hidden" name="deliverList[1].deliverGoodsAreaId" value="${carrierRouteData.deliverList[1].deliverGoodsAreaId}" />
+			     <table  class="formtable"> 
+						<tr>   
+					     <td>发货区名：</td>
+						 <td><input class="easyui-validatebox spinner"   
+						style="height:18px;width:150px"  name="deliverList[1].deliverName" value="${carrierRouteData.deliverList[1].deliverName}"/></td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[1].price" value="<fmt:formatNumber value="${carrierRouteData.deliverList[1].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[1].shopHours" value="${carrierRouteData.deliverList[1].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[1].telephone" value="${carrierRouteData.deliverList[1].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="deliverList[1].longitude" value="${carrierRouteData.deliverList[1].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[1].latitude" value="${carrierRouteData.deliverList[1].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[1].serviceContent" value="${carrierRouteData.deliverList[1].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[1].address" value="${carrierRouteData.deliverList[1].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="deliverList[1].remark">${carrierRouteData.deliverList[1].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>   
+			    </div>   
+			     <div title="区域3" style="padding:20px;">   
+			     <input type="hidden" name="deliverList[2].deliverGoodsAreaId" value="${carrierRouteData.deliverList[2].deliverGoodsAreaId}" />
+			     <table  class="formtable"> 
+						<tr>   
+					     <td>发货区名：</td>
+						 <td><input class="easyui-validatebox spinner"   
+						style="height:18px;width:150px"  name="deliverList[2].deliverName" value="${carrierRouteData.deliverList[2].deliverName}"/></td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[2].price" value="<fmt:formatNumber value="${carrierRouteData.deliverList[2].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[2].shopHours" value="${carrierRouteData.deliverList[2].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[2].telephone" value="${carrierRouteData.deliverList[2].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="deliverList[2].longitude" value="${carrierRouteData.deliverList[2].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[2].latitude" value="${carrierRouteData.deliverList[2].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[2].serviceContent" value="${carrierRouteData.deliverList[2].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[2].address" value="${carrierRouteData.deliverList[2].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="deliverList[2].remark">${carrierRouteData.deliverList[2].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>   
+			    </div>   
+			     <div title="区域4" style="padding:20px;">   
+			     <input type="hidden" name="deliverList[3].deliverGoodsAreaId" value="${carrierRouteData.deliverList[3].deliverGoodsAreaId}" />
+			     <table  class="formtable"> 
+						<tr>   
+					     <td>发货区名：</td>
+						 <td><input class="easyui-validatebox spinner"   
+						style="height:18px;width:150px"  name="deliverList[3].deliverName" value="${carrierRouteData.deliverList[3].deliverName}"/></td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[3].price" value="<fmt:formatNumber value="${carrierRouteData.deliverList[3].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[3].shopHours" value="${carrierRouteData.deliverList[3].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[3].telephone" value="${carrierRouteData.deliverList[3].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="deliverList[3].longitude" value="${carrierRouteData.deliverList[3].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[3].latitude" value="${carrierRouteData.deliverList[3].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[3].serviceContent" value="${carrierRouteData.deliverList[3].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[3].address" value="${carrierRouteData.deliverList[3].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="deliverList[3].remark">${carrierRouteData.deliverList[3].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>   
+			    </div>  
+			     <div title="区域5" style="padding:20px;">   
+			     <input type="hidden" name="deliverList[4].deliverGoodsAreaId" value="${carrierRouteData.deliverList[4].deliverGoodsAreaId}" />
+			     <table  class="formtable"> 
+						<tr>   
+					     <td>发货区名：</td>
+						 <td><input class="easyui-validatebox spinner"   
+						style="height:18px;width:150px"  name="deliverList[4].deliverName" value="${carrierRouteData.deliverList[4].deliverName}"/></td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[4].price" value="<fmt:formatNumber value="${carrierRouteData.deliverList[4].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>   
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[4].shopHours" value="${carrierRouteData.deliverList[4].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[4].telephone" value="${carrierRouteData.deliverList[4].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="deliverList[4].longitude" value="${carrierRouteData.deliverList[4].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[4].latitude" value="${carrierRouteData.deliverList[4].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[4].serviceContent" value="${carrierRouteData.deliverList[4].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[4].address" value="${carrierRouteData.deliverList[4].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="deliverList[4].remark">${carrierRouteData.deliverList[4].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>   
+			    </div>  
+		</div>  
+			<%-- <table  class="formtable"> 
 			<tr>   
 		     <td>发货区域1：</td>
 			 <td>
@@ -256,14 +513,276 @@
 			           value="${carrierRouteData.deliverList[4].telephone}"  />
 			  </td>
 		    </tr>  
-			</table>
+			</table> --%>
 		</fieldset> 
     </div>
     
     <div title="提货区域" style="padding:15px"> 
 		<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:20px;" class="spinner">
-			<legend>提货物区域</legend>  
-			<table  class="formtable"> 
+			<legend>提货物区域</legend> 
+			<div id="tt" class="easyui-tabs" style="width:530px;height:350px;">   
+			    <div title="区域1" style="padding:20px;">
+			       <input type="hidden" name="pickUpList[0].pickUpGoodsAreaId" value="${carrierRouteData.pickUpList[0].pickUpGoodsAreaId}" />
+			       <table  class="formtable"> 
+						<tr>   
+					     <td>提货区名：</td>
+						 <td>
+						    <input class="easyui-validatebox spinner" style="height:18px;width:150px"  name="pickUpList[0].deliverName" value="${carrierRouteData.pickUpList[0].deliverName}"/>
+						 </td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[0].price"  value="<fmt:formatNumber value="${carrierRouteData.pickUpList[0].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].shopHours" value="${carrierRouteData.pickUpList[0].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].telephone" value="${carrierRouteData.pickUpList[0].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="pickUpList[0].longitude" value="${carrierRouteData.pickUpList[0].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].latitude"  value="${carrierRouteData.pickUpList[0].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[0].serviceContent" value="${carrierRouteData.pickUpList[0].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[0].address" value="${carrierRouteData.pickUpList[0].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="pickUpList[0].remark">${carrierRouteData.pickUpList[0].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>  
+			    </div>   
+			     <div title="区域2" style="padding:20px;">
+			       <input type="hidden" name="pickUpList[1].pickUpGoodsAreaId" value="${carrierRouteData.pickUpList[1].pickUpGoodsAreaId}" />
+			       <table  class="formtable"> 
+						<tr>   
+					     <td>提货区名：</td>
+						 <td>
+						    <input class="easyui-validatebox spinner" style="height:18px;width:150px"  name="pickUpList[1].deliverName" value="${carrierRouteData.pickUpList[1].deliverName}"/>
+						 </td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[1].price"  value="<fmt:formatNumber value="${carrierRouteData.pickUpList[1].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[1].shopHours" value="${carrierRouteData.pickUpList[1].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[1].telephone" value="${carrierRouteData.pickUpList[1].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="pickUpList[1].longitude" value="${carrierRouteData.pickUpList[1].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[1].latitude"  value="${carrierRouteData.pickUpList[1].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[1].serviceContent" value="${carrierRouteData.pickUpList[1].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[1].address" value="${carrierRouteData.pickUpList[1].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="pickUpList[1].remark">${carrierRouteData.pickUpList[1].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>  
+			    </div>   
+			    <div title="区域3" style="padding:20px;">
+			       <input type="hidden" name="pickUpList[2].pickUpGoodsAreaId" value="${carrierRouteData.pickUpList[2].pickUpGoodsAreaId}" />
+			       <table  class="formtable"> 
+						<tr>   
+					     <td>提货区名：</td>
+						 <td>
+						    <input class="easyui-validatebox spinner" style="height:18px;width:150px"  name="pickUpList[2].deliverName" value="${carrierRouteData.pickUpList[2].deliverName}"/>
+						 </td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[2].price"  value="<fmt:formatNumber value="${carrierRouteData.pickUpList[2].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[2].shopHours" value="${carrierRouteData.pickUpList[2].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[2].telephone" value="${carrierRouteData.pickUpList[2].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="pickUpList[2].longitude" value="${carrierRouteData.pickUpList[2].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[2].latitude"  value="${carrierRouteData.pickUpList[2].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[2].serviceContent" value="${carrierRouteData.pickUpList[2].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[2].address" value="${carrierRouteData.pickUpList[2].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="pickUpList[2].remark">${carrierRouteData.pickUpList[2].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>  
+			    </div> 
+			    <div title="区域4" style="padding:20px;">
+			       <input type="hidden" name="pickUpList[3].pickUpGoodsAreaId" value="${carrierRouteData.pickUpList[3].pickUpGoodsAreaId}" />
+			       <table  class="formtable"> 
+						<tr>   
+					     <td>提货区名：</td>
+						 <td>
+						    <input class="easyui-validatebox spinner" style="height:18px;width:150px"  name="pickUpList[3].deliverName" value="${carrierRouteData.pickUpList[3].deliverName}"/>
+						 </td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[3].price"  value="<fmt:formatNumber value="${carrierRouteData.pickUpList[3].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[3].shopHours" value="${carrierRouteData.pickUpList[3].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[3].telephone" value="${carrierRouteData.pickUpList[3].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="pickUpList[3].longitude" value="${carrierRouteData.pickUpList[3].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[3].latitude"  value="${carrierRouteData.pickUpList[3].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[3].serviceContent" value="${carrierRouteData.pickUpList[3].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[3].address" value="${carrierRouteData.pickUpList[3].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="pickUpList[3].remark">${carrierRouteData.pickUpList[3].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>  
+			    </div> 
+			    <div title="区域5" style="padding:20px;">
+			       <input type="hidden" name="pickUpList[4].pickUpGoodsAreaId" value="${carrierRouteData.pickUpList[4].pickUpGoodsAreaId}" />
+			       <table  class="formtable"> 
+						<tr>   
+					     <td>提货区名：</td>
+						 <td>
+						    <input class="easyui-validatebox spinner" style="height:18px;width:150px"  name="pickUpList[4].deliverName" value="${carrierRouteData.pickUpList[4].deliverName}"/>
+						 </td>
+						   <td style="padding-left:20px;">价格(次)：</td>
+						 <td >
+						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[4].price"  value="<fmt:formatNumber value="${carrierRouteData.pickUpList[4].price}" pattern="#,#00.00"/>"/>
+						  </td>
+					    </tr>  
+					    <tr> 
+					     <td >营业时间：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[4].shopHours" value="${carrierRouteData.pickUpList[4].shopHours}"/>
+						  </td>  
+					     <td style="padding-left:20px;">联系电话：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[4].telephone" value="${carrierRouteData.pickUpList[4].telephone}"/>
+						  </td>
+					    </tr>  
+					    <tr>   
+					     <td>站点经度：</td>
+						 <td><input class="spinner"   
+					    	style="height:18px;width:150px"  name="pickUpList[4].longitude" value="${carrierRouteData.pickUpList[4].longitude}"/></td>
+						   <td style="padding-left:20px;">站点纬度：</td>
+						  <td >
+						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[4].latitude"  value="${carrierRouteData.pickUpList[4].latitude}"/>
+						  </td>
+					    </tr> 
+					     <tr>   
+					        <td>业务内容：</td>
+						    <td colspan="3">
+						      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[4].serviceContent" value="${carrierRouteData.pickUpList[4].serviceContent}"/>
+						     </td>
+						  </tr> 
+					     <tr>   
+					        <td>详细地址：</td>
+						    <td colspan="3">
+						       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[4].address" value="${carrierRouteData.pickUpList[4].address}"/>
+						    </td>
+						  </tr> 
+					    <tr>   
+						     <td>站点介绍：</td>
+							 <td colspan="3"> 
+						       <textarea class=" easyui-validatebox spinner"  style="width:385px;height: 120px;margin-top: 5px" name="pickUpList[4].remark">${carrierRouteData.pickUpList[4].remark}</textarea>
+						     </td>
+						</tr>  
+					 </table>  
+			    </div>
+			</div> 
+						<%-- <table  class="formtable"> 
 			<tr>   
 		     <td>提货区域1：</td>
 			 <td>
@@ -375,7 +894,7 @@
 			           value="${carrierRouteData.pickUpList[4].telephone}"  />
 			  </td>
 		    </tr> 
-			</table>
+			</table> --%>
 		</fieldset>
     </div> 
 </form>   
