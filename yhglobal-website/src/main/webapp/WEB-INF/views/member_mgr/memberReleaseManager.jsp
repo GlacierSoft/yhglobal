@@ -133,7 +133,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<thead>
 							          <tr>
 							            <th width="100px">货物名称</th>
-							            <th>货物数量</th>
 							            <th>货物重量</th>
 							            <th>货物体积</th>
 							            <th>货物类型</th>
@@ -154,7 +153,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							          <c:forEach items="${returnResult.rows}" var="storehouseBelaidupList">
 								          <tr>
 								            <td>${storehouseBelaidupList.belaidupProdName}</td>
-								          	<td>${storehouseBelaidupList.sortingStauts=="waitsorting"?"等待分拣":"已分拣"}</td>
 								          	<td>${storehouseBelaidupList.belaidupWeight}</td>
 								          	<td>${storehouseBelaidupList.belaidupBulk}</td>
 								          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
@@ -163,8 +161,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
 								          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
 								            <td>
-								              <button  type="button" class="btn btn-primary" data-toggle="button"> 详情</button>
-				                              <button  type="button" class="btn btn-primary" data-toggle="button"> 撤销</button>
+								              <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
+				                              <c:if test="${storehouseBelaidupList.stauts=='enable'}">
+				                                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
+								              </c:if>
+								              <c:if test="${storehouseBelaidupList.stauts=='disable'}">
+				                                  <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
+								              </c:if>
 								            </td>
 								          </tr>
 							      		</c:forEach>
@@ -226,18 +229,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
     	   
     	    var element = $('#pagefinTransaction');
-             
-             //设置分页的总页数
-      	     var total=${returnResult.total}/5;
-             
-             if(parseInt(total)==total){
+            //设置分页的总页数
+      	    var total=${returnResult.total}/5;
+            if(parseInt(total)==total){
       			var total = parseInt(total);
       		}else {
       			var total = parseInt(total)+1;
       		}
-             
-             
-             var options = {
+            var options = {
          		    bootstrapMajorVersion:3,
          		    currentPage: ${returnResult.p},
          		    numberOfPages: 5,
@@ -248,7 +247,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          		}
            element.bootstrapPaginator(options);
         });
-
-  </script>
+       
+       function doCheck(id){
+    	   var url=ctx + '/delivery/intoDetail.htm?belaidupId='+id;
+    	   art.dialog.open(url, {
+               width: '500px',
+               height: 'auto',
+               lock: true,
+               background:"#E6E6E6",
+        	   opacity:0.4,
+        	   fixed:true
+           })
+       }
+      
+      //撤销发布操作
+      function doAction(id,name,status){
+    	  var action;//操作
+    	  if(status=="enable"){
+    		  action="撤销";
+    	  }else{
+    		  action="发布";
+    	  }
+    	  var d =art.dialog({
+  		    title:'操作提示',
+  		    fixed:true,
+      	    lock: true,
+      	    icon:'warning',
+      	    background:"#E6E6E6",
+     		opacity:0.4,
+  		    content: '你确定对【'+name+'】信息进行【'+action+'】操作吗?',
+  		    ok: function () {
+  		    	 $.ajax({
+					   type: "POST",
+					   url: ctx + '/delivery/updateBelaidup.json',
+					   data: {"belaidupId":id,"belaidupProdName":name,"stauts":status},
+					   dataType:'json',
+					   success: function(r){
+						 if(r.success){
+							 doShow("【"+name+"】货物【"+action+"】操作成功!")  
+						 }
+						 else{
+							 doShow("【"+name+"】货物【"+action+"】操作失败,请联系管理员!")
+						 }
+					   }
+          	     });
+  		    },
+  		    cancel: function () {
+  		        this.close();
+  		    }
+  		});
+  		d.show();  
+    }
+      
+     //提示对话款
+     function doShow(str){
+    	 var d =art.dialog({
+    		    title: '提示',
+    		    content:str ,
+    		    fixed:true,
+          	    lock: true,
+          	    icon:'succeed',
+          	    background:"#E6E6E6",
+         		opacity:0.4,
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	 this.close;
+    		    	 location.reload();
+    		    }
+    		});
+    		d.show();
+     }
+       
+    </script>
 </body>
 </html>

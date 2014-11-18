@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -70,13 +71,29 @@ public class DeliveryController {
           return mav;
       }
 	
-	 // 发布货源信息,我要发货添加
-	 @RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
-	 @ResponseBody
-	private Object addGrade(@Valid StorehouseBelaidup belaidup, BindingResult bindingResult,String packageId) {
+	  // 发布货源信息,我要发货添加
+	  @RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
+	  @ResponseBody
+	  private Object addBelaidup(@Valid StorehouseBelaidup belaidup, BindingResult bindingResult,String packageId) {
 	       return belaidupService.addBelaidup_website(belaidup,packageId);
-	 }
+	  }
+	 
+	  //货源信息撤销发布操作
+	  @RequestMapping(value = "/updateBelaidup.json", method = RequestMethod.POST)
+	  @ResponseBody
+	  private Object updateBelaidup(@Valid StorehouseBelaidup belaidup,BindingResult bindingResult){
+		   return belaidupService.updateBelaidup(belaidup);
+	  }
 	
-	
+	  //货源信息详细展示页
+	  @RequestMapping(value = "/intoDetail.htm")
+	  private Object intoMemberGradeDetailPage(String belaidupId) { 
+	    	ModelAndView mav = new ModelAndView("member_mgr/memberReleaseManagerDetail");
+	        if(StringUtils.isNotBlank(belaidupId)){
+	            mav.addObject("belaidupDate", belaidupService.getBelaidup(belaidupId));
+	        }
+		    return mav;
+	    }
+	  
 	
 }

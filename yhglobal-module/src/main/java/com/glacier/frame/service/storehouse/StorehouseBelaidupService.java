@@ -409,7 +409,7 @@ public class StorehouseBelaidupService {
      * @return Object    返回 
      * @throws
      */
-   @Transactional(readOnly = false)
+    @Transactional(readOnly = false)
     public Object delBelaidup(List<String> belaidupIds, List<String> belaidupName) {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         // 定义删除成功数据行数量
@@ -471,4 +471,29 @@ public class StorehouseBelaidupService {
         	   }
         return returnResult;
     }
+   
+    @Transactional(readOnly = false)
+    public Object updateBelaidup(StorehouseBelaidup belaidup){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	String name=belaidup.getBelaidupProdName();
+    	String action;//记录操作名称
+    	if(belaidup.getStauts().equals("enable")){
+    		belaidup.setStauts("disable");
+    		action="撤销";
+    	}else{
+    		belaidup.setStauts("enable");
+    		action="发布";
+    	}
+    	int count=belaidupMapper.updateByPrimaryKeySelective(belaidup);
+    	if(count>0){
+    		returnResult.setSuccess(true);
+    		returnResult.setMsg("【"+name+"】货物【"+action+"】操作成功!");
+    	}else{
+    		returnResult.setSuccess(false);
+    		returnResult.setMsg("【"+name+"】货物【"+action+"】操作失败!"); 
+    	}
+    	return returnResult;
+    }
+   
+   
 }
