@@ -14,45 +14,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>冰川网贷平台</title>
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="../inc.jsp"/>
+     <style>
+      #tab{
+         width: 480px;text-align: center;float: left;
+      }
+      
+      
+      .str{text-align: right;}
+        
+    </style>
    </head>
    <body>
          <!--belaidupDate-->
-        <table>
+         
+        <table id="tab">
             <tr>
-               <td>货物名称:<td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物名称:</span></td>
                <td>${belaidupDate.belaidupProdName}</td>
-            </tr>
-            <tr>
-               <td>起始站:<td>
-               <td>${belaidupDate.belaidupInitiatin}</td>
-            </tr>  
-            <tr>
-               <td>终点站:<td>
-               <td>${belaidupDate.belaidupTerminu}</td>
-            </tr>
-            <tr>
-               <td>货物类型:<td>
-               <td>${belaidupDate.goodsTypeDisplay}</td>
-            </tr>
-        </table>
-        <hr/>
-        <table>
-            <tr>
-               <td>交易手机</td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">交易手机</span></td>
                <td>${belaidupDate.orderPhone }</td>
-               <td>加急配送</td>
-               <td>${belaidupDate.yesOrNo}</td>
-               <td>取货方式</td>
-               <td>${belaidupDate.replenishment}</td>
             </tr>
             <tr>
-               <td>货物数量</td>
-               <td>${belaidupDate.belaidupStatus }</td>
-               <td>货物体积</td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">起始站:</span></td>
+               <td>${belaidupDate.belaidupInitiatin}</td>
+                <td class="str" ><span class="label label-default" style="background-color: #F28041">加急配送</span></td>
+                <td>${belaidupDate.yesOrNo=='yes'?'是':'否'}</td>
+            </tr>  
+            <tr >
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">终点站:</span></td>
+               <td>${belaidupDate.belaidupTerminu}</td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">取货方式</span></td>
+               <td>${belaidupDate.replenishment=='storepickup'?'上门取货':'送货上门'}</td>
+            </tr>
+            <tr>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物类型:</span></td>
+               <td>${belaidupDate.goodsTypeDisplay}</td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物状态</span></td>
+               <td>${belaidupDate.stauts=='enable'?'已发布':'已撤销' }</td>
+            </tr>
+           <tr>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物体积</span></td>
                <td>${belaidupDate.belaidupBulk}</td>
-               <td>货物重量</td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物重量</span></td>
                <td>${belaidupDate.belaidupWeight }</td>
             </tr>
         </table>
+        
    </body>
 </html>

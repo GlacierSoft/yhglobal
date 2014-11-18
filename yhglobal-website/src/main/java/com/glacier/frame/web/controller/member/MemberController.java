@@ -91,11 +91,19 @@ public class MemberController extends AbstractController{
   	
   	//货源管理展示页
   	@RequestMapping(value="releaseManager.htm")
-    private Object intoReleaseManager(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO,int p){
+    private Object intoReleaseManager(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO,int p,String loanState){
   		ModelAndView mav=new ModelAndView("/member_mgr/memberReleaseManager");
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
   		 if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
+  			 //按钮状态
+  			if ("firstAudit".equals(loanState)) {
+  			    mav.addObject("buttonState","firstAudit");
+  			}else if("secondAudit".equals(loanState)){
+  				mav.addObject("buttonState","secondAudit");
+  			}else if("thirdAudit".equals(loanState)){
+  				mav.addObject("buttonState","thirdAudit");
+  			}
   			//货源发布记录
   	  		JqGridReturn returnResult=(JqGridReturn)storehouseBelaidupService.listAsWebsite(pager, storehouseBelaidupsQuerysDTO,pricipalMember.getMemberId(),p);
   	  		mav.addObject("returnResult",returnResult); 

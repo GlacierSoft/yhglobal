@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" role="button" class="btn btn-default">会员信息</a>
 					          <a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a>
-					          <a href="${ctx}/member/releaseManager.htm?p=1" class="btn btn-info" role="button">货源管理</a>
+					          <a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-info" role="button">货源管理</a>
 					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" --%> class="btn btn-default" role="button">Content4</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
@@ -104,21 +104,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">货源管理</h3>
 				  </div>
 				  <div class="panel-body">
-				      <div class="bs-example bs-example-tabs">
-				         <ul id="myTab" class="nav nav-tabs">
-				            <li class="active"><a href="#finance" data-toggle="tab">货物记录</a></li>
-				            <li><a href="#recharge" data-toggle="tab">已发布</a></li>
-				            <li><a href="#withdraw" data-toggle="tab">已撤销</a></li>
-				         </ul>
-				         <div id="myTabContent" class="tab-content">
-				              <div class="tab-pane fade in active" id="finance">
-				                <!-- 查询开始 -->
-					             <div class="panel panel-default">
+				         <!-- 查询开始 -->
+				      <c:choose>
+				       <c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
+			                <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">货源记录</a>
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default" role="button">发布记录</a>
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default" role="button">撤销记录</a>						   	   
+				            <div class="panel panel-default" style="margin-top: 20px;">
 							         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
-									     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1" >
+									     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&loanState=firstAudit&loanState=firstAudit" >
 										   <div class="form-group">
 										    <div>
-										        <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
+										       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
+										                            货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
+										                            起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+										      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+											 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
+										        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
+										    </div>
+										   </div>
+									     </form>
+							        </div>
+						       </div>
+				      </c:when>
+				      
+				      <c:when test="${buttonState == 'secondAudit'}">
+				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">发布记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default" role="button">撤销记录</a>	
+				            <div class="panel panel-default" style="margin-top: 20px;">
+							       <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
+									     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=enable&loanState=secondAudit" >
+										   <div class="form-group">
+										    <div>
+										       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
 										                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
 										                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
 										      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
@@ -129,7 +148,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									     </form>
 							        </div>
 						       </div>
-						       <table class="table table-bordered">
+				      
+				      </c:when>
+				      
+				      <c:when test="${buttonState == 'thirdAudit'}">
+				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  role="button">发布记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">撤销记录</a>	
+				            <div class="panel panel-default" style="margin-top: 20px;">
+							         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
+									     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=disableloanState=thirdAudit" >
+										   <div class="form-group">
+										    <div>
+										       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
+										                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
+										                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+										      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+											 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
+										        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
+										    </div>
+										   </div>
+									     </form>
+							        </div>
+						       </div>
+				      </c:when>
+				     </c:choose>
+				     <table class="table table-bordered">
 						          	<thead>
 							          <tr>
 							            <th width="100px">货物名称</th>
@@ -183,12 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</th>
 							          </tr>
 							        </tfoot>
-					        </table>
-						 </div>
-				         <!--myTabContent 结束  -->  
-				         </div>   
-				      <!--bs-example bs-example-tabs结束  -->
-				      </div>     
+					        </table>     
 				 </div>
 	    	</div>
 	    </div>
@@ -256,7 +295,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                lock: true,
                background:"#E6E6E6",
         	   opacity:0.4,
-        	   fixed:true
+        	   fixed:true,
+        	   okValue: '确定',
+   		       ok: function () {
+   		    	   this.close;
+   		    	}
            })
        }
       

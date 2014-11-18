@@ -175,7 +175,6 @@ public class StorehouseBelaidupService {
      * @throws
      */
     public Object listAsWebsite(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO, String memberId, int p) {
-
         JqGridReturn returnResult = new JqGridReturn();
         StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample();
         Criteria criteria = belaidupSetExample.createCriteria();
@@ -200,6 +199,10 @@ public class StorehouseBelaidupService {
         returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
+    
+    
+    
+    
     
     /**
 	 * @Title: getBelaidup 
