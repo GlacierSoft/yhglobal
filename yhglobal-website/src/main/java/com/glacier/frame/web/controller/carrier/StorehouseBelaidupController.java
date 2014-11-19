@@ -19,16 +19,22 @@
  */
 package com.glacier.frame.web.controller.carrier;
   
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
+import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.carrier.CarrierDeliverGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierPickUpGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierRouterService;
-import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService; 
+import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService; 
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
 /**
  * @ClassName:  StorehouseBelaidupController
  * @Description: TODO(班线进入发货页面控制器)
@@ -43,25 +49,26 @@ public class StorehouseBelaidupController extends AbstractController{
 	@Autowired  
 	private CarrierRouterService routeService;
 	
-	@Autowired  
-	private StorehousePackagetypeSetService storehousePackagetypeSetService;
+	@Autowired
+	private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
 	
 	@Autowired
 	private CarrierDeliverGoodsAreaService deliverGoodsAreaService;
 	
 	@Autowired
 	private CarrierPickUpGoodsAreaService pickUpGoodosAreaService;
-	
-	
+	 
 	//进入发货页面 
 	@RequestMapping(value = "/delivery.htm")
-	public Object  bekaudup(String routeId){ 
+	public Object  bekaudup(String routeId,JqPager pager,StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO){ 
 		ModelAndView mav = new ModelAndView("route_mgr/delivery");
 		mav.addObject("router", routeService.getRoute(routeId)); 
-		mav.addObject("storehousePackagetype",storehousePackagetypeSetService.selectAll());
-	   return mav;
-	}
-	
+		JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(pager,storehouseGoodstypeSetQueryDTO);
+     	@SuppressWarnings("unchecked")
+        List<StorehouseGoodstypeSet> StorehouseGoodstypeSetList=(List<StorehouseGoodstypeSet>) returnResult.getRows();
+     	mav.addObject("storehousePackagetype",StorehouseGoodstypeSetList);
+	    return mav;
+	} 
 	
 	//进入地图区域显示页面 
 	@RequestMapping(value = "/address.htm")

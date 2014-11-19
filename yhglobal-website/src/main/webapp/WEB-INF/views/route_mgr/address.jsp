@@ -43,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-    <jsp:include page="../nav.jsp"/>
-       
+    <jsp:include page="../nav.jsp"/> 
 	    <div class="container">
 	  	<div class="row">
 		    <div class="col-md-2">
@@ -61,41 +60,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title"><b>${goodsArea.deliverName}物流区详情</b></h3>
+				        <h3 class="panel-title"><b>${goodsArea.deliverName}物流区详情</b></h3>
 				  </div>
-				  <div class="panel-body"> 
-				       	
+				  <div class="panel-body">  
 				       	<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">业务内容:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">业务内容:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">${goodsArea.serviceContent}</label>
-						</div>
-				       	
+						</div> 
 				       	<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">营业时间:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">营业时间:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">${goodsArea.shopHours}</label>
 						</div>
 						<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">联系方式:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">联系方式:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">${goodsArea.telephone}</label>
 						</div>
 				       	<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">详细地址:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">详细地址:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">${goodsArea.address}</label>
 						</div>
 				       	<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">站点介绍:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">站点介绍:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">${goodsArea.remark}</label>
 						</div>
 						<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">服务区域:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">服务区域:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" style="color: #717171">全${goodsArea.deliverName},看距离定价格</label>
 						</div>
 				       	<div class="form-group"  >
-						    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">地图指引:</label>
+						     <label for="inputEmail3" class="col-sm-2 control-label" style="text-align: right;">地图指引:</label>
 						     <label for="inputEmail3" class="col-sm-10 control-label" ></label>
-						</div>
-				       	
-				       	
+						</div>  
 				       	<div style="width:920px;height:450px;border: 1px solid #DADADA;margin-top: 20PX;float: left;border-radius:5px;z-index:9999;box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);">
 						      <!--<div id="allmap" style="width: 890px;height: 430px;margin-top: 10px;margin-left: 15px;"></div>    	 -->
 				       	      <div style="width:900px;height:430px;border:#ccc solid 1px;margin-top: 10px;margin-left: 10px;" id="dituContent"></div>
@@ -111,8 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
-<script type="text/javascript">
-
+<script type="text/javascript"> 
 	//创建和初始化地图函数：
 	function initMap() {
 		createMap();//创建地图
@@ -177,6 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			lb : 5
 		}
 	} ];
+	
 	//创建marker
 	function addMarker() {
 		for ( var i = 0; i < markerArr.length; i++) {
@@ -223,6 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			})()
 		}
 	}
+	
 	//创建InfoWindow
 	function createInfoWindow(i) {
 		var json = markerArr[i];
@@ -232,6 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						+ json.content + "</div>");
 		return iw;
 	}
+	
 	//创建一个Icon
 	function createIcon(json) {
 		var icon = new BMap.Icon(
@@ -242,8 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					offset : new BMap.Size(json.x, json.h)
 				})
 		return icon;
-	}
-
+	} 
 	initMap();//创建和初始化地图
 </script>
 </body>

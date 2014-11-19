@@ -98,49 +98,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div> 
 	        <div class="col-md-9" > 
 	        <form class="form-horizontal" role="search" method="post"  id="personalMessageForm" action="" >
-			 <!-- <div class="panel panel-default" style="width: 863px" >
-					  <div class="panel-heading">
-					    <b style="size: 3">手机验证</b> &nbsp;&nbsp; 输入手机号码后，点击“获取验证码”按钮，验证码将发送到手机（免费），填写短信中的数字并点击“确认”
-					  </div>
-					  <div class="panel-body">
-						  <div class="form-group">
-						     <label for="enterpriseName" class="col-sm-2 control-label">*企业名称:</label>
-							 <div class="col-sm-4">
-								<input type="text" class="form-control"  placeholder="请输入手机号码" >
-							 </div>
-						  </div> 
-					   <div class="form-group">
-						    <label for="inputEmail3" class="col-sm-2 control-label">*手机号码:</label>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control"  placeholder="请输入手机号码" >
-						    </div>
-						    <button type="button" class="btn btn-default">获取验证码</button>
-						  </div>
-						   <div class="form-group">
-						    <label for="inputEmail3" class="col-sm-2 control-label">*验证码:</label>
-						    <div class="col-sm-4">
-						      <input type="text" class="form-control"  placeholder="请输入手机号码" >
-						    </div> 
-						  </div>
-						  
-					  </div>
-				</div>  -->
-				<input type="hidden" name="routerId" value="${router.routerId}">
+		  	<input type="hidden" name="routerId" value="${router.routerId}">
 				  <div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
 					    <b style="size: 3">发货方</b> &nbsp;&nbsp;填写完整、准确信息，物流跟进更及时
 					  </div>
 					  <div class="panel-body">
-					    <div class="form-group" >
+					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >发货区:</label>
 						    <div class="col-sm-4" align="left">
 						      <label for="inputEmail3" style="color:#0697DA ">${router.routeOrigin}</label> 
-						     </div> 
-						  </div>
+						    </div> 
+						 </div>
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>联系人:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text"  class="form-control"  style="width: " placeholder="请输入发货人姓名" >
+						      <input type="text"  class="form-control" placeholder="请输入发货人姓名" >
 						    </div> 
 						  </div>
 						  <div class="form-group"  >
@@ -181,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      <input type="text" maxlength="15" class="form-control"  name="orderPhone" onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入收货人联系电话" >
 						    </div> 
 						  </div>
-						 <div class="form-group" >
+						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
 						      <input type="text" class="form-control" name="orderAddress" placeholder="请输入所在街道地址" >
@@ -195,8 +168,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
-						    <div class="col-sm-6" align="left">
+						   <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
+						   <div class="col-sm-6" align="left">
 						   <select class="form-control" >
 							  <option onclick="selectDeliver(this)">--请选择--</option> 
 							  <c:forEach items="${router.deliverList}" var="deliver">  
@@ -242,40 +215,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物类型:</label>
 						    <div class="col-sm-6" align="left">
-						     <select class="form-control" name="goodstypeId">
-							  <option>--请选择--</option>
-							   <c:forEach items="${storehousePackagetype}" var="ty">  
-					             <option>${ty.packagetypeName} </option>
-					            </c:forEach>   
-							</select>
-						     </div> 
+						       <select class="form-control" name="goodstype" id="goodstype">
+							      <option value="">--请选择--</option>
+								    <c:forEach items="${storehousePackagetype}" var="ty">  
+						             	<option id="${ty.goodstypeId}" onclick="getId(this)">${ty.goodstypeName}</option>
+								    </c:forEach>   
+						    	</select>
+						    	<input type="hidden" id="goodstypeId" name="goodstypeId" >
+						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>取货方式:</label>
 						    <div class="col-sm-6" align="left">
-						     <select class="form-control" name="goodstypeId">
-							  <option>上门取货</option>  
-							  <option>送货上门</option>  
-							</select>
-						     </div> 
+						      <select class="form-control">
+							    <option>上门取货</option>  
+							    <option>送货上门</option>  
+							  </select>
+						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>  
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >总重量:</label>
 						    <div class="col-sm-2" align="left">
-						     <input type="text" class="form-control" name="belaidupWeight"  placeholder="公斤" >
-						     </div>  
+						      <input type="text" class="form-control" name="belaidupWeight"  placeholder="公斤" >
+						    </div>  
 						    <label for="inputEmail3"  class="col-sm-2 control-label" ><font color="#FF7300">或</font>    &nbsp;&nbsp;&nbsp;&nbsp;总体积:</label> 
-						      <div class="col-sm-2" align="left">
-						     <input type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" >
+						    <div class="col-sm-2" align="left">
+						       <input type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" >
 						    </div> 
 						     <a href="${ctx}/weightExplain.htm" style="color: #FF7300">什么是重货轻货？</a>
 						  </div> 
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 122px">注意事项:</label>
 						    <div class="col-sm-6" align="left">
-						   <textarea class="form-control" name="remark" rows="2"></textarea>
+						      <textarea class="form-control" name="remark" rows="2"></textarea>
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div> 
@@ -326,38 +300,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    </div> 
 						   </div> 
 						   <div class="form-group" >
-							     <div class="col-sm-12" style="float: left;">
+							  <div class="col-sm-12" style="float: left;">
 							      <div class="checkbox" style="float: left; margin-left: 150px">
-							    <label>
-							      <input type="checkbox">工本费<font color="red">(6元)</font>
-							    </label>
-							  </div>
-							  <div class="checkbox" style="float: left;margin-left: 78px">
-							    <label>
-							     <input type="checkbox">燃油费<font color="red">(4元)</font>
-							    </label>
-							  </div>
-							      </div>
-							</div>
-						  <div class="form-group" >
-						     <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>支付方式:</label>
+								    <label>
+								      <input type="checkbox">工本费<font color="red">(6元)</font>
+								    </label>
+								  </div>
+								  <div class="checkbox" style="float: left;margin-left: 78px">
+								    <label>
+								     <input type="checkbox">燃油费<font color="red">(4元)</font>
+								    </label>
+								  </div>
+							   </div> 
+						       <div class="form-group" >
+						         <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
 								     <div class="radio" style="float: left;">
-									  <label>
-									    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-									    发货人支付
-									  </label>
-									 </div>
-									 
-									 <div class="radio" style="float: left;">
-									  <label>
-									    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-									    收货人支付（到付）
-									  </label>
-									 </div>
-							    </div>
-						  </div> 
-						  
+										  <label>
+										    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										          发货人支付
+										   </label>
+									  </div> 
+									  <div class="radio" style="float: left;">
+										  <label>
+										    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										        收货人支付（到付）
+										   </label>
+									  </div>
+							     </div>
+						    </div>  
 						    <div class="form-group" >
 						     <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
@@ -368,8 +339,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    </label>
 								   </div> 
 							      </div>
-							</div>
-						  
+							</div> 
 					  </div>
 				</div> 
 				<center>
@@ -377,11 +347,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</center>
 				</form>
 		    </div>
-	</div>
-	
-	</div>
+		</div> 
+		</div>
 	 
-			<!-- 模态框（Modal） -->
+		 <!-- 模态框（Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
 			   <div class="modal-dialog">
@@ -396,23 +365,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </h4>
 			         </div>
 			         <div class="modal-body" > 
-			         为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改~
+			                               为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改~
 			         </div>
 			         <div class="modal-footer">
 			            <button type="button" class="btn btn-primary " 
 			               data-dismiss="modal" onclick="sub()">确认
 			            </button>
 			            <button type="button" class="btn  btn-default" data-dismiss="modal">
-			               取消
+			                                  取消
 			            </button>
 			         </div>
 			      </div> 
 			</div> 
 		</div>
-		
-		
-		
-			<!-- 模态框（Modal） -->
+		 
+		<!-- 模态框（Modal） -->
 		<div class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
 			   <div class="modal-dialog">
@@ -426,16 +393,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                            提示信息
 			            </h4>
 			         </div>
-			         <div class="modal-body"  id="msg">
-			            
-			         </div><!-- 
-			          <div class="modal-footer">
-			            <button type="button" class="btn btn-default " 
-			               data-dismiss="modal" onclick="hiden2()">确认
-			            </button> 
-			         </div> --> 
+			         <div class="modal-body"  id="msg"> 
+			         </div> 
 			      </div> 
-			</div> 
+			 </div> 
 		</div>
 		
 	<jsp:include page="../foot.jsp"/>
@@ -470,7 +431,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 
 	$("#personalMessageForm").validate({
 		  rules:{
-			  orderConsignee:"required",  
+			  orderConsignee:"required",
+			  goodstype:"required",
 			  orderPhone:{
 	    			 required:true,
 	    			 number:true,
@@ -479,6 +441,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  },
   		  messages:{
   			orderConsignee: "请输入收货人姓名", 
+  			goodstype:"请选择货物类型",
   			orderPhone:{
     			required:"发货人手机不能为空!",
  	    		number:"请输入合法手机号码!",
@@ -517,103 +480,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  "<a href='${ctx}/delivery/address.htm?type=pickUp&id="+id+"' target=_blank style='color:blue'>查看地图</a>");
 	 }
 	}
-	</script>
 	
-	<!-- <script type="text/javascript"> 
-	  $("#personalMessageForm").validate({
-		  rules:{
-			  orderConsignee:"required",  
-			  orderPhone:{
-	    			 required:true,
-	    			 number:true,
-	    			 isMobile:true
-	    		 },  
-  		  },
-  		  messages:{
-  			orderConsignee: "请输入收货人姓名", 
-  			orderPhone:{
-    			required:"发货人手机不能为空!",
- 	    		number:"请输入合法手机号码!",
- 	    		isMobile:"请输入合法手机号码!"
-    		 },
-  		  },
-		  submitHandler:function(){    
-	    		 KindEditor.ready(function(K) {
-	   	   		  var dialog = K.dialog({
-	   	   	          width : 500,
-	   	   	          title : '我要发货',
-	   	   	          body : '<div style="margin:10px;"><strong>你确定寄送此货物吗?</strong></div>',
-	   	   	          closeBtn : {
-	   	   	                  name : '关闭',
-	   	   	                  click : function(e) {
-	   	   	                          dialog.remove();
-	   	   	                  }
-	   	   	          },
-	   	   	          yesBtn : {
-	   	   	                  name : '确定',
-	   	   	                  click : function(e) { 
-	   	   	                      dialog.remove();
-		   	   	                      $.ajax({
-			    					   type: "POST",
-			    					   url: ctx + '/delivery/addBelaidup.json',
-			    					   data: $("#personalMessageForm").serialize(),
-			    					   dataType:'json',
-			    					   success: function(r){
-			    						 if(r.success){ 
-			    							doDailog("发货成功,等待后台审核,可在记录中查看该条信息!");
-			    						 }
-			    						 else{ 
-			    							 if(r.msg == "请先登录，再操作！"){
-			    								 doDailog("请先登录！");
-			    								 window.location.href=ctx +"/login.htm"; 
-			    							 }else{
-			    								 doDailog(r.msg);
-			    							 }
-			    							
-			    						 }
-			    					   }
-			                	     });
-	   	   	                 }
-	   	   	          },
-	   	   	          noBtn : {
-	   	   	                  name : '取消',
-	   	   	                  click : function(e) {
-	   	   	                          dialog.remove();
-	   	   	                  }
-	   	   	          }
-	   	   	    });
-	   	   	  }); 
-		  }
-	  });
-	  //公共对话框定义
-	     function  doDailog(str){
-	   	  KindEditor.ready(function(K) {
-	   		  var dialog = K.dialog({
-	   		        width : 500,
-	   		        title : '发货提示',
-	   		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
-	   		        closeBtn : {
-	    	                  name : '关闭',
-	    	                  click : function(e) {
-	    	                          dialog.remove();
-	    	                  }
-	    	          },
-	   		     yesBtn : {
-	   	                name : '确定',
-	   	                click : function(e) {
-	   	                	 dialog.remove();
-	   	                }
-	   	        },
-	   	        noBtn : {
-	   	                name : '取消',
-	   	                click : function(e) {
-	   	                		doClear();
-	   	                        dialog.remove();
-	   	                }
-	   	        }
-	   		}); 
-	   	  });
-	     }
-	</script> -->
+	//获取货物类型的id
+	function getId(te){
+		var id=$(te).attr("id");
+		$("#goodstypeId").attr("value",id);
+	}
+	</script> 
 </body>
 </html>

@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    padding-top: 100px;
 		}
 	</style>
-	 <script type="text/javascript">
+	<script type="text/javascript">
 		$(function(){ 
 			//控制左边导航高亮显示
 			var types='<%=request.getAttribute("type")%>';  
@@ -35,9 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    } 
 			}); 
 		}); 
-	</script>
+	 </script>
   </head>
-  <body>
+<body>
   <jsp:include page="../nav.jsp"/>
   <!-- center-center --> 
   <div class="container"> 
@@ -62,16 +62,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<p>扫描二维码关注越海物流微信，获取越海物流最新动态 </p>
 					</div>
 		        </div>
-	        </div>
-	        <div class="col-md-8" >
+	       </div>
+	       <div class="col-md-8" >
 	            <!-- 班线详情面板 -->
 	    		<div class="panel panel-default" style="height: 500px">
 				  <div class="panel-heading">
 				    <h3 class="panel-title"><b>班线详情</b></h3>
 				  </div>
 				  <div class="panel-body"> 
-			          <h3  style="text-align: center;">${routerData.routeName}</h3> 
-			          <div>
+			          <h3  style="text-align: center;">${routerData.routeName}</h3>  
 			          <table  style="border-style: none;">
 			            <tr height="30px">
 			              <td width="250px"  align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线编号:</font></td>
@@ -80,93 +79,90 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              <td width="200px" >${routerData.carrierDisplay}</td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线类型:</font></td>
-			             <td >
-			              <c:if test="${routerData.routeType eq 'landCarriage' }">
-						              陆运班线
-						  </c:if>   
-						  <c:if test="${routerData.routeType eq 'seaTransportation'}">
-						              海运班线
-						  </c:if> 
-						  <c:if test="${routerData.routeType eq 'air'}">
-						              空运班线
-						  </c:if> 
-			             </td>  
+			              <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线类型:</font></td>
+			              <td>
+				              <c:if test="${routerData.routeType eq 'landCarriage' }">
+							              陆运班线
+							  </c:if>   
+							  <c:if test="${routerData.routeType eq 'seaTransportation'}">
+							              海运班线
+							  </c:if> 
+							  <c:if test="${routerData.routeType eq 'air'}">
+							              空运班线
+							  </c:if> 
+			               </td>  
 			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">在途时间：</font></td>
-			             <td >${routerData.routeBytime}小时</td> 
-			            </tr>
-			             <tr height="30px">
-			             <td  align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线起点：</font></td>
-			             <td>${routerData.routeOrigin}</td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">发货地址：</font></td>
-			             <td>${routerData.originAddress}</td>  
+			               <td >${routerData.routeBytime}小时</td> 
 			            </tr>
 			            <tr height="30px">
-			             <td  align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线终点：</font></td>
-			             <td>${routerData.routeStop}</td>  
-			             <td  align="left" style="padding-left:110px;"><font size="2" color="#0697DA">提货地址：</font></td>
-			             <td>${routerData.stopAddress}</td>  
-			            </tr> 
+				           <td  align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线起点：</font></td>
+				           <td>${routerData.routeOrigin}</td>  
+				           <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">发货地址：</font></td>
+				           <td>${routerData.originAddress}</td>  
+				        </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">发车时间：</font></td>
-			             <td><fmt:formatDate value="${routerData.startofTime}" pattern="HH:mm"/></td>  
-			             <td width="250px" align="left" style="padding-left:110px;"><font size="2" color="#0697DA">截止收货时间：</font></td>
-			             <td><fmt:formatDate value="${routerData.ceaseTakeDeliveryTime}" pattern="HH:mm"/></td>  
+				           <td  align="left" style="padding-left:120px;"><font size="2" color="#0697DA">班线终点：</font></td>
+				           <td>${routerData.routeStop}</td>  
+				           <td  align="left" style="padding-left:110px;"><font size="2" color="#0697DA">提货地址：</font></td>
+				           <td>${routerData.stopAddress}</td>  
+				        </tr> 
+			            <tr height="30px">
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">发车时间：</font></td>
+			               <td><fmt:formatDate value="${routerData.startofTime}" pattern="HH:mm"/></td>  
+			               <td width="250px" align="left" style="padding-left:110px;"><font size="2" color="#0697DA">截止收货时间：</font></td>
+			               <td><fmt:formatDate value="${routerData.ceaseTakeDeliveryTime}" pattern="HH:mm"/></td>  
 			            </tr>  
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">车辆箱型：</font></td>
-			             <td > 
-			              <c:if test="${routerData.boxType eq 'fullClosed' }">
-						              全封闭
-						  </c:if>   
-						  <c:if test="${routerData.boxType eq 'semiClosed'}">
-						              半封闭
-						  </c:if> 
-						  <c:if test="${routerData.routeType eq 'air'}">
-						              平板
-						  </c:if> 
-			             </td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">可定仓位：</font></td>
-			             <td >剩${routerData.availablePosition}%</td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">车辆箱型：</font></td>
+			               <td > 
+				              <c:if test="${routerData.boxType eq 'fullClosed' }">
+							              全封闭
+							  </c:if>   
+							  <c:if test="${routerData.boxType eq 'semiClosed'}">
+							              半封闭
+							  </c:if> 
+							  <c:if test="${routerData.routeType eq 'air'}">
+							              平板
+							  </c:if> 
+			               </td>  
+			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">可定仓位：</font></td>
+			               <td >剩${routerData.availablePosition}%</td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">起步价：</font></td>
-			             <td><fmt:formatNumber value='${routerData.startingPrice}' pattern='#,#00.00'/>元</td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">保险费：</font></td>
-			             <td><fmt:formatNumber value='${routerData.premium}' pattern='#,#00.00'/>元</td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">起步价：</font></td>
+			               <td><fmt:formatNumber value='${routerData.startingPrice}' pattern='#,#00.00'/>元</td>  
+			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">保险费：</font></td>
+			               <td><fmt:formatNumber value='${routerData.premium}' pattern='#,#00.00'/>元</td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">轻货价：</font></td>
-			             <td><fmt:formatNumber value='${routerData.lightGoodsPrice}' pattern='#,#00.00'/>元/立方</td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">重货价：</font></td>
-			             <td><fmt:formatNumber value='${routerData.weightGoodsPrice}' pattern='#,#00.00'/>元/公斤</td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">轻货价：</font></td>
+			               <td><fmt:formatNumber value='${routerData.lightGoodsPrice}' pattern='#,#00.00'/>元/立方</td>  
+			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">重货价：</font></td>
+			               <td><fmt:formatNumber value='${routerData.weightGoodsPrice}' pattern='#,#00.00'/>元/公斤</td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">里程：</font></td>
-			             <td>${routerData.mileage}</td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">预计提货时间：</font></td>
-			             <td>${routerData.extractGoodsTime}</td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">里程：</font></td>
+			               <td>${routerData.mileage}</td>  
+			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">预计提货时间：</font></td>
+			               <td>${routerData.extractGoodsTime}</td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">联系电话：</font></td>
-			             <td>${routerData.telephone}</td>  
-			             <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">发布时间：</font></td>
-			             <td><fmt:formatDate value="${routerData.createTime}" type="both"/></td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">联系电话：</font></td>
+			               <td>${routerData.telephone}</td>  
+			               <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">发布时间：</font></td>
+			               <td><fmt:formatDate value="${routerData.createTime}" type="both"/></td>  
 			            </tr>
 			            <tr height="30px">
-			             <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">备注：</font></td>
-			             <td  colspan="3">${routerData.remark}</td>  
+			               <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">备注：</font></td>
+			               <td  colspan="3">${routerData.remark}</td>  
 			            </tr> 
-			          </table> 
-				  </div>
-				</div>
-				
+			          </table>  
+				</div> 
 				<center>
-				<button type="button" onclick="send('${routerData.routerId}')" class="btn btn-info" style="width: 150px">我要发货</button>
-				</center>
-				
+			    	<button type="button" onclick="send('${routerData.routerId}')" class="btn btn-info" style="width: 150px">我要发货</button>
+				</center> 
 	    	</div>  
-    	</div>
+    	    </div>
     	<div class="col-md-2">
 	    <!-- 物流案例 -->
 		<div class="panel panel-default" style="width: 180px;float: left;">
@@ -181,10 +177,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					       <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="#0697DA">&nbsp;&nbsp;${deliver.deliverName}&nbsp;&nbsp;
 					       &nbsp;&nbsp;<fmt:formatNumber value='${deliver.price}' pattern='#,#00.00'/>元/次</font></li>
 		                </c:forEach>  
-				   </ul>
-				</div>
+				    </ul>
+			   </div>
 		    </div>
-		</div>
+	   </div>
 	   <div class="panel panel-default" style="width: 180px;float: left;margin-top: 10px" >
 			<div class="panel-heading" align="center">收货区域</div>
 			<div class="bs-example bs-example-tabs">
@@ -203,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	 </div>
   </div>
-</div>
+  </div>
 	<jsp:include page="../foot.jsp"/>
 	<script type="text/javascript">
 	 
