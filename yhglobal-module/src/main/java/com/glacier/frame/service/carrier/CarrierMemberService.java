@@ -234,7 +234,6 @@ public class CarrierMemberService {
         return carrierMember;
     }
     
-
     /**
      * 加密方式
      */
@@ -344,7 +343,7 @@ public class CarrierMemberService {
     
     /**
      * @Title: addCarrierMemberReception 
-     * @Description: TODO(前台注册会员，同时生成工作表和认证表) 
+     * @Description: TODO(前台注册会员，生成会员信息和会员盐值记录) 
      * @param  @param carrierMember
      * @param  @return设定文件
      * @return Object  返回类型
