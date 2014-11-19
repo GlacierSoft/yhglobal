@@ -17,9 +17,7 @@ public class MyAccessControlFilter extends AccessControlFilter {
 		System.out.println("access allowed");
 		saveRequest(request);
 		boolean flag = isLoginRequest(request,response);
-		System.out.println("啊鹅鹅鹅饿          "+flag);
 		if(flag){
-			System.out.println("是是是是是是是");
 			 saveRequestAndRedirectToLogin(request,response);
 		}
 		//saveRequestAndRedirectToLogin(request,response);
@@ -66,7 +64,7 @@ public class MyAccessControlFilter extends AccessControlFilter {
 	
 	@Override
 	protected void saveRequest(ServletRequest request) {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa的说法费啊我法尔范");
+		System.out.println("测试3");
 		super.saveRequest(request);
 	}
 	@Override

@@ -44,6 +44,3 @@ public class WebsiteNavController extends AbstractController{
         return navService.getOneLevelWebNav();
     }
 }
-
-
-

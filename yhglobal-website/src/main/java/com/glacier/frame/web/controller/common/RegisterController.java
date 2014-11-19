@@ -113,7 +113,6 @@ public class RegisterController extends AbstractController {
         return perfectRegister;
     }
     
-    
     /**
      * @Title: register
      * @Description: TODO(前台货主注册功能)
@@ -194,7 +193,7 @@ public class RegisterController extends AbstractController {
         email.setTLS(true);// tls要设置为true,没有设置会报错。
         email.setSSL(true);// ssl要设置为true,没有设置会报错。
         try {
-            email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
+            email.setFrom("1240033960@qq.com", "互联网管理员", "UTF-8");
             // email.setFrom("13798985542@163.com", "13798985542@163.com",
             // "UTF-8");
             // email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
@@ -203,7 +202,7 @@ public class RegisterController extends AbstractController {
         }
         email.setCharset("UTF-8");// 没有设置会乱码。
         try {
-            email.setSubject("冰川网贷注册");// 设置邮件名称
+            email.setSubject("互联网注册");// 设置邮件名称
             email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成注册！");// 设置邮件内容
             email.addTo(shipperMember.getEmail());// 给会员发邮件
             // email.addTo("804346249@qq.com");
@@ -295,7 +294,7 @@ public class RegisterController extends AbstractController {
         email.setTLS(true);// tls要设置为true,没有设置会报错。
         email.setSSL(true);// ssl要设置为true,没有设置会报错。
         try {
-            email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
+            email.setFrom("1240033960@qq.com", "互联网管理员", "UTF-8");
             // email.setFrom("13798985542@163.com", "13798985542@163.com",
             // "UTF-8");
             // email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
@@ -304,7 +303,7 @@ public class RegisterController extends AbstractController {
         }
         email.setCharset("UTF-8");// 没有设置会乱码。
         try {
-            email.setSubject("冰川网贷注册");// 设置邮件名称
+            email.setSubject("互联网注册");// 设置邮件名称
             email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成注册！");// 设置邮件内容
             email.addTo(carrierMember.getEmail());// 给会员发邮件
             // email.addTo("804346249@qq.com");
@@ -354,13 +353,13 @@ public class RegisterController extends AbstractController {
         if (!returnResult.isSuccess()) {
             return mav;
         }
-        String shipperMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在冰川网贷注册会员成功！注册的账号为"+shipperMember.getMemberName()+"。" +
-                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+        String shipperMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在互联网注册会员成功！注册的账号为"+shipperMember.getMemberName()+"。" +
+                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由互联网系统自动发送，请勿回复！</font>";
         //htmlEmailPublic.goEmail(shipperMember,shipperMemberMsg);
         List<String> ShipperMemberMailList = new ArrayList<String>();
         ShipperMemberMailList.add(shipperMember.getEmail());
         htmlEmailPublic.setToMailsList(ShipperMemberMailList);
-        htmlEmailPublic.setTitle("冰川网贷提示");
+        htmlEmailPublic.setTitle("互联网提示");
         htmlEmailPublic.setMsg(shipperMemberMsg);
         Thread borrowingLoanThread = new Thread(htmlEmailPublic);
         borrowingLoanThread.start();//启动线程
@@ -405,13 +404,13 @@ public class RegisterController extends AbstractController {
         if (!returnResult.isSuccess()) {
             return mav;
         }
-        String carrierMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在冰川网贷注册会员成功！注册的账号为"+carrierMember.getMemberName()+"。" +
-                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+        String carrierMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在互联网注册会员成功！注册的账号为"+carrierMember.getMemberName()+"。" +
+                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由互联网系统自动发送，请勿回复！</font>";
         //htmlEmailPublic.goEmail(carrierMember,carrierMemberMsg);
         List<String> CarrierMemberMailList = new ArrayList<String>();
         CarrierMemberMailList.add(carrierMember.getEmail());
         htmlEmailPublic.setToMailsList(CarrierMemberMailList);
-        htmlEmailPublic.setTitle("冰川网贷提示");
+        htmlEmailPublic.setTitle("互联网提示");
         htmlEmailPublic.setMsg(carrierMemberMsg);
         Thread borrowingLoanThread = new Thread(htmlEmailPublic);
         borrowingLoanThread.start();//启动线程
@@ -444,49 +443,6 @@ public class RegisterController extends AbstractController {
         return "retrievePassword/sendMail";
     }
 
-    /**
-     * @Title: perfectRegister
-     * @Description: TODO(前台完善用户信息)
-     * @param @param shipperMember
-     * @param @param shipperMemberWork
-     * @param @param session
-     * @param @return设定文件
-     * @return Object 返回类型
-     * @throws
-     * 
-     *//*
-    @RequestMapping(value = "/perfectRegister.htm", method = RequestMethod.POST)
-    @ResponseBody
-    public Object perfectRegister(@Valid
-    ShipperMember shipperMember, BindingResult bindingResult, @Valid
-    ShipperMemberWork shipperMemberWork, BindingResult bindingResultWork, HttpServletRequest request, HttpSession session, String postAuth) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResultWork);
-        }
-        // 前台完善会员基本信息和工作信息
-        JqReturnJson perfectRegister = (JqReturnJson) shipperMemberService.editShipperMemberReception(shipperMember, shipperMemberWork, postAuth);
-        ShipperMember loginShipperMember = (ShipperMember) shipperMemberService.getShipperMember(shipperMember.getShipperMemberId());
-        ShipperMemberWork loginShipperMemberWork = (ShipperMemberWork) shipperMemberService.getShipperMemberWork(shipperMember.getShipperMemberId());
-        session.removeAttribute("currentShipperMember");
-        session.removeAttribute("currentShipperMemberWork");
-        session.setAttribute("currentShipperMember", loginShipperMember);
-        session.setAttribute("currentShipperMemberWork", loginShipperMemberWork);
-        request.setAttribute("perfectRegister", perfectRegister);
-        // 判断是否是按保存并提交审核按钮，重新获取会员的认证状态
-        ShipperMemberAuthWithBLOBs shipperMemberAuthWithBLOBs = (ShipperMemberAuthWithBLOBs) shipperMemberAuthService.getShipperMemberAuth(shipperMember.getShipperMemberId());
-        // 只有会员基本信息认证和工作认证，没有申请或审核失败，就可以进行修改。
-        if ((shipperMemberAuthWithBLOBs.getInfoAuth().equals("noapply") || shipperMemberAuthWithBLOBs.getWorkAuth().equals("noapply"))
-                || (shipperMemberAuthWithBLOBs.getInfoAuth().equals("failure") || shipperMemberAuthWithBLOBs.getWorkAuth().equals("failure"))) {
-            // 不做任何操作
-        } else {
-            perfectRegister.setObj("infoAndWorRealOnly");
-        }
-        return perfectRegister;
-    }
-*/
     /**
      * @Title: perfectShipperMemberPhoto
      * @Description: TODO(前台会员更改头像)

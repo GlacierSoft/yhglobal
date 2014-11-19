@@ -17,7 +17,7 @@ public class SysUserFilter extends PathMatchingFilter {
 
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-    	System.out.println("hhahahahaha");
+    	System.out.println("测试1");
     	System.out.println("url matches,config is " + Arrays.toString((String[])mappedValue));  
         //String username = (String)SecurityUtils.getSubject().getPrincipal();
         //request.setAttribute(Constants.CURRENT_USER, userService.findByUsername(username));
