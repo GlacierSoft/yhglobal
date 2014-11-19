@@ -188,11 +188,11 @@ public class StorehouseGoodstypeSetService {
         if (storagetypeIds.size() > 0) { 
            //匹配删除信息
            for (int i = 0; i < storagetypeIds.size(); i++) {  
-                 // 相关联充值记录
+                //相关联货源信息记录
         		StorehouseBelaidupExample storageExample = new StorehouseBelaidupExample();
         		storageExample.createCriteria().andGoodstypeIdEqualTo(storagetypeIds.get(i));
         		int count = belaidupMapper.countByExample(storageExample);
-                // 判断是否关联
+                //判断是否关联
         		if (count <= 0) { 
         			StorehouseGoodstypeSetExample storagetypeSetExample = new StorehouseGoodstypeSetExample();
         			storagetypeSetExample.createCriteria().andGoodstypeIdEqualTo(storagetypeIds.get(i));
@@ -200,22 +200,22 @@ public class StorehouseGoodstypeSetService {
         	          rightNumber += number;// 删除成功数据行数量记录 
                  } else { 
                        if(isFlag){ 
-        				if(count > 0){
+        				  if(count > 0){
         					result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【货物类型】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【货物类型】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
         					isFlag = false;
-        					} 
-                        }  
-                       }
-        			}
-        		// 删除成功数量大于0即为操作成功,且提示关联信息
-        		if(rightNumber>0){
-        			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
-        			returnResult.setSuccess(true);
-        		}else{
-        			returnResult.setMsg(result_str.trim());
-        			returnResult.setSuccess(false);
-        		     }
+        				   } 
+                       }  
+                  }
         	   }
+        	   // 删除成功数量大于0即为操作成功,且提示关联信息
+        	   if(rightNumber>0){
+        		  returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+        		  returnResult.setSuccess(true);
+        	   }else{
+        		  returnResult.setMsg(result_str.trim());
+        		  returnResult.setSuccess(false);
+        	   }
+         }
         return returnResult;
     }
 }

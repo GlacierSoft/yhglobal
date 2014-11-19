@@ -104,7 +104,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">货源管理</h3>
 				  </div>
 				  <div class="panel-body">
-				         <!-- 查询开始 -->
 				      <c:choose>
 				       <c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
 			                <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">货源记录</a>
@@ -127,7 +126,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							        </div>
 						       </div>
 				      </c:when>
-				      
 				      <c:when test="${buttonState == 'secondAudit'}">
 				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
 						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">发布记录</a>
@@ -150,7 +148,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						       </div>
 				      
 				      </c:when>
-				      
 				      <c:when test="${buttonState == 'thirdAudit'}">
 				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
 						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  role="button">发布记录</a>
@@ -174,70 +171,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      </c:when>
 				     </c:choose>
 				     <table class="table table-bordered">
-						          	<thead>
-							          <tr>
-							            <th width="100px">货物名称</th>
-							            <th>货物重量</th>
-							            <th>货物体积</th>
-							            <th>货物类型</th>
-							            <th>货物状态</th>
-							            <th>起始站</th>
-							            <th>终点站</th>
-							            <th>创建时间</th>
-							            <th>操作</th>
-							            </tr>
-							        </thead>
-						          	<tbody>
-						          	<c:if test="${empty returnResult.rows}">
-										<tr>
-								            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
-								        </tr>
-									</c:if>	
-									<c:if test="${!empty returnResult.rows}">
-							          <c:forEach items="${returnResult.rows}" var="storehouseBelaidupList">
-								          <tr>
-								            <td>${storehouseBelaidupList.belaidupProdName}</td>
-								          	<td>${storehouseBelaidupList.belaidupWeight}</td>
-								          	<td>${storehouseBelaidupList.belaidupBulk}</td>
-								          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
-								          	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
-								          	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
-								          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
-								          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
-								            <td>
-								              <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
-				                              <c:if test="${storehouseBelaidupList.stauts=='enable'}">
-				                                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
-								              </c:if>
-								              <c:if test="${storehouseBelaidupList.stauts=='disable'}">
-				                                  <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
-								              </c:if>
-								            </td>
-								          </tr>
-							      		</c:forEach>
-							      	</c:if>
-							      	</tbody>
-							      	<tfoot>
-							          <tr>
-							            <th colspan="10">
-							               <div align="right">
-											    <ul id='pagefinTransaction'></ul>
-											</div>
-		
-										</th>
-							          </tr>
-							        </tfoot>
-					        </table>     
+			          	<thead>
+				          <tr>
+				            <th width="100px">货物名称</th>
+				            <th>货物重量</th>
+				            <th>货物体积</th>
+				            <th>货物类型</th>
+				            <th>货物状态</th>
+				            <th>起始站</th>
+				            <th>终点站</th>
+				            <th>创建时间</th>
+				            <th>操作</th>
+				            </tr>
+				        </thead>
+			          	<tbody>
+			          	<c:if test="${empty returnResult.rows}">
+							<tr>
+					            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+					        </tr>
+						</c:if>	
+						<c:if test="${!empty returnResult.rows}">
+				          <c:forEach items="${returnResult.rows}" var="storehouseBelaidupList">
+					          <tr>
+					            <td>${storehouseBelaidupList.belaidupProdName}</td>
+					          	<td>${storehouseBelaidupList.belaidupWeight}</td>
+					          	<td>${storehouseBelaidupList.belaidupBulk}</td>
+					          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
+					          	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
+					          	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
+					          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
+					          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
+					            <td>
+					                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
+	                                 <c:if test="${storehouseBelaidupList.stauts=='enable'}">
+	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
+					                 </c:if>
+					                 <c:if test="${storehouseBelaidupList.stauts=='disable'}">
+	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
+					                 </c:if>
+					            </td>
+					          </tr>
+				      		</c:forEach>
+				      	</c:if>
+				      	</tbody>
+				      	<tfoot>
+				          <tr>
+				            <th colspan="10">
+				               <div align="right">
+								    <ul id='pagefinTransaction'></ul>
+								</div>
+ 							</th>
+				          </tr>
+				        </tfoot>
+					</table>     
 				 </div>
 	    	</div>
 	    </div>
 	</div>	    
   </div>	    
-		
-         
 <script type="text/javascript">
-     
-       $(function(){
+      $(function(){
 	    	//获得浏览器参数
 	   		$.extend({
 	   			getUrlVars: function(){
@@ -360,7 +353,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		});
     		d.show();
      }
-       
-    </script>
+     </script>
 </body>
 </html>

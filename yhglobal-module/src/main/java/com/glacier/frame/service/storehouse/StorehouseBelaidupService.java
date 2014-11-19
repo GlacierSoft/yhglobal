@@ -200,10 +200,6 @@ public class StorehouseBelaidupService {
         return returnResult;// 返回ExtGrid表
     }
     
-    
-    
-    
-    
     /**
 	 * @Title: getBelaidup 
 	 * @Description: TODO(根据货物Id获取货物信息) 
@@ -438,7 +434,6 @@ public class StorehouseBelaidupService {
             			StorehousePackCode packCode = packcodeMapper.selectByBelaidup(belaidup.getBelaidupId());
             			//执行删除
             			packcodeMapper.deleteByPrimaryKey(packCode.getPackCodeId());
-            			
             			//再删除货物流动表
             			StorehouseStorageGoodsrunExample goodsrunExample = new StorehouseStorageGoodsrunExample();
             			goodsrunExample.createCriteria().andBelaidupIdEqualTo(belaidup.getBelaidupId());
@@ -451,7 +446,7 @@ public class StorehouseBelaidupService {
             			storageOld.setUsableWeight(storageOld.getUsableWeight()+belaidup.getBelaidupWeight());
                     	storageOld.setUsableBulk(storageOld.getUsableBulk()+belaidup.getBelaidupBulk());
                     	storageMapper.updateByPrimaryKey(storageOld);
-                    	// 删除成功数据行数量记录 
+                    	//删除成功数据行数量记录 
     	    	        rightNumber += number;
         			}
                  } else { 
@@ -475,6 +470,14 @@ public class StorehouseBelaidupService {
         return returnResult;
     }
    
+    /**
+     * @Title: updateBelaidup
+     * @Description: TODO(发布撤/销货源信息) 
+     * @param @param gradeIds
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
     @Transactional(readOnly = false)
     public Object updateBelaidup(StorehouseBelaidup belaidup){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false

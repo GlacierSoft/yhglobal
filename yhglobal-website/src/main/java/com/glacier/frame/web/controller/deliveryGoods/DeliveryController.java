@@ -42,7 +42,7 @@ import com.glacier.jqueryui.util.JqPager;
 
 /**
  * @ClassName: DeliveryController 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(我要发货模块控制层) 
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2014-11-11 上午11:31:20
@@ -52,14 +52,13 @@ import com.glacier.jqueryui.util.JqPager;
 @RequestMapping(value="delivery")
 public class DeliveryController {
 
-	   @Autowired
-	   private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
+	  @Autowired
+	  private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
 	   
-	   @Autowired
-	   private StorehouseBelaidupService belaidupService;
+	  @Autowired
+	  private StorehouseBelaidupService belaidupService;
 
-	
-	   //我要发货展示页
+      //我要发货展示页
 	  @RequestMapping(value="index.htm")
       private Object intoDeliveryPage(JqPager pager,StorehouseGoodstypeSetQueryDTO storehouseGoodstypeSetQueryDTO) {
           ModelAndView mav = new ModelAndView("deliveryGoods/deliveryGoods");
@@ -75,25 +74,23 @@ public class DeliveryController {
 	  @RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
 	  @ResponseBody
 	  private Object addBelaidup(@Valid StorehouseBelaidup belaidup, BindingResult bindingResult,String packageId) {
-	       return belaidupService.addBelaidup_website(belaidup,packageId);
+	      return belaidupService.addBelaidup_website(belaidup,packageId);
 	  }
 	 
 	  //货源信息撤销发布操作
 	  @RequestMapping(value = "/updateBelaidup.json", method = RequestMethod.POST)
 	  @ResponseBody
 	  private Object updateBelaidup(@Valid StorehouseBelaidup belaidup,BindingResult bindingResult){
-		   return belaidupService.updateBelaidup(belaidup);
+		  return belaidupService.updateBelaidup(belaidup);
 	  }
 	
 	  //货源信息详细展示页
 	  @RequestMapping(value = "/intoDetail.htm")
 	  private Object intoMemberGradeDetailPage(String belaidupId) { 
-	    	ModelAndView mav = new ModelAndView("member_mgr/memberReleaseManagerDetail");
-	        if(StringUtils.isNotBlank(belaidupId)){
+	      ModelAndView mav = new ModelAndView("member_mgr/memberReleaseManagerDetail");
+	      if(StringUtils.isNotBlank(belaidupId)){
 	            mav.addObject("belaidupDate", belaidupService.getBelaidup(belaidupId));
-	        }
-		    return mav;
-	    }
-	  
-	
+	      }
+		  return mav;
+	  }
 }
