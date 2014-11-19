@@ -94,11 +94,8 @@ $(function(){
 		 var str=$(this).val();
 		 
 	 });  
-	 
-	 
-	 
-	 
-		var emailStatus = '${emailStatus}';
+
+	 var emailStatus = '${emailStatus}';
 		if(emailStatus!=""){
 			$('#success_alert').fadeIn();
 			$('#success_alert h4').html('邮箱不存在，请重新输入');
@@ -107,9 +104,6 @@ $(function(){
 			},3000)
 		}  */
 		
-		
-		//////////////////////
-
 		//表单验证
 		validaForm = function(){
 			$("#eml").remove();
@@ -134,10 +128,6 @@ $(function(){
 				$('#danger_alert').fadeOut();
 			},3000)
 		}
-		
-		
-		
-	
 });
 </script>
   </body>

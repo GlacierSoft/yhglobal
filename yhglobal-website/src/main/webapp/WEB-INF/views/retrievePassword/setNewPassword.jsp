@@ -154,10 +154,6 @@ $(function(){
 		    	    return;
 		    }  
 		 });  
-		 
-		 
-		 
-		 
 
 			//表单验证
 			validaForm = function(){ 
@@ -224,7 +220,6 @@ $(function(){
 				}  
 				alert("请正确输入完整信息");
 			});
-			 
 }) 
 </script>
  </body>

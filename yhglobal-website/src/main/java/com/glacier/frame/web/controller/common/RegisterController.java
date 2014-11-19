@@ -564,16 +564,13 @@ public class RegisterController extends AbstractController {
         email.setTLS(true);// tls要设置为true,没有设置会报错。
         email.setSSL(true);// ssl要设置为true,没有设置会报错。
         try {
-            email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
-            // email.setFrom("13798985542@163.com", "13798985542@163.com",
-            // "UTF-8");
-            // email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
+            email.setFrom("1240033960@qq.com", "互联网管理员", "UTF-8");
         } catch (EmailException e1) {
             e1.printStackTrace();
         }
         email.setCharset("UTF-8");// 没有设置会乱码。
         try {
-            email.setSubject("冰川网贷密码找回");// 设置邮件名称
+            email.setSubject("互联网密码找回");// 设置邮件名称
             email.setHtmlMsg("尊敬的会员：<font color='blue'>" + shipperMember.getMemberName() + "</font>,请点击<a href='" + url + "'>" + url + "</a>完成新密码设置！");// 设置邮件内容
             email.addTo(useremal);// 给会员发邮件
             email.send();// 邮件发送
@@ -658,7 +655,7 @@ public class RegisterController extends AbstractController {
 
     // 找回密码,设置新的密码
     @RequestMapping(value = "/setNewPassword.htm")
-    private Object setNewPassword(String captcha, String newPassword, String shipperMemberPassword, HttpServletRequest request, HttpSession session) {
+    private Object setNewPassword(String captcha, String newPassword, String memberPassword, HttpServletRequest request, HttpSession session) {
         // 后台验证
         String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
         // 判断验证码是否输入正确
@@ -668,9 +665,8 @@ public class RegisterController extends AbstractController {
             return "retrievePassword/setNewPassword";
         }
         String userEmail = (String) session.getAttribute("userEmail");// 取出刚刚找回密码的那个邮箱
-        if (newPassword.equals(shipperMemberPassword) && newPassword != "") {
-            JqReturnJson setNewPassword = (JqReturnJson) shipperMemberService.setNewPassword(userEmail, shipperMemberPassword);// 调用server层方法，修改密码
-
+        if (newPassword.equals(memberPassword) && newPassword != "") {
+            JqReturnJson setNewPassword = (JqReturnJson) shipperMemberService.setNewPassword(userEmail, memberPassword);// 调用server层方法，修改密码
             if (setNewPassword.isSuccess()) {// 设置新密码成功，跳到登录页面
                 return "login";
             }
