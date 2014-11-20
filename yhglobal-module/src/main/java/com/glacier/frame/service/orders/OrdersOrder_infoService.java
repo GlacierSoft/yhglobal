@@ -50,14 +50,18 @@ public class OrdersOrder_infoService {
      * @return Object    返回类型 
      * @throws
      */
-	public Object listAsOrderGrid(int p){
+	public Object listAsOrderGrid(int p,String codeNumber){
 		Subject pricipalSubject = SecurityUtils.getSubject();
     	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
     	JqGridReturn returnResult = new JqGridReturn();
 		String memberId = pricipalMember.getMemberId();
 		int row = (p-1)*10;
-		List<OrderQuery> getQuery = order_infoMapper.getLoginQuery(memberId,row);
-		returnResult.setTotal(order_infoMapper.getRowQuery(pricipalMember.getMemberId()));
+		String querySql=" and orders.order_code = 'OR_ORDER_2014_10_26_5'";
+		if(null != codeNumber){
+			//String querySql=" and orders.order_code = "+codeNumber+"";
+		}
+		List<OrderQuery> getQuery = order_infoMapper.getLoginQuery(memberId,row,querySql);
+		returnResult.setTotal(order_infoMapper.getRowQuery(pricipalMember.getMemberId(),querySql));
 		returnResult.setRows(getQuery);//设置查询数据
         returnResult.setP(p);//设置当前页
 		return returnResult;

@@ -108,6 +108,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td><fmt:formatNumber value='${getDatas.belaidup_unitprice}' pattern="#,#00.00元"/></td><td>GPS功能</td>
 								</tr>
 							</c:forEach>
+							<c:if test="${!empty getDatas.rows}">
+					        	<tfoot>
+						          <tr>
+						            <th colspan="8">
+						            	<div align="right">
+										    <ul id='pageorderLoad'></ul>
+										</div>
+									</th>
+						          </tr>
+						        </tfoot>
+					        </c:if>	
 						</table>
 					</div>
                  </div>
@@ -120,4 +131,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <jsp:include page="../foot.jsp"/>
   </body>
 </html>
+<script type="text/javascript">
 
+$("#form_delivery").validate({
+	 rules:{
+		 codeNumber:{
+			 required:true
+		 }
+  	 },
+	 messages:{
+		 codeNumber:{
+			 required:"订单号不能为空!"
+		 }
+	 },
+	 submitHandler:function(){
+		 $.ajax({
+			   type: "POST",
+			   url: ctx+"/orderQuery.htm?&p=1",
+			   dataType: "json",
+			   data: $("#form_delivery").serialize(),
+			   /* success: function(r) {
+			   	   }, */
+              error: function() {
+                 alert("提交出错！");
+              }
+		 });
+	 }
+});
+
+//分页代码开始
+var elementpageorderLoad = $('#pageorderLoad');
+//登陆用户订单的设置分页的总页数
+var totalmessageNotice=${getDatas.total}/10;
+if(parseInt(totalmessageNotice)==totalmessageNotice){
+	var totalmessageNotice = parseInt(totalmessageNotice);
+}else {
+	var totalmessageNotice = parseInt(totalmessageNotice)+1;
+}
+var messageNoticeOptions = {
+    bootstrapMajorVersion:3,
+    currentPage: ${getDatas.p},
+    numberOfPages: 10,
+    totalPages:totalmessageNotice,
+    pageUrl: function(type, page, current){
+    	return "${ctx}/orderQuery.htm?&p="+page;
+    }
+}
+elementpageorderLoad.bootstrapPaginator(messageNoticeOptions);
+
+<!-- 分页显示表格数据 结束 -->
+</script>

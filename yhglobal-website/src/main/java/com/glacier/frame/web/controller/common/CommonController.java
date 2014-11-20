@@ -110,7 +110,7 @@ public class CommonController {
      * @throws 备注
      */
     @RequestMapping(value = "/orderQuery.htm")
-    private Object orderQuery(int p) {
+    private Object orderQuery(int p,String codeNumber) {
     	Subject pricipalSubject = SecurityUtils.getSubject();
     	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
     	ModelAndView mav=null;
@@ -118,7 +118,7 @@ public class CommonController {
     		mav = new ModelAndView("orderQuery/notLoginQuery");
     	}else{
     		mav = new ModelAndView("orderQuery/loginQuery");
-    		mav.addObject("getDatas", order_infoService.listAsOrderGrid(p));
+    		mav.addObject("getDatas", order_infoService.listAsOrderGrid(p,codeNumber));
     	}
         return mav;
     }

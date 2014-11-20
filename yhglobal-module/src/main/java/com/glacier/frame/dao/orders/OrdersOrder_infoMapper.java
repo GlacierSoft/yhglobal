@@ -26,13 +26,13 @@ public interface OrdersOrder_infoMapper {
     		"from t_orders_order_info orderinfo,t_orders_order orders,t_storehouse_belaidup belaidup " +
     		"where orderinfo.order_id = orders.order_id and orderinfo.belaidup_id = belaidup.belaidup_id " +
     		"and belaidup.member_id = '3' ORDER BY orders.create_time DESC LIMIT 10")
-    List<OrderQuery> getLoginQuery(String memberId,int row);
+    List<OrderQuery> getLoginQuery(String memberId,int row,String querySql);
     
     @Select("SELECT count(*) " +
     		"from t_orders_order_info orderinfo,t_orders_order orders,t_storehouse_belaidup belaidup " +
     		"where orderinfo.order_id = orders.order_id and orderinfo.belaidup_id = belaidup.belaidup_id " +
     		"and belaidup.member_id = '3' ORDER BY orders.create_time DESC")
-    int getRowQuery(String memberId);
+    int getRowQuery(String memberId,String querySql);
 
     int updateByExampleSelective(@Param("record") OrdersOrder_info record, @Param("example") OrdersOrder_infoExample example);
 
