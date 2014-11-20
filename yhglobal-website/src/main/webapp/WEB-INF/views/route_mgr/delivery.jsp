@@ -107,25 +107,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >发货区:</label>
 						    <div class="col-sm-4" align="left">
+						      <input type="hidden" name="belaidupInitiatin" value="${router.routeOrigin}">
 						      <label for="inputEmail3" style="color:#0697DA ">${router.routeOrigin}</label> 
 						    </div> 
 						 </div>
 					     <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label"><font color="red">*</font>联系人:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text"  class="form-control" placeholder="请输入发货人姓名" >
+						      <input type="text"  class="form-control" placeholder="请输入发货人姓名"  name="consignor">
 						    </div> 
 						  </div>
 						  <div class="form-group"  >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>联系电话:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control"   placeholder="请输入发货人联系电话" >
+						      <input type="text" class="form-control"   placeholder="请输入发货人联系电话" name="sendPhone" >
 						    </div> 
 						  </div>
 						 <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>所在街道地址:</label>
 						    <div class="col-sm-6" align="left">
-						      <input type="text" class="form-control"  placeholder="请输入所在街道地址" >
+						      <input type="text" class="form-control"  placeholder="请输入所在街道地址" name="sendAddress">
 						    </div> 
 						  </div>
 					  </div>
@@ -170,10 +171,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						   <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
 						   <div class="col-sm-6" align="left">
-						   <select class="form-control" >
-							  <option onclick="selectDeliver(this)">--请选择--</option> 
+						   <select class="form-control" name="sendSite">
+							  <option onclick="selectDeliver(this)" value="">--请选择--</option> 
 							  <c:forEach items="${router.deliverList}" var="deliver">  
-					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" onclick="selectDeliver(this)"> ${deliver.deliverName} </option>
+					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" onclick="selectDeliver(this)" value=" ${deliver.deliverName}"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
 							<div id="info" style="color:#FF7300"></div>
@@ -182,10 +183,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>收货网点:</label>
 						    <div class="col-sm-6" align="left">
-						    <select class="form-control">
-							  <option onclick="selectPickUp(this)">--请选择--</option>
+						    <select class="form-control" name="orderSite">
+							  <option onclick="selectPickUp(this)" value="">--请选择--</option>
 							  <c:forEach items="${router.pickUpList}" var="deliver">  
-					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" onclick="selectPickUp(this)"> ${deliver.deliverName} </option>
+					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" onclick="selectPickUp(this)" value="${deliver.deliverName}"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
 							<div id="infos" style="color:#FF7300"></div>
@@ -208,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>包装总件数:</label>
 						    <div class="col-sm-6" align="left">
-						     <input type="text" class="form-control"   placeholder="请输入物品包装件数" >
+						     <input type="text" class="form-control"  name="number" placeholder="请输入物品包装件数" >
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
@@ -226,11 +227,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="col-sm-3" ></div>
 						  </div>
 						  <div class="form-group" >
-						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>取货方式:</label>
+						    <label for="inputEmail3" class="col-sm-3 control-label" >取货方式:</label>
 						    <div class="col-sm-6" align="left">
-						      <select class="form-control">
-							    <option>上门取货</option>  
-							    <option>送货上门</option>  
+						      <select class="form-control" name="replenishment">
+							    <option value="storepickup">上门取货</option>  
+							    <option value="deliversm">送货上门</option>  
 							  </select>
 						    </div> 
 						    <div class="col-sm-3" ></div>
@@ -265,20 +266,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     <div class="col-sm-12"> 
 							     <div class="checkbox" style="float: left;margin-left: 150px">
 								    <label>
-								      <input type="checkbox" name="yesOrNo"> 加急配送 
+								      <input type="checkbox" name="yesOrNo" value="yes"> 加急配送 
 								    </label>
 								  </div>
 								  <div class="checkbox" style="float: left;margin-left: 30px">
 								    <label>
-								      <input type="checkbox"> 货物保价&nbsp; &nbsp;
+								      <input type="checkbox" > 货物保价&nbsp; &nbsp;
 								    </label>
 								  </div> 
-								    <input   type="text" class="form-control" style="width: 50px;float: left;"><label style="margin-top: 5px;float: left">元</label>
-							       <div class="checkbox" style="float: left;margin-left: 30px">
+								    <input   type="text" class="form-control" style="width: 50px;float: left;" name="floorPrice" ><label style="margin-top: 5px;float: left">元</label>
+							     <!--   <div class="checkbox" style="float: left;margin-left: 30px">
 								    <label>
 								      <input type="checkbox"> 送货上门
 								    </label>
-								  </div>  
+								  </div>   -->
 						    </div> 
 						  </div>
 						   <div class="form-group" >
@@ -313,29 +314,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  </div>
 							   </div> 
 						       <div class="form-group" >
-						         <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>支付方式:</label>
+						         <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
 								     <div class="radio" style="float: left;">
 										  <label>
-										    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										    <input type="radio" name="modeOfPayment"  checked="checked"  value="spotpayment">
 										          发货人支付
 										   </label>
 									  </div> 
 									  <div class="radio" style="float: left;">
 										  <label>
-										    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										    <input type="radio" name="modeOfPayment"   value="reachpayment">
 										        收货人支付（到付）
 										   </label>
 									  </div>
 							     </div>
 						    </div>  
 						    <div class="form-group" >
-						     <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物价值:</label>
+						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
-							      <input   type="text" class="form-control" style="width: 100px;float: left;">
+							      <input   type="text" class="form-control" style="width: 100px;float: left;" name="floorPrice">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
 								    <label>
-								      <input type="checkbox">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
+								      <input type="checkbox" name="premium" value="3">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
 								    </label>
 								   </div> 
 							      </div>
@@ -431,7 +432,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 
 	$("#personalMessageForm").validate({
 		  rules:{
+			  consignor:"required",
+			  sendPhone:{
+	    			 required:true,
+	    			 number:true,
+	    			 isMobile:true
+	    		 }, 
+	    	  sendAddress:"required",
+	    	  orderAddress:"required",
+	    	  sendSite:"required",
+	    	  orderSite:"required",
 			  orderConsignee:"required",
+			  belaidupProdName:"required", 
+			  number:{
+				     required:true,
+	    			 number:true,
+	    			 min:1 
+			  },
 			  goodstype:"required",
 			  orderPhone:{
 	    			 required:true,
@@ -440,10 +457,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 },  
   		  },
   		  messages:{
+  			consignor:"请输入发货人姓名",
+  			sendSite:"请选择发货网点",
+  			belaidupProdName:"请输入货物名称",
+  			orderSite:"请选择收货网点",
+  			sendAddress:"请输入发货地详细地址",
+  			orderAddress:"请输入收货地详细地址", 
+  		    number:{
+			     required:"件数不能为空",
+    			 number:"请输入数字",
+    			 min:"数量至少为1"
+		    },
+  			sendPhone:{
+    			required:"发货人手机不能为空!",
+ 	    		number:"请输入合法手机号码!",
+ 	    		isMobile:"请输入合法手机号码!"
+    		 },
   			orderConsignee: "请输入收货人姓名", 
   			goodstype:"请选择货物类型",
   			orderPhone:{
-    			required:"发货人手机不能为空!",
+    			required:"收货人手机不能为空!",
  	    		number:"请输入合法手机号码!",
  	    		isMobile:"请输入合法手机号码!"
     		 },

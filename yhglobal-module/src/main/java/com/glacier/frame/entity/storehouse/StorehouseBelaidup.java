@@ -56,7 +56,25 @@ public class StorehouseBelaidup {
     private String belaidupBarCode;
 
     private String storehouseId;
+    
+    private String consignor;
 
+    private String sendPhone;
+
+    private String sendAddress;
+
+    private String sendSite;
+
+    private String orderSite;
+
+    private Integer number;
+
+    private String modeOfPayment;
+
+    private BigDecimal premium;
+
+    private BigDecimal floorPrice; 
+    
     private String remark;
 
     private String creater;
@@ -120,8 +138,81 @@ public class StorehouseBelaidup {
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
+     
 
-    public BigDecimal getBelaidupUnitprice() {
+    public String getConsignor() {
+		return consignor;
+	}
+
+	public void setConsignor(String consignor) {
+		this.consignor = consignor;
+	}
+
+	public String getSendPhone() {
+		return sendPhone;
+	}
+
+	public void setSendPhone(String sendPhone) {
+		this.sendPhone = sendPhone;
+	}
+
+	public String getSendAddress() {
+		return sendAddress;
+	}
+
+	public void setSendAddress(String sendAddress) {
+		this.sendAddress = sendAddress;
+	}
+
+	public String getSendSite() {
+		return sendSite;
+	}
+
+	public void setSendSite(String sendSite) {
+		this.sendSite = sendSite;
+	}
+
+	public String getOrderSite() {
+		return orderSite;
+	}
+
+	public void setOrderSite(String orderSite) {
+		this.orderSite = orderSite;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public String getModeOfPayment() {
+		return modeOfPayment;
+	}
+
+	public void setModeOfPayment(String modeOfPayment) {
+		this.modeOfPayment = modeOfPayment;
+	}
+
+	public BigDecimal getPremium() {
+		return premium;
+	}
+
+	public void setPremium(BigDecimal premium) {
+		this.premium = premium;
+	}
+
+	public BigDecimal getFloorPrice() {
+		return floorPrice;
+	}
+
+	public void setFloorPrice(BigDecimal floorPrice) {
+		this.floorPrice = floorPrice;
+	}
+
+	public BigDecimal getBelaidupUnitprice() {
         return belaidupUnitprice;
     }
 

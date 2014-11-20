@@ -63,16 +63,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="form-group col-sm-12">
 							    <label for="inputEmail3" class="control-label col-sm-1">联系人</label>
 							    <div class="col-sm-4">
-							      <input type="text" placeholder="请选择联系人" class="form-control" name="sendPeople">
+							      <input type="text" placeholder="请选择联系人" class="form-control" name="consignor">
 							    </div>
-						</div>
-						<div class="form-group col-sm-12">
-							    <label for="inputEmail3" class="control-label col-sm-1">公司</label>
-							    <div class="col-sm-4">
-							      <input type="text" placeholder="请填写发货方公司" class="form-control" name="sendCompany">
-							    </div>
-							    <label for="inputEmail3" class="control-label col-sm-3" style="color: #FF7401;">所属公司为非必填项</label>
-						</div>
+						</div> 
 						<div class="form-group col-sm-12">
 							    <label for="inputEmail3" class="control-label col-sm-1">所在地</label>
 							    <div class="col-sm-4">
@@ -82,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group col-sm-12">
 							    <label for="inputEmail3" class="control-label col-sm-1">街道</label>
 							    <div class="col-sm-4">
-							      <input type="text" placeholder="请填写发货公司街道地址" class="form-control" name="sendStreet">
+							      <input type="text" placeholder="请填写发货公司街道地址" class="form-control" name="sendAddress">
 							    </div>
 							    <label for="inputEmail3" class="control-label col-sm-3" style="color: #FF7401;">不需要重复填写省/市/区</label>
 						</div>
@@ -102,16 +95,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      	<div class="form-group col-sm-12">
 								    <label for="inputEmail3" class="control-label col-sm-1">联系人</label>
 								    <div class="col-sm-4">
-								      <input type="text" placeholder="请选择联系人" class="form-control" name="orderConsignee">
+								      <input type="text" placeholder="请选择联系人" class="form-control" name="orderConsignee" >
 								    </div>
-								</div>
-								<div class="form-group col-sm-12">
-								    <label for="inputEmail3" class="control-label col-sm-1">公司</label>
-								    <div class="col-sm-4">
-								      <input type="text" placeholder="请填写收货方公司" class="form-control">
-								    </div>
-								    <label for="inputEmail3" class="control-label col-sm-3" style="color: #FF7401;">所属公司为非必填项</label>
-								</div>
+								</div> 
 								<div class="form-group col-sm-12">
 								    <label for="inputEmail3" class="control-label col-sm-1">所在地</label>
 								    <div class="col-sm-4">
@@ -128,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group col-sm-12">
 								    <label for="inputEmail3" class="control-label col-sm-1">手机：</label>
 								    <div class="col-sm-4">
-								      <input type="text" placeholder="请填写合法手机号码" class="form-control" name="orderPhone" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+								      <input type="text" placeholder="请填写合法手机号码" class="form-control"  name="orderPhone" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 								    </div>
 								</div>
 							</div>
@@ -160,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group col-sm-12">
 						    <label for="inputEmail3" class="control-label col-sm-1">件数</label>
 						    <div class="col-sm-4">
-						      <input type="text" placeholder="请填写发货方公司" class="form-control" name="belaidupNum">
+						      <input type="text" placeholder="请填写件数" class="form-control" name="number">
 						    </div>
 						    <label for="inputEmail3" class="control-label col-sm-1" style="color: #FF7401;">件/个</label>
 						</div>
@@ -232,13 +218,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <script type="text/javascript">
 	 $("#form_delivery").validate({
     	 rules:{
-    		 sendPeople:{
+    		 consignor:{
     			 required:true
     		 },
     		 belaidupInitiatin:{
     		    required:true
     		 },
-    		 sendStreet:{
+    		 sendAddress:{
     			 required:true
     		 },
     		 sendPhone:{
@@ -266,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		goodstypeId:{
 	    		required:true
 	    	},
-       		belaidupNum:{
+	    	number:{
        			required:true,
        			number:true,
        			min:1
@@ -283,13 +269,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		}
        	  },
     	 messages:{
-    		 sendPeople:{
+    		 consignor:{
     			 required:"发货人姓名不能为空!"
     		 },
     		 belaidupInitiatin:{
     			 required:"发货地址不能为空!"
     		 },
-    		 sendStreet:{
+    		 sendAddress:{
     			 required:"发货详细地址不能为空!"
     		 },
     		 sendPhone:{
@@ -317,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		 goodstypeId:{
  	    		required:"寄送货物类型不能为空!"
  	    	},
-    		 belaidupNum:{
+    		 number:{
     			 required:"货物数量不能为空!",
     			 number:"请填写合法数量!"
     		 },

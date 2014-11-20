@@ -28,6 +28,15 @@
     <result column="temp_storehouse_belaidup_belaidup_bar_code" property="belaidupBarCode" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_router_id" property="routerId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_storehouse_id" property="storehouseId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_consignor" property="consignor" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_send_phone" property="sendPhone" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_send_address" property="sendAddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_send_site" property="sendSite" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_order_site" property="orderSite" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_number" property="number" jdbcType="INTEGER" />
+    <result column="temp_storehouse_belaidup_mode_of_payment" property="modeOfPayment" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_premium" property="premium" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_belaidup_floor_price" property="floorPrice" jdbcType="DECIMAL" />
     <result column="temp_storehouse_belaidup_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -119,6 +128,11 @@
     temp_storehouse_belaidup.belaidup_return_poundage as temp_storehouse_belaidup_belaidup_return_poundage, 
     temp_storehouse_belaidup.belaidup_bar_code as temp_storehouse_belaidup_belaidup_bar_code, 
     temp_storehouse_belaidup.router_id as temp_storehouse_belaidup_router_id, temp_storehouse_belaidup.storehouse_id as temp_storehouse_belaidup_storehouse_id, 
+    temp_storehouse_belaidup.consignor as temp_storehouse_belaidup_consignor, temp_storehouse_belaidup.send_phone as temp_storehouse_belaidup_send_phone, 
+    temp_storehouse_belaidup.send_address as temp_storehouse_belaidup_send_address, temp_storehouse_belaidup.send_site as temp_storehouse_belaidup_send_site, 
+    temp_storehouse_belaidup.order_site as temp_storehouse_belaidup_order_site, temp_storehouse_belaidup.number as temp_storehouse_belaidup_number, 
+    temp_storehouse_belaidup.mode_of_payment as temp_storehouse_belaidup_mode_of_payment, 
+    temp_storehouse_belaidup.premium as temp_storehouse_belaidup_premium, temp_storehouse_belaidup.floor_price as temp_storehouse_belaidup_floor_price, 
     temp_storehouse_belaidup.remark as temp_storehouse_belaidup_remark, temp_storehouse_belaidup.creater as temp_storehouse_belaidup_creater, 
     temp_storehouse_belaidup.create_time as temp_storehouse_belaidup_create_time, temp_storehouse_belaidup.updater as temp_storehouse_belaidup_updater, 
     temp_storehouse_belaidup.update_time as temp_storehouse_belaidup_update_time
@@ -185,6 +199,9 @@
       belaidup_status, sorting_stauts, stauts, 
       belaidup_return_time, belaidup_return_poundage, 
       belaidup_bar_code, router_id, storehouse_id, 
+      consignor, send_phone, send_address, 
+      send_site, order_site, number, 
+      mode_of_payment, premium, floor_price, 
       remark, creater, create_time, 
       updater, update_time)
     values (#{belaidupId,jdbcType=VARCHAR}, #{belaidupProdName,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
@@ -196,6 +213,9 @@
       #{belaidupStatus,jdbcType=CHAR}, #{sortingStauts,jdbcType=CHAR}, #{stauts,jdbcType=CHAR}, 
       #{belaidupReturnTime,jdbcType=TIMESTAMP}, #{belaidupReturnPoundage,jdbcType=DECIMAL}, 
       #{belaidupBarCode,jdbcType=VARCHAR}, #{routerId,jdbcType=VARCHAR}, #{storehouseId,jdbcType=VARCHAR}, 
+      #{consignor,jdbcType=VARCHAR}, #{sendPhone,jdbcType=VARCHAR}, #{sendAddress,jdbcType=VARCHAR}, 
+      #{sendSite,jdbcType=VARCHAR}, #{orderSite,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{modeOfPayment,jdbcType=CHAR}, #{premium,jdbcType=DECIMAL}, #{floorPrice,jdbcType=DECIMAL}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -279,6 +299,33 @@
       </if>
       <if test="storehouseId != null" >
         storehouse_id,
+      </if>
+      <if test="consignor != null" >
+        consignor,
+      </if>
+      <if test="sendPhone != null" >
+        send_phone,
+      </if>
+      <if test="sendAddress != null" >
+        send_address,
+      </if>
+      <if test="sendSite != null" >
+        send_site,
+      </if>
+      <if test="orderSite != null" >
+        order_site,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="modeOfPayment != null" >
+        mode_of_payment,
+      </if>
+      <if test="premium != null" >
+        premium,
+      </if>
+      <if test="floorPrice != null" >
+        floor_price,
       </if>
       <if test="remark != null" >
         remark,
@@ -374,6 +421,33 @@
       </if>
       <if test="storehouseId != null" >
         #{storehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="consignor != null" >
+        #{consignor,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPhone != null" >
+        #{sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAddress != null" >
+        #{sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSite != null" >
+        #{sendSite,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSite != null" >
+        #{orderSite,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="modeOfPayment != null" >
+        #{modeOfPayment,jdbcType=CHAR},
+      </if>
+      <if test="premium != null" >
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="floorPrice != null" >
+        #{floorPrice,jdbcType=DECIMAL},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -480,6 +554,33 @@
       <if test="record.storehouseId != null" >
         temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
       </if>
+      <if test="record.consignor != null" >
+        temp_storehouse_belaidup.consignor = #{record.consignor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendPhone != null" >
+        temp_storehouse_belaidup.send_phone = #{record.sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendAddress != null" >
+        temp_storehouse_belaidup.send_address = #{record.sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendSite != null" >
+        temp_storehouse_belaidup.send_site = #{record.sendSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSite != null" >
+        temp_storehouse_belaidup.order_site = #{record.orderSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        temp_storehouse_belaidup.number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.modeOfPayment != null" >
+        temp_storehouse_belaidup.mode_of_payment = #{record.modeOfPayment,jdbcType=CHAR},
+      </if>
+      <if test="record.premium != null" >
+        temp_storehouse_belaidup.premium = #{record.premium,jdbcType=DECIMAL},
+      </if>
+      <if test="record.floorPrice != null" >
+        temp_storehouse_belaidup.floor_price = #{record.floorPrice,jdbcType=DECIMAL},
+      </if>
       <if test="record.remark != null" >
         temp_storehouse_belaidup.remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -528,6 +629,15 @@
       temp_storehouse_belaidup.belaidup_bar_code = #{record.belaidupBarCode,jdbcType=VARCHAR},
       temp_storehouse_belaidup.router_id = #{record.routerId,jdbcType=VARCHAR},
       temp_storehouse_belaidup.storehouse_id = #{record.storehouseId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.consignor = #{record.consignor,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.send_phone = #{record.sendPhone,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.send_address = #{record.sendAddress,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.send_site = #{record.sendSite,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.order_site = #{record.orderSite,jdbcType=VARCHAR},
+      temp_storehouse_belaidup.number = #{record.number,jdbcType=INTEGER},
+      temp_storehouse_belaidup.mode_of_payment = #{record.modeOfPayment,jdbcType=CHAR},
+      temp_storehouse_belaidup.premium = #{record.premium,jdbcType=DECIMAL},
+      temp_storehouse_belaidup.floor_price = #{record.floorPrice,jdbcType=DECIMAL},
       temp_storehouse_belaidup.remark = #{record.remark,jdbcType=VARCHAR},
       temp_storehouse_belaidup.creater = #{record.creater,jdbcType=VARCHAR},
       temp_storehouse_belaidup.create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -615,6 +725,33 @@
       <if test="storehouseId != null" >
         storehouse_id = #{storehouseId,jdbcType=VARCHAR},
       </if>
+      <if test="consignor != null" >
+        consignor = #{consignor,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPhone != null" >
+        send_phone = #{sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAddress != null" >
+        send_address = #{sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSite != null" >
+        send_site = #{sendSite,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSite != null" >
+        order_site = #{orderSite,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="modeOfPayment != null" >
+        mode_of_payment = #{modeOfPayment,jdbcType=CHAR},
+      </if>
+      <if test="premium != null" >
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="floorPrice != null" >
+        floor_price = #{floorPrice,jdbcType=DECIMAL},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -660,6 +797,15 @@
       belaidup_bar_code = #{belaidupBarCode,jdbcType=VARCHAR},
       router_id = #{routerId,jdbcType=VARCHAR},
       storehouse_id = #{storehouseId,jdbcType=VARCHAR},
+      consignor = #{consignor,jdbcType=VARCHAR},
+      send_phone = #{sendPhone,jdbcType=VARCHAR},
+      send_address = #{sendAddress,jdbcType=VARCHAR},
+      send_site = #{sendSite,jdbcType=VARCHAR},
+      order_site = #{orderSite,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      mode_of_payment = #{modeOfPayment,jdbcType=CHAR},
+      premium = #{premium,jdbcType=DECIMAL},
+      floor_price = #{floorPrice,jdbcType=DECIMAL},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

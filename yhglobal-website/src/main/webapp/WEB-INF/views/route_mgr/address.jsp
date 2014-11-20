@@ -95,9 +95,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      <!--<div id="allmap" style="width: 890px;height: 430px;margin-top: 10px;margin-left: 15px;"></div>    	 -->
 				       	      <div style="width:900px;height:430px;border:#ccc solid 1px;margin-top: 10px;margin-left: 10px;" id="dituContent"></div>
 				       	</div>
-				       	<div style="width: 920px;margin-top: 25px;border: 1px solid #DDDDDD;height:40px;background: #F5F5F5;line-height: 40px;float: left;border-radius:5px;">
+				       <%-- 	<div style="width: 920px;margin-top: 25px;border: 1px solid #DDDDDD;height:40px;background: #F5F5F5;line-height: 40px;float: left;border-radius:5px;">
 				       	          &nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">地址详情 : </span>${requestScope.goodsArea.address}
-				       	</div>
+				       	</div> --%>
 				  </div>
 				</div>
 	    	</div>
@@ -152,6 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			anchor : BMAP_ANCHOR_BOTTOM_LEFT
 		});
 		map.addControl(ctrl_sca);
+		map.addControl(new BMap.MapTypeControl());
 	}
 
 	//标注点数组
@@ -164,11 +165,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		isOpen : 0,
 		icon : {
 			w : 21,
-			h : 21,
-			l : 0,
-			t : 0,
+			h : 25,
+			l : 46,
+			t : 21,
 			x : 6,
-			lb : 5
+			lb : 8
 		}
 	} ];
 	
