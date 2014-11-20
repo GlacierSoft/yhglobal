@@ -167,7 +167,7 @@ public class StorehouseBelaidupService {
     
     /**
      * @Title: listAsWebsite 
-     * @Description: TODO(前台获取登录会员资金明细记录) 
+     * @Description: TODO(前台获取登录会员货源发布记录) 
      * @param @param pager
      * @param @param memberId
      * @param @return    设定文件 

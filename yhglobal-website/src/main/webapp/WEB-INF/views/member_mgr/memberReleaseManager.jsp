@@ -117,8 +117,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									                            货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
 									                            起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
 									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
-										 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
-									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
+										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
+									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');$('#financeTransactionSearch').submit();"> 重置</button>
 									    </div>
 									   </div>
 								     </form>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
 									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
 									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
-										 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
+										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
 									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
 									     </div>
 									   </div>
@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
 									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
 									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
-										 	<input type="submit" value="提交" class="btn btn-primary" onclick="$('#financeTransactionSearch').submit();">
+										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
 									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
 									    </div>
 									   </div>

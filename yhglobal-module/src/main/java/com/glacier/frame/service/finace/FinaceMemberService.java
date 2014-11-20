@@ -89,4 +89,18 @@ public class FinaceMemberService {
       return financeMemberMapper.selectByPrimaryKey(mrechageId); 
 	}
 	
+	/**
+	 * @Title: getFinaceMemberPro 
+	 * @Description: TODO(会员资金信息) 
+	 * @param @param withdrawId
+	 * @param @return    设定文件 
+	 * @return Object    返回记录 
+	 * @throws
+	 */
+	public Object getFinaceMemberProWebsite(String memberId){
+		FinanceMemberExample financeMemberExample = new FinanceMemberExample();
+		financeMemberExample.createCriteria().andMemberIdEqualTo(memberId);
+		FinanceMember financeMember=financeMemberMapper.selectByExample(financeMemberExample).get(0);
+		return financeMember;
+	}
 }
