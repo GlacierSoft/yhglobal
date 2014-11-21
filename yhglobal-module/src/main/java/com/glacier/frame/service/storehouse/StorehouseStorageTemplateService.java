@@ -1,0 +1,217 @@
+/**
+ * @Title: StorehouseTemplateService.java 
+ * @Package com.glacier.global.service.StorehouseTemplate
+ * @author wuting   
+ * @email 920339213@qq.com
+ * @date 2014-10-14
+ * @company (开发公司)    珠海市冰川软件有限公司
+ * @copyright (版权)    本文件归属珠海市冰川软件有限公司所有
+ * @version V1.00          
+ * @Review (审核人) ：wuting
+ * 
+ */
+package com.glacier.frame.service.storehouse; 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
+import com.glacier.frame.dao.storehouse.StorehouseTemplateMapper;
+import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.storehouse.StorehouseTemplate;
+import com.glacier.frame.entity.storehouse.StorehouseTemplateExample;
+import com.glacier.frame.entity.system.User;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+/*** 
+ * @ClassName:  StorehouseTemplateService
+ * @Description: TODO(发货模板表业务类)
+ * @author wuting
+ * @email 920339213@QQ.com
+ * @date 2014-10-15
+ */
+@Service
+@Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
+public class StorehouseStorageTemplateService {
+
+	@Autowired
+	private StorehouseTemplateMapper storehouseTemplateMapper;
+	
+	@Autowired
+	private StorehouseStorageMapper storageMapper;
+	
+	/**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取所有发货模板信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsGrid(JqPager jqPager,int p) {
+        JqGridReturn returnResult = new JqGridReturn();
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        ShipperMember shipperMember = (ShipperMember) pricipalSubject.getPrincipal();
+        StorehouseTemplateExample storehouseTemplateExample = new StorehouseTemplateExample(); 
+        storehouseTemplateExample.createCriteria().andMemberidEqualTo(shipperMember.getMemberId());
+       
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	storehouseTemplateExample.setOrderByClause(jqPager.getOrderBy("temp_storehouse_template_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        storehouseTemplateExample.setLimitStart(startTemp);
+        storehouseTemplateExample.setLimitEnd(10);
+        List<StorehouseTemplate> storehouseTemplateTypeList = storehouseTemplateMapper.selectByExample(storehouseTemplateExample); // 查询所有发货模板列表
+        int total = storehouseTemplateMapper.countByExample(storehouseTemplateExample); // 查询总页数
+        returnResult.setRows(storehouseTemplateTypeList);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+	 * @Title: getStoragetype 
+	 * @Description: TODO(根据发货模板Id获取发货模板信息) 
+	 * @param @param storagetypeId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getStoragetype(String storagetypeId) {
+    	StorehouseTemplate carrierCarType = storehouseTemplateMapper.selectByPrimaryKey(storagetypeId);
+        return carrierCarType;
+    }
+    
+    /**
+     * @Title: addStoragetype 
+     * @Description: TODO(新增发货模板) 
+     * @param @param storagetype
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     *//*
+    @Transactional(readOnly = false)
+    public Object addStoragetype(StorehouseTemplate storagetype) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        StorehouseTemplateExample storehouseTemplateExample = new StorehouseTemplateExample(); 
+        int count = 0;
+        // 防止发货模板名称重复
+        storehouseTemplateExample.createCriteria().andStoragetypeNameEqualTo(storagetype.getStoragetypeName());
+        count = storehouseTemplateMapper.countByExample(storehouseTemplateExample);
+        if (count > 0) {
+            returnResult.setMsg("发货模板名称重复");
+            returnResult.setSuccess(false);
+            return returnResult;
+        }
+        storagetype.setStoragetypeId(RandomGUID.getRandomGUID());
+        storagetype.setCreater(pricipalUser.getUserId());
+        storagetype.setCreateTime(new Date());
+        storagetype.setUpdater(pricipalUser.getUserId());
+        storagetype.setUpdateTime(new Date());
+        count = storehouseTemplateMapper.insert(storagetype);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + storagetype.getStoragetypeName() + "] 发货模板信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，发货模板信息保存失败");
+        }
+        return returnResult;
+    }
+    
+    *//**
+     * @Title: editStoragetype 
+     * @Description: TODO(修改发货模板信息) 
+     * @param @param storagetype
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     *//*
+    @Transactional(readOnly = false)
+    public Object editStoragetype(StorehouseTemplate storagetype) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        StorehouseTemplateExample storehouseTemplateExample = new StorehouseTemplateExample(); 
+        int count = 0;
+        // 防止发货模板名称重复
+        storehouseTemplateExample.createCriteria().andStoragetypeNameEqualTo(storagetype.getStoragetypeName()).andStoragetypeIdNotEqualTo(storagetype.getStoragetypeId());
+        count = storehouseTemplateMapper.countByExample(storehouseTemplateExample);
+        if (count > 0) {
+            returnResult.setMsg("发货模板名称重复");
+            return returnResult;
+        }
+        //根据ID获取承运商信誉等级信息
+        StorehouseTemplate storagetypeTime = (StorehouseTemplate) getStoragetype(storagetype.getStoragetypeId());
+        storagetype.setCreater(storagetypeTime.getCreater());
+        storagetype.setCreateTime(storagetypeTime.getCreateTime());
+        storagetype.setUpdater(pricipalUser.getUserId());
+        storagetype.setUpdateTime(new Date());
+        count = storehouseTemplateMapper.updateByPrimaryKey(storagetype);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + storagetype.getStoragetypeName() + "] 发货模板信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，发货模板信息保存失败");
+        }
+        return returnResult;
+    }
+    
+    *//**
+     * @Title: delStoragetype
+     * @Description: TODO(删除发货模板) 
+     * @param @param gradeIds
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     *//*
+    @Transactional(readOnly = false)
+    public Object delStoragetype(List<String> storagetypeIds, List<String> storagetypeName) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        // 定义删除成功数据行数量
+        int rightNumber = 0;
+        // 定义返回结果
+        String result_str = ""; 
+        // 定义是否显示提示
+        boolean isFlag = true;
+        //数据行长度判断
+        if (storagetypeIds.size() > 0) { 
+           //匹配删除信息
+           for (int i = 0; i < storagetypeIds.size(); i++) {  
+                 // 相关联充值记录
+        		StorehouseStorageExample storageExample = new StorehouseStorageExample();
+        		storageExample.createCriteria().andStoragetypeIdEqualTo(storagetypeIds.get(i));
+        		int count = storageMapper.countByExample(storageExample);
+                // 判断是否关联
+        		if (count <= 0) { 
+        			StorehouseTemplateExample storehouseTemplateExample = new StorehouseTemplateExample();
+        			storehouseTemplateExample.createCriteria().andStoragetypeIdEqualTo(storagetypeIds.get(i));
+        		      int number = storehouseTemplateMapper.deleteByExample(storehouseTemplateExample);
+        	          rightNumber += number;// 删除成功数据行数量记录 
+                 } else { 
+                       if(isFlag){ 
+        				if(count > 0){
+        					result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【发货模板】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【发货模板】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+        					isFlag = false;
+        					} 
+                        }  
+                       }
+        			}
+        		// 删除成功数量大于0即为操作成功,且提示关联信息
+        		if(rightNumber>0){
+        			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+        			returnResult.setSuccess(true);
+        		}else{
+        			returnResult.setMsg(result_str.trim());
+        			returnResult.setSuccess(false);
+        		     }
+        	   }
+        return returnResult;
+    }*/
+}

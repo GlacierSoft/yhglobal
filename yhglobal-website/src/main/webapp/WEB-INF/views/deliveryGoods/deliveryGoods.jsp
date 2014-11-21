@@ -54,6 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <div class="panel panel-primary">
                     <div class="panel-heading">
     					<h3 class="panel-title">我要发货</h3>
+    					<h4 class="panel-title"><a href="${ctx}/template/index.htm?&p=1">发货模板</a></h4>
   					</div>
 					<div class="panel-body">
 					      <div class="form-group col-sm-12">

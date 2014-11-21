@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseTemplate" >
+    <id column="temp_storehouse_template_templateId" property="templateid" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_templateName" property="templatename" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_receivingArea" property="receivingarea" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_receivingAddress" property="receivingaddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_receivingPhone" property="receivingphone" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_deliveryArea" property="deliveryarea" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_deliveryAddress2" property="deliveryaddress2" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_tradingPhone" property="tradingphone" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_tradingCellphone" property="tradingcellphone" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_goodstypeId" property="goodstypeid" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_belaidupProdName" property="belaidupprodname" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_belaidupWeight" property="belaidupweight" jdbcType="REAL" />
+    <result column="temp_storehouse_template_belaidupBulk" property="belaidupbulk" jdbcType="REAL" />
+    <result column="temp_storehouse_template_belaidupNumber" property="belaidupnumber" jdbcType="INTEGER" />
+    <result column="temp_storehouse_template_cartypeId" property="cartypeid" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_service_type" property="serviceType" jdbcType="CHAR" />
+    <result column="temp_storehouse_template_lengthStart" property="lengthstart" jdbcType="INTEGER" />
+    <result column="temp_storehouse_template_lengthStop" property="lengthstop" jdbcType="INTEGER" />
+    <result column="temp_storehouse_template_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_template_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_template_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_template_memberId" property="memberid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_template.templateId as temp_storehouse_template_templateId, temp_storehouse_template.templateName as temp_storehouse_template_templateName, 
+    temp_storehouse_template.receivingArea as temp_storehouse_template_receivingArea, 
+    temp_storehouse_template.receivingAddress as temp_storehouse_template_receivingAddress, 
+    temp_storehouse_template.receivingPhone as temp_storehouse_template_receivingPhone, 
+    temp_storehouse_template.deliveryArea as temp_storehouse_template_deliveryArea, temp_storehouse_template.deliveryAddress2 as temp_storehouse_template_deliveryAddress2, 
+    temp_storehouse_template.tradingPhone as temp_storehouse_template_tradingPhone, temp_storehouse_template.tradingCellphone as temp_storehouse_template_tradingCellphone, 
+    temp_storehouse_template.goodstypeId as temp_storehouse_template_goodstypeId, temp_storehouse_template.belaidupProdName as temp_storehouse_template_belaidupProdName, 
+    temp_storehouse_template.belaidupWeight as temp_storehouse_template_belaidupWeight, 
+    temp_storehouse_template.belaidupBulk as temp_storehouse_template_belaidupBulk, temp_storehouse_template.belaidupNumber as temp_storehouse_template_belaidupNumber, 
+    temp_storehouse_template.cartypeId as temp_storehouse_template_cartypeId, temp_storehouse_template.service_type as temp_storehouse_template_service_type, 
+    temp_storehouse_template.lengthStart as temp_storehouse_template_lengthStart, temp_storehouse_template.lengthStop as temp_storehouse_template_lengthStop, 
+    temp_storehouse_template.creater as temp_storehouse_template_creater, temp_storehouse_template.create_time as temp_storehouse_template_create_time, 
+    temp_storehouse_template.updater as temp_storehouse_template_updater, temp_storehouse_template.update_time as temp_storehouse_template_update_time, 
+    temp_storehouse_template.memberId as temp_storehouse_template_memberId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_template temp_storehouse_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_template temp_storehouse_template
+    where temp_storehouse_template.templateId = #{templateid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_template
+    where templateId = #{templateid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplateExample" >
+    delete from t_storehouse_template temp_storehouse_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplate" >
+    insert into t_storehouse_template (templateId, templateName, receivingArea, 
+      receivingAddress, receivingPhone, deliveryArea, 
+      deliveryAddress2, tradingPhone, tradingCellphone, 
+      goodstypeId, belaidupProdName, belaidupWeight, 
+      belaidupBulk, belaidupNumber, cartypeId, 
+      service_type, lengthStart, lengthStop, 
+      creater, create_time, updater, 
+      update_time, memberId)
+    values (#{templateid,jdbcType=VARCHAR}, #{templatename,jdbcType=VARCHAR}, #{receivingarea,jdbcType=VARCHAR}, 
+      #{receivingaddress,jdbcType=VARCHAR}, #{receivingphone,jdbcType=VARCHAR}, #{deliveryarea,jdbcType=VARCHAR}, 
+      #{deliveryaddress2,jdbcType=VARCHAR}, #{tradingphone,jdbcType=VARCHAR}, #{tradingcellphone,jdbcType=VARCHAR}, 
+      #{goodstypeid,jdbcType=VARCHAR}, #{belaidupprodname,jdbcType=VARCHAR}, #{belaidupweight,jdbcType=REAL}, 
+      #{belaidupbulk,jdbcType=REAL}, #{belaidupnumber,jdbcType=INTEGER}, #{cartypeid,jdbcType=VARCHAR}, 
+      #{serviceType,jdbcType=CHAR}, #{lengthstart,jdbcType=INTEGER}, #{lengthstop,jdbcType=INTEGER}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{memberid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplate" >
+    insert into t_storehouse_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templateid != null" >
+        templateId,
+      </if>
+      <if test="templatename != null" >
+        templateName,
+      </if>
+      <if test="receivingarea != null" >
+        receivingArea,
+      </if>
+      <if test="receivingaddress != null" >
+        receivingAddress,
+      </if>
+      <if test="receivingphone != null" >
+        receivingPhone,
+      </if>
+      <if test="deliveryarea != null" >
+        deliveryArea,
+      </if>
+      <if test="deliveryaddress2 != null" >
+        deliveryAddress2,
+      </if>
+      <if test="tradingphone != null" >
+        tradingPhone,
+      </if>
+      <if test="tradingcellphone != null" >
+        tradingCellphone,
+      </if>
+      <if test="goodstypeid != null" >
+        goodstypeId,
+      </if>
+      <if test="belaidupprodname != null" >
+        belaidupProdName,
+      </if>
+      <if test="belaidupweight != null" >
+        belaidupWeight,
+      </if>
+      <if test="belaidupbulk != null" >
+        belaidupBulk,
+      </if>
+      <if test="belaidupnumber != null" >
+        belaidupNumber,
+      </if>
+      <if test="cartypeid != null" >
+        cartypeId,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="lengthstart != null" >
+        lengthStart,
+      </if>
+      <if test="lengthstop != null" >
+        lengthStop,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="memberid != null" >
+        memberId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templateid != null" >
+        #{templateid,jdbcType=VARCHAR},
+      </if>
+      <if test="templatename != null" >
+        #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingarea != null" >
+        #{receivingarea,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingaddress != null" >
+        #{receivingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingphone != null" >
+        #{receivingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryarea != null" >
+        #{deliveryarea,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryaddress2 != null" >
+        #{deliveryaddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingphone != null" >
+        #{tradingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingcellphone != null" >
+        #{tradingcellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupprodname != null" >
+        #{belaidupprodname,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupweight != null" >
+        #{belaidupweight,jdbcType=REAL},
+      </if>
+      <if test="belaidupbulk != null" >
+        #{belaidupbulk,jdbcType=REAL},
+      </if>
+      <if test="belaidupnumber != null" >
+        #{belaidupnumber,jdbcType=INTEGER},
+      </if>
+      <if test="cartypeid != null" >
+        #{cartypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=CHAR},
+      </if>
+      <if test="lengthstart != null" >
+        #{lengthstart,jdbcType=INTEGER},
+      </if>
+      <if test="lengthstop != null" >
+        #{lengthstop,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplateExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_template temp_storehouse_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_template temp_storehouse_template
+    <set >
+      <if test="record.templateid != null" >
+        temp_storehouse_template.templateId = #{record.templateid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templatename != null" >
+        temp_storehouse_template.templateName = #{record.templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingarea != null" >
+        temp_storehouse_template.receivingArea = #{record.receivingarea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingaddress != null" >
+        temp_storehouse_template.receivingAddress = #{record.receivingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingphone != null" >
+        temp_storehouse_template.receivingPhone = #{record.receivingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryarea != null" >
+        temp_storehouse_template.deliveryArea = #{record.deliveryarea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryaddress2 != null" >
+        temp_storehouse_template.deliveryAddress2 = #{record.deliveryaddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingphone != null" >
+        temp_storehouse_template.tradingPhone = #{record.tradingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingcellphone != null" >
+        temp_storehouse_template.tradingCellphone = #{record.tradingcellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodstypeid != null" >
+        temp_storehouse_template.goodstypeId = #{record.goodstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupprodname != null" >
+        temp_storehouse_template.belaidupProdName = #{record.belaidupprodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupweight != null" >
+        temp_storehouse_template.belaidupWeight = #{record.belaidupweight,jdbcType=REAL},
+      </if>
+      <if test="record.belaidupbulk != null" >
+        temp_storehouse_template.belaidupBulk = #{record.belaidupbulk,jdbcType=REAL},
+      </if>
+      <if test="record.belaidupnumber != null" >
+        temp_storehouse_template.belaidupNumber = #{record.belaidupnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.cartypeid != null" >
+        temp_storehouse_template.cartypeId = #{record.cartypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceType != null" >
+        temp_storehouse_template.service_type = #{record.serviceType,jdbcType=CHAR},
+      </if>
+      <if test="record.lengthstart != null" >
+        temp_storehouse_template.lengthStart = #{record.lengthstart,jdbcType=INTEGER},
+      </if>
+      <if test="record.lengthstop != null" >
+        temp_storehouse_template.lengthStop = #{record.lengthstop,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_template.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_template.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_template.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_template.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memberid != null" >
+        temp_storehouse_template.memberId = #{record.memberid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_template temp_storehouse_template
+    set temp_storehouse_template.templateId = #{record.templateid,jdbcType=VARCHAR},
+      temp_storehouse_template.templateName = #{record.templatename,jdbcType=VARCHAR},
+      temp_storehouse_template.receivingArea = #{record.receivingarea,jdbcType=VARCHAR},
+      temp_storehouse_template.receivingAddress = #{record.receivingaddress,jdbcType=VARCHAR},
+      temp_storehouse_template.receivingPhone = #{record.receivingphone,jdbcType=VARCHAR},
+      temp_storehouse_template.deliveryArea = #{record.deliveryarea,jdbcType=VARCHAR},
+      temp_storehouse_template.deliveryAddress2 = #{record.deliveryaddress2,jdbcType=VARCHAR},
+      temp_storehouse_template.tradingPhone = #{record.tradingphone,jdbcType=VARCHAR},
+      temp_storehouse_template.tradingCellphone = #{record.tradingcellphone,jdbcType=VARCHAR},
+      temp_storehouse_template.goodstypeId = #{record.goodstypeid,jdbcType=VARCHAR},
+      temp_storehouse_template.belaidupProdName = #{record.belaidupprodname,jdbcType=VARCHAR},
+      temp_storehouse_template.belaidupWeight = #{record.belaidupweight,jdbcType=REAL},
+      temp_storehouse_template.belaidupBulk = #{record.belaidupbulk,jdbcType=REAL},
+      temp_storehouse_template.belaidupNumber = #{record.belaidupnumber,jdbcType=INTEGER},
+      temp_storehouse_template.cartypeId = #{record.cartypeid,jdbcType=VARCHAR},
+      temp_storehouse_template.service_type = #{record.serviceType,jdbcType=CHAR},
+      temp_storehouse_template.lengthStart = #{record.lengthstart,jdbcType=INTEGER},
+      temp_storehouse_template.lengthStop = #{record.lengthstop,jdbcType=INTEGER},
+      temp_storehouse_template.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_template.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_template.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_template.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_storehouse_template.memberId = #{record.memberid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplate" >
+    update t_storehouse_template
+    <set >
+      <if test="templatename != null" >
+        templateName = #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingarea != null" >
+        receivingArea = #{receivingarea,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingaddress != null" >
+        receivingAddress = #{receivingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingphone != null" >
+        receivingPhone = #{receivingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryarea != null" >
+        deliveryArea = #{deliveryarea,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryaddress2 != null" >
+        deliveryAddress2 = #{deliveryaddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingphone != null" >
+        tradingPhone = #{tradingphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingcellphone != null" >
+        tradingCellphone = #{tradingcellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        goodstypeId = #{goodstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupprodname != null" >
+        belaidupProdName = #{belaidupprodname,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupweight != null" >
+        belaidupWeight = #{belaidupweight,jdbcType=REAL},
+      </if>
+      <if test="belaidupbulk != null" >
+        belaidupBulk = #{belaidupbulk,jdbcType=REAL},
+      </if>
+      <if test="belaidupnumber != null" >
+        belaidupNumber = #{belaidupnumber,jdbcType=INTEGER},
+      </if>
+      <if test="cartypeid != null" >
+        cartypeId = #{cartypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=CHAR},
+      </if>
+      <if test="lengthstart != null" >
+        lengthStart = #{lengthstart,jdbcType=INTEGER},
+      </if>
+      <if test="lengthstop != null" >
+        lengthStop = #{lengthstop,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where templateId = #{templateid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseTemplate" >
+    update t_storehouse_template
+    set templateName = #{templatename,jdbcType=VARCHAR},
+      receivingArea = #{receivingarea,jdbcType=VARCHAR},
+      receivingAddress = #{receivingaddress,jdbcType=VARCHAR},
+      receivingPhone = #{receivingphone,jdbcType=VARCHAR},
+      deliveryArea = #{deliveryarea,jdbcType=VARCHAR},
+      deliveryAddress2 = #{deliveryaddress2,jdbcType=VARCHAR},
+      tradingPhone = #{tradingphone,jdbcType=VARCHAR},
+      tradingCellphone = #{tradingcellphone,jdbcType=VARCHAR},
+      goodstypeId = #{goodstypeid,jdbcType=VARCHAR},
+      belaidupProdName = #{belaidupprodname,jdbcType=VARCHAR},
+      belaidupWeight = #{belaidupweight,jdbcType=REAL},
+      belaidupBulk = #{belaidupbulk,jdbcType=REAL},
+      belaidupNumber = #{belaidupnumber,jdbcType=INTEGER},
+      cartypeId = #{cartypeid,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=CHAR},
+      lengthStart = #{lengthstart,jdbcType=INTEGER},
+      lengthStop = #{lengthstop,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      memberId = #{memberid,jdbcType=VARCHAR}
+    where templateId = #{templateid,jdbcType=VARCHAR}
+  </update>
+</mapper>
