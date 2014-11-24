@@ -56,7 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<h3 class="panel-title">发货模板管理</h3>
   					</div>
 					<div class="panel-body">
-					      <table class="table table-bordered" style="text-align: left;">
+						  <a class="btn btn-default" href="${ctx}/template/addTemplateGoods.htm" role="button" style="float: right;">添加模块</a>
+					      <table class="table table-bordered" style="text-align: left;margin-top: 10px;float: right;">
 							<thead>
 								<tr>
 									<th>模板名称</th><th>收货地</th>
@@ -71,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${getDatas.deliveryarea}</td><td>${getDatas.belaidupprodname}</td>
 									<td>${getDatas.lengthstart}米 - ${getDatas.lengthstop}米</td>
 									<td><fmt:formatDate value="${getDatas.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-									<td><a href="#">查看详情</a>&nbsp;&nbsp;<a href="#">修改</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+									<td><a href="${ctx}/template/templateGoodsDealit.htm?&templateId=${getDatas.templateid}">详情</a>&nbsp;&nbsp;<a href="${ctx }/template/addTemplateGoods.htm?&templateId=${getDatas.templateid}">修改</a>&nbsp;&nbsp;<a href="javascript:doDailog('${getDatas.templateid}');">删除</a></td>
 								</tr>
 							</c:forEach>
 							<c:if test="${empty templateList.rows}">
@@ -97,4 +98,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <jsp:include page="../foot.jsp"/>
    </body>
 </html>
-
+<script type="text/javascript">
+//公共对话框定义
+function  doDailog(Id){
+	  KindEditor.ready(function(K) {
+		  var dialog = K.dialog({
+		        width : 500,
+		        title : '发货提示',
+		        body : '<div style="margin:10px;"><strong>确定删除此发货模板信息</strong></div>',
+		        closeBtn : {
+	                  name : '关闭',
+	                  click : function(e) {
+	                          dialog.remove();
+	                  }
+	          },
+		     yesBtn : {
+	                name : '确定',
+	                click : function(e) {
+	                	$.ajax({
+	         			   type: "POST",
+	         			   url: ctx + '/template/delTemplateGoods.json?&templateId='+Id,
+	         			   dataType:'json',
+	         			   success: function(r){
+	         				 if(r.success){
+	         					doDailog(r.msg);
+	         					dialog.remove();
+	         					location.href="${ctx}/template/index.htm?&p=1";
+	         				 }
+	         				 else{
+	         					doDailog(r.msg);
+	         					dialog.remove();
+	         				 }
+	         			   }
+	         			 });
+	                }
+	        },
+	        noBtn : {
+	                name : '取消',
+	                click : function(e) {
+	                        dialog.remove();
+	                }
+	        }
+		}); 
+	  });
+}
+</script>

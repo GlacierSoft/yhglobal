@@ -54,12 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <div class="panel panel-primary">
                     <div class="panel-heading">
     					<h3 class="panel-title">我要发货</h3>
-    					<h4 class="panel-title"><a href="${ctx}/template/index.htm?&p=1">发货模板</a></h4>
   					</div>
 					<div class="panel-body">
 					      <div class="form-group col-sm-12">
 							    <label for="inputEmail3" class="control-label col-sm-1">发货方</label>
 							    <label for="inputEmail3" class="control-label col-sm-4"  style="color: #428BCA;">填写完整、准确信息，物流跟进更及时</label>
+						  		<h4 class="panel-title"><a class="btn btn-primary" href="${ctx}/template/index.htm?&p=1" style="float: right;">发货模板</a></h4>
 						  </div>
 					      <div class="form-group col-sm-12">
 							    <label for="inputEmail3" class="control-label col-sm-1">联系人</label>

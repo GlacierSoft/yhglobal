@@ -73,6 +73,19 @@ public class ParameterCarrierCarTypeService {
     }
     
     /**
+	 * @Title: CarrierCarTypeList 
+	 * @Description: TODO(获取所有车辆类型信息) 
+	 * @param @param
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object CarrierCarTypeList() {
+    	List<ParameterCarrierCarType> carrierCarType = carrierCarTypeMapper.selectByExample(new ParameterCarrierCarTypeExample());
+        return carrierCarType;
+    }
+    
+    /**
 	 * @Title: getCarrierCarType 
 	 * @Description: TODO(根据车辆类型Id获取车辆类型信息) 
 	 * @param @param carTypeId

@@ -78,6 +78,18 @@ public class StorehouseGoodstypeSetService {
         return returnResult;// 返回ExtGrid表
     }
     
+    /**
+	 * @Title: goodstypeList 
+	 * @Description: TODO(获取所有货物类型信息) 
+	 * @param @param 
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object goodstypeList() {
+    	List<StorehouseGoodstypeSet> carrierCarType = storagetypeSetMapper.selectByExample(new StorehouseGoodstypeSetExample());
+        return carrierCarType;
+    }
 	/**
 	 * @Title: getGoodstype 
 	 * @Description: TODO(根据货物类型Id获取货物类型信息) 
