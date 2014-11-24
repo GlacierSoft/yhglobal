@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    margin: 0;
     		padding: 0;
 		}
+		
 	</style>
   </head>
 
@@ -145,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     </form>
 							  </div>
 						  </div>
-					      <table class="table table-bordered">
+					      <table class="table table-bordered" id="finace_member_detail_record">
 				          	<thead>
 					          <tr>
 					            <th width="100px">会员名称</th>
@@ -196,37 +197,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <form id="financeRecharge" name="financeRecharge" class="form-horizontal" role="form" method="post" >
 					        	<table class="table table-bordered" style="color:gray;">
 						          	<tbody>
-								          <tr>
-								            <td align="right" >会员账号：</td>
-								            <td>${currentMember.memberName}</td>
+						          	      <tr>
+								            <td align="right" >真实姓名：</td>
+								            <td><span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span></td>
 								          </tr>
 								          <tr>
-								            <td align="right" >账号类型：</td>
-								            <td>${currentMember.memberName}</td>
+								            <td align="right" >会员账号：</td>
+								            <td><span class="label label-default" style="background-color: #FF5400">${currentMember.memberName}</span></td>
 								          </tr>
 								          <tr>
 								            <td align="right" >充值类型：</td>
 								            <td>
-								            	  <input type="radio" name="recharge_money" value="线上充值" checked="checked">线上充值
-								            	  <input type="radio" name="recharge_money" value="线下充值">线下充值
+								            	  <table>
+									            	<c:forEach items="${finaceMemberRechargeSetDate.rows}" var="financeMemberRechargeSet">
+									            		<tr>
+									            			<td style="vertical-align: middle;"><input name="rechargeSetId" type="radio"  value="${financeMemberRechargeSet.rechargeSetId}" onclick="displayIsFinanceRechargeSet('${financeMemberRechargeSet.rechargeSetType}');"/></td>
+									            			<td>${financeMemberRechargeSet.rechargeSetName}【${financeMemberRechargeSet.rechargeSetType=='online'?'线上充值':'线下充值'}】</td>
+									            		</tr>
+									            	</c:forEach>
+									            </table>
     										</td>
 								          </tr>
 								          <tr>
 								            <td align="right">充值金额：</td>
-								            <td>￥<input maxlength="8" id="rechargeMoney" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)"/></td>
+								            <td>￥<input maxlength="8" id="rechargeMoney" name="rechargeMoney" type="text" class="inp100x" onkeyup="clearNoNum(this)"/></td>
 								          </tr>
 								          <tr>
 							            	<td align="right">充值回执：</td>
 							            	<td>
-							            		<input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x"/>
+							            		<input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x" disabled="disabled"/>
 							            	</td>
 							              </tr>
 								          <tr>
 								            <td align="right">
-								            	<button id="sub" type="submit" class="btn btn-primary" data-toggle="button" > 提交</button>
+								            	<button id="sub" type="submit" class="btn btn-primary"> 提交</button>
 									        </td>
 								            <td>
-								            	<button type="reset" class="btn btn-primary" data-toggle="button"> 重置</button>
+								            	<button type="reset" class="btn btn-primary"> 重置</button>
 								            </td>
 								          </tr>
 							      	</tbody>
@@ -246,47 +253,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<p>4、在钱打到您账号时会发一封站内信通知你。 <p>
 								<p>5、每笔提现金额至少为100元以上（备注：如101、632等）<p>
 								<p>6、每笔提现金额最高不能超过50000元。 <p>
-								<p>7、您目前能提取的最高额度是<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/>元。<p>
+								<p>7、您目前能提取的最高额度是<fmt:formatNumber value='${finaceMemberDate.mrechageRemain }' pattern='#,#00.00'/>元。<p>
 						    </div>
 						    <form id="financeWithdraw" name="financeWithdraw" class="form-horizontal" role="form" method="post" >
 							    <table class="table table-bordered" style="color:gray;">
 						          	<tbody>
 								          <tr>
 								            <td>真实姓名</td> 
-								            <td>郑俊杰</td>
+								            <td><span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span></td>
 								          </tr>
 								          <tr>
 								            <td>账号：</td>
-								            <td>1203807137</td>
+								            <td><span class="label label-default" style="background-color: #FF5400">${currentMember.memberName}</span></td>
 								          </tr>
 								          <tr>
 								            <td>账户余额</td> 
-								            <td>￥<fmt:formatNumber value='129' pattern='#,#00.00'/></td>
+								            <td>￥<fmt:formatNumber value='${finaceMemberDate.mrechageRemain }' pattern='#,#00.00'/></td>
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
-								            <td >￥<lable id="usableMoney"><fmt:formatNumber value='139' pattern='#,#00.00'/></lable> </td>
+								            <td >￥<fmt:formatNumber value='${finaceMemberDate.mrechageRemain }' pattern='#,#00.00'/></td>
 								          </tr>
 								          <tr>
 								            <td>冻结总额：</td>
-								            <td>￥<fmt:formatNumber value='159' pattern='#,#00.00'/></td>
+								            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td>￥<input maxlength="8" id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>
-								            <input type="hidden" id="memberId" name="memberId" value="135" ></td>
+								              <td>￥<input maxlength="8" id="withdrawMoney" name="withdrawMoney" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>
+								            </td>
 								          </tr>
 								          <tr>
 								            <td>银行卡：</td>
 								            <td>
 									            <select name="bankCardId" id="bankCardId" class="inp100x" style="width: 122px"> 
-<%-- 										    		<c:forEach items="${financeBankCardDatas}" var="financeBankCard"> --%>
-<%-- 										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option> --%>
-<%-- 										       		</c:forEach> --%>
-                                                            <option value="1">工商卡</option>
-                                                            <option value="1">支付宝</option>
-
-												</select> 
+										    		<c:forEach items="${finaceMemberBankCardDate}" var="financeBankCard">
+										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option>
+										       		</c:forEach>
+                                               </select> 
 												<input id="btnSendCode" disabled="disabled" class="btn btn-default" name="btnSendCode" type="button" value="银行卡设置" onClick="get_mobile_code();">&nbsp;
 								            </td>
 								          </tr>
@@ -303,8 +307,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td colspan="2" align="center">
-								            	<button id="sub" type="submit" class="btn btn-primary" data-toggle="button" > 提交</button>
-								            	<button type="reset" class="btn btn-primary" data-toggle="button"> 重置</button>
+								            	<button id="sub" type="submit" class="btn btn-primary"  > 提交</button>
+								            	<button type="reset" class="btn btn-primary"> 重置</button>
 								            </td>
 								          </tr>
 							      	</tbody>
@@ -377,14 +381,132 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	
 		element.bootstrapPaginator(options);
-	})
+		
+		//提现信息提交
+		$("#financeWithdraw").validate({
+	   		rules:{
+	   			withdrawMoney:{
+	   				required:true,  
+		            min:100,
+	   				
+	   			},
+	   			tradersPassword:"required"
+	   			
+	   		},
+	   		messages:{
+	   			withdrawMoney:{
+	   		    required:"请输入提现金额", 
+	   			min:"提现金额不能低于100元" 
+	   		    },
+	   			tradersPassword:"必须填写交易密码",
+	   		  },
+	   		submitHandler:function(){
+	   		    
+	   		 },
+	   		errorPlacement : function(error, element) {
+	      		 if ( element.is(":radio") ) 
+	      	        error.appendTo ( element.parent().next()  ); 
+	      	    else if ( element.is(":checkbox") ) 
+	      	        error.appendTo ( element.parent() ); 
+	      	    else if ( element.is("input[name=mobile_code]") ) 
+	      	        error.appendTo ( element.parent() ); 
+	      	    else 
+	      	        error.insertAfter(element); 
+	      		}
+	   	});
+		
+	   //充值信息提交
+	   $("#financeRecharge").validate({
+			 rules:{ 
+				rechargeSetId:"required",
+				rechargeMoney:{
+					required: true,  
+					min:100,
+					max:100000
+				 } 
+			},
+			messages:{ 
+				rechargeSetId:" &nbsp;&nbsp;&nbsp;必须选择一种充值类型",
+				rechargeMoney:{
+					required:"请输入充值金额", 
+					min:"充值金额不能低于100元",
+					max:"充值金额不能高于上限10万"
+				},
+			},  
+			submitHandler:function(){
+				var d =art.dialog({
+		  		    title:'操作提示',
+		  		    fixed:true,
+		      	    lock: true,
+		      	    icon:'question',
+		      	    background:"#E6E6E6",
+		     		opacity:0.4,
+		  		    content: '你确定要进行【充值】操作吗?',
+		  		    ok: function () {
+		  		      $.ajax({
+		   				   type: "POST",
+		   				   url: ctx+"/recharge/add.json",
+		   				   dataType: "json",
+		   				   data: $("#financeRecharge").serialize(),
+		    			   success: function(r) {
+		    				   doShow(r.msg);
+		                    },
+		                    error: function() {
+		                    	doShow("提交出错!");
+		                    }
+		   				}); 
+		  		    },
+		  		    cancel: function () {
+		  		        this.close();
+		  		    }
+		  		});
+		  		d.show(); 
+			 },
+			errorPlacement : function(error, element) {
+			 if ( element.is(":radio") ) 
+		        error.appendTo ( element.parent().next()  ); 
+		    else if ( element.is(":checkbox") ) 
+		        error.appendTo ( element.parent() ); 
+		    else if ( element.is("input[name=captcha]") ) 
+		        error.appendTo ( element.parent() ); 
+		    else 
+		        error.insertAfter(element); 
+			}
+		}); 
+		     
+	});
   
   
-  
-  
-  </script>
-  	    
-  	    
-  	    
+    //充值方式判断
+	function displayIsFinanceRechargeSet(rechargeSetType){
+		if(rechargeSetType == "online"){
+			rechargeReceipt.disabled = "disabled";
+			$("#rechargeReceipt").val("");
+		}else{
+			rechargeReceipt.disabled = "";
+		}
+	}
+    
+	 //提示对话款
+    function doShow(str){
+   	 var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'succeed',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	 this.close;
+   		    	 location.reload();
+   		    }
+   		});
+   		d.show();
+    }
+    
+	
+   </script>
 </body>
 </html>

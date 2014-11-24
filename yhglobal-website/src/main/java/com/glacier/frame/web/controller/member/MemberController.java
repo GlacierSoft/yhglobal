@@ -26,9 +26,11 @@ import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
 import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
+import com.glacier.frame.service.member.ShipperMemberBankCardService;
 import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.finace.FinaceMemberService;
+import com.glacier.frame.service.finace.FinaceRechargeMemberSetService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.frame.service.finace.FinaceMemberDetailService;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -61,6 +63,12 @@ public class MemberController extends AbstractController{
     
     @Autowired
     private  FinaceMemberService finaceMemberService;
+    
+    @Autowired
+    private FinaceRechargeMemberSetService finaceRechargeMemberSetService;
+    
+    @Autowired
+    private ShipperMemberBankCardService shipperMemberBankCardService;
     
 
     // 进入会员个人主页展示页面
@@ -167,12 +175,18 @@ public class MemberController extends AbstractController{
     //充值提现展示页
     @RequestMapping(value="/rechargeWithdraw.htm")
     private Object intoRechargeWithdraw(JqPager pager, FinaceMemberDetailsQueryDTO finaceMemberDetailsQueryDTO,int p){
-    	ModelAndView mav=new ModelAndView("member_mgr/MemberRechargeWithdraw");
+    	ModelAndView mav=new ModelAndView("member_mgr/memberRechargeWithdraw");
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+  		//会员详细信息
+  		mav.addObject("individuality",individualityMemberService.getShipperMember(pricipalMember.getMemberId())); 
   		//会员资金记录
   	    mav.addObject("finaceMemberDate",finaceMemberService.getFinaceMemberProWebsite(pricipalMember.getMemberId()));
-  		//会员资金明细记录
+  	    //会员充值类型
+  	    mav.addObject("finaceMemberRechargeSetDate", finaceRechargeMemberSetService.listWebsite());
+  	    //会员银行卡信息
+  	    mav.addObject("finaceMemberBankCardDate", shipperMemberBankCardService.listWebsite(pricipalMember.getMemberId()));
+  	    //会员资金明细记录
   		JqGridReturn returnResult=(JqGridReturn)finaceMemberDetailService.listAsWebsite(pager, finaceMemberDetailsQueryDTO,pricipalMember.getMemberId(),p);
   		mav.addObject("currentMember",pricipalMember);
   		mav.addObject("returnResult",returnResult); 

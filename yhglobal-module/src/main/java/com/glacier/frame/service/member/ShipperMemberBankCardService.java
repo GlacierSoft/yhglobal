@@ -13,7 +13,9 @@
 package com.glacier.frame.service.member;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -32,7 +34,6 @@ import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-
 /*** 
  * @ClassName:  ShipperMemberBankCardService
  * @Description: TODO(会员信用卡管理业务类)
@@ -73,6 +74,27 @@ public class ShipperMemberBankCardService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
 	}
+	
+	 /**
+     * @Title: listWebsite 
+     * @Description: TODO(根据会员Id查找出所属的银行卡信息) 
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object listWebsite(String memberId) {
+    	ShipperMemberBankCardExample shipperMemberBankCardExample = new ShipperMemberBankCardExample();
+    	shipperMemberBankCardExample.createCriteria().andMemberIdEqualTo(memberId);
+        List<ShipperMemberBankCard> financeBankCards = shipperMemberBankCardMapper.selectByExample(shipperMemberBankCardExample);
+        Map<String,String> map = new HashMap<String,String>();
+        for (ShipperMemberBankCard financeBankCard : financeBankCards) {
+        	financeBankCard.setCardName(financeBankCard.getCardName()+" (**"+financeBankCard.getCardNumber().substring(financeBankCard.getCardNumber().length())+")");
+        	 
+            map.put(financeBankCard.getBankcardId(),financeBankCard.getCardName());
+        }
+        return map;
+    }
 	
 	/**
      * @Title: getBankCardPro 

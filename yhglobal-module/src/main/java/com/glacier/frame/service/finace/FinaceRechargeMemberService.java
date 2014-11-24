@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.finace;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -39,16 +40,19 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.finace.FinaceRechargeMemberMapper;
+import com.glacier.frame.dao.finace.FinaceRechargeSetMemberMapper;
 import com.glacier.frame.dto.query.finace.FinaceRechargeMemberQueryDTO;
 import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample.Criteria;
+import com.glacier.frame.entity.finace.FinaceRechargeSetMember;
+import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-
 /**
  * @ClassName: FinaceRechargeMemberServices 
  * @Description: TODO(这里用一句话描述这个类的作用) 
@@ -70,6 +74,9 @@ public class FinaceRechargeMemberService {
 	@Autowired
 	private FinaceRechargeMemberMapper finaceRechargeMemberMapper;
 	
+	@Autowired
+	private FinaceRechargeSetMemberMapper finaceRechargeSetMemberMapper;
+	 
 	
 	public Object listAsGrid(JqPager jqPager, FinaceRechargeMemberQueryDTO finaceRechargeMemberQueryDTO, String q) {
 	    JqGridReturn returnResult = new JqGridReturn();
@@ -238,5 +245,77 @@ public class FinaceRechargeMemberService {
 	    }
 	    return returnResult;
 	}
+
+	/**
+     * @Title: addRecharge 
+     * @Description: TODO(新增会员充值记录) 
+     * @param @param finaceRechargeMember
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+	@Transactional(readOnly = false)
+	public Object addRecharge(FinaceRechargeMember finaceRechargeMember) {
+		 JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		 Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+	     ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+	     finaceRechargeMember.setRechargeId(RandomGUID.getRandomGUID());
+	     finaceRechargeMember.setMemberId(pricipalMember.getMemberId());
+	     // 赋值于充值记录的充值流水号
+	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+	     finaceRechargeMember.setRechargeCode("RECHARGE"+ "_" + dateFormat.format(new Date()));
+	     finaceRechargeMember.setAuditState("authstr"); 
+	     //获取该充值设置的取费方式进行计算该充值的费率和手续费
+	     FinaceRechargeSetMember finaceRechargeSetMember=new FinaceRechargeSetMember();
+	     finaceRechargeSetMember=finaceRechargeSetMemberMapper.selectByPrimaryKey(finaceRechargeMember.getRechargeSetId());
+	     String feeWay=finaceRechargeSetMember.getFeeWay();
+	     if (null != feeWay && StringUtils.isNotBlank(feeWay)) {
+        	 if ("directcost".equals(feeWay)) {//直接收费
+        		 finaceRechargeMember.setChargeMoney(finaceRechargeSetMember.getRechargeMoney());//手续费即为充值设置的取值
+             }else {//比例收费
+            	 finaceRechargeMember.setChargeMoney(finaceRechargeMember.getRechargeMoney().multiply(finaceRechargeSetMember.getRechargeRate()));//手续费=总额*费率
+             }
+        }
+	    //赋值操作 
+	    finaceRechargeMember.setReceiveMoney(finaceRechargeMember.getRechargeMoney().subtract(finaceRechargeMember.getChargeMoney()));//到帐金额=总金额-手续费
+	    finaceRechargeMember.setSaveMoney(new BigDecimal(0.000));
+	    finaceRechargeMember.setReturnMoney(new BigDecimal(0.000));
+	    finaceRechargeMember.setRemark("充值成功");
+	    finaceRechargeMember.setAuditOpinion("会员充值");
+	    finaceRechargeMember.setCreater(pricipalMember.getMemberId());
+    	finaceRechargeMember.setCreateTime(new Date());
+    	finaceRechargeMember.setUpdater(pricipalMember.getMemberId());
+    	finaceRechargeMember.setUpdateTime(new Date());
+    	//进行充值设置类型判断，如果是线上充值，系统自动进行审核，如果是线下充值，则需要人工手动进行审核
+        if (null != finaceRechargeSetMember.getRechargeSetType() && StringUtils.isNotBlank(finaceRechargeSetMember.getRechargeSetType())) {
+            if ("online".equals(finaceRechargeSetMember.getRechargeSetType())) {
+            	finaceRechargeMember.setAuditState("pass");
+            	finaceRechargeMember.setRemark("充值成功,系统自动审核通过");
+            	finaceRechargeMember.setAuditor(pricipalMember.getMemberId());
+            	finaceRechargeMember.setAuditTime(new Date());
+            }
+        }
+        int count = finaceRechargeMemberMapper.insert(finaceRechargeMember);
+        if (count == 1) {
+        	//判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
+        	if (null != finaceRechargeMember.getAuditState() && StringUtils.isNotBlank(finaceRechargeMember.getAuditState())) {
+        		if ("pass".equals(finaceRechargeMember.getAuditState())) {//状态为通过的时候所执行的方法
+        			returnResult.setSuccess(true);
+                    returnResult.setMsg("充值成功，请在交易记录中查看充值信息!");
+        		}else if("authstr".equals(finaceRechargeMember.getAuditState())){//状态为待审核时进行的方法
+        			returnResult.setSuccess(true);
+                    returnResult.setMsg("所选的充值方式为线下充值,请耐心等待审核");
+        		}
+        	} 
+         } else {
+            returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
+        }
+        return returnResult;
+	}
+	
+	
+	
+	
+	
 	
 }

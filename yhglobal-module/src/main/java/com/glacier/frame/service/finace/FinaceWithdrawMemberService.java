@@ -31,14 +31,20 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.frame.dao.finace.FinaceWithdrawMemberMapper;
+import com.glacier.frame.dao.member.ShipperMemberTokenMapper;
 import com.glacier.frame.dto.query.finace.FinaceWithdrawMemberQueryDTO;
+import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample.Criteria;
+import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.member.ShipperMemberToken;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.security.util.Digests;
+import com.glacier.security.util.Encodes;
 
 /**
  * @ClassName: FinaceRechargeMemberServices 
@@ -60,6 +66,9 @@ public class FinaceWithdrawMemberService {
      */ 
 	@Autowired
 	private FinaceWithdrawMemberMapper finaceWithdrawMemberMapper;
+	
+	@Autowired
+	private ShipperMemberTokenMapper shipperMemberTokenMapper;
 	
 	
 	public Object listAsGrid(JqPager jqPager, FinaceWithdrawMemberQueryDTO finaceWithdrawMemberQueryDTO, String q) {
@@ -93,8 +102,7 @@ public class FinaceWithdrawMemberService {
       return finaceWithdrawMemberMapper.selectByPrimaryKey(withdrawId); 
 	}
 	
-
-	/**
+     /**
 	 * @Title: auditRechargeMember 
 	 * @Description: TODO(审核会员充值记录) 
 	 * @param @param finaceRechargeMember
@@ -125,5 +133,44 @@ public class FinaceWithdrawMemberService {
 	    }
 	    return returnResult;
 	}
+	
+	/**
+	 * @Title: auditRechargeMember 
+	 * @Description: TODO(审核会员充值记录) 
+	 * @param @param finaceRechargeMember
+	 * @param @return    设定文件 
+	 * @return Object    返回记录 
+	 * @throws
+	 */
+	
+	 /**
+	    * 加密方式
+	    */
+	 public static final String HASH_ALGORITHM = "SHA-1";
+
+	   /**
+	    * 计算次数
+	    */
+	  public static final int HASH_INTERATIONS = 1024;
+	
+	  /**
+	   * 盐值长度
+	   */
+	  public static final int SALT_SIZE = 1024;
+	  
+	  @Transactional(readOnly = false)
+	  public Object addWithdraw(FinaceWithdrawMember finaceWithdrawMember){
+		 Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+		 ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+			JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	    	// 验证会员真正的交易密码是否等于输入的交易密码 
+	    	ShipperMemberToken mt = shipperMemberTokenMapper.selectByPrimaryKey(pricipalMember.getMemberId());//通过memberId获取memberToken
+	        //将前台传来的密码进行加密，
+	    	byte[] salt = Encodes.decodeHex(mt.getTradersSalt());
+	    	byte[] hashPassword = Digests.sha1(pricipalMember.getTradersPassword().getBytes(), salt, HASH_INTERATIONS);
+	    	String encodeHexPwd = Encodes.encodeHex(hashPassword);
+	      
+		 return null;	 
+	  }
 	
 }
