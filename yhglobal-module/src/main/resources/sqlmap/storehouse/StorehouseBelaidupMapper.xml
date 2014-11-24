@@ -172,6 +172,8 @@
       limit ${limitStart} , ${limitEnd}
     </if>
   </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -179,6 +181,19 @@
 	<include refid="Base_extend" />
     where temp_storehouse_belaidup.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
   </select>
+  
+  
+   <select id="selectTop" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup temp_storehouse_belaidup
+	<include refid="Base_extend" />
+    where temp_storehouse_belaidup.member_id = #{memberId,jdbcType=VARCHAR} ORDER BY temp_storehouse_belaidup.create_time DESC LIMIT 1 
+  </select>
+  
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_storehouse_belaidup
     where belaidup_id = #{belaidupId,jdbcType=VARCHAR}

@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          <div class="panel panel-default">
 				  <div class="panel-heading">班线信息</div>
 				  <div class="panel-body">
+				  <input type="hidden" id="routeId" value="${router.routerId}"> 
 				     <table style="width: 257px">
 				      <tr align="center" height="20px">
 				        <td colspan="2"><font size="4" color="#0697DA" >${router.routeName}</font></td>
@@ -171,10 +172,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     <div class="form-group" >
 						   <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>发货网点:</label>
 						   <div class="col-sm-6" align="left">
-						   <select class="form-control" name="sendSite">
-							  <option onclick="selectDeliver(this)" value="">--请选择--</option> 
+						   <select class="form-control" name="sendSite" onchange="selectDeliver()" id="sendSite">
+							  <option  value="">--请选择--</option> 
 							  <c:forEach items="${router.deliverList}" var="deliver">  
-					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" onclick="selectDeliver(this)" value=" ${deliver.deliverName}"> ${deliver.deliverName} </option>
+					            <option  name="${deliver.address}" class="${deliver.telephone}" id="${deliver.deliverGoodsAreaId}" value=" ${deliver.deliverName}"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
 							<div id="info" style="color:#FF7300"></div>
@@ -183,10 +184,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>收货网点:</label>
 						    <div class="col-sm-6" align="left">
-						    <select class="form-control" name="orderSite">
-							  <option onclick="selectPickUp(this)" value="">--请选择--</option>
+						    <select class="form-control" name="orderSite" onchange="selectPickUp()"  id="orderSite">
+							  <option value="">--请选择--</option>
 							  <c:forEach items="${router.pickUpList}" var="deliver">  
-					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" onclick="selectPickUp(this)" value="${deliver.deliverName}"> ${deliver.deliverName} </option>
+					            <option name="${deliver.address}" class="${deliver.telephone}" id="${deliver.pickUpGoodsAreaId}" value="${deliver.deliverName}"> ${deliver.deliverName} </option>
 		                       </c:forEach>  
 							</select>
 							<div id="infos" style="color:#FF7300"></div>
@@ -216,10 +217,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>货物类型:</label>
 						    <div class="col-sm-6" align="left">
-						       <select class="form-control" name="goodstype" id="goodstype">
+						       <select class="form-control" name="goodstype" id="goodstype" onchange="getId()">
 							      <option value="">--请选择--</option>
 								    <c:forEach items="${storehousePackagetype}" var="ty">  
-						             	<option id="${ty.goodstypeId}" onclick="getId(this)">${ty.goodstypeName}</option>
+						             	<option id="${ty.goodstypeId}" >${ty.goodstypeName}</option>
 								    </c:forEach>   
 						    	</select>
 						    	<input type="hidden" id="goodstypeId" name="goodstypeId" >
@@ -400,8 +401,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 </div> 
 		</div>
 		
-	<jsp:include page="../foot.jsp"/>
+		
+	<jsp:include page="../foot.jsp"/> 
 	<script type="text/javascript"> 
+	 
 	//提交表单
 	function sub(){
 		  $.ajax({
@@ -413,24 +416,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   $("#msg").empty();
 				   $("#msg").text(r.msg); 
 				   $('#mymsg').modal('show');   
-				   setTimeout(hiden, 2000)
+				   setTimeout(hiden(r), 2000); 
 			   }
    	     });
 	} 
 	//隐藏消息提示层，如果是未登录的，直接转到登录页面
-	function hiden( ){ 
+	function hiden(r){ 
 		  $('#mymsg').modal('hide');  
 		     var text=$("#msg").text(); 
 		     if(text== "请先登录，再操作！"){ 
 				 window.location.href=ctx +"/login.htm"; 
-			 }    
+			 }
+		     if(r.success){ 
+		    	 var routeId=$("#routeId").attr("value");
+		    	 send(routeId);
+			   }
 	} 
 	
 	$("#sub").click(function(){
 		 $("#personalMessageForm").submit();
 	});
 	 
-	$("#personalMessageForm").validate({
+	$("#personalMessageForm").validate({ 
 		  rules:{
 			  consignor:"required",
 			  sendPhone:{
@@ -487,7 +494,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  });
 	    
 	//发货区域
-	function selectDeliver(str){ 
+	function selectDeliver(){  
+	  var str=$("#sendSite option:selected");
 	  var address=$(str).attr("name");
 	  var telephone=$(str).attr("class");
 	  var id=$(str).attr("id");  
@@ -501,7 +509,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 }
 	
 	//收货区域
-	function selectPickUp(str){
+	function selectPickUp(){
+	  var str=$("#orderSite option:selected");
 	  var address=$(str).attr("name"); 
 	  var telephone=$(str).attr("class");
 	  var id=$(str).attr("id");
@@ -515,10 +524,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	//获取货物类型的id
-	function getId(te){
-		var id=$(te).attr("id");
+	function getId(){ 
+		var id=$("#goodstype option:selected").attr("id");
 		$("#goodstypeId").attr("value",id);
 	}
+	
+	//构建表单,进入发货页面
+	function send(str){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>delivery/referDelivery.htm');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="routeId" />');   
+	    my_input.attr('value', str);   
+	    // 附加到Form  
+	    form.append(my_input);  
+	    //表单设置隐藏
+	    form.css('display','none');
+	    //表单的构建 完成并提交
+	    form.appendTo(document.body).submit();
+	 }
+	
 	</script> 
 </body>
 </html>

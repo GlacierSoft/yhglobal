@@ -32,6 +32,7 @@ import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.carrier.CarrierDeliverGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierPickUpGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierRouterService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService; 
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -57,6 +58,9 @@ public class StorehouseBelaidupController extends AbstractController{
 	
 	@Autowired
 	private CarrierPickUpGoodsAreaService pickUpGoodosAreaService;
+	
+	@Autowired
+	private StorehouseBelaidupService  storehouseBelaidupService;
 	 
 	//进入发货页面 
 	@RequestMapping(value = "/delivery.htm")
@@ -79,6 +83,15 @@ public class StorehouseBelaidupController extends AbstractController{
 		}else{
 			mav.addObject("goodsArea", pickUpGoodosAreaService.selectOne(id));
 		} 
+		return mav;
+	}
+	
+	//进入订单提交成功的页面
+	@RequestMapping(value="/referDelivery.htm")
+	public Object referDelivery(String routeId){
+		ModelAndView mav = new ModelAndView("route_mgr/referDelivery");
+		mav.addObject("router", routeService.getRoute(routeId)); 
+		mav.addObject("referDelivery", storehouseBelaidupService.selectTop());
 		return mav;
 	}
 }

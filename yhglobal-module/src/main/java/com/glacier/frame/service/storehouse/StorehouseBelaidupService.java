@@ -501,5 +501,18 @@ public class StorehouseBelaidupService {
     	return returnResult;
     }
    
+    /** 
+     * @Title: selectTop  
+     * @Description: TODO(查询当前登录会员，上一次提交的订单信息)  
+     * @param @return    设定文件  
+     * @return StorehouseBelaidup    返回类型  
+     * @throws
+     */
+    public StorehouseBelaidup selectTop(){
+    	 Subject pricipalSubject = SecurityUtils.getSubject();
+         ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();  
+         StorehouseBelaidup sto=belaidupMapper.selectTop(pricipalUser.getMemberId());
+         return sto;
+    }
    
 }
