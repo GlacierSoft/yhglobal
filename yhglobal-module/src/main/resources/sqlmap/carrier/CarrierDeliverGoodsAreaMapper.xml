@@ -12,6 +12,7 @@
     <result column="temp_carrier_deliver_goods_area_longitude" property="longitude" jdbcType="VARCHAR" />
     <result column="temp_carrier_deliver_goods_area_shop_hours" property="shopHours" jdbcType="VARCHAR" />
     <result column="temp_carrier_deliver_goods_area_service_content" property="serviceContent" jdbcType="VARCHAR" />
+    <result column="temp_carrier_deliver_goods_area_is_default" property="isDefault" jdbcType="CHAR" />
     <result column="temp_carrier_deliver_goods_area_remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -82,6 +83,7 @@
     temp_carrier_deliver_goods_area.longitude as temp_carrier_deliver_goods_area_longitude, 
     temp_carrier_deliver_goods_area.shop_hours as temp_carrier_deliver_goods_area_shop_hours, 
     temp_carrier_deliver_goods_area.service_content as temp_carrier_deliver_goods_area_service_content, 
+    temp_carrier_deliver_goods_area.is_default as temp_carrier_deliver_goods_area_is_default, 
     temp_carrier_deliver_goods_area.remark as temp_carrier_deliver_goods_area_remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsAreaExample" >
@@ -121,11 +123,13 @@
     insert into t_carrier_deliver_goods_area (deliver_goods_area_id, router_id, deliver_name, 
       price, address, telephone, 
       latitude, longitude, shop_hours, 
-      service_content, remark)
+      service_content, is_default, remark
+      )
     values (#{deliverGoodsAreaId,jdbcType=VARCHAR}, #{routerId,jdbcType=VARCHAR}, #{deliverName,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{shopHours,jdbcType=VARCHAR}, 
-      #{serviceContent,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{serviceContent,jdbcType=VARCHAR}, #{isDefault,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierDeliverGoodsArea" >
     insert into t_carrier_deliver_goods_area
@@ -159,6 +163,9 @@
       </if>
       <if test="serviceContent != null" >
         service_content,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
       </if>
       <if test="remark != null" >
         remark,
@@ -194,6 +201,9 @@
       </if>
       <if test="serviceContent != null" >
         #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=CHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -239,6 +249,9 @@
       <if test="record.serviceContent != null" >
         temp_carrier_deliver_goods_area.service_content = #{record.serviceContent,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDefault != null" >
+        temp_carrier_deliver_goods_area.is_default = #{record.isDefault,jdbcType=CHAR},
+      </if>
       <if test="record.remark != null" >
         temp_carrier_deliver_goods_area.remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -259,6 +272,7 @@
       temp_carrier_deliver_goods_area.longitude = #{record.longitude,jdbcType=VARCHAR},
       temp_carrier_deliver_goods_area.shop_hours = #{record.shopHours,jdbcType=VARCHAR},
       temp_carrier_deliver_goods_area.service_content = #{record.serviceContent,jdbcType=VARCHAR},
+      temp_carrier_deliver_goods_area.is_default = #{record.isDefault,jdbcType=CHAR},
       temp_carrier_deliver_goods_area.remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -294,6 +308,9 @@
       <if test="serviceContent != null" >
         service_content = #{serviceContent,jdbcType=VARCHAR},
       </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=CHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -311,6 +328,7 @@
       longitude = #{longitude,jdbcType=VARCHAR},
       shop_hours = #{shopHours,jdbcType=VARCHAR},
       service_content = #{serviceContent,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where deliver_goods_area_id = #{deliverGoodsAreaId,jdbcType=VARCHAR}
   </update>

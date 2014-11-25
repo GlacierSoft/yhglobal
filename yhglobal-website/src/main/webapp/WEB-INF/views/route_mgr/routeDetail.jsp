@@ -160,7 +160,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 				<center>
 			    	<button type="button" onclick="send('${routerData.routerId}')" class="btn btn-info" style="width: 150px">我要发货</button>
-				</center> 
+				 	<button type="button" onclick="reouteMap('${routerData.routerId}')" class="btn btn-info" style="width: 150px">查看线路图</button>
+				 </center> 
 	    	</div>  
     	    </div>
     	<div class="col-md-2">
@@ -203,7 +204,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<jsp:include page="../foot.jsp"/>
 	<script type="text/javascript">
 	 
-	//构建表单,进入发货页面
+	///构建表单,进入班线地图线路页面
+	function reouteMap(str){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>route/routeMap.htm');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="routeId" />');   
+	    my_input.attr('value', str);   
+	    // 附加到Form  
+	    form.append(my_input);  
+	    //表单设置隐藏
+	    form.css('display','none');
+	    //表单的构建 完成并提交
+	    form.appendTo(document.body).submit();
+	 }
+	  
+	//进入发货页面
 	function send(str){
 		// 创建Form  
 	    var form = $('<form></form>');  
@@ -222,7 +243,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //表单的构建 完成并提交
 	    form.appendTo(document.body).submit();
 	 }
-	  
 	</script>
 </body>
 </html>

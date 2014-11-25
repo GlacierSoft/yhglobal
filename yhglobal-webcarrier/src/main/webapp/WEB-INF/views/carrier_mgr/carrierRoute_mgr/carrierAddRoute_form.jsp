@@ -135,46 +135,48 @@
 		<legend>发货物区域</legend> 
 		<div id="tt" class="easyui-tabs" style="width:530px;height:350px;">   
 			    <div title="区域1" style="padding:20px;">   
+			    <font color="red">*区域1为默认区域，必填数据 </font>
 			        <table  class="formtable"> 
 						<tr>   
 					      <td>发货区名：</td>
 						  <td>
-						     <input class="easyui-validatebox spinner"   style="height:18px;width:150px"  name="deliverList[0].deliverName"/>
+						     <input type="hidden" name="deliverList[0].isDefault" value="yes">
+						     <input class="easyui-validatebox spinner"  required="true"   style="height:18px;width:150px"  name="deliverList[0].deliverName"/>
 						  </td>
 						  <td style="padding-left:20px;">价格(次)：</td>
 						  <td >
-						 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="deliverList[0].price" />
+						 	<input class="  easyui-validatebox spinner" required="true"  style="height:18px;width:150px" name="deliverList[0].price" />
 						  </td>
 					    </tr>  
 					    <tr> 
 					      <td >营业时间：</td>
 						  <td >
-						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].shopHours" />
+						 	<input class="  easyui-validatebox spinner" required="true"   style="height:18px;width:150px" name="deliverList[0].shopHours" />
 						  </td>  
 					      <td style="padding-left:20px;">联系电话：</td>
 						  <td >
-						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].telephone" />
+						 	<input class="  easyui-validatebox spinner"  required="true"  style="height:18px;width:150px" name="deliverList[0].telephone" />
 						  </td>
 					    </tr>  
 					    <tr>   
 					       <td>站点经度：</td>
-						   <td><input class="spinner"   
+						   <td><input class="easyui-validatebox spinner"   required="true" 
 					    	style="height:18px;width:150px"  name="deliverList[0].longitude"/></td>
 						   <td style="padding-left:20px;">站点纬度：</td>
 						   <td >
-						 	 <input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[0].latitude" />
+						 	 <input class="  easyui-validatebox spinner"  required="true"   style="height:18px;width:150px" name="deliverList[0].latitude" />
 						   </td>
 					    </tr> 
 					    <tr>   
 					        <td>业务内容：</td>
 						    <td colspan="3">
-						      <input class="spinner"  style="height:18px;width:385px"  name="deliverList[0].serviceContent"/>
+						      <input class="easyui-validatebox spinner" required="true"  style="height:18px;width:385px"  name="deliverList[0].serviceContent"/>
 						    </td>
 					    </tr> 
 					    <tr>   
 					        <td>详细地址：</td>
 						    <td colspan="3">
-						       <input class="spinner" style="height:18px;width:385px"  name="deliverList[0].address"/>
+						       <input class="easyui-validatebox spinner" style="height:18px;width:385px"  required="true"  name="deliverList[0].address"/>
 						    </td>
 						</tr> 
 					    <tr>   
@@ -387,7 +389,8 @@
 					 </table>     
 		    </div> 
 		</div>   
-	 </fieldset> 
+		 <a href="http://www.gpsspg.com/maps.htm" target=_blank style='color:blue'>查询经纬度</a>（注：请复制百度经纬度，正确填写站点的经度和纬度）
+	  </fieldset> 
     </div>
     
     <div title="提货区域" style="padding:15px">  
@@ -395,45 +398,47 @@
 	<legend>提货物区域</legend>  
 	<div id="tt" class="easyui-tabs" style="width:530px;height:350px;">   
     <div title="区域1" style="padding:20px;">   
+    <font color="red">*区域1为默认区域，必填数据 </font>
        <table  class="formtable"> 
 			<tr>   
 		     <td>提货区名：</td>
-			 <td><input class="easyui-validatebox spinner"   
+			 <td><input class="easyui-validatebox spinner"   required="true" 
 			  style="height:18px;width:150px"  name="pickUpList[0].deliverName"/></td>
 			   <td style="padding-left:20px;">价格(次)：</td>
 			 <td >
-			 	<input class="  easyui-validatebox spinner"  style="height:18px;width:150px" name="pickUpList[0].price" />
+			    <input type="hidden" name="pickUpList[0].isDefault" value="yes">
+			 	<input class="  easyui-validatebox spinner" required="true"  style="height:18px;width:150px" name="pickUpList[0].price" />
 			  </td>
 		    </tr>  
 		    <tr> 
 		     <td >营业时间：</td>
 			  <td >
-			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].shopHours" />
+			 	<input class="  easyui-validatebox spinner" required="true"   style="height:18px;width:150px" name="pickUpList[0].shopHours" />
 			  </td>  
 		     <td style="padding-left:20px;">联系电话：</td>
 			  <td >
-			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].telephone" />
+			 	<input class="  easyui-validatebox spinner" required="true"   style="height:18px;width:150px" name="pickUpList[0].telephone" />
 			  </td>
 		    </tr>  
 		    <tr>   
 		     <td>站点经度：</td>
-			 <td><input class="spinner"   
+			 <td><input class="easyui-validatebox spinner"    required="true" 
 		    	style="height:18px;width:150px"  name="pickUpList[0].longitude"/></td>
 			   <td style="padding-left:20px;">站点纬度：</td>
 			  <td >
-			 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="pickUpList[0].latitude" />
+			 	<input class="  easyui-validatebox spinner"  required="true"   style="height:18px;width:150px" name="pickUpList[0].latitude" />
 			  </td>
 		    </tr> 
 		     <tr>   
 		        <td>业务内容：</td>
 			    <td colspan="3">
-			      <input class="spinner"  style="height:18px;width:385px"  name="pickUpList[0].serviceContent"/>
+			      <input class="easyui-validatebox spinner"  required="true"  style="height:18px;width:385px"  name="pickUpList[0].serviceContent"/>
 			     </td>
 			  </tr> 
 		     <tr>   
 		        <td>详细地址：</td>
 			    <td colspan="3">
-			       <input class="spinner" style="height:18px;width:385px"  name="pickUpList[0].address"/>
+			       <input class="easyui-validatebox spinner" required="true"  style="height:18px;width:385px"  name="pickUpList[0].address"/>
 			    </td>
 			  </tr> 
 		    <tr>   
@@ -645,7 +650,8 @@
 		  </table>   
 	    </div> 
 	 </div> 
-	</fieldset>
+	  <a href="http://www.gpsspg.com/maps.htm" target=_blank style='color:blue'>查询经纬度</a>（注：请复制百度经纬度，正确填写站点的经度和纬度）
+	 </fieldset>
     </div> 
  </form>   
 

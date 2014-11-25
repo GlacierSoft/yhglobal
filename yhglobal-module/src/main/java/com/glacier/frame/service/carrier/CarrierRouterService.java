@@ -169,7 +169,31 @@ public class CarrierRouterService {
 	      route.setPickUpList(pickUpList);   
 	      return route;
 	  } 
-     
+	  
+	  /*** 
+	      * @Title: getRouteMap  
+	      * @Description: TODO(获取班线默认发货和收货区域,用于前台地图显示班线线路)  
+	      * @param @param routeId
+	      * @param @return    设定文件  
+	      * @return Object    返回类型  
+	      * @throws
+	   */ 
+	   public CarrierRoute getRouteMap(String routeId) { 
+		  CarrierRoute route=carrierRouteMapper.selectByPrimaryKey(routeId);
+		  CarrierDeliverGoodsAreaExample  carrierDeliverGoodsAreaExample =new CarrierDeliverGoodsAreaExample();
+	      carrierDeliverGoodsAreaExample.createCriteria().andRouterIdEqualTo(routeId).andIsDefaultEqualTo("yes");
+	      //查询发货区域
+	      List<CarrierDeliverGoodsArea> celiverList=carrierDeliverGoodsAreaMapper.selectByExample(carrierDeliverGoodsAreaExample);
+	      route.setDeliverList(celiverList); 
+	      CarrierPickUpgoodsAreaExample carrierPickUpgoodsAreaExample =new CarrierPickUpgoodsAreaExample();
+	      carrierPickUpgoodsAreaExample.createCriteria().andRouterIdEqualTo(routeId).andIsDefaultEqualTo("yes");
+	      //查询收货区域
+	      List<CarrierPickUpgoodsArea>  pickUpList=carrierPickUpgoodsAreaMapper.selectByExample(carrierPickUpgoodsAreaExample);
+	      route.setPickUpList(pickUpList);   
+	      return route;
+	  }	  
+	  
+	  
      /*** 
       * @Title: upStatus  
       * @Description: TODO(启用禁用班线)  

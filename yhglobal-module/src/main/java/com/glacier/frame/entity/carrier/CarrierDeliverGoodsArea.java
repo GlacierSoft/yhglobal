@@ -14,7 +14,7 @@ public class CarrierDeliverGoodsArea {
     private String address;
 
     private String telephone;
-    
+
     private String latitude;
 
     private String longitude;
@@ -22,6 +22,8 @@ public class CarrierDeliverGoodsArea {
     private String shopHours;
 
     private String serviceContent;
+
+    private String isDefault;
 
     private String remark;
 
@@ -44,40 +46,8 @@ public class CarrierDeliverGoodsArea {
     public String getDeliverName() {
         return deliverName;
     }
-     
-    public String getLatitude() {
-		return latitude;
-	}
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getShopHours() {
-		return shopHours;
-	}
-
-	public void setShopHours(String shopHours) {
-		this.shopHours = shopHours;
-	}
-
-	public String getServiceContent() {
-		return serviceContent;
-	}
-
-	public void setServiceContent(String serviceContent) {
-		this.serviceContent = serviceContent;
-	}
-
-	public void setDeliverName(String deliverName) {
+    public void setDeliverName(String deliverName) {
         this.deliverName = deliverName;
     }
 
@@ -103,6 +73,46 @@ public class CarrierDeliverGoodsArea {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getShopHours() {
+        return shopHours;
+    }
+
+    public void setShopHours(String shopHours) {
+        this.shopHours = shopHours;
+    }
+
+    public String getServiceContent() {
+        return serviceContent;
+    }
+
+    public void setServiceContent(String serviceContent) {
+        this.serviceContent = serviceContent;
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
     }
 
     public String getRemark() {
@@ -131,6 +141,11 @@ public class CarrierDeliverGoodsArea {
             && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
             && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
             && (this.getTelephone() == null ? other.getTelephone() == null : this.getTelephone().equals(other.getTelephone()))
+            && (this.getLatitude() == null ? other.getLatitude() == null : this.getLatitude().equals(other.getLatitude()))
+            && (this.getLongitude() == null ? other.getLongitude() == null : this.getLongitude().equals(other.getLongitude()))
+            && (this.getShopHours() == null ? other.getShopHours() == null : this.getShopHours().equals(other.getShopHours()))
+            && (this.getServiceContent() == null ? other.getServiceContent() == null : this.getServiceContent().equals(other.getServiceContent()))
+            && (this.getIsDefault() == null ? other.getIsDefault() == null : this.getIsDefault().equals(other.getIsDefault()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
@@ -144,6 +159,11 @@ public class CarrierDeliverGoodsArea {
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
         result = prime * result + ((getTelephone() == null) ? 0 : getTelephone().hashCode());
+        result = prime * result + ((getLatitude() == null) ? 0 : getLatitude().hashCode());
+        result = prime * result + ((getLongitude() == null) ? 0 : getLongitude().hashCode());
+        result = prime * result + ((getShopHours() == null) ? 0 : getShopHours().hashCode());
+        result = prime * result + ((getServiceContent() == null) ? 0 : getServiceContent().hashCode());
+        result = prime * result + ((getIsDefault() == null) ? 0 : getIsDefault().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
     }

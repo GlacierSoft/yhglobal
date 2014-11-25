@@ -268,7 +268,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【班线】- 增加',
 			width : 670,
-			height : 590,
+			height : 605,
 			queryUrl : ctx + '/do/carrierRoute/addForm.htm',
 			submitUrl : ctx + '/do/carrierRoute/add.json',
 			successFun : function (){
@@ -284,7 +284,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【'+row.routeName+'】-班线编辑',
 			width : 670,
-			height : 590,
+			height : 605,
 			queryUrl : ctx + '/do/carrierRoute/intoForm.htm',
 			submitUrl : ctx + '/do/carrierRoute/edit.json',
 			queryParams : {

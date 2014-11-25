@@ -815,6 +815,76 @@ public class CarrierDeliverGoodsAreaExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsDefaultIsNull() {
+            addCriterion("temp_carrier_deliver_goods_area.is_default is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultIsNotNull() {
+            addCriterion("temp_carrier_deliver_goods_area.is_default is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultEqualTo(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default =", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultNotEqualTo(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default <>", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultGreaterThan(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default >", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default >=", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultLessThan(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default <", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default <=", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultLike(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default like", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultNotLike(String value) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default not like", value, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultIn(List<String> values) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default in", values, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultNotIn(List<String> values) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default not in", values, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultBetween(String value1, String value2) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default between", value1, value2, "isDefault");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDefaultNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_deliver_goods_area.is_default not between", value1, value2, "isDefault");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("temp_carrier_deliver_goods_area.remark is null");
             return (Criteria) this;
