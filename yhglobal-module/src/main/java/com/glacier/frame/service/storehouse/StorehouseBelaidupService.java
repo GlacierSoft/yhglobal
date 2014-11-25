@@ -110,6 +110,7 @@ public class StorehouseBelaidupService {
      * @throws
      */
 	public Object notLogin(String code) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		List<OrdersTracking> ordersTracking = null;
 		//根据条形码查出货物信息
 		StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
@@ -120,21 +121,28 @@ public class StorehouseBelaidupService {
 		ordersOrder_infoExample.createCriteria().andBelaidupIdEqualTo(storehouseBelaidup.get(0).getBelaidupId());
 		List<OrdersOrder_info> ordersOrder_info = order_infoMapper.selectByExample(ordersOrder_infoExample);
         //判断订单详情是否存在！
-		if(null != ordersOrder_info){
+		if(null != ordersOrder_info && ordersOrder_info.size() > 0){
 			//存在--根据订单详情中的订单号查询出配送详情
 			OrdersOrdispatchingDetailedExample ordersOrdispatchingDetailedExample = new OrdersOrdispatchingDetailedExample();
 			ordersOrdispatchingDetailedExample.createCriteria().andOrderIdEqualTo(ordersOrder_info.get(0).getOrderId());
 			List<OrdersOrdispatchingDetailed> ordersOrdispatchingDetailed = ordersOrdispatchingDetailedMapper.selectByExample(ordersOrdispatchingDetailedExample);
 			//判断该订单是否存在配送
-			if(null != ordersOrdispatchingDetailed){
+			if(null != ordersOrdispatchingDetailed && ordersOrdispatchingDetailed.size() > 0){
 				//存在--根据配送详情中的配送号查询出跟踪信息
 				OrdersTrackingExample ordersTrackingExample = new OrdersTrackingExample();
 				ordersTrackingExample.createCriteria().andDispatchingIdEqualTo(ordersOrdispatchingDetailed.get(0).getDispatchingId());
 				ordersTracking = ordersTrackingMapper.selectByExample(ordersTrackingExample);
 				return ordersTracking;
+			}else{
+				returnResult.setSuccess(false);
+				returnResult.setMsg("已分配好订单，正在安排配送。");
+				return returnResult;
 			}
+		}else{
+			returnResult.setSuccess(false);
+			returnResult.setMsg("存储仓库，正在分配订单。");
+			return returnResult;
 		}
-		return ordersTracking;
     }
 	
 	/**

@@ -67,6 +67,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    </div>
 							    <button type="submit" class="btn btn-primary" style="float: left;">查询</button>
 						</div>
+						<div id="returnTispError" style="margin-left: 30px;color: red;">
+							
+						</div>
 					</div>
 					<!-- 显示返回消息 -->
 					<div id="returnTisp">
@@ -100,43 +103,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   dataType: "json",
 				   data: $("#form_delivery").serialize(),
   			   	   success: function(r) {
-  				   		var div='<div class="bs-example" style="margin-left: 40px">';
-  				   			div+='<ul class="nav nav-pills" id="u3" style="width: 300px;text-align: center;">';
-                   			div+='<li><font size="3"><b>货物跟踪</b></font></li>';
-                   			div+='</ul>';
-                   			div+='<table class="table table-bordered" style="text-align: left;">';
-                   			div+='<thead><tr><th>处理时间</th><th>处理信息</th><th>操作人</th></tr></thead>';
-                   			$.each(r,function(index,value){
-                   				var time = new Date(value.createTime);//获取时间
-                   				var years = time.getFullYear();
-                   				var month = time.getMonth()+1;
-                   				var date = time.getDate();
-                   				var hour = time.getHours();
-                   				var minute = time.getMinutes();
-                   				var second = time.getSeconds();
-                   				div+='<tbody>';
-                   				div+='<tr>';
-                   				div+='<td width="250">'+years+"-"+month+"-"+date+" "+hour+":"+minute+":"+second+'</td><td>'+value.message+'</td><td>'+value.createrDisplay+'</td>';
-                   				div+='</tr>';
-                   				div+='</tbody>';
-                   			});
-                   			//脚尾
-                   			$.post("${ctx}/orderQuery/getBelaidup.htm",$("#form_delivery").serialize(),function(data){
-                   				var sortingStauts = "";
-                   				if(data[0].sortingStauts == 'waitsorting'){
-                   					sortingStauts = "正在分拣货物中。。。";
-               					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'receiving'){
-               						sortingStauts = "已分拣货物完毕，等待出库。";
-               					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'delivery'){
-               						sortingStauts = "该货物已出库，请您耐心等待。";
-               					}
-                   				div+='<tfoot>';
-                   				div+='<tr><th colspan="3"><h4 align="center"><a href="#" >'+sortingStauts+'</a></h4></th></tr>';
-                   				div+='</tfoot>';
-                   				div+='</table>';
-                       			div+='</div>';
-                       			$("#returnTisp").append(div);
-                   			},"json");
+  			   		   if(r.success != false){
+  			   			$("#returnTisp").html("");  
+  			   			var div='<div class="bs-example" style="margin-left: 40px">';
+				   			div+='<ul class="nav nav-pills" id="u3" style="width: 300px;text-align: center;">';
+               			div+='<li><font size="3"><b>货物跟踪</b></font></li>';
+               			div+='</ul>';
+               			div+='<table class="table table-bordered" style="text-align: left;">';
+               			div+='<thead><tr><th>处理时间</th><th>处理信息</th><th>操作人</th></tr></thead>';
+               			$.each(r,function(index,value){
+               				var time = new Date(value.createTime);//获取时间
+               				var years = time.getFullYear();
+               				var month = time.getMonth()+1;
+               				var date = time.getDate();
+               				var hour = time.getHours();
+               				var minute = time.getMinutes();
+               				var second = time.getSeconds();
+               				div+='<tbody>';
+               				div+='<tr>';
+               				div+='<td width="250">'+years+"-"+month+"-"+date+" "+hour+":"+minute+":"+second+'</td><td>'+value.message+'</td><td>'+value.createrDisplay+'</td>';
+               				div+='</tr>';
+               				div+='</tbody>';
+               			});
+               			//脚尾
+               			$.post("${ctx}/orderQuery/getBelaidup.htm",$("#form_delivery").serialize(),function(data){
+               				var sortingStauts = "";
+               				if(data[0].sortingStauts == 'waitsorting'){
+               					sortingStauts = "正在分拣货物中。。。";
+           					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'receiving'){
+           						sortingStauts = "已分拣货物完毕，等待出库。";
+           					}else if(data[0].sortingStauts == 'hassorting' && data[0].belaidupStatus == 'delivery'){
+           						sortingStauts = "该货物已出库，请您耐心等待。";
+           					}
+               				div+='<tfoot>';
+               				div+='<tr><th colspan="3"><h4 align="center"><a href="#" >'+sortingStauts+'</a></h4></th></tr>';
+               				div+='</tfoot>';
+               				div+='</table>';
+                   			div+='</div>';
+                   			$("#returnTisp").append(div);
+               			},"json"); 
+  			   		   }else{
+  			   			$("#returnTispError").html("");   
+  			   			$("#returnTispError").append(r.msg);
+  			   		   }
+  				   		
   			   	   },
 	               error: function() {
 	                  alert("提交出错！");
