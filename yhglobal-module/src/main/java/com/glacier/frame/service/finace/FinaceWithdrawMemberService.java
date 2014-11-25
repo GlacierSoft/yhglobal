@@ -19,6 +19,8 @@
  */
 package com.glacier.frame.service.finace;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,16 +32,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.finace.FinaceWithdrawMemberMapper;
+import com.glacier.frame.dao.finace.FinaceWithdrawSetMemberMapper;
+import com.glacier.frame.dao.finace.FinanceMemberMapper;
 import com.glacier.frame.dao.member.ShipperMemberTokenMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.finace.FinaceWithdrawMemberQueryDTO;
-import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample.Criteria;
+import com.glacier.frame.entity.finace.FinaceWithdrawSetMember;
+import com.glacier.frame.entity.finace.FinaceWithdrawSetMemberExample;
+import com.glacier.frame.entity.finace.FinanceMember;
+import com.glacier.frame.entity.finace.FinanceMemberExample;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.member.ShipperMemberToken;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -65,11 +75,19 @@ public class FinaceWithdrawMemberService {
      * @throws
      */ 
 	@Autowired
+	private FinaceWithdrawSetMemberMapper finaceWithdrawSetMemberMapper; 
+	
+	@Autowired
 	private FinaceWithdrawMemberMapper finaceWithdrawMemberMapper;
 	
 	@Autowired
 	private ShipperMemberTokenMapper shipperMemberTokenMapper;
 	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	public Object listAsGrid(JqPager jqPager, FinaceWithdrawMemberQueryDTO finaceWithdrawMemberQueryDTO, String q) {
 	    JqGridReturn returnResult = new JqGridReturn();
@@ -126,10 +144,15 @@ public class FinaceWithdrawMemberService {
 	    finaceWithdrawMember.setUpdateTime(new Date());
 	    count = finaceWithdrawMemberMapper.updateByPrimaryKeySelective(finaceWithdrawMember);
 	    if (count == 1) {
-	        returnResult.setSuccess(true);
-	        returnResult.setMsg("充值记录审核操作成功");
+	    	if((Integer)updateFinaceMember(finaceWithdrawMember.getWithdrawId())>0){
+	    		returnResult.setSuccess(true);
+		        returnResult.setMsg("充值记录审核操作成功");
+	    	}else{
+	    		returnResult.setSuccess(false);
+		        returnResult.setMsg("充值记录审核操作失败，请联系管理员!");		
+	    	}
 	    } else {
-	        returnResult.setMsg("发生未知错误，充值记录审核操作失败");
+	        returnResult.setMsg("发生未知错误，充值记录审核操作失败!");
 	    }
 	    return returnResult;
 	}
@@ -144,33 +167,103 @@ public class FinaceWithdrawMemberService {
 	 */
 	
 	 /**
-	    * 加密方式
-	    */
-	 public static final String HASH_ALGORITHM = "SHA-1";
-
-	   /**
-	    * 计算次数
-	    */
-	  public static final int HASH_INTERATIONS = 1024;
+	  * 加密方式
+	  */
+	  public static final String HASH_ALGORITHM = "SHA-1";
+ 
+     /**
+      * 计算次数
+      */
+	 public static final int HASH_INTERATIONS = 1024;
 	
-	  /**
-	   * 盐值长度
-	   */
-	  public static final int SALT_SIZE = 1024;
+	 /**
+	  * 盐值长度
+	  */
+	 public static final int SALT_SIZE = 1024;
 	  
 	  @Transactional(readOnly = false)
-	  public Object addWithdraw(FinaceWithdrawMember finaceWithdrawMember){
-		 Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
-		 ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
-			JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	    	// 验证会员真正的交易密码是否等于输入的交易密码 
-	    	ShipperMemberToken mt = shipperMemberTokenMapper.selectByPrimaryKey(pricipalMember.getMemberId());//通过memberId获取memberToken
-	        //将前台传来的密码进行加密，
-	    	byte[] salt = Encodes.decodeHex(mt.getTradersSalt());
-	    	byte[] hashPassword = Digests.sha1(pricipalMember.getTradersPassword().getBytes(), salt, HASH_INTERATIONS);
-	    	String encodeHexPwd = Encodes.encodeHex(hashPassword);
-	      
-		 return null;	 
+	  public Object addWithdraw(FinaceWithdrawMember  finaceWithdrawMember,String tradersPassword, String bankCardId,int mobile_code,int mobile_true){
+	   Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+	   ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+	   JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	   // 验证会员真正的交易密码是否等于输入的交易密码 
+	   ShipperMemberToken mt = shipperMemberTokenMapper.selectByPrimaryKey(pricipalMember.getMemberId());//通过memberId获取memberToken
+	   //将前台传来的密码进行加密，
+	   byte[] salt = Encodes.decodeHex(mt.getTradersSalt());
+	   byte[] hashPassword = Digests.sha1(tradersPassword.getBytes(), salt, HASH_INTERATIONS);
+	   String encodeHexPwd = Encodes.encodeHex(hashPassword);
+	   if(!(mt.getTradersPassword()).equals(encodeHexPwd)){
+		   returnResult.setMsg("交易密码错误，请重新输入");
+           return returnResult;   
+	   }
+	   if(mobile_code!=mobile_true){
+      	 returnResult.setMsg("验证码输入错误，请重新输入");
+      	 return returnResult;
+       }
+	   //根据提现会员Id找到该会员的会员财务信息记录
+	   FinanceMemberExample financeMemberExample=new FinanceMemberExample();
+	   financeMemberExample.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
+	   FinanceMember financeMember=financeMemberMapper.selectByExample(financeMemberExample).get(0);
+	   
+	   //提现总金额不能小于100或者大于可用金额 
+       if(finaceWithdrawMember.getWithdrawMoney().compareTo(new BigDecimal(100))==-1||financeMember.getMrechageRemain().compareTo(finaceWithdrawMember.getWithdrawMoney())==-1){
+       	    returnResult.setMsg("提现金额不能低于￥100，且不能大于可用余额");
+  		    return returnResult;
+       } 
+       
+	   //获取管理员
+	   UserExample useExample=new UserExample();
+	   useExample.createCriteria().andBuiltinEqualTo("admin");
+	   User user=userMapper.selectByExample(useExample).get(0);
+       
+		 //默认比列收费
+       FinaceWithdrawSetMemberExample finaceWithdrawSetMemberExample =new FinaceWithdrawSetMemberExample(); 
+       finaceWithdrawSetMemberExample.createCriteria().andFeeWayEqualTo("proportion");
+       FinaceWithdrawSetMember financeWithdrawSet=finaceWithdrawSetMemberMapper.selectByExample(finaceWithdrawSetMemberExample).get(0);
+       finaceWithdrawMember.setChargeMoney(financeMember.getMrechageRemain().multiply(financeWithdrawSet.getWithdrawRate()));
+       finaceWithdrawMember.setWithdrawReallyMoney(financeMember.getMrechageRemain().subtract(finaceWithdrawMember.getChargeMoney()));
+       
+       //构建提现对象
+       finaceWithdrawMember.setWithdrawId(RandomGUID.getRandomGUID());
+       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+       finaceWithdrawMember.setWithdrawCode("WITHDRAW"+ "_" + dateFormat.format(new Date()));
+       finaceWithdrawMember.setMemberId(pricipalMember.getMemberId());
+       finaceWithdrawMember.setWithdrawName("会员提现");
+       finaceWithdrawMember.setRemark("会员提现审核");
+       finaceWithdrawMember.setAuditState("authstr");
+       finaceWithdrawMember.setAuditOpinion("会员提现");
+       finaceWithdrawMember.setAuditTime(new Date());
+       finaceWithdrawMember.setAuditor(user.getUserId());
+       finaceWithdrawMember.setCreater(user.getUserId());
+       finaceWithdrawMember.setCreateTime(new Date());
+       finaceWithdrawMember.setUpdater(user.getUserId());
+       finaceWithdrawMember.setUpdateTime(new Date());
+       int count = finaceWithdrawMemberMapper.insert(finaceWithdrawMember);
+       if (count == 1) {
+    	   returnResult.setSuccess(true);
+           returnResult.setMsg("会员【" +pricipalMember.getMemberName()+"】 提现信息提交成功，等待审核中");
+       } else {
+           returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
+       }
+       return returnResult;	 
 	  }
 	
+	  //会员信息更新
+	
+    @Transactional(readOnly=false)
+	public Object updateFinaceMember(String id){
+		int count=0;
+		if(id!=null){
+			FinaceWithdrawMember finaceWithdrawMember=(FinaceWithdrawMember) getFinaceWithdrawMemberPro(id);
+			FinanceMemberExample financeMemberExample=new FinanceMemberExample();
+			financeMemberExample.createCriteria().andMemberIdEqualTo(finaceWithdrawMember.getMemberId());
+			FinanceMember financeMember=financeMemberMapper.selectByExample(financeMemberExample).get(0);
+			BigDecimal memberRechargeAdd=financeMember.getMrechageRemain();
+			BigDecimal memberRechargeMoney=finaceWithdrawMember.getWithdrawMoney().add(finaceWithdrawMember.getChargeMoney());
+			financeMember.setMrechageRemain(memberRechargeAdd.subtract(memberRechargeMoney));
+		    count=financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+		}
+		return count;
+	}
+		
 }

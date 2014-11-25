@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.finace.FinaceMemberRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.finace.FinaceMemberRecord" >
+    <id column="temp_finance_member_record_transaction_member_id" property="transactionMemberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_finace_member_id" property="finaceMemberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_transaction_target" property="transactionTarget" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_transaction_type" property="transactionType" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_earning_money" property="earningMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_expend_money" property="expendMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_usable_money" property="usableMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_frozen_money" property="frozenMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_collecting_money" property="collectingMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_refund_money" property="refundMoney" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_amount" property="amount" jdbcType="DECIMAL" />
+    <result column="temp_finance_member_record_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_member_record_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_finance_member_record_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_member_display" property="memberDisplay" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_member_record.transaction_member_id as temp_finance_member_record_transaction_member_id, 
+    temp_finance_member_record.finace_member_id as temp_finance_member_record_finace_member_id, 
+    temp_finance_member_record.member_id as temp_finance_member_record_member_id, temp_finance_member_record.transaction_target as temp_finance_member_record_transaction_target, 
+    temp_finance_member_record.transaction_type as temp_finance_member_record_transaction_type, 
+    temp_finance_member_record.earning_money as temp_finance_member_record_earning_money, 
+    temp_finance_member_record.expend_money as temp_finance_member_record_expend_money, 
+    temp_finance_member_record.usable_money as temp_finance_member_record_usable_money, 
+    temp_finance_member_record.frozen_money as temp_finance_member_record_frozen_money, 
+    temp_finance_member_record.collecting_money as temp_finance_member_record_collecting_money, 
+    temp_finance_member_record.refund_money as temp_finance_member_record_refund_money, 
+    temp_finance_member_record.amount as temp_finance_member_record_amount, temp_finance_member_record.remark as temp_finance_member_record_remark, 
+    temp_finance_member_record.creater as temp_finance_member_record_creater, temp_finance_member_record.create_time as temp_finance_member_record_create_time, 
+    temp_finance_member_record.updater as temp_finance_member_record_updater, temp_finance_member_record.update_time as temp_finance_member_record_update_time
+  
+    ,temp_creater.user_cn_name as temp_finance_member_record_creater_display
+    ,temp_updater.user_cn_name as temp_finance_member_record_updater_display
+    
+  </sql>
+  
+  <sql id="Base_extend">
+	LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finance_member_record.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finance_member_record.updater <!-- 扩展 -->
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finace_member_record temp_finance_member_record
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finace_member_record temp_finance_member_record
+    <include refid="Base_extend" />
+    where temp_finance_member_record.transaction_member_id = #{transactionMemberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finace_member_record
+    where transaction_member_id = #{transactionMemberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecordExample" >
+    delete from t_finace_member_record temp_finance_member_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecord" >
+    insert into t_finace_member_record (transaction_member_id, finace_member_id, 
+      member_id, transaction_target, transaction_type, 
+      earning_money, expend_money, usable_money, 
+      frozen_money, collecting_money, refund_money, 
+      amount, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{transactionMemberId,jdbcType=VARCHAR}, #{finaceMemberId,jdbcType=VARCHAR}, 
+      #{memberId,jdbcType=VARCHAR}, #{transactionTarget,jdbcType=VARCHAR}, #{transactionType,jdbcType=VARCHAR}, 
+      #{earningMoney,jdbcType=DECIMAL}, #{expendMoney,jdbcType=DECIMAL}, #{usableMoney,jdbcType=DECIMAL}, 
+      #{frozenMoney,jdbcType=DECIMAL}, #{collectingMoney,jdbcType=DECIMAL}, #{refundMoney,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecord" >
+    insert into t_finace_member_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transactionMemberId != null" >
+        transaction_member_id,
+      </if>
+      <if test="finaceMemberId != null" >
+        finace_member_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="transactionTarget != null" >
+        transaction_target,
+      </if>
+      <if test="transactionType != null" >
+        transaction_type,
+      </if>
+      <if test="earningMoney != null" >
+        earning_money,
+      </if>
+      <if test="expendMoney != null" >
+        expend_money,
+      </if>
+      <if test="usableMoney != null" >
+        usable_money,
+      </if>
+      <if test="frozenMoney != null" >
+        frozen_money,
+      </if>
+      <if test="collectingMoney != null" >
+        collecting_money,
+      </if>
+      <if test="refundMoney != null" >
+        refund_money,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transactionMemberId != null" >
+        #{transactionMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="finaceMemberId != null" >
+        #{finaceMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionTarget != null" >
+        #{transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="earningMoney != null" >
+        #{earningMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="expendMoney != null" >
+        #{expendMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usableMoney != null" >
+        #{usableMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenMoney != null" >
+        #{frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="collectingMoney != null" >
+        #{collectingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundMoney != null" >
+        #{refundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecordExample" resultType="java.lang.Integer" >
+    select count(*) from t_finace_member_record temp_finance_member_record
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finace_member_record temp_finance_member_record
+    <set >
+      <if test="record.transactionMemberId != null" >
+        temp_finance_member_record.transaction_member_id = #{record.transactionMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finaceMemberId != null" >
+        temp_finance_member_record.finace_member_id = #{record.finaceMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_finance_member_record.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionTarget != null" >
+        temp_finance_member_record.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionType != null" >
+        temp_finance_member_record.transaction_type = #{record.transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.earningMoney != null" >
+        temp_finance_member_record.earning_money = #{record.earningMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expendMoney != null" >
+        temp_finance_member_record.expend_money = #{record.expendMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.usableMoney != null" >
+        temp_finance_member_record.usable_money = #{record.usableMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frozenMoney != null" >
+        temp_finance_member_record.frozen_money = #{record.frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.collectingMoney != null" >
+        temp_finance_member_record.collecting_money = #{record.collectingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundMoney != null" >
+        temp_finance_member_record.refund_money = #{record.refundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amount != null" >
+        temp_finance_member_record.amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_member_record.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_member_record.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_member_record.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_member_record.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_member_record.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finace_member_record temp_finance_member_record
+    set temp_finance_member_record.transaction_member_id = #{record.transactionMemberId,jdbcType=VARCHAR},
+      temp_finance_member_record.finace_member_id = #{record.finaceMemberId,jdbcType=VARCHAR},
+      temp_finance_member_record.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_finance_member_record.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
+      temp_finance_member_record.transaction_type = #{record.transactionType,jdbcType=VARCHAR},
+      temp_finance_member_record.earning_money = #{record.earningMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.expend_money = #{record.expendMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.usable_money = #{record.usableMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.frozen_money = #{record.frozenMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.collecting_money = #{record.collectingMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.refund_money = #{record.refundMoney,jdbcType=DECIMAL},
+      temp_finance_member_record.amount = #{record.amount,jdbcType=DECIMAL},
+      temp_finance_member_record.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_member_record.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_member_record.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_member_record.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_member_record.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecord" >
+    update t_finace_member_record
+    <set >
+      <if test="finaceMemberId != null" >
+        finace_member_id = #{finaceMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionTarget != null" >
+        transaction_target = #{transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        transaction_type = #{transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="earningMoney != null" >
+        earning_money = #{earningMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="expendMoney != null" >
+        expend_money = #{expendMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usableMoney != null" >
+        usable_money = #{usableMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenMoney != null" >
+        frozen_money = #{frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="collectingMoney != null" >
+        collecting_money = #{collectingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="refundMoney != null" >
+        refund_money = #{refundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where transaction_member_id = #{transactionMemberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecord" >
+    update t_finace_member_record
+    set finace_member_id = #{finaceMemberId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      transaction_target = #{transactionTarget,jdbcType=VARCHAR},
+      transaction_type = #{transactionType,jdbcType=VARCHAR},
+      earning_money = #{earningMoney,jdbcType=DECIMAL},
+      expend_money = #{expendMoney,jdbcType=DECIMAL},
+      usable_money = #{usableMoney,jdbcType=DECIMAL},
+      frozen_money = #{frozenMoney,jdbcType=DECIMAL},
+      collecting_money = #{collectingMoney,jdbcType=DECIMAL},
+      refund_money = #{refundMoney,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where transaction_member_id = #{transactionMemberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -291,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option>
 										       		</c:forEach>
                                                </select> 
-												<input id="btnSendCode" disabled="disabled" class="btn btn-default" name="btnSendCode" type="button" value="银行卡设置" onClick="get_mobile_code();">&nbsp;
+												<input  disabled="disabled" class="btn btn-default" name="btnSendCode" type="button" value="银行卡设置" onClick="get_mobile_code();">&nbsp;
 								            </td>
 								          </tr>
 								          <tr>
@@ -329,6 +329,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <jsp:include page="../foot.jsp"/>
   	    
   <script>
+  
+  
+    var count =30; //间隔函数，1秒执行 
+	var curCount;//当前剩余秒数  
+	var mobile_code=0;//记录短信验证码
+	var clickNumber=false;
+
+  $(function(){
+  	$("#withdrawMoney").bind("input",function(){
+  		if($("#withdrawMoney").val().length>=3){
+  			if($("#tradersPassword").val().length>=6){
+  				$("#btnSendCode").attr("disabled",false);
+  			}
+  		}else{
+  			$("#btnSendCode").attr("disabled",true);
+  		}
+  	 });	 
+  	 
+  	 $("#tradersPassword").bind("input",function(){
+  		 if($("#tradersPassword").val().length>=6){
+   			if($("#withdrawMoney").val().length>=3){
+   				$("#btnSendCode").attr("disabled",false);
+   			}
+   		}else{
+   			$("#btnSendCode").attr("disabled",true);
+   		} 
+  	 });
+  	 
+   });
+	
+  function get_mobile_code(){
+	   curCount=count;
+	   clickNumber=true;
+  	   $("#btnSendCode").attr("disabled", "true");  
+       $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+       InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 	
+       $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${individuality.mobileNumber}'}, function(msg) {
+			if(msg=='提交成功'){
+				//暂无响应事件
+		   }	
+		});
+  }
+	
+	//timer处理函数  
+	function SetRemainTime() {  
+		if (curCount == 0) {
+			window.clearInterval(InterValObj);// 停止计时器  
+	        $("#btnSendCode").removeAttr("disabled");// 启用按钮  
+	        $("#btnSendCode").val("重新发送验证码"); 
+	        $("#mobile_code").val("");
+	        mobile_code=0;
+	        clickNumber=false;
+	    }else {  
+	     curCount--;
+	     mobile_code=$("#mobile_code").val();
+         $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+	        
+	    }  
+	} 
   
   $(function(){
 		//获得浏览器参数
@@ -390,18 +449,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            min:100,
 	   				
 	   			},
-	   			tradersPassword:"required"
-	   			
-	   		},
+	   			tradersPassword:"required",
+	   			mobile_code:"required",
+	   		 },
 	   		messages:{
 	   			withdrawMoney:{
 	   		    required:"请输入提现金额", 
 	   			min:"提现金额不能低于100元" 
 	   		    },
 	   			tradersPassword:"必须填写交易密码",
+	   			mobile_code:"必须填写验证码",
 	   		  },
 	   		submitHandler:function(){
-	   		    
+	   			var d =art.dialog({
+		  		    title:'操作提示',
+		  		    fixed:true,
+		      	    lock: true,
+		      	    icon:'question',
+		      	    background:"#E6E6E6",
+		     		opacity:0.4,
+		  		    content: '你确定要进行【提现】操作吗?',
+		  		    ok: function () {
+		  		    	if(clickNumber){
+		  		    		$.ajax({
+				   				   type: "POST",
+				   				   url: ctx+"/withdraw/add.json",
+				   				   dataType: "json",
+				   				   //data: $("#financeWithdraw").serialize(),
+				   				   data:{'withdrawMoney':$('#withdrawMoney').val(),'bankCardId':$('#bankCardId').val(),'tradersPassword':$('#tradersPassword').val(),'mobile_code':mobile_code},
+				    			   success: function(r) {
+				    				   window.clearInterval(InterValObj);// 停止计时器  
+							  	       $("#btnSendCode").removeAttr("disabled");// 启用按钮
+							  	       $("#btnSendCode").val("重新发送验证码"); 
+							  	       if(r.success){
+							  	    	 $('#financeWithdraw')[0].reset();  
+							  	    	 doShow(r.msg); 	   
+							  	       }else{
+							  	    	 doShowError(r.msg);  
+							  	       }
+				    				 },
+				                    error: function() {
+				                    	doShowError("提交出错！"); 
+				                    }
+				   				});
+		  		    	}else{
+		  		    		doShowError("请发送验证码之后在做相关操作!");
+		  		    	}
+		  		    },
+		  		    cancel: function () {
+		  		        this.close();
+		  		    }
+		  		});
+		  		d.show(); 
 	   		 },
 	   		errorPlacement : function(error, element) {
 	      		 if ( element.is(":radio") ) 
@@ -449,10 +548,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   				   dataType: "json",
 		   				   data: $("#financeRecharge").serialize(),
 		    			   success: function(r) {
-		    				   doShow(r.msg);
-		                    },
+		    				   if(r.success){
+		    					   $('#financeRecharge')[0].reset();
+		    					   doShow(r.msg);   
+		    				   }else{
+		    					   doShowError(r.msg);
+		    				   }
+		    				 },
 		                    error: function() {
-		                    	doShow("提交出错!");
+		                    	doShowError("提交出错!");
 		                    }
 		   				}); 
 		  		    },
@@ -506,6 +610,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		d.show();
     }
     
+    //提示对话款
+    function doShowError(str){
+   	 var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'error',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	 this.close;
+   		    }
+   		});
+   		d.show();
+    } 
+	 
+    function clearNoNum(obj)
+    {
+        //先把非数字的都替换掉，除了数字和.
+        obj.value = obj.value.replace(/[^\d.]/g,"");
+        //必须保证第一个为数字而不是.
+        obj.value = obj.value.replace(/^\./g,"");
+        //保证只有出现一个.而没有多个.
+        obj.value = obj.value.replace(/\.{2,}/g,".");
+        //保证.只出现一次，而不能出现两次以上
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+    }
 	
    </script>
 </body>

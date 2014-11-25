@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.web.controller.finace;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +43,13 @@ import com.glacier.frame.service.finace.FinaceWithdrawMemberService;
 public class FinaceWithdrawController {
    
 	@Autowired
-    private FinaceWithdrawMemberService FinaceWithdrawMemberService;
-	
+    private FinaceWithdrawMemberService finaceWithdrawMemberService;
+
 	@RequestMapping(value="/add.json")
 	@ResponseBody
-	private Object addWithdraw(@Valid FinaceWithdrawMember  finaceWithdrawMember ){
-		return null;
+	private Object addWithdraw(@Valid FinaceWithdrawMember  finaceWithdrawMember,String tradersPassword, String bankCardId,int mobile_code,HttpSession session){
+		int mobile_true=(Integer)session.getAttribute("mobile_code");
+		return finaceWithdrawMemberService.addWithdraw(finaceWithdrawMember, tradersPassword,bankCardId,mobile_code,mobile_true);
 	}
 	
 }
