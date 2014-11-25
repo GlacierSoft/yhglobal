@@ -182,12 +182,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div>
 						 </div>
 					</div>
+					
 					<div class="panel-body">
-					           <div class="form-group col-sm-5"></div>
+					<a href="${ctx}/template/index.htm?&p=1" style="float:left;">返回列表</a>
+					           <div class="form-group col-sm-4"></div>
 					          <div class="form-group col-sm-2">
 					               <button type="submit" class="btn btn-primary">提交</button>
 					               <button type="button" class="btn btn-primary" onclick="doReset()">重置</button>
-					               <a href="${ctx}/template/index.htm?&p=1">返回列表</a>
 					          </div>
 					   </div> 
                  </div>
