@@ -42,18 +42,12 @@
 			 	<input name="routeOrigin" onclick="getCoordinate(this)" style="height: 18px;border-color: #c3d9e0" value="${carrierRouteData.routeOrigin}"  autocomplete="off" type="text"
 			 	  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
          </td>
-		    <td style="padding-left:10px;">发货站地址：</td>
-			<td><input class="spinner" style="height:18px;width:180px" name="originAddress" value="${carrierRouteData.originAddress}"/></td>
-		    
-		</tr> 
-		<tr>
-		    <td >班线终点：</td>
+         
+         <td style="padding-left:10px;">班线终点：</td>
 			<td><input name="routeStop"  onclick="getCoordinate(this)"  style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text" value="${carrierRouteData.routeStop}"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	      	</td>
-		    <td style="padding-left:10px;">到货站地址：</td>
-			<td><input class="spinner" style="height:18px;width:180px" name="stopAddress" value="${carrierRouteData.stopAddress}"/></td>
-		 	
-	    </tr>
+          </tr>
+		    
 	    <tr> <td> 联系电话：</td>
 			<td>
 				<input class="easyui-validatebox spinner" maxlength="11" value="${carrierRouteData.telephone}" required="true" style="height:18px;width:180px" name="telephone"  

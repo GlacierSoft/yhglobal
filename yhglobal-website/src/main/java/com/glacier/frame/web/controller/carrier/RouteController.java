@@ -76,9 +76,9 @@ public class RouteController extends AbstractController{
 	  	
 	  	//转到班线线路图页面
 	  	@RequestMapping(value="/routeMap.htm")
-	  	public Object routeMap(String routerId){
+	  	public Object routeMap(String routeId){
 	  		ModelAndView mav = new ModelAndView("route_mgr/routeMap");
-	  		mav.addObject("routerMap", carrierRouterService.getRouteMap(routerId));
+	  		mav.addObject("routerMap", carrierRouterService.getRouteMap(routeId));
 	  		return mav;
 	  	}
 }

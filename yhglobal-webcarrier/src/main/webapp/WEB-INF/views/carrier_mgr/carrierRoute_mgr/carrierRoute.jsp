@@ -85,12 +85,7 @@
 							title : '班线起点',
 							width : 120,
 							sortable : true
-						},{
-							field : 'originAddress',
-							title : '发货站地址',
-							width : 120,
-							sortable : true
-						},{
+						} ,{
 							field : 'routeBytime',
 							title : '在途时间(小时)',
 							width : 120,
@@ -100,12 +95,7 @@
 							title : '班线终点',
 							width : 120,
 							sortable : true
-						},{
-							field : 'stopAddress',
-							title : '到货站地址',
-							width : 120,
-							sortable : true
-						},{
+						}, {
 							field : 'startofTime',
 							title : '发车时间',
 							width : 120,

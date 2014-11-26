@@ -329,6 +329,8 @@ public class CarrierRouterService {
         cal.set(Calendar.MINUTE,Integer.valueOf(inTime[1]));
         Date dates=cal.getTime(); 
         carrierRoute.setCeaseTakeDeliveryTime(dates);   
+        carrierRoute.setOriginAddress(carrierRoute.getDeliverList().get(0).getAddress());
+        carrierRoute.setStopAddress(carrierRoute.getPickUpList().get(0).getAddress());
         carrierRoute.setAuditState(route.getAuditState());
         carrierRoute.setAudit(route.getAudit());
         carrierRoute.setAuditTime(route.getAuditTime());
@@ -462,6 +464,8 @@ public class CarrierRouterService {
 		cal.set(Calendar.MINUTE,Integer.valueOf(inTime[1]));
 		Date dates=cal.getTime(); 
 		carrierRoute.setCeaseTakeDeliveryTime(dates);   
+		carrierRoute.setOriginAddress(carrierRoute.getDeliverList().get(0).getAddress());
+	    carrierRoute.setStopAddress(carrierRoute.getPickUpList().get(0).getAddress());
 	    int count=carrierRouteMapper.insert(carrierRoute);
 	    if (count == 1) {    
 		 //添加发货区域
