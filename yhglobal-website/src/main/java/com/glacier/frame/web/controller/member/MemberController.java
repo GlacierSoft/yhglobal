@@ -192,7 +192,7 @@ public class MemberController extends AbstractController{
   	    mav.addObject("finaceMemberBankCardDate", shipperMemberBankCardService.listWebsite(pricipalMember.getMemberId()));
   	    //会员资金记录
   	    mav.addObject("finaceMemberRecordDate", finaceMemberRecordService.listAsWebsite(pager,finaceMemberRecordQueryDTO,pricipalMember.getMemberId(),p));
-  	    
+  	    //保存当前用户
   	    mav.addObject("currentMember",pricipalMember);
   		//mav.addObject("returnResult",returnResult); 
       	mav.addObject("currentMemberId",pricipalMember.getMemberId()); 

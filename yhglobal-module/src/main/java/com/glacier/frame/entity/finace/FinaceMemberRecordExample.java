@@ -111,6 +111,11 @@ public class FinaceMemberRecordExample {
             }
             criteria.add(new Criterion(condition));
         }
+        
+        public Criteria andMemberDisplayLike(String value) {
+        	addCriterion("temp_shipper_member.member_name like",value,"memberDisplay");
+            return (Criteria) this;
+        }
 
         protected void addCriterion(String condition, Object value, String property) {
             if (value == null) {

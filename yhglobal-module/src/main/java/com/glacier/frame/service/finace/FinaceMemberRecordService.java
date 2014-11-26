@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.frame.dao.finace.FinaceMemberRecordMapper;
 import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO;
+import com.glacier.frame.dto.query.finace.FinaceMemberRecordSQueryDTO;
 import com.glacier.frame.entity.finace.FinaceMemberRecord;
 import com.glacier.frame.entity.finace.FinaceMemberRecordExample;
 import com.glacier.frame.entity.finace.FinaceMemberRecordExample.Criteria;
@@ -60,6 +61,50 @@ public class FinaceMemberRecordService {
         returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
+	
+	
+	
+	/**
+     * @Title: listAsGrid 
+     * @Description: TODO(后台会员资金记录) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+	public Object listAsGrid(JqPager jqPager, FinaceMemberRecordSQueryDTO finaceMemberRecordSQueryDTO, String q) {
+	    JqGridReturn returnResult = new JqGridReturn();
+	    FinaceMemberRecordExample finaceMemberRecordExample = new FinaceMemberRecordExample();
+	    Criteria queryCriteria = finaceMemberRecordExample.createCriteria();
+	    finaceMemberRecordSQueryDTO.setQueryCondition(queryCriteria);
+	    if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
+	    	finaceMemberRecordExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+	    	finaceMemberRecordExample.setLimitEnd(jqPager.getRows());
+	    }
+	    if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+	    	finaceMemberRecordExample.setOrderByClause(jqPager.getOrderBy("temp_finance_member_record_"));
+	    }
+	    List<FinaceMemberRecord>  finaceMemberRecords = finaceMemberRecordMapper.selectByExample(finaceMemberRecordExample); // 查询所有广告列表
+	    int total = finaceMemberRecordMapper.countByExample(finaceMemberRecordExample); // 查询总页数
+	    returnResult.setRows(finaceMemberRecords);
+	    returnResult.setTotal(total);
+	    return returnResult;// 返回ExtGrid表
+	 }
+	
+	/**
+	 * @Title: getFinaceMemberRecordPro 
+	 * @Description: TODO(会员资金信息) 
+	 * @param @param transactionMemberId
+	 * @param @return    设定文件 
+	 * @return Object    返回记录 
+	 * @throws
+	 */
+	public Object getFinaceMemberRecordPro(String transactionMemberId){
+      return finaceMemberRecordMapper.selectByPrimaryKey(transactionMemberId); 
+	}
+	
+	
+	
 	
 	
 }

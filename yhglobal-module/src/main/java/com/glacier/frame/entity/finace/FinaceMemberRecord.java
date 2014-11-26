@@ -3,6 +3,8 @@ package com.glacier.frame.entity.finace;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinaceMemberRecord {
     private String transactionMemberId;
 
@@ -32,17 +34,29 @@ public class FinaceMemberRecord {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     private String updaterDisplay;
     
     private String createrDisplay;
     
-    public String getUpdaterDisplay() {
+    private String memberDisplay;
+    
+    public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getUpdaterDisplay() {
 		return updaterDisplay;
 	}
 

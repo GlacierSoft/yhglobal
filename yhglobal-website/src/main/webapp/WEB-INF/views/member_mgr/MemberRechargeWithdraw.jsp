@@ -457,6 +457,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   				
 	   			},
 	   			tradersPassword:"required",
+	   			bankCardId:"required",
 	   			mobile_code:"required",
 	   		 },
 	   		messages:{
@@ -465,6 +466,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			min:"提现金额不能低于100元" 
 	   		    },
 	   			tradersPassword:"必须填写交易密码",
+	   			bankCardId:"清先绑定银行卡帐号",
 	   			mobile_code:"必须填写验证码",
 	   		  },
 	   		submitHandler:function(){
@@ -514,8 +516,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	        error.appendTo ( element.parent().next()  ); 
 	      	    else if ( element.is(":checkbox") ) 
 	      	        error.appendTo ( element.parent() ); 
-	      	    else if ( element.is("input[name=mobile_code]") ) 
+	      	    else if ( element.is("select[name=bankCardId] ") ) 
 	      	        error.appendTo ( element.parent() ); 
+	      	    else if(element.is("input[name=mobile_code]"))
+	      	    	error.appendTo ( element.parent() ); 
 	      	    else 
 	      	        error.insertAfter(element); 
 	      		}

@@ -45,6 +45,7 @@ public class FinaceWithdrawController {
 	@Autowired
     private FinaceWithdrawMemberService finaceWithdrawMemberService;
 
+	//会员提现信息添加
 	@RequestMapping(value="/add.json")
 	@ResponseBody
 	private Object addWithdraw(@Valid FinaceWithdrawMember  finaceWithdrawMember,String tradersPassword, String bankCardId,int mobile_code,HttpSession session){

@@ -89,9 +89,8 @@ public class ShipperMemberBankCardService {
         List<ShipperMemberBankCard> financeBankCards = shipperMemberBankCardMapper.selectByExample(shipperMemberBankCardExample);
         Map<String,String> map = new HashMap<String,String>();
         for (ShipperMemberBankCard financeBankCard : financeBankCards) {
-        	financeBankCard.setCardName(financeBankCard.getCardName()+" (**"+financeBankCard.getCardNumber().substring(financeBankCard.getCardNumber().length())+")");
-        	 
-            map.put(financeBankCard.getBankcardId(),financeBankCard.getCardName());
+        	financeBankCard.setCardName(financeBankCard.getCardName()+" (**"+financeBankCard.getCardNumber().substring(15)+")");
+        	 map.put(financeBankCard.getBankcardId(),financeBankCard.getCardName());
         }
         return map;
     }

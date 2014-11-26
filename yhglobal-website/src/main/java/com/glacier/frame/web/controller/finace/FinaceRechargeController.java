@@ -42,8 +42,8 @@ import com.glacier.frame.service.finace.FinaceRechargeMemberService;
 @RequestMapping(value = "/recharge")
 public class FinaceRechargeController {
   
-	  @Autowired
-	  private FinaceRechargeMemberService finaceRechargeMemberService;
+	@Autowired
+	private FinaceRechargeMemberService finaceRechargeMemberService;
 	
 	// 增加会员充值记录
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

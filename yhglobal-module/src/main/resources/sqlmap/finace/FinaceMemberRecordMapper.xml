@@ -21,6 +21,7 @@
     <result column="temp_finance_member_record_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     
     <result column="temp_finance_member_record_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
+    <result column="temp_finance_member_record_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
     <result column="temp_finance_member_record_member_display" property="memberDisplay" jdbcType="VARCHAR" />
     
   </resultMap>
@@ -99,12 +100,13 @@
   
     ,temp_creater.user_cn_name as temp_finance_member_record_creater_display
     ,temp_updater.user_cn_name as temp_finance_member_record_updater_display
-    
+    ,temp_shipper_member.member_name as temp_finance_member_record_member_display
   </sql>
   
   <sql id="Base_extend">
 	LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_finance_member_record.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_finance_member_record.updater <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_finance_member_record.member_id <!-- 扩展 -->
   </sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinaceMemberRecordExample" >
