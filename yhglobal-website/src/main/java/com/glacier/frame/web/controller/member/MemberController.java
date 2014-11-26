@@ -21,7 +21,7 @@ import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
-import com.glacier.frame.dto.query.finace.FinaceMemberDetailsQueryDTO;
+import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
@@ -29,6 +29,7 @@ import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
 import com.glacier.frame.service.member.ShipperMemberBankCardService;
 import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
+import com.glacier.frame.service.finace.FinaceMemberRecordService;
 import com.glacier.frame.service.finace.FinaceMemberService;
 import com.glacier.frame.service.finace.FinaceRechargeMemberSetService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
@@ -69,6 +70,9 @@ public class MemberController extends AbstractController{
     
     @Autowired
     private ShipperMemberBankCardService shipperMemberBankCardService;
+    
+    @Autowired
+    private FinaceMemberRecordService  finaceMemberRecordService;
     
 
     // 进入会员个人主页展示页面
@@ -174,7 +178,7 @@ public class MemberController extends AbstractController{
     
     //充值提现展示页
     @RequestMapping(value="/rechargeWithdraw.htm")
-    private Object intoRechargeWithdraw(JqPager pager, FinaceMemberDetailsQueryDTO finaceMemberDetailsQueryDTO,int p){
+    private Object intoRechargeWithdraw(JqPager pager, FinaceMemberRecordQueryDTO finaceMemberRecordQueryDTO,int p){
     	ModelAndView mav=new ModelAndView("member_mgr/memberRechargeWithdraw");
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
@@ -186,12 +190,13 @@ public class MemberController extends AbstractController{
   	    mav.addObject("finaceMemberRechargeSetDate", finaceRechargeMemberSetService.listWebsite());
   	    //会员银行卡信息
   	    mav.addObject("finaceMemberBankCardDate", shipperMemberBankCardService.listWebsite(pricipalMember.getMemberId()));
-  	    //会员资金明细记录
-  		JqGridReturn returnResult=(JqGridReturn)finaceMemberDetailService.listAsWebsite(pager, finaceMemberDetailsQueryDTO,pricipalMember.getMemberId(),p);
-  		mav.addObject("currentMember",pricipalMember);
-  		mav.addObject("returnResult",returnResult); 
+  	    //会员资金记录
+  	    mav.addObject("finaceMemberRecordDate", finaceMemberRecordService.listAsWebsite(pager,finaceMemberRecordQueryDTO,pricipalMember.getMemberId(),p));
+  	    
+  	    mav.addObject("currentMember",pricipalMember);
+  		//mav.addObject("returnResult",returnResult); 
       	mav.addObject("currentMemberId",pricipalMember.getMemberId()); 
-  		mav.addObject("finaceMemberDetailsQueryDTO",finaceMemberDetailsQueryDTO);
+  		mav.addObject("finaceMemberRecordQueryDTO",finaceMemberRecordQueryDTO);
   		return mav;
     }
     

@@ -135,10 +135,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx }/member/rechargeWithdraw.htm?p=1" >
 								   <div class="form-group">
 								    <div>
-								      	<input type="hidden" id="dtp_input3" name="memberId" value="1" />
-								      	货物名称：<input type="text" class="inp100x" id="belaidupDisplay" name="belaidupDisplay" value="${finaceMemberDetailsQueryDTO.belaidupDisplay }"/>
-								      	起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140"  value="<fmt:formatDate value="${finaceMemberDetailsQueryDTO.createStartTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
-								      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140"  value="<fmt:formatDate value="${finaceMemberDetailsQueryDTO.createEndTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+								      	记录类型：<input type="text" class="inp100x" id="transactionType" name="transactionType" value="${finaceMemberRecordQueryDTO.transactionType }"/>
+								      	起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140"  value="<fmt:formatDate value="${finaceMemberRecordQueryDTO.createStartTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+								      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140"  value="<fmt:formatDate value="${finaceMemberRecordQueryDTO.createEndTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
 									 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();"> 提交</button>
 									    <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');$('#financeTransactionSearch').submit();"> 重置</button>
 									</div>
@@ -149,38 +148,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <table class="table table-bordered" id="finace_member_detail_record">
 				          	<thead>
 					          <tr>
-					            <th width="100px">会员名称</th>
+					            <th>交易类型</th>
 					            <th>交易对象</th>
-					            <th>付款方式</th>
-					            <th>应付金额</th>
-					            <th>实付金额</th>
+					            <th>收入金额</th>
+					            <th>支出金额</th>
+					            <th>可用金额</th>
+					            <th>冻结金额</th>
+					            <th>代收金额</th>
+					            <th>返还金额</th>
+					            <th>总金额</th>
 					            <th>交易时间</th>
 					            <th>备注</th>
 					          </tr>
 					        </thead>
 				          	<tbody>
-				          	<c:if test="${empty returnResult.rows}">
+				          	<c:if test="${empty finaceMemberRecordDate.rows}">
 								<tr>
 						            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
 						        </tr>
 							</c:if>	
-							<c:if test="${!empty returnResult.rows}">
-					          <c:forEach items="${returnResult.rows}" var="finaceMemberDetailDate">
+							<c:if test="${!empty finaceMemberRecordDate.rows}">
+					          <c:forEach items="${finaceMemberRecordDate.rows}" var="finaceMemberRecordDate">
 						          <tr>
-						            <td>${finaceMemberDetailDate.memberDisplay}</td>
-						          	<td>${finaceMemberDetailDate.belaidupDisplay}</td>
-						          	<td>${finaceMemberDetailDate.mdetailType}</td>
-						          	<td>￥<fmt:formatNumber value='${finaceMemberDetailDate.mdetaillPayfor}' pattern='#,#00.00'/></td>
-						          	<td>￥<fmt:formatNumber value='${finaceMemberDetailDate.mdetailPay}' pattern='#,#00.00'/></td>
-						          	<td><fmt:formatDate value="${finaceMemberDetailDate.createTime}" type="both"/></td>
-						          	<td><span class="label label-default" style="background-color: #FF5400">${finaceMemberDetailDate.remark}</td>
+						            <td>${finaceMemberRecordDate.transactionType}</td>
+						          	<td>${finaceMemberRecordDate.transactionTarget}</td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.earningMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.expendMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.usableMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.frozenMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.collectingMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.refundMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.amount}' pattern='#,#00.00'/></td>
+						          	<td><fmt:formatDate value="${finaceMemberRecordDate.createTime}" type="both"/></td>
+						          	<td><span class="label label-default" style="background-color: #FF5400">${finaceMemberRecordDate.remark}</td>
 						          </tr>
 					      		</c:forEach>
 					      	</c:if>
 					      	</tbody>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="9">
+					            <th colspan="11">
 					                <div align="right">
 									    <ul id='pagefinTransaction'></ul>
 									</div>
@@ -422,7 +429,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var element = $('#pagefinTransaction');
 		
 		//设置分页的总页数
-		var total=${returnResult.total}/5;
+		var total=${finaceMemberRecordDate.total}/5;
 		if(parseInt(total)==total){
 			var total = parseInt(total);
 		}else {
@@ -431,7 +438,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		var options = {
 		    bootstrapMajorVersion:3,
-		    currentPage: ${returnResult.p},
+		    currentPage: ${finaceMemberRecordDate.p},
 		    numberOfPages: 5,
 		    totalPages:total,
 		    pageUrl: function(type, page, current){
@@ -604,7 +611,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		    okValue: '确定',
    		    ok: function () {
    		    	 this.close;
-   		    	 location.reload();
+   		    	 location.href="${ctx }/member/rechargeWithdraw.htm?p=1";
    		    }
    		});
    		d.show();

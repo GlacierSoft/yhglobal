@@ -118,6 +118,10 @@ public class FinaceRechargeMemberService {
 	public Object updateFinaceMember(String id){
 		int count=0;
 		if(id!=null){
+			//获取管理员
+		    UserExample useExample=new UserExample();
+		    useExample.createCriteria().andBuiltinEqualTo("admin");
+		    User user=userMapper.selectByExample(useExample).get(0);
 			
 			//会员资金信息更新
 			FinaceRechargeMember  finaceRechargeMember=(FinaceRechargeMember) getFinaceRechargeMemberPro(id);
@@ -136,8 +140,20 @@ public class FinaceRechargeMemberService {
 		    finaceMemberRecord.setMemberId(finaceRechargeMember.getMemberId());
 		    finaceMemberRecord.setTransactionTarget("系统账号");
 		    finaceMemberRecord.setTransactionType("充值");
+		    finaceMemberRecord.setEarningMoney(finaceRechargeMember.getReceiveMoney());
+		    finaceMemberRecord.setExpendMoney(new BigDecimal(0));
+		    finaceMemberRecord.setUsableMoney(financeMember.getMrechageAdd());
+		    finaceMemberRecord.setFrozenMoney(new BigDecimal(0));
+		    finaceMemberRecord.setCollectingMoney(new BigDecimal(0));
+		    finaceMemberRecord.setRefundMoney(new BigDecimal(0));
+		    finaceMemberRecord.setAmount(financeMember.getMrechageAdd());
+		    finaceMemberRecord.setRemark("充值");
+		    finaceMemberRecord.setCreater(user.getUserId());
+		    finaceMemberRecord.setCreateTime(new Date());
+		    finaceMemberRecord.setUpdater(user.getUserId());
+		    finaceMemberRecord.setUpdateTime(new Date());
 		    
-		    
+		    count+=finaceMemberRecordMapper.insert(finaceMemberRecord);
 		
 		}
 		return count;

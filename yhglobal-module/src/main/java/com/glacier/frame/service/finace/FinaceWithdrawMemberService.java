@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinaceMemberRecordMapper;
 import com.glacier.frame.dao.finace.FinaceWithdrawMemberMapper;
 import com.glacier.frame.dao.finace.FinaceWithdrawSetMemberMapper;
 import com.glacier.frame.dao.finace.FinanceMemberMapper;
@@ -42,6 +43,7 @@ import com.glacier.frame.dto.query.finace.FinaceWithdrawMemberQueryDTO;
 import com.glacier.frame.entity.finace.FinaceWithdrawMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample;
 import com.glacier.frame.entity.finace.FinaceWithdrawMemberExample.Criteria;
+import com.glacier.frame.entity.finace.FinaceMemberRecord;
 import com.glacier.frame.entity.finace.FinaceWithdrawSetMember;
 import com.glacier.frame.entity.finace.FinaceWithdrawSetMemberExample;
 import com.glacier.frame.entity.finace.FinanceMember;
@@ -88,6 +90,9 @@ public class FinaceWithdrawMemberService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private FinaceMemberRecordMapper finaceMemberRecordMapper;
 	
 	public Object listAsGrid(JqPager jqPager, FinaceWithdrawMemberQueryDTO finaceWithdrawMemberQueryDTO, String q) {
 	    JqGridReturn returnResult = new JqGridReturn();
@@ -254,6 +259,8 @@ public class FinaceWithdrawMemberService {
 	public Object updateFinaceMember(String id){
 		int count=0;
 		if(id!=null){
+			
+			//会员资金信息更新
 			FinaceWithdrawMember finaceWithdrawMember=(FinaceWithdrawMember) getFinaceWithdrawMemberPro(id);
 			FinanceMemberExample financeMemberExample=new FinanceMemberExample();
 			financeMemberExample.createCriteria().andMemberIdEqualTo(finaceWithdrawMember.getMemberId());
@@ -262,6 +269,35 @@ public class FinaceWithdrawMemberService {
 			BigDecimal memberRechargeMoney=finaceWithdrawMember.getWithdrawMoney().add(finaceWithdrawMember.getChargeMoney());
 			financeMember.setMrechageRemain(memberRechargeAdd.subtract(memberRechargeMoney));
 		    count=financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+		    
+		    //获取管理员
+		    UserExample useExample=new UserExample();
+		    useExample.createCriteria().andBuiltinEqualTo("admin");
+		    User user=userMapper.selectByExample(useExample).get(0);
+		    
+		  //会员资金信息插入
+		    FinaceMemberRecord finaceMemberRecord=new FinaceMemberRecord();
+		    finaceMemberRecord.setTransactionMemberId(RandomGUID.getRandomGUID());
+		    finaceMemberRecord.setFinaceMemberId(financeMember.getMrechageId());
+		    finaceMemberRecord.setMemberId(finaceWithdrawMember.getMemberId());
+		    finaceMemberRecord.setTransactionTarget("系统账号");
+		    finaceMemberRecord.setTransactionType("提现");
+		    finaceMemberRecord.setEarningMoney(new BigDecimal(0));
+		    finaceMemberRecord.setExpendMoney(finaceWithdrawMember.getWithdrawMoney());
+		    finaceMemberRecord.setUsableMoney(financeMember.getMrechageAdd());
+		    finaceMemberRecord.setFrozenMoney(new BigDecimal(0));
+		    finaceMemberRecord.setCollectingMoney(new BigDecimal(0));
+		    finaceMemberRecord.setRefundMoney(new BigDecimal(0));
+		    finaceMemberRecord.setAmount(financeMember.getMrechageAdd());
+		    finaceMemberRecord.setRemark("提现");
+		    finaceMemberRecord.setCreater(user.getUserId());
+		    finaceMemberRecord.setCreateTime(new Date());
+		    finaceMemberRecord.setUpdater(user.getUserId());
+		    finaceMemberRecord.setUpdateTime(new Date());
+		    
+		    count+=finaceMemberRecordMapper.insert(finaceMemberRecord);
+		    
+		    
 		}
 		return count;
 	}
