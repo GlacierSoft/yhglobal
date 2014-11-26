@@ -36,7 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <div class="panel panel-default" >
 				  		<div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
-					        <li  class="active"><a href="#">发货模板管理</a></li> 
+					        <li  class="active"><a href="#">我要发货</a></li> 
+					        <li  class="active"><a href="${ctx}/template/index.htm?&p=1">模板管理</a></li>
 					      </ul>
 				  	  </div>  
 			        </div>
@@ -131,19 +132,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group col-sm-12">
 						    <label for="belaidupweight" style="float: left;margin-top: 5px;">重量(吨)</label>
 						    <div class="col-sm-4">
-						    	<input type="text" class="form-control" name="belaidupweight" value="${templateDate.belaidupweight}" style="width: 165px;">
+						    	<input type="text" class="form-control" name="belaidupweight" onkeyup='this.value=this.value.replace(/\D/gi,"")' value="${templateDate.belaidupweight}" style="width: 165px;">
 							</div>
 						  </div>
 						  <div class="form-group col-sm-12">
 						    <label for="belaidupbulk" style="float: left;margin-top: 5px;">体积(方)</label>
 						    <div class="col-sm-4">
-						    	<input type="text" class="form-control" name="belaidupbulk" value="${templateDate.belaidupbulk}" style="width: 165px;">
+						    	<input type="text" class="form-control" name="belaidupbulk" onkeyup='this.value=this.value.replace(/\D/gi,"")' value="${templateDate.belaidupbulk}" style="width: 165px;">
 							</div>
 						  </div>
 						  <div class="form-group col-sm-12">
 						    <label for="belaidupnumber" style="float: left;margin-top: 5px;">数量(件)</label>
 						    <div class="col-sm-4">
-						    	<input type="text" class="form-control" name="belaidupnumber" value="${templateDate.belaidupnumber}" style="width: 165px;">
+						    	<input type="text" class="form-control" name="belaidupnumber" onkeyup='this.value=this.value.replace(/\D/gi,"")' value="${templateDate.belaidupnumber}" style="width: 165px;">
 							</div>
 						  </div>
 						 </div>
@@ -173,10 +174,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group col-sm-12">
 						    <label for="length" style="float: left;margin-top: 5px;">车长(米)</label>
 						    <div class="col-sm-10">
-						    	<input type="text" placeholder="请填写开始长度" class="form-control" name="lengthstart" value="${templateDate.lengthstart}" style="width: 100px;">
+						    	<input type="text" placeholder="请填写开始长度" class="form-control" name="lengthstart" value="${templateDate.lengthstart}" onkeyup='this.value=this.value.replace(/\D/gi,"")' style="width: 100px;">
 						    	<div style="margin-top: -35px;margin-left: 100px;">
 							    	<font style="float: left;margin-top: 5px;">&nbsp;到&nbsp;</font>
-							    	<input type="text" placeholder="请填写结束长度" class="form-control" name="lengthstop" value="${templateDate.lengthstop}" style="width: 100px;float: left;">
+							    	<input type="text" placeholder="请填写结束长度" class="form-control" name="lengthstop" value="${templateDate.lengthstop}" onkeyup='this.value=this.value.replace(/\D/gi,"")' style="width: 100px;float: left;">
 						    	</div>
 							</div>
 						  </div>
@@ -184,7 +185,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 					<div class="panel-body">
-					<a href="${ctx}/template/index.htm?&p=1" style="float:left;">返回列表</a>
 					           <div class="form-group col-sm-4"></div>
 					          <div class="form-group col-sm-2">
 					               <button type="submit" class="btn btn-primary">提交</button>
@@ -262,8 +262,16 @@ $("#form_delivery").validate({
 		 templatename:{
 			 required:true
 		 },
+		 tradingphone:{
+			number:true,
+			isMobile:true
+		 },
 		 receivingarea:{
 		    required:true
+		 },
+		 tradingcellphone:{
+			number:true,
+			isMobile:true
 		 },
 		 deliveryarea:{
 			 required:true
@@ -286,6 +294,14 @@ $("#form_delivery").validate({
 		 },
 		 deliveryarea:{
 			 required:"地区不能为空!"
+		 },
+		 tradingphone:{
+			 number:"请输入合法手机号码",
+			 sMobile:"请输入合法手机号码"
+		 },
+		 tradingcellphone:{
+			 number:"请输入合法手机号码",
+			 isMobile:"请输入合法手机号码"
 		 }/* ,
 		 lengthstart:{
 			required:"开始长度不能为空!",

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class OrdersOrder_info {
+public class OrdersOrderInfo {
     private String orderInfoId;
 
     private String belaidupId;
@@ -107,7 +107,7 @@ public class OrdersOrder_info {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
+    
     public String getCreaterDisplay() {
 		return createrDisplay;
 	}
@@ -151,7 +151,7 @@ public class OrdersOrder_info {
         if (getClass() != that.getClass()) {
             return false;
         }
-        OrdersOrder_info other = (OrdersOrder_info) that;
+        OrdersOrderInfo other = (OrdersOrderInfo) that;
         return (this.getOrderInfoId() == null ? other.getOrderInfoId() == null : this.getOrderInfoId().equals(other.getOrderInfoId()))
             && (this.getBelaidupId() == null ? other.getBelaidupId() == null : this.getBelaidupId().equals(other.getBelaidupId()))
             && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))

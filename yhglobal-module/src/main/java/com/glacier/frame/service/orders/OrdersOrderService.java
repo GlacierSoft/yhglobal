@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -22,16 +23,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
-import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
 import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrderQueryDTO;
 import com.glacier.frame.entity.orders.OrdersOrder;
 import com.glacier.frame.entity.orders.OrdersOrderExample;
 import com.glacier.frame.entity.orders.OrdersOrderExample.Criteria;
-import com.glacier.frame.entity.orders.OrdersOrder_info;
-import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrderInfo;
+import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -52,7 +54,7 @@ public class OrdersOrderService {
 	private OrdersOrderMapper orderMapper;
 	
 	@Autowired
-	private OrdersOrder_infoMapper order_InfoMapper;
+	private OrdersOrderInfoMapper order_InfoMapper;
 	
 	@Autowired
 	private StorehouseBelaidupMapper belaidupMapper;
@@ -178,7 +180,7 @@ public class OrdersOrderService {
         if (count == 1) {
         	for (String belaidupId : belaidupIds) {
 				//构建订单详情信息
-        		OrdersOrder_info order_Info = new OrdersOrder_info();
+        		OrdersOrderInfo order_Info = new OrdersOrderInfo();
         		order_Info.setOrderInfoId(RandomGUID.getRandomGUID());
         		order_Info.setBelaidupId(belaidupId);
         		order_Info.setOrderId(order.getOrderId());
@@ -217,11 +219,11 @@ public class OrdersOrderService {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         for (String orderId : orderIds) {
         	//先查询出所有关联此订单ID的订单详情信息
-        	OrdersOrder_infoExample order_InfoExample = new OrdersOrder_infoExample();
+        	OrdersOrderInfoExample order_InfoExample = new OrdersOrderInfoExample();
         	order_InfoExample.createCriteria().andOrderIdEqualTo(orderId);
-        	List<OrdersOrder_info> order_InfoList = order_InfoMapper.selectByExample(order_InfoExample);
+        	List<OrdersOrderInfo> order_InfoList = order_InfoMapper.selectByExample(order_InfoExample);
         	//删除前，先改变货物的分拣状态
-        	for (OrdersOrder_info ordersOrder_info : order_InfoList) {
+        	for (OrdersOrderInfo ordersOrder_info : order_InfoList) {
 				StorehouseBelaidup belaidup = belaidupMapper.selectByPrimaryKey(ordersOrder_info.getBelaidupId());
 				belaidup.setSortingStauts("waitsorting");
 				belaidupMapper.updateByPrimaryKey(belaidup);

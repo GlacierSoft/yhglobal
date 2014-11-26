@@ -8,8 +8,9 @@ package com.glacier.frame.dto.query.orders;
 import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder; 
-import com.glacier.frame.entity.orders.OrdersOrder_infoExample.Criteria;
-import com.glacier.frame.entity.orders.OrdersOrder_info;
+
+import com.glacier.frame.entity.orders.OrdersOrderInfo;
+import com.glacier.frame.entity.orders.OrdersOrderInfoExample.Criteria;
 
 /**
  * @ClassName: OrdersOrder_infoQueryDTO 
@@ -18,7 +19,7 @@ import com.glacier.frame.entity.orders.OrdersOrder_info;
  * @email 920339213@QQ.com
  * @date 2014-10-15
  */
-public class OrdersOrder_infoQueryDTO extends OrdersOrder_info{
+public class OrdersOrderInfoQueryDTO extends OrdersOrderInfo{
 	private Date createStartTime;
 
     private Date createEndTime;

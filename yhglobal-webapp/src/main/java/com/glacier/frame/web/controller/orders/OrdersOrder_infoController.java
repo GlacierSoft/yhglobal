@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager; 
-import com.glacier.frame.dto.query.orders.OrdersOrder_infoQueryDTO;
+import com.glacier.frame.dto.query.orders.OrdersOrderInfoQueryDTO;
 import com.glacier.frame.service.orders.OrdersOrder_infoService;
 
 /*** 
@@ -36,7 +36,7 @@ public class OrdersOrder_infoController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrder_infoQueryDTO orderSetQueryDTO) {
+    private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrderInfoQueryDTO orderSetQueryDTO) {
         return order_infoService.listAsGrid(jqPager, orderSetQueryDTO);
     }
       

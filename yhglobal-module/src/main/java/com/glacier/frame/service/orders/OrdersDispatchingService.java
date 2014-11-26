@@ -33,18 +33,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
+import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
-import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
+import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
 import com.glacier.frame.entity.orders.OrdersOrder;
-import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrderInfo;
+import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
-import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
-import com.glacier.frame.entity.orders.OrdersOrder_info;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -67,7 +67,7 @@ public class OrdersDispatchingService {
 	private OrdersDispatchingMapper ordersDispatchingMapper;
 	
 	@Autowired
-	private OrdersOrder_infoMapper ordersOrder_infoMapper;
+	private OrdersOrderInfoMapper ordersOrderInfoMapper;
 	
 	@Autowired
 	private OrdersOrdispatchingDetailedMapper ordersOrdispatchingDetailedMapper;
@@ -161,9 +161,9 @@ public class OrdersDispatchingService {
 	 @Transactional(readOnly = false)
 	 public Object checkOrdersDispatchingNumb(String belaidupId){
 		 JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		 OrdersOrder_infoExample ordersOrder_infoExample= new OrdersOrder_infoExample();
+		 OrdersOrderInfoExample ordersOrder_infoExample= new OrdersOrderInfoExample();
 		 ordersOrder_infoExample.createCriteria().andBelaidupIdEqualTo(belaidupId);
-		 List<OrdersOrder_info> ordersOrder_info=ordersOrder_infoMapper.selectByExample(ordersOrder_infoExample);
+		 List<OrdersOrderInfo> ordersOrder_info=ordersOrderInfoMapper.selectByExample(ordersOrder_infoExample);
 		 String id=ordersOrder_info.get(0).getOrderId();
 		 OrdersOrdispatchingDetailedExample ordersOrdispatchingDetailedExample=new OrdersOrdispatchingDetailedExample();
 		 ordersOrdispatchingDetailedExample.createCriteria().andOrderIdEqualTo(id);

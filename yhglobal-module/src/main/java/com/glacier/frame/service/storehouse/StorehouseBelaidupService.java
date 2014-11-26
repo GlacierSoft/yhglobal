@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
-import com.glacier.frame.dao.orders.OrdersOrder_infoMapper;
+import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dao.orders.OrdersTrackingMapper;
 import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
@@ -34,8 +34,8 @@ import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
-import com.glacier.frame.entity.orders.OrdersOrder_info;
-import com.glacier.frame.entity.orders.OrdersOrder_infoExample;
+import com.glacier.frame.entity.orders.OrdersOrderInfo;
+import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
 import com.glacier.frame.entity.orders.OrdersTracking;
@@ -76,7 +76,7 @@ public class StorehouseBelaidupService {
 	private StorehouseStorageGoodsrunMapper GoodsrunMapper;
 	
 	@Autowired
-	private OrdersOrder_infoMapper order_infoMapper;
+	private OrdersOrderInfoMapper order_infoMapper;
 	
 	@Autowired
 	private OrdersOrdispatchingDetailedMapper ordersOrdispatchingDetailedMapper;
@@ -117,9 +117,9 @@ public class StorehouseBelaidupService {
 		storehouseBelaidupExample.createCriteria().andBelaidupBarCodeEqualTo(code);
 		List<StorehouseBelaidup> storehouseBelaidup = belaidupMapper.selectByExample(storehouseBelaidupExample);
 		//根据货物ID查询出是否在订单详情中存在
-		OrdersOrder_infoExample ordersOrder_infoExample = new OrdersOrder_infoExample();
+		OrdersOrderInfoExample ordersOrder_infoExample = new OrdersOrderInfoExample();
 		ordersOrder_infoExample.createCriteria().andBelaidupIdEqualTo(storehouseBelaidup.get(0).getBelaidupId());
-		List<OrdersOrder_info> ordersOrder_info = order_infoMapper.selectByExample(ordersOrder_infoExample);
+		List<OrdersOrderInfo> ordersOrder_info = order_infoMapper.selectByExample(ordersOrder_infoExample);
         //判断订单详情是否存在！
 		if(null != ordersOrder_info && ordersOrder_info.size() > 0){
 			//存在--根据订单详情中的订单号查询出配送详情

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrdersOrder_infoExample {
+public class OrdersOrderInfoExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class OrdersOrder_infoExample {
 
     protected int limitEnd = -1;
 
-    public OrdersOrder_infoExample() {
+    public OrdersOrderInfoExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -103,7 +103,7 @@ public class OrdersOrder_infoExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        
         //扩展查询条件
         public Criteria andBelaidupDisplayLike(String value) {
             addCriterion("temp_belaidup.belaidup_prod_name like ", value, "belaidupDisplay");
@@ -115,7 +115,7 @@ public class OrdersOrder_infoExample {
             addCriterion("temp_order.order_code like ", value, "orderCodeDisplay");
             return (Criteria) this;
         }
-        
+
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
