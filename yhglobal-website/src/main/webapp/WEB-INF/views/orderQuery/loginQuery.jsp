@@ -146,9 +146,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:if test="${empty getDatas.rows}">
 					        	<tfoot>
 						          <tr>
+						            <th colspan="8" >
+						            	<div align="center">
+										    <ul>暂时木有数据哦~亲</ul>
+										</div>
+									</th>
+						          </tr>
+						        </tfoot>
+					        </c:if>	
+							<c:if test="${!empty getDatas.rows}">
+					        	<tfoot>
+						          <tr>
 						            <th colspan="8">
 						            	<div align="right">
-										    <ul id='pageorderLoad'>暂时木有数据哦~亲</ul>
+										    <ul id='pageorderLoad'></ul>
 										</div>
 									</th>
 						          </tr>
