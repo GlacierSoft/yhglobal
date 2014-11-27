@@ -109,6 +109,16 @@ public class MemberController extends AbstractController{
   	public Object memberPhotoInto(){
   		return "member_mgr/memberPhoto";
   	}
+  	
+   //站内信展示页
+  	@RequestMapping(value="memberLetterStation.htm")
+  	public Object memberLetterStation(){
+  		ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
+  		return mav;
+  	}
+  	
+  	
+  	
     
   	
   	//货源管理展示页
