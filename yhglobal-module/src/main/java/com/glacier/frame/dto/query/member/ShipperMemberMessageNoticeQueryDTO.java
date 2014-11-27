@@ -38,6 +38,11 @@ public class ShipperMemberMessageNoticeQueryDTO extends ShipperMemberMessageNoti
     		queryCriteria.andReceiverEqualTo(this.getReceiver());
     	}
     	
+    	if(this.getLettertype()!=null){
+    		
+    	}
+    	
+    	
     	if(null != createStartTime && null != createEndTime){//创建时间段查询
             queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
         }else{

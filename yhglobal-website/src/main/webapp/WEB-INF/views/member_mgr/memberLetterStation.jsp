@@ -100,9 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">个人中心 /站内信</h3>
 				  </div>
 				  <div class="panel-body">
-				       <a id="repaymenting" href="" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">全部记录</a>
-			   	       <a id="completed" href="" class="btn btn-default" role="button">未读信息</a>
-			   	       <a id="completed" href="" class="btn btn-default" role="button">已读信息</a>
+				       <a id="repaymenting" href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">全部记录</a>
+			   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="btn btn-default" role="button">未读信息</a>
+			   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=threeAudit&p=1" class="btn btn-default" role="button">已读信息</a>
 			   	       <a id="completed" href="" class="btn btn-default" role="button">标记已读</a>
 			   	       <a id="completed" href="" class="btn btn-default" role="button">标记未读</a>
 			   	       <a id="completed" href="" class="btn btn-default" role="button">删除信息</a>
