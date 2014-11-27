@@ -115,18 +115,7 @@ public class MemberController extends AbstractController{
   		return "member_mgr/memberPhoto";
   	}
   	
-   //站内信展示页
-  	@RequestMapping(value="memberLetterStation.htm")
-  	public Object memberLetterStation(JqPager pager, ShipperMemberMessageNoticeQueryDTO shipperMemberMessageNoticeQueryDTO,int p){
-  		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
-        ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
-        shipperMemberMessageNoticeQueryDTO.setReceiver(pricipalMember.getMemberId());
-        ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
-  		mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
-        return mav;
-  	}
-  	
-  	//货源管理展示页
+    //货源管理展示页
   	@RequestMapping(value="releaseManager.htm")
     private Object intoReleaseManager(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO,int p,String loanState){
   		ModelAndView mav=new ModelAndView("/member_mgr/memberReleaseManager");
@@ -148,10 +137,26 @@ public class MemberController extends AbstractController{
 	  		mav.addObject("storehouseBelaidupsQuerysDTO",storehouseBelaidupsQuerysDTO);
   		 }
   		 return mav;
-  	} 	
+  	 } 	
   	
+    //站内信展示页
+  	@RequestMapping(value="memberLetterStation.htm")
+  	public Object memberLetterStation(JqPager pager, ShipperMemberMessageNoticeQueryDTO shipperMemberMessageNoticeQueryDTO,int p,String loanState){
+  		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+        ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+        shipperMemberMessageNoticeQueryDTO.setReceiver(pricipalMember.getMemberId());
+        ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
+        if(loanState==""||loanState==null||loanState.equals("firstAudit")){
+        	mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));   	
+        }
+        if(loanState.equals("secondAudit")){
+        	shipperMemberMessageNoticeQueryDTO.setLetterstatus("unread");
+        	mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
+        }
+        return mav;
+  	}
   	
-    //个体户的修改信息操作
+  	//个体户的修改信息操作
     @RequestMapping(value = "/editIndividuality.htm")
 	@ResponseBody
 	public Object editIndividuality(@Valid ShipperIndividualityMember individuality,String email,BindingResult bindingResult,String memberId){
