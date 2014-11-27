@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">会员信息</a>
 					          <a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a>
 					          <a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a>
-					          <a href="${ctx}/member/memberLetterStation.htm" class="btn btn-default" role="button">站内信</a>
+					          <a href="${ctx}/member/memberLetterStation.htm?p=1" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">会员详细信息</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">Content7</a>

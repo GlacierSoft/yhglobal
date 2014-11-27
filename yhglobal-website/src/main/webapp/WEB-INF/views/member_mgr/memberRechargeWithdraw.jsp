@@ -180,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.refundMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.amount}' pattern='#,#00.00'/></td>
 						          	<td><fmt:formatDate value="${finaceMemberRecordDate.createTime}" type="both"/></td>
-						          	<td><span class="label label-default" style="background-color: #FF5400">${finaceMemberRecordDate.remark}</td>
+						          	<td><span class="label label-default" style="background-color: #FF5400">${finaceMemberRecordDate.remark}</span></td>
 						          </tr>
 					      		</c:forEach>
 					      	</c:if>

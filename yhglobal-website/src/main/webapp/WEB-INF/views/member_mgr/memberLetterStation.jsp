@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a>
 					          <a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a>
 					          <a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a>
-					          <a href="${ctx}/member/memberLetterStation.htm"  class="btn btn-info" role="button">站内信</a>
+					          <a href="${ctx}/member/memberLetterStation.htm?p=1"  class="btn btn-info" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">Content7</a>
@@ -107,6 +107,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	       <a id="completed" href="" class="btn btn-default" role="button">标记未读</a>
 			   	       <a id="completed" href="" class="btn btn-default" role="button">删除信息</a>
 				</div>
+				<table  id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				  		<thead>
+				  			<tr>
+				              <td><input id="totalCheckbox" name="totalCheckbox" type="checkbox" value="" /></td>
+				              <td><strong>标记</strong></td>
+				              <td><strong>发件人</strong></td>
+				              <td><strong>标题</strong></td>
+				              <td><strong>类型</strong></td>
+				              <td><strong>发送</strong></td>
+				              <td><strong>操作</strong></td>
+				            </tr>
+				  		</thead>
+				  		<tbody>
+				  		     <c:if test="${empty shipperMemberMessageNoticeDate.rows}">
+								<tr>
+						            <td colspan="7"><strong>暂无信息</strong></td>
+						        </tr>
+							</c:if>	  		
+							<c:if test="${!empty shipperMemberMessageNoticeDate.rows}">  		
+					            <c:forEach items="${shipperMemberMessageNoticeDate.rows}" var="messageNotice" varStatus="status">
+					             <tr>
+						      	  	<td>
+									    <input name="messageNoticeIds" onclick="checkMessageNoticeIds();" type="checkbox" value="${messageNotice.messageNoticeId}">
+									</td>
+									<td>
+									     <c:if test="${messageNotice.letterstatus=='read'}">
+									            <span class="label label-default" style="background-color: #FF5400">已读</span>
+									     </c:if>   
+									     <c:if test=" ${messageNotice.letterstatus=='unread'}">
+									           <span class="label label-default" style="background-color: #FF5400">未读</span>
+									     </c:if>
+									</td>	
+					                <td>
+					                    ${messageNotice.senderDisplay}
+					                </td>
+					                <td>
+					              	    ${messageNotice.title}
+					                </td>
+					                <td>
+					              	    ${messageNotice.lettertype=='system'?'系统消息':'账户消息'}
+					                </td>
+					                <td>
+					                   <fmt:formatDate value="${messageNotice.sendtime}" type="both"/>
+					                 </td>
+					                 <td>
+					                    <button  type="button" class="btn btn-primary" data-toggle="button">详情</button>
+					                 </td>
+					            </tr>
+					            </c:forEach>
+				            </c:if>
+				         </tbody>
+				  		<c:if test="${!empty shipperMemberMessageNoticeDate.rows}">  
+				            <tfoot>
+					          <tr>
+					            <th colspan="5">
+					            	<div align="right">
+									    <ul id='pagemessageNotice'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+					    </c:if>	
+				</table>
+				
+				
+				
 	    	</div>
 	    </div>
 	  </div>
@@ -114,9 +180,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <jsp:include page="../foot.jsp"/>
 
 <script type="text/javascript">
-            
-              
+     $(function(){
+    	//获得浏览器参数
+ 		$.extend({
+ 			getUrlVars: function(){
+ 				var vars = [], hash;
+ 				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+ 				for(var i = 0; i < hashes.length; i++){
+ 					hash = hashes[i].split('=');
+ 					vars.push(hash[0]);
+ 					vars[hash[0]] = hash[1];
+ 				}
+ 				return vars;
+ 			},
+ 			getUrlVar: function(name){
+ 				return $.getUrlVars()[name];
+ 			}
+ 		});
+ 		
+ 		//封装浏览器参数
+ 		var composeUrlParams=function(){
+ 			var param='';
+ 			$.each($.getUrlVars(), function(i, item) {
+ 				if(item!='p'){
+ 					var val=$.getUrlVar(item);
+ 					if(val) param += "&" + item+"="+val;
+ 				}
+ 			});
+ 			return param;
+ 		}
+ 		
+ 		var element = $('#pagemessageNotice');
+ 		
+ 		//设置分页的总页数
+ 		var total=${shipperMemberMessageNoticeDate.total}/5;
+ 		if(parseInt(total)==total){
+ 			var total = parseInt(total);
+ 		}else {
+ 			var total = parseInt(total)+1;
+ 		}
+ 		
+ 		var options = {
+ 		    bootstrapMajorVersion:3,
+ 		    currentPage: ${shipperMemberMessageNoticeDate.p},
+ 		    numberOfPages: 5,
+ 		    totalPages:total,
+ 		    pageUrl: function(type, page, current){
+ 		    	return "${ctx}/member/memberLetterStation.htm?"+composeUrlParams()+"&p="+page;
+ 		    }
+ 		}
+ 	    element.bootstrapPaginator(options);
+     });          
 </script>
-
 </body>
 </html>

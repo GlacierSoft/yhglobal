@@ -22,11 +22,13 @@ import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO;
+import com.glacier.frame.dto.query.member.ShipperMemberMessageNoticeQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
 import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
 import com.glacier.frame.service.member.ShipperMemberBankCardService;
+import com.glacier.frame.service.member.ShipperMemberMessageNoticeService;
 import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.finace.FinaceMemberRecordService;
@@ -74,6 +76,9 @@ public class MemberController extends AbstractController{
     @Autowired
     private FinaceMemberRecordService  finaceMemberRecordService;
     
+    @Autowired
+    private ShipperMemberMessageNoticeService shipperMemberMessageNoticeService; 
+    
 
     // 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
@@ -112,14 +117,14 @@ public class MemberController extends AbstractController{
   	
    //站内信展示页
   	@RequestMapping(value="memberLetterStation.htm")
-  	public Object memberLetterStation(){
-  		ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
-  		return mav;
+  	public Object memberLetterStation(JqPager pager, ShipperMemberMessageNoticeQueryDTO shipperMemberMessageNoticeQueryDTO,int p){
+  		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+        ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+        shipperMemberMessageNoticeQueryDTO.setReceiver(pricipalMember.getMemberId());
+        ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
+  		mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
+        return mav;
   	}
-  	
-  	
-  	
-    
   	
   	//货源管理展示页
   	@RequestMapping(value="releaseManager.htm")
