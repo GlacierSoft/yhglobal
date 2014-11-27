@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
-						          <li><a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a></li>
+						          <li style="width: 120px;"><a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a></li>
 						          <li><a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a></li>
 						          <li><a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a></li>
 						          <li><a href="${ctx}/member/memberLetterStation.htm?p=1" class="btn btn-default" role="button">站内信</a></li>
