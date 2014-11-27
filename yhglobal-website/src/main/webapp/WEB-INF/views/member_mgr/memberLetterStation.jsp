@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table  id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
-				              <td><input id="totalCheckbox" name="totalCheckbox" type="checkbox" value="" /></td>
+				              <td><input id="totalCheckbox" name="totalCheckbox" type="checkbox" value="" onclick="selectAll();"/></td>
 				              <td><strong>标记</strong></td>
 				              <td><strong>发件人</strong></td>
 				              <td><strong>标题</strong></td>
@@ -129,13 +129,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <c:forEach items="${shipperMemberMessageNoticeDate.rows}" var="messageNotice" varStatus="status">
 					             <tr>
 						      	  	<td>
-									    <input name="messageNoticeIds" onclick="checkMessageNoticeIds();" type="checkbox" value="${messageNotice.messageNoticeId}">
+									    <input name="messageNoticeIds" type="checkbox" value="${messageNotice.messageNoticeId}" onclick="doChildCheck();">
 									</td>
 									<td>
 									     <c:if test="${messageNotice.letterstatus=='read'}">
 									            <span class="label label-default" style="background-color: #FF5400">已读</span>
 									     </c:if>   
-									     <c:if test=" ${messageNotice.letterstatus=='unread'}">
+									     <c:if test="${messageNotice.letterstatus=='unread'}">
 									           <span class="label label-default" style="background-color: #FF5400">未读</span>
 									     </c:if>
 									</td>	
@@ -152,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                   <fmt:formatDate value="${messageNotice.sendtime}" type="both"/>
 					                 </td>
 					                 <td>
-					                    <button  type="button" class="btn btn-primary" data-toggle="button">详情</button>
+					                    <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doClick(${messageNotice.messageNoticeId});">详情</button>
 					                 </td>
 					            </tr>
 					            </c:forEach>
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  		<c:if test="${!empty shipperMemberMessageNoticeDate.rows}">  
 				            <tfoot>
 					          <tr>
-					            <th colspan="5">
+					            <th colspan="7">
 					            	<div align="right">
 									    <ul id='pagemessageNotice'></ul>
 									</div>
@@ -231,6 +231,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		}
  	    element.bootstrapPaginator(options);
      });          
+     
+     function doClick(id){
+    	var url=ctx + '/memberMessageNotice/intoDetail.htm?messageNoticeId='+id;
+      	art.dialog.open(url, {
+               width: '500px',
+               height: 'auto',
+               lock: true,
+               background:"#E6E6E6",
+          	   opacity:0.4,
+          	   fixed:true,
+          	   okValue: '确定',
+     		       ok: function () {
+     		    	   this.close;
+     		    	}
+          })
+       }
+     
+     function selectAll(){  
+    	if ($("#totalCheckbox").prop("checked")) {  
+    	        $(":input[name='messageNoticeIds']").prop("checked", true);  
+    	}else{  
+    	        $(":input[name='messageNoticeIds']").prop("checked", false);  
+    	}  
+    } 
+     
+     function doChildCheck(){
+    	var messageNoticeIdsTrue = $("input[name=messageNoticeIds]:checked").length;
+ 		var messageNoticeIdsCount = $("input[name=messageNoticeIds]").length;
+ 		if(parseInt(messageNoticeIdsTrue) == parseInt(messageNoticeIdsCount)){
+ 			$("input[name='totalCheckbox']").prop("checked",true);
+ 		}else{
+ 			$("input[name='totalCheckbox']").prop("checked",false);
+ 		}
+     }
+     
 </script>
 </body>
 </html>

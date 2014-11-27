@@ -72,7 +72,7 @@ public class ShipperMemberMessageNoticeService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
         	shipperMemberMessageNoticeExample.setOrderByClause(pager.getOrderBy("temp_shipper_member_message_notice_"));
         }
-        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        int startTemp = ((p-1)*6);//根据前台返回的页数进行设置
         shipperMemberMessageNoticeExample.setLimitStart(startTemp);
         shipperMemberMessageNoticeExample.setLimitEnd(10);
         List<ShipperMemberMessageNotice>  shipperMemberMessageNotices = shipperMemberMessageNoticeMapper.selectByExample(shipperMemberMessageNoticeExample); // 查询所有消息通知列表
