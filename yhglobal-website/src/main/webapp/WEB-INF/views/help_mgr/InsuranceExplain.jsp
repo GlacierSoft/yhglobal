@@ -41,7 +41,7 @@
 					</div>
 					<div class="panel panel-default">
 						<img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="163" height="163" alt="联系我们">
-						<p>扫描二维码关注冰川越海物流微信，获取冰川越海物流最新动态 </p>
+						<p style="padding-left: 0px">扫描二维码关注冰川越海物流微信，获取冰川越海物流最新动态 </p>
 					</div>
 				</div>
 	  		</div>

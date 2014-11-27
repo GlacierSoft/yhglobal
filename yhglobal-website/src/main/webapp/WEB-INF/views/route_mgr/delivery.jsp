@@ -19,6 +19,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    padding-top: 100px;
 		}
 	</style> 
+	<script type="text/javascript">
+	　　$(document).ready(function(){ 
+	　　    $(window).scroll(function (){
+	　　    	var offsetTop;
+	        // 让浮动层距离窗口顶部，始终保持80px
+	        if($(window).scrollTop()==0){
+	        	  offsetTop = $(window).scrollTop() -0+"px";
+	        }else{
+	        	  offsetTop = $(window).scrollTop() -80+"px";
+	        } 
+	                 
+	　　          $("#kk").animate({top : offsetTop },{ duration:500 , queue:false });
+	　　    });
+	　　});
+	
+	</script>
   </head>
   <body>
   <jsp:include page="../nav.jsp"/>
@@ -32,10 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <div class="row"> 
 	        <!-- 左边导航 -->
-	        <div class="col-md-3" style="padding-left: 0px">
-	          <div class="panel panel-default">
+	        <div class="col-md-3" style="padding-left: 0px;"  >
+	          <div id="kk" class="panel panel-default" style="position: relative;top:0px;width: 267px">
 				  <div class="panel-heading">班线信息</div>
-				  <div class="panel-body">
+				  <div class="panel-body" >
 				  <input type="hidden" id="routeId" value="${router.routerId}"> 
 				     <table style="width: 257px">
 				      <tr align="center" height="20px">
@@ -70,11 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						              平板
 						  </c:if>
 						 </td>
-				      </tr> 
-				      <tr height="30px">
-				         <td><font size="2" color="#0697DA">保险费：</font></td>
-			             <td><fmt:formatNumber value='${router.premium}' pattern='#,#00.00'/>元</td>  
-				      </tr> 
+				      </tr>   
 				      <tr height="30px">
 				         <td><font size="2" color="#0697DA">起步价：</font></td>
 			             <td><fmt:formatNumber value='${router.startingPrice}' pattern='#,#00.00'/>元</td>  
@@ -87,15 +99,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         <td><font size="2" color="#0697DA">重货价：</font></td>
 			             <td><fmt:formatNumber value='${router.weightGoodsPrice}' pattern='#,#00.00'/>元/公斤</td>  
 				      </tr> 
+				      
+				      <tr height="30px">
+				         <td><font size="2" color="#0697DA">运输费：</font></td>
+			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+				      </tr> 
+				      <tr height="30px">
+				         <td><font size="2" color="#0697DA">保险费：</font></td>
+			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+				      </tr>  <tr height="30px">
+				         <td><font size="2" color="#0697DA">合  计：</font></td>
+			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+				      </tr> 
 				     </table>
-				  </div>
+				      
+				  </div> 
+				  
 			   </div> 
-			   <div align="center"> 
-					<img src="${pageContext.request.contextPath}/resources/images/newbie/about001.jpg" alt="联系我们">
-				 
-					<img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="163px" height="163" alt="联系我们">
-					<p>扫描二维码关注越海物<br>流微信，获取越海物流最新动态 </p>
-				 </div>
+			  
 	        </div> 
 	        <div class="col-md-9" > 
 	        <form class="form-horizontal" role="search" method="post"  id="personalMessageForm" action="" >
@@ -270,24 +291,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								      <input type="checkbox" name="yesOrNo" value="yes"> 加急配送 
 								    </label>
 								  </div>
-								  <div class="checkbox" style="float: left;margin-left: 30px">
-								    <label>
-								      <input type="checkbox" > 货物保价&nbsp; &nbsp;
-								    </label>
-								  </div> 
-								    <input   type="text" class="form-control" style="width: 50px;float: left;" name="floorPrice" ><label style="margin-top: 5px;float: left">元</label>
-							     <!--   <div class="checkbox" style="float: left;margin-left: 30px">
+								     <div class="checkbox" style="float: left;margin-left: 30px">
 								    <label>
 								      <input type="checkbox"> 送货上门
 								    </label>
-								  </div>   -->
+								  </div>  
+								  <div class="checkbox" style="float: left;margin-left: 30px">
+								    <label>
+								      <input type="checkbox"> 上门接货
+								    </label>
+								  </div>  
 						    </div> 
 						  </div>
 						   <div class="form-group" >
 							     <div class="col-sm-12" style="float: left;"> 
-							     <div class="checkbox" style="float: left;margin-left: 150px">
+							     <div class="checkbox" style="float: left;margin-left: 150px" >
 								    <label style="float: left;">
-								      <input type="checkbox"> 短信通知<font color="#669900">(免费)</font>
+								      <input type="checkbox" checked="checked" disabled="disabled"> 短信通知<font color="#669900">(免费)</font>
 								    </label>
 								  </div>
 								  <div class="checkbox" style="float: left;margin-left: 58px">
@@ -302,18 +322,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    </div> 
 						   </div> 
 						   <div class="form-group" >
-							  <div class="col-sm-12" style="float: left;">
+							  <!-- <div class="col-sm-12" style="float: left;">
 							      <div class="checkbox" style="float: left; margin-left: 150px">
 								    <label>
-								      <input type="checkbox">工本费<font color="red">(6元)</font>
+								      <input type="checkbox" checked="checked" disabled="disabled">工本费<font color="red">(6元)</font>
 								    </label>
 								  </div>
 								  <div class="checkbox" style="float: left;margin-left: 78px">
 								    <label>
-								     <input type="checkbox">燃油费<font color="red">(4元)</font>
+								     <input type="checkbox" checked="checked" disabled="disabled">燃油费<font color="red">(4元)</font>
 								    </label>
 								  </div>
-							   </div> 
+							   </div>  -->
 						       <div class="form-group" >
 						         <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
@@ -334,10 +354,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="form-group" >
 						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
-							      <input   type="text" class="form-control" style="width: 100px;float: left;" name="floorPrice">
+							      <input  id="price" type="text" class="form-control" style="width: 100px;float: left;" name="floorPrice">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
 								    <label>
-								      <input type="checkbox" name="premium" value="3">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
+								      <input type="checkbox" name="premium"  value="3" onchange="javaScript:prem(this)">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
 								    </label>
 								   </div> 
 							      </div>
@@ -404,6 +424,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	<jsp:include page="../foot.jsp"/> 
 	<script type="text/javascript"> 
+	
+	function prem(info){
+		var check=$(info).attr("checked");
+		var price=$("#price").val();
+		alert(check);
+	}
 	 
 	//提交表单
 	function sub(){

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseAddedServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
+    <id column="temp_storehouse_added_service_added_service_id" property="addedServiceId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_added_service_belaidup_id" property="belaidupId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_added_service_door_delivery" property="doorDelivery" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_message" property="message" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_fuel_bills" property="fuelBills" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_delivery_visit" property="deliveryVisit" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_sign_receipt" property="signReceipt" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_sign_receipt _type" property="signReceiptType" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_sign_receipt_cost" property="signReceiptCost" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_flat_cost" property="flatCost" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_urgent_delivery" property="urgentDelivery" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_insurance" property="insurance" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_insurance_cost" property="insuranceCost" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_transportation_cost" property="transportationCost" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_goods_cost" property="goodsCost" jdbcType="DECIMAL" />
+    <result column="temp_storehouse_added_service_total_cost" property="totalCost" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_added_service.added_service_id as temp_storehouse_added_service_added_service_id, 
+    temp_storehouse_added_service.belaidup_id as temp_storehouse_added_service_belaidup_id, 
+    temp_storehouse_added_service.door_delivery as temp_storehouse_added_service_door_delivery, 
+    temp_storehouse_added_service.message as temp_storehouse_added_service_message, temp_storehouse_added_service.fuel_bills as temp_storehouse_added_service_fuel_bills, 
+    temp_storehouse_added_service.delivery_visit as temp_storehouse_added_service_delivery_visit, 
+    temp_storehouse_added_service.sign_receipt as temp_storehouse_added_service_sign_receipt, 
+    temp_storehouse_added_service."sign_receipt _type" as "temp_storehouse_added_service_sign_receipt _type", 
+    temp_storehouse_added_service.sign_receipt_cost as temp_storehouse_added_service_sign_receipt_cost, 
+    temp_storehouse_added_service.flat_cost as temp_storehouse_added_service_flat_cost, 
+    temp_storehouse_added_service.urgent_delivery as temp_storehouse_added_service_urgent_delivery, 
+    temp_storehouse_added_service.insurance as temp_storehouse_added_service_insurance, 
+    temp_storehouse_added_service.insurance_cost as temp_storehouse_added_service_insurance_cost, 
+    temp_storehouse_added_service.transportation_cost as temp_storehouse_added_service_transportation_cost, 
+    temp_storehouse_added_service.goods_cost as temp_storehouse_added_service_goods_cost, 
+    temp_storehouse_added_service.total_cost as temp_storehouse_added_service_total_cost
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedServiceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_added_service temp_storehouse_added_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_added_service temp_storehouse_added_service
+    where temp_storehouse_added_service.added_service_id = #{addedServiceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_added_service
+    where added_service_id = #{addedServiceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedServiceExample" >
+    delete from t_storehouse_added_service temp_storehouse_added_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
+    insert into t_storehouse_added_service (added_service_id, belaidup_id, door_delivery, 
+      message, fuel_bills, delivery_visit, 
+      sign_receipt, "sign_receipt _type", sign_receipt_cost, 
+      flat_cost, urgent_delivery, insurance, 
+      insurance_cost, transportation_cost, goods_cost, 
+      total_cost)
+    values (#{addedServiceId,jdbcType=VARCHAR}, #{belaidupId,jdbcType=VARCHAR}, #{doorDelivery,jdbcType=CHAR}, 
+      #{message,jdbcType=CHAR}, #{fuelBills,jdbcType=DECIMAL}, #{deliveryVisit,jdbcType=CHAR}, 
+      #{signReceipt,jdbcType=CHAR}, #{signReceiptType,jdbcType=CHAR}, #{signReceiptCost,jdbcType=DECIMAL}, 
+      #{flatCost,jdbcType=DECIMAL}, #{urgentDelivery,jdbcType=CHAR}, #{insurance,jdbcType=CHAR}, 
+      #{insuranceCost,jdbcType=DECIMAL}, #{transportationCost,jdbcType=DECIMAL}, #{goodsCost,jdbcType=DECIMAL}, 
+      #{totalCost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
+    insert into t_storehouse_added_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addedServiceId != null" >
+        added_service_id,
+      </if>
+      <if test="belaidupId != null" >
+        belaidup_id,
+      </if>
+      <if test="doorDelivery != null" >
+        door_delivery,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="fuelBills != null" >
+        fuel_bills,
+      </if>
+      <if test="deliveryVisit != null" >
+        delivery_visit,
+      </if>
+      <if test="signReceipt != null" >
+        sign_receipt,
+      </if>
+      <if test="signReceiptType != null" >
+        "sign_receipt _type",
+      </if>
+      <if test="signReceiptCost != null" >
+        sign_receipt_cost,
+      </if>
+      <if test="flatCost != null" >
+        flat_cost,
+      </if>
+      <if test="urgentDelivery != null" >
+        urgent_delivery,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="insuranceCost != null" >
+        insurance_cost,
+      </if>
+      <if test="transportationCost != null" >
+        transportation_cost,
+      </if>
+      <if test="goodsCost != null" >
+        goods_cost,
+      </if>
+      <if test="totalCost != null" >
+        total_cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addedServiceId != null" >
+        #{addedServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupId != null" >
+        #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="doorDelivery != null" >
+        #{doorDelivery,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=CHAR},
+      </if>
+      <if test="fuelBills != null" >
+        #{fuelBills,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryVisit != null" >
+        #{deliveryVisit,jdbcType=CHAR},
+      </if>
+      <if test="signReceipt != null" >
+        #{signReceipt,jdbcType=CHAR},
+      </if>
+      <if test="signReceiptType != null" >
+        #{signReceiptType,jdbcType=CHAR},
+      </if>
+      <if test="signReceiptCost != null" >
+        #{signReceiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="flatCost != null" >
+        #{flatCost,jdbcType=DECIMAL},
+      </if>
+      <if test="urgentDelivery != null" >
+        #{urgentDelivery,jdbcType=CHAR},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=CHAR},
+      </if>
+      <if test="insuranceCost != null" >
+        #{insuranceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="transportationCost != null" >
+        #{transportationCost,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCost != null" >
+        #{goodsCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedServiceExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_added_service temp_storehouse_added_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_added_service temp_storehouse_added_service
+    <set >
+      <if test="record.addedServiceId != null" >
+        temp_storehouse_added_service.added_service_id = #{record.addedServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupId != null" >
+        temp_storehouse_added_service.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doorDelivery != null" >
+        temp_storehouse_added_service.door_delivery = #{record.doorDelivery,jdbcType=CHAR},
+      </if>
+      <if test="record.message != null" >
+        temp_storehouse_added_service.message = #{record.message,jdbcType=CHAR},
+      </if>
+      <if test="record.fuelBills != null" >
+        temp_storehouse_added_service.fuel_bills = #{record.fuelBills,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliveryVisit != null" >
+        temp_storehouse_added_service.delivery_visit = #{record.deliveryVisit,jdbcType=CHAR},
+      </if>
+      <if test="record.signReceipt != null" >
+        temp_storehouse_added_service.sign_receipt = #{record.signReceipt,jdbcType=CHAR},
+      </if>
+      <if test="record.signReceiptType != null" >
+        temp_storehouse_added_service."sign_receipt _type" = #{record.signReceiptType,jdbcType=CHAR},
+      </if>
+      <if test="record.signReceiptCost != null" >
+        temp_storehouse_added_service.sign_receipt_cost = #{record.signReceiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flatCost != null" >
+        temp_storehouse_added_service.flat_cost = #{record.flatCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.urgentDelivery != null" >
+        temp_storehouse_added_service.urgent_delivery = #{record.urgentDelivery,jdbcType=CHAR},
+      </if>
+      <if test="record.insurance != null" >
+        temp_storehouse_added_service.insurance = #{record.insurance,jdbcType=CHAR},
+      </if>
+      <if test="record.insuranceCost != null" >
+        temp_storehouse_added_service.insurance_cost = #{record.insuranceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transportationCost != null" >
+        temp_storehouse_added_service.transportation_cost = #{record.transportationCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsCost != null" >
+        temp_storehouse_added_service.goods_cost = #{record.goodsCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalCost != null" >
+        temp_storehouse_added_service.total_cost = #{record.totalCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_added_service temp_storehouse_added_service
+    set temp_storehouse_added_service.added_service_id = #{record.addedServiceId,jdbcType=VARCHAR},
+      temp_storehouse_added_service.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      temp_storehouse_added_service.door_delivery = #{record.doorDelivery,jdbcType=CHAR},
+      temp_storehouse_added_service.message = #{record.message,jdbcType=CHAR},
+      temp_storehouse_added_service.fuel_bills = #{record.fuelBills,jdbcType=DECIMAL},
+      temp_storehouse_added_service.delivery_visit = #{record.deliveryVisit,jdbcType=CHAR},
+      temp_storehouse_added_service.sign_receipt = #{record.signReceipt,jdbcType=CHAR},
+      temp_storehouse_added_service."sign_receipt _type" = #{record.signReceiptType,jdbcType=CHAR},
+      temp_storehouse_added_service.sign_receipt_cost = #{record.signReceiptCost,jdbcType=DECIMAL},
+      temp_storehouse_added_service.flat_cost = #{record.flatCost,jdbcType=DECIMAL},
+      temp_storehouse_added_service.urgent_delivery = #{record.urgentDelivery,jdbcType=CHAR},
+      temp_storehouse_added_service.insurance = #{record.insurance,jdbcType=CHAR},
+      temp_storehouse_added_service.insurance_cost = #{record.insuranceCost,jdbcType=DECIMAL},
+      temp_storehouse_added_service.transportation_cost = #{record.transportationCost,jdbcType=DECIMAL},
+      temp_storehouse_added_service.goods_cost = #{record.goodsCost,jdbcType=DECIMAL},
+      temp_storehouse_added_service.total_cost = #{record.totalCost,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
+    update t_storehouse_added_service
+    <set >
+      <if test="belaidupId != null" >
+        belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="doorDelivery != null" >
+        door_delivery = #{doorDelivery,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=CHAR},
+      </if>
+      <if test="fuelBills != null" >
+        fuel_bills = #{fuelBills,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryVisit != null" >
+        delivery_visit = #{deliveryVisit,jdbcType=CHAR},
+      </if>
+      <if test="signReceipt != null" >
+        sign_receipt = #{signReceipt,jdbcType=CHAR},
+      </if>
+      <if test="signReceiptType != null" >
+        "sign_receipt _type" = #{signReceiptType,jdbcType=CHAR},
+      </if>
+      <if test="signReceiptCost != null" >
+        sign_receipt_cost = #{signReceiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="flatCost != null" >
+        flat_cost = #{flatCost,jdbcType=DECIMAL},
+      </if>
+      <if test="urgentDelivery != null" >
+        urgent_delivery = #{urgentDelivery,jdbcType=CHAR},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=CHAR},
+      </if>
+      <if test="insuranceCost != null" >
+        insurance_cost = #{insuranceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="transportationCost != null" >
+        transportation_cost = #{transportationCost,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCost != null" >
+        goods_cost = #{goodsCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        total_cost = #{totalCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where added_service_id = #{addedServiceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
+    update t_storehouse_added_service
+    set belaidup_id = #{belaidupId,jdbcType=VARCHAR},
+      door_delivery = #{doorDelivery,jdbcType=CHAR},
+      message = #{message,jdbcType=CHAR},
+      fuel_bills = #{fuelBills,jdbcType=DECIMAL},
+      delivery_visit = #{deliveryVisit,jdbcType=CHAR},
+      sign_receipt = #{signReceipt,jdbcType=CHAR},
+      "sign_receipt _type" = #{signReceiptType,jdbcType=CHAR},
+      sign_receipt_cost = #{signReceiptCost,jdbcType=DECIMAL},
+      flat_cost = #{flatCost,jdbcType=DECIMAL},
+      urgent_delivery = #{urgentDelivery,jdbcType=CHAR},
+      insurance = #{insurance,jdbcType=CHAR},
+      insurance_cost = #{insuranceCost,jdbcType=DECIMAL},
+      transportation_cost = #{transportationCost,jdbcType=DECIMAL},
+      goods_cost = #{goodsCost,jdbcType=DECIMAL},
+      total_cost = #{totalCost,jdbcType=DECIMAL}
+    where added_service_id = #{addedServiceId,jdbcType=VARCHAR}
+  </update>
+</mapper>
