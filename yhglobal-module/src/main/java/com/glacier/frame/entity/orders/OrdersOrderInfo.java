@@ -1,5 +1,6 @@
 package com.glacier.frame.entity.orders;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -35,6 +36,22 @@ public class OrdersOrderInfo {
     private String belaidupDisplay;
     
     private String orderCodeDisplay;
+    
+    /**
+     * 自定义字段，显示出货物的信息属性
+     * @return
+     */
+    private String belaidupProdName;//货物名称
+    
+    private String orderConsignee;//收货人
+    
+    private String belaidupTerminu;//目的站
+    
+    private String belaidupStatus;//货物状态
+    
+    private BigDecimal belaidupUnitprice;//总费用 
+    
+    private String memberId;
 
     public String getOrderInfoId() {
         return orderInfoId;
@@ -138,6 +155,54 @@ public class OrdersOrderInfo {
 
 	public void setOrderCodeDisplay(String orderCodeDisplay) {
 		this.orderCodeDisplay = orderCodeDisplay;
+	}
+	
+	public String getBelaidupProdName() {
+		return belaidupProdName;
+	}
+
+	public void setBelaidupProdName(String belaidupProdName) {
+		this.belaidupProdName = belaidupProdName;
+	}
+
+	public String getOrderConsignee() {
+		return orderConsignee;
+	}
+
+	public void setOrderConsignee(String orderConsignee) {
+		this.orderConsignee = orderConsignee;
+	}
+
+	public String getBelaidupTerminu() {
+		return belaidupTerminu;
+	}
+
+	public void setBelaidupTerminu(String belaidupTerminu) {
+		this.belaidupTerminu = belaidupTerminu;
+	}
+
+	public String getBelaidupStatus() {
+		return belaidupStatus;
+	}
+
+	public void setBelaidupStatus(String belaidupStatus) {
+		this.belaidupStatus = belaidupStatus;
+	}
+
+	public BigDecimal getBelaidupUnitprice() {
+		return belaidupUnitprice;
+	}
+
+	public void setBelaidupUnitprice(BigDecimal belaidupUnitprice) {
+		this.belaidupUnitprice = belaidupUnitprice;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override

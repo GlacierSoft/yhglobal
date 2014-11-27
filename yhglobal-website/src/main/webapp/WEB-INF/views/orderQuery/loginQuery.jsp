@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      </div> 
          </div>
          <div class="col-md-10">
-      	 <form action="" method="post" id="form_delivery">
+      	 <form action="${ctx }/orderQuery.htm?&p=1" method="post" id="form_delivery">
                  <div class="panel panel-primary">
                     <div class="panel-heading">
     					<h3 class="panel-title">订单查询</h3>
@@ -61,17 +61,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <label for="tisp" class="control-label col-sm-1">提示</label>
 							    <label for="tisp1" class="control-label col-sm-4"  style="color: #428BCA;">可凭单号进行货物跟踪查询</label>
 						  </div>
-					      <div class="form-group col-sm-12">
-							    <label for="orderNumber" class="control-label col-sm-1">货物号</label>
-							    <div class="col-sm-4">
-							      <input type="text" placeholder="请输入订单号" class="form-control" name="codeNumber">
-							    </div>
-							    <button type="submit" class="btn btn-primary" style="float: left;">查询</button>
-						</div>
+					      <!-- <div class="form-group col-sm-12">
+						    
+						    <div class="col-sm-4">
+						     </div>
+						  </div>
+						  <div style="float: left;">
+						  	
+						  	<div class="col-sm-4" style="margin-left: -30px;">
+						  	
+						  	</div>
+						  	
+						  	<div class="col-sm-4" style="margin-left: -30px;">
+						  	
+						  	</div>
+						  </div> -->
+						  
+						  <table class="table table-bordered">
+						  	<tr>
+						  		<td><label for="orderNumber">订单号</label></td>
+						  		<td colspan="3">
+						  			<input type="text" placeholder="请输入订单号" class="form-control" value="${orderCodeDisplay }" name="orderCodeDisplay">
+						  		</td>
+						  	</tr>
+						  	<tr>
+						  		<td>
+						  			<label for="orderNumber">起始时间</label>
+						  		</td>
+						  		<td>
+						  			<input id="createStartTime" style="width: 260px;" class="form-control" name="createStartTime" type="text" class="inp140"  value="<fmt:formatDate value="${createStartTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+						  		</td>
+						  		<td>
+						  			<label for="orderNumber">结束时间</label>
+						  		</td>
+						  		<td>
+						  			<input id="createEndTime" style="width: 260px;" class="form-control" name="createEndTime" type="text" class="inp140"  value="<fmt:formatDate value="${createEndTime }" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+						  		</td>
+						  	</tr>
+						  	<tr>
+						  		<td colspan="4" align="center"><button type="submit" class="btn btn-primary">查询</button></td>
+						  	</tr>
+						  	
+						  </table>
 					</div>
 					<!-- 显示返回消息 -->
 					<div id="returnTisp">
-						<table class="table table-bordered" style="text-align: left;">
+						<table class="table table-bordered" style="text-align: left;width: 910px;margin-left: 15px;">
 							<thead>
 								<tr>
 									<th>订单编号</th><th>货物名称</th>
@@ -82,32 +117,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</thead>
 							<c:forEach items="${getDatas.rows}" var="getDatas" varStatus="status">
 								<tr>
-									<td>${getDatas.order_code}</td><td>${getDatas.belaidup_prod_name}</td>
-									<td>${getDatas.order_consignee}</td><td>${getDatas.belaidup_terminu}</td>
-									<td><fmt:formatDate value="${getDatas.create_time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td>${getDatas.orderCodeDisplay}</td><td>${getDatas.belaidupProdName}</td>
+									<td>${getDatas.orderConsignee}</td><td>${getDatas.belaidupTerminu}</td>
+									<td><fmt:formatDate value="${getDatas.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<c:choose>
-										   <c:when test="${getDatas.belaidup_status == 'receiving'}">  
+										   <c:when test="${getDatas.belaidupStatus == 'receiving'}">  
 										   		<td>收货入库</td>
 										   </c:when>
-										   <c:when test="${getDatas.belaidup_status == 'delivery'}">  
+										   <c:when test="${getDatas.belaidupStatus == 'delivery'}">  
 										   		<td>出库运输</td>
 										   </c:when>
-										   <c:when test="${getDatas.belaidup_status == 'return'}">  
+										   <c:when test="${getDatas.belaidupStatus == 'return'}">  
 										   		<td>申请退货</td>
 										   </c:when>
-										   <c:when test="${getDatas.belaidup_status == 'completed'}">  
+										   <c:when test="${getDatas.belaidupStatus == 'completed'}">  
 										   		<td>退货完成</td>
 										   </c:when>
-										   <c:when test="${getDatas.belaidup_status == 'wayback'}">  
+										   <c:when test="${getDatas.belaidupStatus == 'wayback'}">  
 										   		<td>回途中</td>
 										   </c:when>
-										   <c:when test="${getDatas.belaidup_status == 'business'}"> 
+										   <c:when test="${getDatas.belaidupStatus == 'business'}"> 
 										   		<td>交易完成</td> 
 										   </c:when>
 									</c:choose>
-									<td><fmt:formatNumber value='${getDatas.belaidup_unitprice}' pattern="#,#00.00元"/></td><td>GPS功能</td>
+									<td><fmt:formatNumber value='${getDatas.belaidupUnitprice}' pattern="#,#00.00元"/></td><td>GPS功能</td>
 								</tr>
 							</c:forEach>
+							<c:if test="${empty getDatas.rows}">
+					        	<tfoot>
+						          <tr>
+						            <th colspan="8" >
+						            	<div align="center">
+										    <ul>暂时木有数据哦~亲</ul>
+										</div>
+									</th>
+						          </tr>
+						        </tfoot>
+					        </c:if>	
 							<c:if test="${!empty getDatas.rows}">
 					        	<tfoot>
 						          <tr>
@@ -133,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
 
-$("#form_delivery").validate({
+/* $("#form_delivery").validate({
 	 rules:{
 		 codeNumber:{
 			 required:true
@@ -151,13 +197,13 @@ $("#form_delivery").validate({
 			   dataType: "json",
 			   data: $("#form_delivery").serialize(),
 			   /* success: function(r) {
-			   	   }, */
+			   	   }, 
               error: function() {
                  alert("提交出错！");
               }
 		 });
 	 }
-});
+}); */
 
 //分页代码开始
 var elementpageorderLoad = $('#pageorderLoad');

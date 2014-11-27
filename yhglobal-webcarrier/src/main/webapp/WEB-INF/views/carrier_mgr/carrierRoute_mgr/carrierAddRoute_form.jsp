@@ -42,16 +42,27 @@
 				 	<input name="routeOrigin" onclick="getCoordinate(this)" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text"
 				 	  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 	            </td>
-			    <td style="padding-left:10px;">发货站地址：</td>
+	            <td style="padding-left:10px;">在途时间：</td>
+			    <td>
+					<input class="easyui-validatebox spinner"  required="true"  maxlength="3"
+					style="height:18px;width:155px" name="routeBytime" 
+					 value="${carrierRouteData.routeBytime}" validType="customReg['^[0-9]+$','<fmt:message key="Route.routeBytime.illegal"/>']" />小时
+				</td>
+		<!-- 	    <td >发货站地址：</td>
 				<td><input class="spinner" style="height:18px;width:180px" name="originAddress"/></td>
-		 	</tr> 
+		  -->	</tr> 
 			<tr>
 			    <td >班线终点：</td>
 				<td><input name="routeStop" onclick="getCoordinate(this)" style="height: 18px;border-color: #c3d9e0" autocomplete="off" type="text"  class="city_input  inputFocus proCityQueryAll proCitySelAll ">
 		      	</td>
-			    <td style="padding-left:10px;">到货站地址：</td>
+		      	<td style="padding-left:10px;">截止收货时间：</td>
+				<td>
+				   <input class="easyui-validatebox spinner" required="true" style="height:18px;width:100px"    value="<fmt:formatDate value="${carrierRouteData.ceaseTakeDeliveryTime}" pattern="HH:mm"/>" name="intTime" 
+	             validType="customReg['^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$','<fmt:message key="Route.intTime.illegal"/>']"/>格式:hh:mm
+				</td> 
+		<!-- 	    <td style="padding-left:10px;">到货站地址：</td>
 				<td><input class="spinner" style="height:18px;width:180px" name="stopAddress"/></td>
-		    </tr>
+		   -->  </tr>
 		    <tr> 
 		        <td> 联系电话：</td>
 				<td>
@@ -66,17 +77,8 @@
 				</td>
 			</tr>
 		   	<tr>
-		   	   <td>在途时间：</td>
-			   <td>
-					<input class="easyui-validatebox spinner"  required="true"  maxlength="3"
-					style="height:18px;width:155px" name="routeBytime" 
-					 value="${carrierRouteData.routeBytime}" validType="customReg['^[0-9]+$','<fmt:message key="Route.routeBytime.illegal"/>']" />小时
-				</td>
-		   		<td style="padding-left:10px;">截止收货时间：</td>
-				<td>
-				   <input class="easyui-validatebox spinner" required="true" style="height:18px;width:100px"    value="<fmt:formatDate value="${carrierRouteData.ceaseTakeDeliveryTime}" pattern="HH:mm"/>" name="intTime" 
-	             validType="customReg['^(20|21|22|23|[0-1]?\\d):[0-5]?\\d$','<fmt:message key="Route.intTime.illegal"/>']"/>格式:hh:mm
-				</td>  
+		   	   
+		   		 
 		    </tr>	
 			<tr>
 				<td>起步价：</td>

@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrderInfoQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
-import com.glacier.frame.entity.orders.OrderQuery;
 import com.glacier.frame.entity.orders.OrdersOrderInfo;
 import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrderInfoExample.Criteria;
@@ -38,7 +37,7 @@ import com.glacier.jqueryui.util.JqPager;
  */
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
-public class OrdersOrder_infoService {
+public class OrdersOrderInfoService {
 
 	@Autowired
 	private OrdersOrderInfoMapper orderInfoMapper;
@@ -51,10 +50,18 @@ public class OrdersOrder_infoService {
      * @return Object    返回类型 
      * @throws
      */
-	public Object listAsOrderGrid(int p,String codeNumber){
+	public Object listAsOrderGrid(int p,String codeNumber,OrdersOrderInfoQueryDTO orderQueryDTO){
 		Subject pricipalSubject = SecurityUtils.getSubject();
     	ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
     	JqGridReturn returnResult = new JqGridReturn();
+    	OrdersOrderInfoExample orderExample = new OrdersOrderInfoExample(); 
+        Criteria queryCriteria = orderExample.createCriteria().andMemberIdDisplayLike(pricipalMember.getMemberId());
+        orderQueryDTO.setQueryCondition(queryCriteria);
+        List<OrdersOrderInfo> orderTypeList = orderInfoMapper.selectByExample(orderExample); // 查询所有会员列表
+        int total = orderInfoMapper.countByExample(orderExample); // 查询总页数
+        System.out.println("总条数为："+total);
+        returnResult.setRows(orderTypeList);
+        returnResult.setTotal(total);
 		return returnResult;
 	}
 	/**

@@ -15,6 +15,12 @@
     <result column="temp_orders_order_info_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_orders_order_info_belaidup_display" property="belaidupDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_orders_order_info_order_code_display" property="orderCodeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_belaidup_prod_name" property="belaidupProdName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_order_consignee" property="orderConsignee" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_belaidup_terminu" property="belaidupTerminu" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_belaidup_status" property="belaidupStatus" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_belaidup_unitprice" property="belaidupUnitprice" jdbcType="DECIMAL"/> <!-- 自定义扩展字段 -->
+  	<result column="temp_orders_order_info_member_id" property="memberId" jdbcType="DECIMAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -85,6 +91,12 @@
     ,temp_updater.user_cn_name as temp_orders_order_info_updater_display
     ,temp_belaidup.belaidup_prod_name as temp_orders_order_info_belaidup_display
     ,temp_order.order_code as temp_orders_order_info_order_code_display
+    ,temp_belaidup.belaidup_prod_name as temp_orders_order_info_belaidup_prod_name
+    ,temp_belaidup.belaidup_unitprice as temp_orders_order_info_belaidup_unitprice
+    ,temp_belaidup.order_consignee as temp_orders_order_info_order_consignee
+    ,temp_belaidup.belaidup_terminu as temp_orders_order_info_belaidup_terminu
+    ,temp_belaidup.belaidup_status as temp_orders_order_info_belaidup_status
+    ,temp_belaidup.member_id as temp_orders_order_info_member_id
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_order_info.creater <!-- 扩展 -->

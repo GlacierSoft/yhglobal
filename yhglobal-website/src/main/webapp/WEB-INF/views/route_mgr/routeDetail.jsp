@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 				<center>
 			    	<button type="button" onclick="send('${routerData.routerId}')" class="btn btn-info" style="width: 150px">我要发货</button>
-				 	<button type="button" onclick="reouteMap('${routerData.routerId}')" class="btn btn-info" style="width: 150px">查看线路图</button>
+				 	<button type="button" target=_blank onclick="reouteMap('${routerData.routerId}')" class="btn btn-info" style="width: 150px">查看线路图</button>
 				 </center> 
 	    	</div>  
     	    </div>

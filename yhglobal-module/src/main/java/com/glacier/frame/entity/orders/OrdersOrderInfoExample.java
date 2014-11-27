@@ -115,6 +115,12 @@ public class OrdersOrderInfoExample {
             addCriterion("temp_order.order_code like ", value, "orderCodeDisplay");
             return (Criteria) this;
         }
+        
+        //扩展查询条件
+        public Criteria andMemberIdDisplayLike(String value) {
+            addCriterion("temp_belaidup.member_id = ", value, "memberId");
+            return (Criteria) this;
+        }
 
         protected void addCriterion(String condition) {
             if (condition == null) {

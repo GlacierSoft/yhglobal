@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.frame.dto.query.orders.OrdersOrderInfoQueryDTO;
-import com.glacier.frame.service.orders.OrdersOrder_infoService;
+import com.glacier.frame.service.orders.OrdersOrderInfoService;
 
 /*** 
  * @ClassName:  OrdersOrder_infoController
@@ -24,7 +24,7 @@ import com.glacier.frame.service.orders.OrdersOrder_infoService;
 public class OrdersOrder_infoController extends AbstractController{
 
 	@Autowired
-	private OrdersOrder_infoService order_infoService;
+	private OrdersOrderInfoService order_infoService;
 	
 	// 进入订单详情信息列表展示页面
     @RequestMapping(value = "/index.htm")
