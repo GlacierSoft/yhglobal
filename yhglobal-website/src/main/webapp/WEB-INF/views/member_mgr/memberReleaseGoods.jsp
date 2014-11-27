@@ -42,20 +42,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div class="panel-heading">
 					      <h4 class="panel-title">
 					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-					      	  Titles Name
+					      	  基本信息
 					        </a>
 					      </h4>
 					    </div>
 					    <div id="collapseOne" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a>
-					          <a href="${ctx}/member/release.htm" class="btn btn-info" role="button">发布货源</a>
-					          <a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a>
-					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" --%> class="btn btn-default" role="button">Content4</a>
-							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">Content5</a>
-							  <a href="${ctx}/member/memberPhotoInto.htm" <%-- onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" --%> class="btn btn-default" role="button">Content6</a>
-							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">Content7</a>
+					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
+						          <li><a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a></li>
+						          <li class="active" style="width: 120px;"><a href="${ctx}/member/release.htm" class="btn btn-info" role="button">发布货源</a></li>
+						          <li><a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a></li>
+						          <li><a href="${ctx}/member/memberLetterStation.htm?p=1" class="btn btn-default" role="button">站内信</a></li>
+								  <li><a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">详细信息</a></li>
+								  <li><a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">会员头像</a></li>
+								  <li><a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">修改密码</a></li>
+							  </ul>
 							</div>
 					      </div>
 					    </div>
@@ -64,16 +66,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div class="panel-heading">
 					      <h4 class="panel-title">
 					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-					         	Titles Name Two
+					         	财务信息
 					        </a>
 					      </h4>
 					    </div>
 					    <div id="collapseTwo" class="panel-collapse collapse">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="#" class="btn btn-default" role="button">Content1</a>
-							  <a href="#" class="btn btn-default" role="button">Content2</a>
-							  <a href="#" class="btn btn-default" role="button">Content3</a>
+					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
+							  <li><a href="${ctx }/member/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a></li>
+							  <li><a href="#" class="btn btn-default" role="button">Content2</a></li>
+							  <li><a href="#" class="btn btn-default" role="button">交易密码修改</a></li>
+							  </ul>
 							</div>
 					      </div>
 					    </div>
@@ -82,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div class="panel-heading">
 					      <h4 class="panel-title">
 					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-					    	     Titles Name Three
+					    	     统计信息
 					        </a>
 					      </h4>
 					    </div>
