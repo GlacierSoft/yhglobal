@@ -142,18 +142,21 @@ public class MemberController extends AbstractController{
     //站内信展示页
   	@RequestMapping(value="memberLetterStation.htm")
   	public Object memberLetterStation(JqPager pager, ShipperMemberMessageNoticeQueryDTO shipperMemberMessageNoticeQueryDTO,int p,String loanState){
-  		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
-        ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
-        shipperMemberMessageNoticeQueryDTO.setReceiver(pricipalMember.getMemberId());
-        ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
-        if(loanState==""||loanState==null||loanState.equals("firstAudit")){
-        	mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));   	
-        }
-        if(loanState.equals("secondAudit")){
-        	shipperMemberMessageNoticeQueryDTO.setLetterstatus("unread");
-        	mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
-        }
-        return mav;
+  	   Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+       ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+       shipperMemberMessageNoticeQueryDTO.setReceiver(pricipalMember.getMemberId());
+       ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
+       if("firstAudit".equals(loanState)){
+      	  mav.addObject("buttonState","firstAudit"); 	
+      }else if(loanState.equals("secondAudit")){
+      	mav.addObject("buttonState","secondAudit"); 
+      	shipperMemberMessageNoticeQueryDTO.setLetterstatus("unread");
+      }else if("thirdAudit".equals(loanState)){
+      	mav.addObject("buttonState","thirdAudit");
+      	shipperMemberMessageNoticeQueryDTO.setLetterstatus("read");
+      }
+       mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
+       return mav;
   	}
   	
   	//个体户的修改信息操作
