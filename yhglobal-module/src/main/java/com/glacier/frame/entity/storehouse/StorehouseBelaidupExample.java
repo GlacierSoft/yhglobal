@@ -104,20 +104,19 @@ public class StorehouseBelaidupExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-		  //扩展查询条件
+
+        //扩展查询条件
         public Criteria andStorageDisplayLike(String value) {
             addCriterion("temp_storage.storage_name like ", value, "storageDisplay");
             return (Criteria) this;
         }
 		
-          //扩展查询条件
+        //扩展查询条件
         public Criteria andPackageDisplayLike(String value) {
             addCriterion("temp_packcode.pack_bar_code like ", value, "packageCode");
             return (Criteria) this;
         }
         
-		
-
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -2466,6 +2465,66 @@ public class StorehouseBelaidupExample {
 
         public Criteria andFloorPriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("temp_storehouse_belaidup.floor_price not between", value1, value2, "floorPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthIsNull() {
+            addCriterion("temp_storehouse_belaidup.shortesLength is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthIsNotNull() {
+            addCriterion("temp_storehouse_belaidup.shortesLength is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthEqualTo(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength =", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthNotEqualTo(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength <>", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthGreaterThan(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength >", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength >=", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthLessThan(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength <", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthLessThanOrEqualTo(Float value) {
+            addCriterion("temp_storehouse_belaidup.shortesLength <=", value, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthIn(List<Float> values) {
+            addCriterion("temp_storehouse_belaidup.shortesLength in", values, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthNotIn(List<Float> values) {
+            addCriterion("temp_storehouse_belaidup.shortesLength not in", values, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_belaidup.shortesLength between", value1, value2, "shorteslength");
+            return (Criteria) this;
+        }
+
+        public Criteria andShorteslengthNotBetween(Float value1, Float value2) {
+            addCriterion("temp_storehouse_belaidup.shortesLength not between", value1, value2, "shorteslength");
             return (Criteria) this;
         }
 

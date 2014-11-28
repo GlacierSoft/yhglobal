@@ -55,8 +55,10 @@ public class StorehouseBelaidup {
 
     private String belaidupBarCode;
 
+    private String routerId;
+
     private String storehouseId;
-    
+
     private String consignor;
 
     private String sendPhone;
@@ -73,8 +75,10 @@ public class StorehouseBelaidup {
 
     private BigDecimal premium;
 
-    private BigDecimal floorPrice; 
-    
+    private BigDecimal floorPrice;
+
+    private Float shorteslength;
+
     private String remark;
 
     private String creater;
@@ -83,12 +87,7 @@ public class StorehouseBelaidup {
     private Date createTime;
 
     private String updater;
-
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
-
-    //班线id
-    private String routerId;
+    
     /**
      * 自定义字段
      */
@@ -105,17 +104,11 @@ public class StorehouseBelaidup {
     private String packageDisplay;
     
     private String packageCode;
-    
-    
-    public String getRouterId() {
-		return routerId;
-	}
 
-	public void setRouterId(String routerId) {
-		this.routerId = routerId;
-	}
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
-	public String getBelaidupId() {
+    public String getBelaidupId() {
         return belaidupId;
     }
 
@@ -138,81 +131,8 @@ public class StorehouseBelaidup {
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
-     
 
-    public String getConsignor() {
-		return consignor;
-	}
-
-	public void setConsignor(String consignor) {
-		this.consignor = consignor;
-	}
-
-	public String getSendPhone() {
-		return sendPhone;
-	}
-
-	public void setSendPhone(String sendPhone) {
-		this.sendPhone = sendPhone;
-	}
-
-	public String getSendAddress() {
-		return sendAddress;
-	}
-
-	public void setSendAddress(String sendAddress) {
-		this.sendAddress = sendAddress;
-	}
-
-	public String getSendSite() {
-		return sendSite;
-	}
-
-	public void setSendSite(String sendSite) {
-		this.sendSite = sendSite;
-	}
-
-	public String getOrderSite() {
-		return orderSite;
-	}
-
-	public void setOrderSite(String orderSite) {
-		this.orderSite = orderSite;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getModeOfPayment() {
-		return modeOfPayment;
-	}
-
-	public void setModeOfPayment(String modeOfPayment) {
-		this.modeOfPayment = modeOfPayment;
-	}
-
-	public BigDecimal getPremium() {
-		return premium;
-	}
-
-	public void setPremium(BigDecimal premium) {
-		this.premium = premium;
-	}
-
-	public BigDecimal getFloorPrice() {
-		return floorPrice;
-	}
-
-	public void setFloorPrice(BigDecimal floorPrice) {
-		this.floorPrice = floorPrice;
-	}
-
-	public BigDecimal getBelaidupUnitprice() {
+    public BigDecimal getBelaidupUnitprice() {
         return belaidupUnitprice;
     }
 
@@ -380,12 +300,100 @@ public class StorehouseBelaidup {
         this.belaidupBarCode = belaidupBarCode;
     }
 
+    public String getRouterId() {
+        return routerId;
+    }
+
+    public void setRouterId(String routerId) {
+        this.routerId = routerId;
+    }
+
     public String getStorehouseId() {
         return storehouseId;
     }
 
     public void setStorehouseId(String storehouseId) {
         this.storehouseId = storehouseId;
+    }
+
+    public String getConsignor() {
+        return consignor;
+    }
+
+    public void setConsignor(String consignor) {
+        this.consignor = consignor;
+    }
+
+    public String getSendPhone() {
+        return sendPhone;
+    }
+
+    public void setSendPhone(String sendPhone) {
+        this.sendPhone = sendPhone;
+    }
+
+    public String getSendAddress() {
+        return sendAddress;
+    }
+
+    public void setSendAddress(String sendAddress) {
+        this.sendAddress = sendAddress;
+    }
+
+    public String getSendSite() {
+        return sendSite;
+    }
+
+    public void setSendSite(String sendSite) {
+        this.sendSite = sendSite;
+    }
+
+    public String getOrderSite() {
+        return orderSite;
+    }
+
+    public void setOrderSite(String orderSite) {
+        this.orderSite = orderSite;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getModeOfPayment() {
+        return modeOfPayment;
+    }
+
+    public void setModeOfPayment(String modeOfPayment) {
+        this.modeOfPayment = modeOfPayment;
+    }
+
+    public BigDecimal getPremium() {
+        return premium;
+    }
+
+    public void setPremium(BigDecimal premium) {
+        this.premium = premium;
+    }
+
+    public BigDecimal getFloorPrice() {
+        return floorPrice;
+    }
+
+    public void setFloorPrice(BigDecimal floorPrice) {
+        this.floorPrice = floorPrice;
+    }
+
+    public Float getShorteslength() {
+        return shorteslength;
+    }
+
+    public void setShorteslength(Float shorteslength) {
+        this.shorteslength = shorteslength;
     }
 
     public String getRemark() {
@@ -520,7 +528,18 @@ public class StorehouseBelaidup {
             && (this.getBelaidupReturnTime() == null ? other.getBelaidupReturnTime() == null : this.getBelaidupReturnTime().equals(other.getBelaidupReturnTime()))
             && (this.getBelaidupReturnPoundage() == null ? other.getBelaidupReturnPoundage() == null : this.getBelaidupReturnPoundage().equals(other.getBelaidupReturnPoundage()))
             && (this.getBelaidupBarCode() == null ? other.getBelaidupBarCode() == null : this.getBelaidupBarCode().equals(other.getBelaidupBarCode()))
+            && (this.getRouterId() == null ? other.getRouterId() == null : this.getRouterId().equals(other.getRouterId()))
             && (this.getStorehouseId() == null ? other.getStorehouseId() == null : this.getStorehouseId().equals(other.getStorehouseId()))
+            && (this.getConsignor() == null ? other.getConsignor() == null : this.getConsignor().equals(other.getConsignor()))
+            && (this.getSendPhone() == null ? other.getSendPhone() == null : this.getSendPhone().equals(other.getSendPhone()))
+            && (this.getSendAddress() == null ? other.getSendAddress() == null : this.getSendAddress().equals(other.getSendAddress()))
+            && (this.getSendSite() == null ? other.getSendSite() == null : this.getSendSite().equals(other.getSendSite()))
+            && (this.getOrderSite() == null ? other.getOrderSite() == null : this.getOrderSite().equals(other.getOrderSite()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
+            && (this.getModeOfPayment() == null ? other.getModeOfPayment() == null : this.getModeOfPayment().equals(other.getModeOfPayment()))
+            && (this.getPremium() == null ? other.getPremium() == null : this.getPremium().equals(other.getPremium()))
+            && (this.getFloorPrice() == null ? other.getFloorPrice() == null : this.getFloorPrice().equals(other.getFloorPrice()))
+            && (this.getShorteslength() == null ? other.getShorteslength() == null : this.getShorteslength().equals(other.getShorteslength()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -556,7 +575,18 @@ public class StorehouseBelaidup {
         result = prime * result + ((getBelaidupReturnTime() == null) ? 0 : getBelaidupReturnTime().hashCode());
         result = prime * result + ((getBelaidupReturnPoundage() == null) ? 0 : getBelaidupReturnPoundage().hashCode());
         result = prime * result + ((getBelaidupBarCode() == null) ? 0 : getBelaidupBarCode().hashCode());
+        result = prime * result + ((getRouterId() == null) ? 0 : getRouterId().hashCode());
         result = prime * result + ((getStorehouseId() == null) ? 0 : getStorehouseId().hashCode());
+        result = prime * result + ((getConsignor() == null) ? 0 : getConsignor().hashCode());
+        result = prime * result + ((getSendPhone() == null) ? 0 : getSendPhone().hashCode());
+        result = prime * result + ((getSendAddress() == null) ? 0 : getSendAddress().hashCode());
+        result = prime * result + ((getSendSite() == null) ? 0 : getSendSite().hashCode());
+        result = prime * result + ((getOrderSite() == null) ? 0 : getOrderSite().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
+        result = prime * result + ((getModeOfPayment() == null) ? 0 : getModeOfPayment().hashCode());
+        result = prime * result + ((getPremium() == null) ? 0 : getPremium().hashCode());
+        result = prime * result + ((getFloorPrice() == null) ? 0 : getFloorPrice().hashCode());
+        result = prime * result + ((getShorteslength() == null) ? 0 : getShorteslength().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
