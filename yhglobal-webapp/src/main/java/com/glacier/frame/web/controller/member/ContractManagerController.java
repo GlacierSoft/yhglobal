@@ -51,8 +51,8 @@ public class ContractManagerController {
 	 @RequestMapping(value = "/intoDetail.htm")
 	 private Object intoContractManagerDetailPage(String contractTypeId) {
 	     ModelAndView mav = new ModelAndView("member_mgr/contractManager_mgr/contractManager_detail");
-	 if(StringUtils.isNotBlank(contractTypeId)){
-	      mav.addObject("contractManagerData", contractManagerService.getContractManager(contractTypeId));
+	     if(StringUtils.isNotBlank(contractTypeId)){
+	        mav.addObject("contractManagerData", contractManagerService.getContractManager(contractTypeId));
 	     }
 	     return mav;
 	  }
