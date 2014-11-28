@@ -104,11 +104,22 @@ public class StorehouseBelaidup {
     private String packageDisplay;
     
     private String packageCode;
-
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+     
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
+     
+    //临时字段，存放改物品订单的增值服务
+    private StorehouseAddedService addedService; 
 
-    public String getBelaidupId() {
+    public StorehouseAddedService getAddedService() {
+		return addedService;
+	}
+
+	public void setAddedService(StorehouseAddedService addedService) {
+		this.addedService = addedService;
+	}
+
+	public String getBelaidupId() {
         return belaidupId;
     }
 

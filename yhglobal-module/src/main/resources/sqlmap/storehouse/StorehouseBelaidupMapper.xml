@@ -156,6 +156,18 @@
     LEFT JOIN t_storehouse_pack_code temp_packcode ON temp_packcode.belaidup_id = temp_storehouse_belaidup.belaidup_id <!-- 扩展 -->
     LEFT JOIN t_storehouse_packagetype_set temp_packagetype ON temp_packagetype.packagetype_id = temp_packcode.packagetype_id <!-- 扩展 --> 
   </sql>
+  
+  
+  <!-- 自定义倒序查询方法，查询他刚刚提交成功的发货订单，用于前台页面显示 -->
+  <select id="selectTop" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup temp_storehouse_belaidup
+	<include refid="Base_extend" />
+    where temp_storehouse_belaidup.member_id = #{memberId,jdbcType=VARCHAR} ORDER BY temp_storehouse_belaidup.create_time DESC LIMIT 1 
+  </select>
+    
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" >
     select
     <if test="distinct" >
@@ -174,6 +186,7 @@
       limit ${limitStart} , ${limitEnd}
     </if>
   </select>
+   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

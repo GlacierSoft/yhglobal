@@ -9,7 +9,7 @@
     <result column="temp_storehouse_added_service_fuel_bills" property="fuelBills" jdbcType="DECIMAL" />
     <result column="temp_storehouse_added_service_delivery_visit" property="deliveryVisit" jdbcType="CHAR" />
     <result column="temp_storehouse_added_service_sign_receipt" property="signReceipt" jdbcType="CHAR" />
-    <result column="temp_storehouse_added_service_sign_receipt _type" property="signReceiptType" jdbcType="CHAR" />
+    <result column="temp_storehouse_added_service_sign_receipt_type" property="signReceiptType" jdbcType="CHAR" />
     <result column="temp_storehouse_added_service_sign_receipt_cost" property="signReceiptCost" jdbcType="DECIMAL" />
     <result column="temp_storehouse_added_service_flat_cost" property="flatCost" jdbcType="DECIMAL" />
     <result column="temp_storehouse_added_service_urgent_delivery" property="urgentDelivery" jdbcType="CHAR" />
@@ -84,7 +84,7 @@
     temp_storehouse_added_service.message as temp_storehouse_added_service_message, temp_storehouse_added_service.fuel_bills as temp_storehouse_added_service_fuel_bills, 
     temp_storehouse_added_service.delivery_visit as temp_storehouse_added_service_delivery_visit, 
     temp_storehouse_added_service.sign_receipt as temp_storehouse_added_service_sign_receipt, 
-    temp_storehouse_added_service."sign_receipt _type" as "temp_storehouse_added_service_sign_receipt _type", 
+    temp_storehouse_added_service.sign_receipt_type as temp_storehouse_added_service_sign_receipt_type, 
     temp_storehouse_added_service.sign_receipt_cost as temp_storehouse_added_service_sign_receipt_cost, 
     temp_storehouse_added_service.flat_cost as temp_storehouse_added_service_flat_cost, 
     temp_storehouse_added_service.urgent_delivery as temp_storehouse_added_service_urgent_delivery, 
@@ -130,7 +130,7 @@
   <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseAddedService" >
     insert into t_storehouse_added_service (added_service_id, belaidup_id, door_delivery, 
       message, fuel_bills, delivery_visit, 
-      sign_receipt, "sign_receipt _type", sign_receipt_cost, 
+      sign_receipt, sign_receipt_type, sign_receipt_cost, 
       flat_cost, urgent_delivery, insurance, 
       insurance_cost, transportation_cost, goods_cost, 
       total_cost)
@@ -166,7 +166,7 @@
         sign_receipt,
       </if>
       <if test="signReceiptType != null" >
-        "sign_receipt _type",
+        sign_receipt_type,
       </if>
       <if test="signReceiptCost != null" >
         sign_receipt_cost,
@@ -275,7 +275,7 @@
         temp_storehouse_added_service.sign_receipt = #{record.signReceipt,jdbcType=CHAR},
       </if>
       <if test="record.signReceiptType != null" >
-        temp_storehouse_added_service."sign_receipt _type" = #{record.signReceiptType,jdbcType=CHAR},
+        temp_storehouse_added_service.sign_receipt_type = #{record.signReceiptType,jdbcType=CHAR},
       </if>
       <if test="record.signReceiptCost != null" >
         temp_storehouse_added_service.sign_receipt_cost = #{record.signReceiptCost,jdbcType=DECIMAL},
@@ -315,7 +315,7 @@
       temp_storehouse_added_service.fuel_bills = #{record.fuelBills,jdbcType=DECIMAL},
       temp_storehouse_added_service.delivery_visit = #{record.deliveryVisit,jdbcType=CHAR},
       temp_storehouse_added_service.sign_receipt = #{record.signReceipt,jdbcType=CHAR},
-      temp_storehouse_added_service."sign_receipt _type" = #{record.signReceiptType,jdbcType=CHAR},
+      temp_storehouse_added_service.sign_receipt_type = #{record.signReceiptType,jdbcType=CHAR},
       temp_storehouse_added_service.sign_receipt_cost = #{record.signReceiptCost,jdbcType=DECIMAL},
       temp_storehouse_added_service.flat_cost = #{record.flatCost,jdbcType=DECIMAL},
       temp_storehouse_added_service.urgent_delivery = #{record.urgentDelivery,jdbcType=CHAR},
@@ -350,7 +350,7 @@
         sign_receipt = #{signReceipt,jdbcType=CHAR},
       </if>
       <if test="signReceiptType != null" >
-        "sign_receipt _type" = #{signReceiptType,jdbcType=CHAR},
+        sign_receipt_type = #{signReceiptType,jdbcType=CHAR},
       </if>
       <if test="signReceiptCost != null" >
         sign_receipt_cost = #{signReceiptCost,jdbcType=DECIMAL},
@@ -387,7 +387,7 @@
       fuel_bills = #{fuelBills,jdbcType=DECIMAL},
       delivery_visit = #{deliveryVisit,jdbcType=CHAR},
       sign_receipt = #{signReceipt,jdbcType=CHAR},
-      "sign_receipt _type" = #{signReceiptType,jdbcType=CHAR},
+      sign_receipt_type = #{signReceiptType,jdbcType=CHAR},
       sign_receipt_cost = #{signReceiptCost,jdbcType=DECIMAL},
       flat_cost = #{flatCost,jdbcType=DECIMAL},
       urgent_delivery = #{urgentDelivery,jdbcType=CHAR},

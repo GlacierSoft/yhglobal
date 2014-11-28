@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
@@ -73,8 +74,8 @@ public class DeliveryController {
 	// 发布货源信息,我要发货添加
 	@RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
 	@ResponseBody
-	private Object addBelaidup(@Valid StorehouseBelaidup belaidup,BindingResult bindingResult, String packageId) {
-		return belaidupService.addBelaidup_website(belaidup, packageId);
+	private Object addBelaidup(@Valid StorehouseBelaidup belaidup,@Valid StorehouseAddedService storehouseAddedService,BindingResult bindingResult, String type) {
+		return belaidupService.addBelaidup_website(belaidup,storehouseAddedService, type);
 	}
 
 	// 货源信息撤销发布操作

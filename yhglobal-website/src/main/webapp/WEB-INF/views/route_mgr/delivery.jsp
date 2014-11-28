@@ -102,14 +102,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      
 				      <tr height="30px">
 				         <td><font size="2" color="#0697DA">运输费：</font></td>
-			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+			             <td><label id="yun"  style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">0.00&nbsp;元</label></td>  
 				      </tr> 
 				      <tr height="30px">
 				         <td><font size="2" color="#0697DA">保险费：</font></td>
-			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+			             <td><label id="bao" style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">0.00&nbsp;元</label></td>  
 				      </tr>  <tr height="30px">
 				         <td><font size="2" color="#0697DA">合  计：</font></td>
-			             <td><label  style="color:blue;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px"><fmt:formatNumber value='' pattern='#,#00.00'/></label></td>  
+			             <td><label id="sum" style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">0.00&nbsp;元</label></td>  
 				      </tr> 
 				     </table>
 				      
@@ -261,11 +261,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >总重量:</label>
 						    <div class="col-sm-2" align="left">
-						      <input type="text" class="form-control" name="belaidupWeight"  placeholder="公斤" >
+						      <input id="zhong" type="text" class="form-control" name="belaidupWeight"  placeholder="公斤" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
 						    </div>  
 						    <label for="inputEmail3"  class="col-sm-2 control-label" ><font color="#FF7300">或</font>    &nbsp;&nbsp;&nbsp;&nbsp;总体积:</label> 
 						    <div class="col-sm-2" align="left">
-						       <input type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" >
+						       <input id="qing" type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
 						    </div> 
 						     <a href="${ctx}/weightExplain.htm" style="color: #FF7300">什么是重货轻货？</a>
 						  </div> 
@@ -288,17 +288,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     <div class="col-sm-12"> 
 							     <div class="checkbox" style="float: left;margin-left: 150px">
 								    <label>
-								      <input type="checkbox" name="yesOrNo" value="yes"> 加急配送 
+								      <input type="checkbox" name="urgentDelivery" value="yes"> 加急配送 
 								    </label>
 								  </div>
 								     <div class="checkbox" style="float: left;margin-left: 30px">
 								    <label>
-								      <input type="checkbox"> 送货上门
+								      <input type="checkbox" name="deliveryVisit" value="yes"> 送货上门
 								    </label>
 								  </div>  
 								  <div class="checkbox" style="float: left;margin-left: 30px">
 								    <label>
-								      <input type="checkbox"> 上门接货
+								      <input type="checkbox" name="doorDelivery" value="yes"> 上门接货
 								    </label>
 								  </div>  
 						    </div> 
@@ -307,17 +307,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     <div class="col-sm-12" style="float: left;"> 
 							     <div class="checkbox" style="float: left;margin-left: 150px" >
 								    <label style="float: left;">
-								      <input type="checkbox" checked="checked" disabled="disabled"> 短信通知<font color="#669900">(免费)</font>
+								      <input type="checkbox" checked="checked" disabled="disabled" name="message" value="yes"> 短信通知<font color="#669900">(免费)</font>
 								    </label>
 								  </div>
 								  <div class="checkbox" style="float: left;margin-left: 58px">
 								    <label>
-								      <input type="checkbox"> 签收回单&nbsp; &nbsp;
+								      <input type="checkbox" name="signReceipt" value="yes"> 签收回单&nbsp; &nbsp;
 								    </label>
 								  </div> 
-								 <select class="form-control" style="width: 183px;float: left">
-								  <option>运单签收联原件返回</option> 
-								  <option>发货单签收联原件返回</option> 
+								 <select class="form-control" style="width: 183px;float: left" name="signReceiptType">
+								  <option value="waybill">运单签收联原件返回</option> 
+								  <option value="invoice">发货单签收联原件返回</option> 
 								</select> 
 							    </div> 
 						   </div> 
@@ -354,10 +354,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="form-group" >
 						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
-							      <input  id="price" type="text" class="form-control" style="width: 100px;float: left;" name="floorPrice">
+							      <input  id="price"  type="text" class="form-control" style="width: 100px;float: left;" name="goodsSost" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
 								    <label>
-								      <input type="checkbox" name="premium"  value="3" onchange="javaScript:prem(this)">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
+								      <input id="check1" type="checkbox" name="insurance"  value="yes" onchange="javaScript:prem(this)">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
 								    </label>
 								   </div> 
 							      </div>
@@ -367,6 +367,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<center>
 				<button type="button" class="btn btn-info" style="margin-bottom: 30px;width: 150px" id="sub">提交运单</button>
 				</center>
+				</div>
+				<input type="hidden" value="route" name="type">
+				<input id="insuranceCost" type="hidden" value="3.00" name="insuranceCost">
+				<input id="transportationCost" type="hidden" value="0.00"  name="transportationCost">
+				<input id="totalCost" type="hidden" value="0.00"  name="totalCost">
+				
 				</form>
 		    </div>
 		</div> 
@@ -419,18 +425,99 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			         </div> 
 			      </div> 
 			 </div> 
-		</div>
-		
-		
+		</div> 
 	<jsp:include page="../foot.jsp"/> 
 	<script type="text/javascript"> 
+	var sum=0;//费用总额
+	var lighPrice=0;//计算轻货的价格
+	var weightPrice=0;//计算重货的价格
+	var insuranceCost=0;//保险费
+	var yunPrice=0; //运输费
+	//计算是否采用重货还是轻货价
+	$("#qing").change(function(){
+		var qing=$(this).val();
+		lighPrice=qing*${router.lightGoodsPrice};
+		var zhong=$("#zhong").val();
+	    weightPrice=zhong*${router.weightGoodsPrice};
+		$("#yun").empty(); 
+		$("#sum").empty(); 
+		if((lighPrice-0)>(weightPrice-0)){
+			yunPrice=lighPrice;
+			sum=yunPrice+insuranceCost; 
+		}else{
+			yunPrice=weightPrice;
+			sum=yunPrice+insuranceCost; 
+		} 
+		$("#yun").append(yunPrice.toFixed(2)+"&nbsp;元"); 
+		$("#sum").append(sum.toFixed(2)+"&nbsp;元");
+		$("#transportationCost").attr("value",yunPrice.toFixed(2));
+		$("#totalCost").attr("value",sum.toFixed(2));
+	});
 	
-	function prem(info){
-		var check=$(info).attr("checked");
+	$("#zhong").change(function(){
+		var zhong=$(this).val();
+		weightPrice=zhong*${router.weightGoodsPrice};
+		var qing=$("#qing").val();
+		lighPrice=qing*${router.lightGoodsPrice};
+		$("#yun").empty(); 
+		$("#sum").empty(); 
+		if((lighPrice-0)>(weightPrice-0)){
+			yunPrice=lighPrice;
+			sum=yunPrice+insuranceCost;
+		}else{
+			yunPrice=weightPrice;
+			sum=yunPrice+insuranceCost; 
+		} 
+		$("#yun").append(yunPrice.toFixed(2)+"&nbsp;元"); 
+		$("#sum").append(sum.toFixed(2)+"&nbsp;元");
+		$("#transportationCost").attr("value",yunPrice.toFixed(2));
+		$("#totalCost").attr("value",sum.toFixed(2));
+	});
+	
+	//计算保险费
+	function prem(info){ 
+		var check =document.getElementById("check1").checked;  
 		var price=$("#price").val();
-		alert(check);
+		$("#bao").empty();
+		$("#sum").empty();   
+		if(check==true){
+			insuranceCost=price*0.0015;
+			if((insuranceCost-0)<3){
+				insuranceCost=3;
+			} 
+			sum=yunPrice+insuranceCost;
+			$("#bao").append(insuranceCost.toFixed(2)+"&nbsp;元");   
+		}else{  
+			sum=yunPrice;
+		   $("#bao").append("0.00&nbsp;元");  
+		}
+		$("#sum").append(sum.toFixed(2)+"&nbsp;元");
+		//保险费放入隐藏域中
+		$("#insuranceCost").attr("value",insuranceCost.toFixed(2)); 
+		$("#totalCost").attr("value",sum.toFixed(2));
 	}
 	 
+	$("#price").change(function(){
+		var check =document.getElementById("check1").checked;  
+		var price=$(this).val();
+		$("#bao").empty();
+		$("#sum").empty();   
+		if(check==true){
+			insuranceCost=price*0.0015;
+			if((insuranceCost-0)<3){
+				insuranceCost=3;
+			} 
+			sum=yunPrice+insuranceCost;
+			$("#bao").append(insuranceCost.toFixed(2)+"&nbsp;元");   
+		}else{
+			$("#bao").append("0.00&nbsp;元");
+		}
+		$("#sum").append(sum.toFixed(2)+"&nbsp;元");
+		//保险费放入隐藏域中
+		$("#insuranceCost").attr("value",insuranceCost.toFixed(2));
+		$("#totalCost").attr("value",sum.toFixed(2));
+	});
+	
 	//提交表单
 	function sub(){
 		  $.ajax({

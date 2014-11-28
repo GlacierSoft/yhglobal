@@ -606,72 +606,72 @@ public class StorehouseAddedServiceExample {
         }
 
         public Criteria andSignReceiptTypeIsNull() {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" is null");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type is null");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeIsNotNull() {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" is not null");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type is not null");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeEqualTo(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" =", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type =", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeNotEqualTo(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" <>", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type <>", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeGreaterThan(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" >", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type >", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" >=", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type >=", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeLessThan(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" <", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type <", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeLessThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" <=", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type <=", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeLike(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" like", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type like", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeNotLike(String value) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" not like", value, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type not like", value, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeIn(List<String> values) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" in", values, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type in", values, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeNotIn(List<String> values) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" not in", values, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type not in", values, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" between", value1, value2, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type between", value1, value2, "signReceiptType");
             return (Criteria) this;
         }
 
         public Criteria andSignReceiptTypeNotBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_added_service.\"sign_receipt _type\" not between", value1, value2, "signReceiptType");
+            addCriterion("temp_storehouse_added_service.sign_receipt_type not between", value1, value2, "signReceiptType");
             return (Criteria) this;
         }
 

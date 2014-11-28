@@ -86,6 +86,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         <td><font size="2" color="#0697DA">重货价：</font></td>
 			             <td><fmt:formatNumber value='${router.weightGoodsPrice}' pattern='#,#00.00'/>元/公斤</td>  
 				      </tr> 
+				      
+				      <tr height="30px">
+				         <td><font size="2" color="#0697DA">运输费：</font></td>
+			             <td><label id="yun"  style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">${referDelivery.addedService.transportationCost}&nbsp;元</label></td>  
+				      </tr> 
+				      <tr height="30px">
+				         <td><font size="2" color="#0697DA">保险费：</font></td>
+			             <td><label id="bao" style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">${referDelivery.addedService.insuranceCost}&nbsp;元</label></td>  
+				      </tr>  <tr height="30px">
+				         <td><font size="2" color="#0697DA">合  计：</font></td>
+			             <td><label id="sum" style="color: #FF7300;border-bottom-style: solid;border-bottom-color: red;border-bottom-width: 1.5px;width: 115px">${referDelivery.addedService.totalCost}&nbsp;元</label></td>  
+				      </tr>
 				     </table> 
 				  </div>
 			   </div> 
@@ -154,19 +166,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				              <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">货物数量：</font></td>
 				              <td>${referDelivery.number}</td>  
 				            </tr>  
+				            
+				             <tr height="30px">
+				              <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">上门收货：</font></td>
+				              <td>
+				              <c:if test="${referDelivery.addedService.doorDelivery eq 'yes' }">
+						                      是
+						       </c:if> 
+				               <c:if test="${referDelivery.addedService.doorDelivery eq 'no' }">
+						                     否
+						       </c:if>  
+				              </td>  
+				              <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">加急配送:</font></td>
+				              <td>
+				              <c:if test="${referDelivery.addedService.urgentDelivery eq 'yes' }">
+						                      是
+						       </c:if> 
+				               <c:if test="${referDelivery.addedService.urgentDelivery eq 'no' }">
+						                     否
+						       </c:if>  
+				              </td>   
+				            </tr> 
+				            
+				             <tr height="30px">
+				              <td align="left" style="padding-left:120px;"><font size="2" color="#0697DA">短信通知：</font></td>
+				              <td>
+				              <c:if test="${referDelivery.addedService.message eq 'yes' }">
+						                      是
+						       </c:if> 
+				               <c:if test="${referDelivery.addedService.message eq 'no' }">
+						                     否
+						       </c:if>  
+				              </td>  
+				              <td align="left" style="padding-left:110px;"><font size="2" color="#0697DA">送货上门:</font></td>
+				              <td>
+				              <c:if test="${referDelivery.addedService.deliveryVisit eq 'yes' }">
+						                      是
+						       </c:if> 
+				               <c:if test="${referDelivery.addedService.deliveryVisit eq 'no' }">
+						                     否
+						       </c:if>  
+				              </td>   
+				            </tr> 
+				            
 			             </table>   
-					   <div class="form-group" >
+					     <div class="form-group" >
 						    <label class="col-sm-3"><font size="2" color="red" style="margin-left: 105px">注意事项:</font></label>
 						    <div class="col-sm-6" align="left" style="overflow-y:auto;word-break:break-all;">
 						     ${referDelivery.remark}
 						    </div> 
 						  </div>
-					
+					<br><br>
+				<center>
+				<button type="button" class="btn btn-info" style="margin-bottom: 30px;width: 150px" id="sub">返回首页</button>
+				</center>
 					  </div>
 				</div>     
 		    </div>
 		</div> 
 		</div>  
 	<jsp:include page="../foot.jsp"/> 
+	<script type="text/javascript">
+	$("#sub").click(function(){
+		 window.location.href=ctx +"/index.htm"; 
+	});
+	
+	</script>
 </body>
 </html>

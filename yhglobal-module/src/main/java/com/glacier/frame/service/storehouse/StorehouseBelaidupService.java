@@ -26,6 +26,7 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dao.orders.OrdersTrackingMapper;
+import com.glacier.frame.dao.storehouse.StorehouseAddedServiceMapper;
 import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dao.storehouse.StorehouseDamageMapper;
 import com.glacier.frame.dao.storehouse.StorehousePackCodeMapper;
@@ -40,9 +41,11 @@ import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
 import com.glacier.frame.entity.orders.OrdersTracking;
 import com.glacier.frame.entity.orders.OrdersTrackingExample;
+import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidupExample.Criteria;
+import com.glacier.frame.entity.storehouse.StorehouseAddedServiceExample;
 import com.glacier.frame.entity.storehouse.StorehouseDamageExample;
 import com.glacier.frame.entity.storehouse.StorehousePackCode;
 import com.glacier.frame.entity.storehouse.StorehouseStorage;
@@ -86,6 +89,9 @@ public class StorehouseBelaidupService {
 	
 	@Autowired
 	private StorehouseStorageMapper storageMapper;
+	
+	@Autowired
+	private StorehouseAddedServiceMapper addedServiceMapper; 
 	
 	/**
      * @Title: notLogin 
@@ -312,7 +318,7 @@ public class StorehouseBelaidupService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addBelaidup_website(StorehouseBelaidup belaidup,String packageId) { 
+    public Object addBelaidup_website(StorehouseBelaidup belaidup,StorehouseAddedService storehouseAddedService,String type) { 
         Subject pricipalSubject = SecurityUtils.getSubject();
         ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -330,6 +336,13 @@ public class StorehouseBelaidupService {
         belaidup.setUpdater(pricipalUser.getMemberId());
         belaidup.setUpdateTime(new Date());
         count = belaidupMapper.insert(belaidup);
+        //如果是班线发货，增值服务表添加数据
+        if(type.equals("route")){
+        	storehouseAddedService.setAddedServiceId(RandomGUID.getRandomGUID());
+        	storehouseAddedService.setBelaidupId(belaidup.getBelaidupId()); 
+        	addedServiceMapper.insert(storehouseAddedService);
+        }
+         
         if (count == 1) {
         	 returnResult.setSuccess(true);
         	returnResult.setMsg("[" + belaidup.getBelaidupProdName() + "] 货物信息已保存");
@@ -520,6 +533,10 @@ public class StorehouseBelaidupService {
     	 Subject pricipalSubject = SecurityUtils.getSubject();
          ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();  
          StorehouseBelaidup sto=belaidupMapper.selectTop(pricipalUser.getMemberId());
+         StorehouseAddedServiceExample addedExample=new StorehouseAddedServiceExample();
+         addedExample.createCriteria().andBelaidupIdEqualTo(sto.getBelaidupId());
+         StorehouseAddedService added= (StorehouseAddedService)addedServiceMapper.selectByExample(addedExample).get(0);
+         sto.setAddedService(added);
          return sto;
     }
    
