@@ -148,15 +148,17 @@ public class MemberController extends AbstractController{
        ModelAndView mav=new ModelAndView("member_mgr/memberLetterStation");
        if("firstAudit".equals(loanState)){
       	  mav.addObject("buttonState","firstAudit"); 	
-      }else if(loanState.equals("secondAudit")){
-      	mav.addObject("buttonState","secondAudit"); 
+       }else if(loanState.equals("secondAudit")){
+    	mav.addObject("buttonState","secondAudit"); 
       	shipperMemberMessageNoticeQueryDTO.setLetterstatus("unread");
-      }else if("thirdAudit".equals(loanState)){
-      	mav.addObject("buttonState","thirdAudit");
+       }else if("thirdAudit".equals(loanState)){
+    	mav.addObject("buttonState","thirdAudit");
       	shipperMemberMessageNoticeQueryDTO.setLetterstatus("read");
-      }
-       mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
-       return mav;
+       }
+       
+      mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
+      mav.addObject("NoticeNumb",shipperMemberMessageNoticeService.getMemberShipperMessageNoticeNumber());
+      return mav;
   	}
   	
   	//个体户的修改信息操作

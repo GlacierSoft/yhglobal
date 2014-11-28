@@ -100,12 +100,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">个人中心 /站内信</h3>
 				  </div>
 				  <div class="panel-body">
-				       <a id="repaymenting" href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">全部记录</a>
-			   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="btn btn-default" role="button">未读信息</a>
-			   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=threeAudit&p=1" class="btn btn-default" role="button">已读信息</a>
-			   	       <a id="completed" href="" class="btn btn-default" role="button">标记已读</a>
-			   	       <a id="completed" href="" class="btn btn-default" role="button">标记未读</a>
-			   	       <a id="completed" href="" class="btn btn-default" role="button">删除信息</a>
+				      <c:choose>
+				         <c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
+					       <a id="repaymenting" href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">全部记录【${NoticeNumb.countNumber}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="btn btn-default" role="button">未读信息【${NoticeNumb.countWithout}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=thirdAudit&p=1" class="btn btn-default" role="button">已读信息【${NoticeNumb.countAlready}】</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="alreadyRead();">标记已读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="withoutRead();">标记未读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="deleteRead();">删除信息</a>
+				        </c:when>
+				         <c:when test="${buttonState == 'secondAudit'}">
+					       <a id="repaymenting" href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">全部记录【${NoticeNumb.countNumber}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="btn btn-default" role="button" style="background: #FF5400;color: white;" >未读信息【${NoticeNumb.countWithout}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=thirdAudit&p=1" class="btn btn-default" role="button">已读信息【${NoticeNumb.countAlready}】</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="alreadyRead();">标记已读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="withoutRead();">标记未读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="deleteRead();">删除信息</a>
+				        </c:when>
+				        <c:when test="${buttonState == 'thirdAudit'}">
+					       <a id="repaymenting" href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default">全部记录【${NoticeNumb.countNumber}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="btn btn-default" role="button">未读信息【${NoticeNumb.countWithout}】</a>
+				   	       <a id="completed" href="${ctx}/member/memberLetterStation.htm?loanState=thirdAudit&p=1" class="btn btn-default" role="button" style="background: #FF5400;color: white;">已读信息【${NoticeNumb.countAlready}】</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="alreadyRead();">标记已读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="withoutRead();">标记未读</a>
+				   	       <a id="completed" href="#" class="btn btn-default" role="button" onclick="deleteRead();">删除信息</a>
+				        </c:when>
+				     </c:choose>
 				</div>
 				<table  id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
@@ -129,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <c:forEach items="${shipperMemberMessageNoticeDate.rows}" var="messageNotice" varStatus="status">
 					             <tr>
 						      	  	<td>
-									    <input name="messageNoticeIds" type="checkbox" value="${messageNotice.messageNoticeId}" onclick="doChildCheck();">
+						      	  	    <input name="messageNoticeIds" type="checkbox" value="${messageNotice.messageNoticeId}">
 									</td>
 									<td>
 									     <c:if test="${messageNotice.letterstatus=='read'}">
@@ -137,6 +157,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									     </c:if>   
 									     <c:if test="${messageNotice.letterstatus=='unread'}">
 									           <span class="label label-default" style="background-color: #FF5400">未读</span>
+									     </c:if>
+									     <c:if test="${messageNotice.letterstatus=='delete'}">
+									           <span class="label label-default" style="background-color: #FF5400">已删</span>
 									     </c:if>
 									</td>	
 					                <td>
@@ -245,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      		       ok: function () {
      		    	   this.close;
      		    	}
-          })
+          });
        }
      
      function selectAll(){  
@@ -265,6 +288,124 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			$("input[name='totalCheckbox']").prop("checked",false);
  		}
      }
+     
+     //身份标示
+     var sign="alreadyRead";
+     
+     //标记已读
+     function alreadyRead(){
+    	  var messageNoticeIds = [];//删除的id标识
+    	  $("input[name='messageNoticeIds']:checked").each(function() {
+   			   messageNoticeIds.push($(this).val());
+         });
+    	 if(messageNoticeIds.length==0){
+    		 doShowError('请选择至少一条未读信息进行操作!');
+    	 }else{
+    		 sign="alreadyRead";
+    		 doWarn("你确定要对【"+messageNoticeIds.length+"】标记已读?","${ctx}/memberMessageNotice/editAlready.json?messageNoticeIds="+messageNoticeIds); 
+    	 }
+     }
+     
+     //标记未读
+     function withoutRead(){
+    	 var messageNoticeIds = [];//删除的id标识
+   	      $("input[name='messageNoticeIds']:checked").each(function() {
+  			messageNoticeIds.push($(this).val());
+        });
+   	    if(messageNoticeIds.length==0){
+   		    doShowError('请选择至少一条已读信息进行操作!');
+   	    }else{
+   	    	sign="withoutRead";
+   		   doWarn("你确定要对【"+messageNoticeIds.length+"】标记未读?","${ctx}/memberMessageNotice/editWithout.json?messageNoticeIds="+messageNoticeIds); 
+   	    }
+     }
+     
+     //删除信息
+     function deleteRead(){
+    	 var messageNoticeIds = [];//删除的id标识
+  	      $("input[name='messageNoticeIds']:checked").each(function() {
+ 			messageNoticeIds.push($(this).val());
+       });
+  	    if(messageNoticeIds.length==0){
+  		    doShowError('请选择至少一条站内信息进行删除操作!');
+  	    }else{
+  	    	sign="deleteRead";
+  		    doWarn("你确定要删除【"+messageNoticeIds.length+"】条站内信息，删除后不可恢复?","${ctx}/memberMessageNotice/delRead.json?messageNoticeIds="+messageNoticeIds); 
+  	    }   
+     }
+     
+     //提示对话框
+     function doWarn(str,url){
+    	var d =art.dialog({
+   		    title:'操作提示',
+   		    fixed:true,
+       	    lock: true,
+       	    icon:'question',
+       	    background:"#E6E6E6",
+      		opacity:0.4,
+   		    content: str,
+   		    ok: function () {
+   		    	 $.ajax({
+ 					   type: "POST",
+ 					   url: url,
+ 					   dataType:'json',
+ 					   success: function(r){
+ 						 if(r.success){
+ 							doShowRight(r.msg)  
+ 						 }
+ 						 else{
+ 							doShowError(r.msg)
+ 						 }
+ 					   }
+           	     });
+   		    },
+   		    cancel: function () {
+   		        this.close();
+   		    }
+   		});
+   		d.show();  
+     }
+     
+     //警告对话款
+     function doShowError(str){
+    	 var d =art.dialog({
+    		    title: '提示',
+    		    content:str ,
+    		    fixed:true,
+          	    lock: true,
+          	    icon:'error',
+          	    background:"#E6E6E6",
+         		opacity:0.4,
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	this.close;
+    		    }
+    		});
+    		d.show();
+     }
+     function doShowRight(str){
+    	 var d =art.dialog({
+    		    title: '提示',
+    		    content:str ,
+    		    fixed:true,
+          	    lock: true,
+          	    icon:'succeed',
+          	    background:"#E6E6E6",
+         		opacity:0.4,
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	this.close;
+    		    	if("alreadyRead"==sign){
+    	    			window.location.href="${ctx}/member/memberLetterStation.htm?loanState=thirdAudit&p=1";	
+    	    		}else if("withoutRead"==sign){
+    	    			window.location.href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1";
+    	    		}else if("deleteRead"==sign){
+    	    			window.location.href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1";
+    	    		}
+    		    }
+    		});
+    		d.show();
+    }
      
 </script>
 </body>

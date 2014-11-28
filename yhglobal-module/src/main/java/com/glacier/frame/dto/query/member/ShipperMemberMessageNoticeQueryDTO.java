@@ -1,7 +1,6 @@
 package com.glacier.frame.dto.query.member;
 
 import java.util.Date;
-
 import com.glacier.frame.entity.member.ShipperMemberMessageNotice;
 import com.glacier.frame.entity.member.ShipperMemberMessageNoticeExample.Criteria;
 
@@ -39,9 +38,12 @@ public class ShipperMemberMessageNoticeQueryDTO extends ShipperMemberMessageNoti
     	}
     	
     	if(this.getLettertype()!=null){
-    		
+    		queryCriteria.andLetterstatusEqualTo(this.getLetterstatus());
     	}
     	
+    	if(this.getLetterstatus()!=null){
+    		queryCriteria.andLetterstatusEqualTo(this.getLetterstatus().toString());
+    	}
     	
     	if(null != createStartTime && null != createEndTime){//创建时间段查询
             queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
