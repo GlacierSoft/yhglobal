@@ -215,6 +215,39 @@ public class StorehouseBelaidupService {
     }
     
     /**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取所有货物信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+    public Object listAsGridWeb(int p,JqPager jqPager, StorehouseBelaidupQueryDTO belaidupSetQueryDTO) {
+        JqGridReturn returnResult = new JqGridReturn();
+        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample(); 
+        if(belaidupSetQueryDTO.getShorteslength() != null && belaidupSetQueryDTO.getShorteslength() > 0){
+        	belaidupSetExample.createCriteria().andShorteslengthLessThanOrEqualTo(belaidupSetQueryDTO.getShorteslength());
+        }
+        if(belaidupSetQueryDTO.getBelaidupInitiatin() != null && belaidupSetQueryDTO.getBelaidupInitiatin().length() >0){
+        	belaidupSetExample.createCriteria().andBelaidupInitiatinEqualTo(belaidupSetQueryDTO.getBelaidupInitiatin());
+        }
+        if(belaidupSetQueryDTO.getBelaidupTerminu() != null && belaidupSetQueryDTO.getBelaidupTerminu().length() >0){
+        	belaidupSetExample.createCriteria().andBelaidupTerminuEqualTo(belaidupSetQueryDTO.getBelaidupTerminu());
+        }
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	belaidupSetExample.setOrderByClause(jqPager.getOrderBy("temp_storehouse_belaidup_"));
+        }
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        belaidupSetExample.setLimitStart(startTemp);
+        belaidupSetExample.setLimitEnd(5);
+        List<StorehouseBelaidup> belaidupSetTypeList = belaidupMapper.selectByExample(belaidupSetExample); // 查询所有会员列表
+        int total = belaidupMapper.countByExample(belaidupSetExample); // 查询总页数
+        returnResult.setRows(belaidupSetTypeList);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
 	 * @Title: getBelaidup 
 	 * @Description: TODO(根据货物Id获取货物信息) 
 	 * @param @param belaidupId

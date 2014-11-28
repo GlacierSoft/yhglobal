@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
+import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.carrier.CarrierDeliverGoodsAreaService;
@@ -92,6 +93,14 @@ public class StorehouseBelaidupController extends AbstractController{
 		ModelAndView mav = new ModelAndView("route_mgr/referDelivery");
 		mav.addObject("router", routeService.getRoute(routeId)); 
 		mav.addObject("referDelivery", storehouseBelaidupService.selectTop());
+		return mav;
+	}
+	
+	//找货
+	@RequestMapping(value="/findGoods.htm")
+	private Object intoDeliveryPage(int  p,JqPager jqPager,StorehouseBelaidupQueryDTO storehouseBelaidupQueryDTO) {
+		ModelAndView mav = new ModelAndView("/findGoods/findGoods");
+		mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWeb(p,jqPager, storehouseBelaidupQueryDTO));
 		return mav;
 	}
 }
