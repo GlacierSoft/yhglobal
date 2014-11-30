@@ -24,7 +24,7 @@
 		<tr>
 			<td>发送时间：</td>
 			<td>
-			   <input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberMessageNoticeData.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/>
+			   <input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberMessageNoticeData.sendtime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/>
 			</td>
 			<td>备注：</td>
 			<td><input class="spinner" style="width:168px"   value="${memberMessageNoticeData.remark }" readonly="readonly"/></td>
@@ -50,7 +50,7 @@
 	</table>
 </form>
 <script>
-	$('#memberMessageNoticeLettertype').val(renderGridValue('${memberMessageNoticeData.lettertype}',fields.lettertype));
-	$('#memberMessageNoticeLetterstatuse').val(renderGridValue('${memberMessageNoticeData.letterstatus}',fields.letterstatus));
+	$('#memberMessageNoticeLettertype').val(renderGridValue('${memberMessageNoticeData.lettertype}',fields.letterType));
+	$('#memberMessageNoticeLetterstatuse').val(renderGridValue('${memberMessageNoticeData.letterstatus}',fields.letterStatus));
 </script>
 

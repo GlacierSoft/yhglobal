@@ -104,6 +104,11 @@ public class ShipperMemberMessageNoticeExample {
             return criteria;
         }
 
+        public Criteria andMemberDisplayLike(String value) {
+        	addCriterion("temp_receiver.member_name like",value,"receiverDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

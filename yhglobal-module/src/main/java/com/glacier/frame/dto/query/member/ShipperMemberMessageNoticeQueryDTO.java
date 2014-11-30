@@ -29,6 +29,10 @@ public class ShipperMemberMessageNoticeQueryDTO extends ShipperMemberMessageNoti
     
     public void setQueryCondition(Criteria queryCriteria) {
     	
+    	if(this.getReceiverDisplay()!=null){
+    		queryCriteria.andMemberDisplayLike("%"+this.getReceiverDisplay()+"%");
+    	}
+    	
     	if(this.getTitle()!=null){
     		queryCriteria.andTitleLike("%"+this.getTitle()+"%");
     	}
@@ -38,7 +42,7 @@ public class ShipperMemberMessageNoticeQueryDTO extends ShipperMemberMessageNoti
     	}
     	
     	if(this.getLettertype()!=null){
-    		queryCriteria.andLetterstatusEqualTo(this.getLetterstatus());
+    		queryCriteria.andLettertypeEqualTo(this.getLettertype().toString());
     	}
     	
     	if(this.getLetterstatus()!=null){

@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							width : 120,
 							sortable : true,
 							formatter : function(value, row, index) {//数据格式化
-								return renderGridValue(value, fields.letterstatus);
+								return renderGridValue(value, fields.letterStatus);
 							}
 						},{
 							field : 'lettertype',
@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							width : 120,
 							sortable : true,
 							formatter : function(value, row, index) {//数据格式化
-								return renderGridValue(value, fields.lettertype);
+								return renderGridValue(value, fields.letterType);
 							}
 						},{
 							field : 'createrDisplay',
@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({
-								title : '【' + rowData.memberDisplay + '】资金交易详细信息',
+								title : '【' + rowData.receiverDisplay + '】资金交易详细信息',
 								href : ctx+ '/do/memberMessageNotice/intoDetail.htm?messageNoticeId='+ rowData.messageNoticeId,//从controller请求jsp页面进行渲染
 								width : 530,
 								height : 340,
@@ -159,6 +159,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							});
 						}
 					});
+	
+	
+	//状态下拉项
+	  $('#messageLetterstatus').combobox({
+			valueField : 'value',
+			//height:18,
+			width : 80,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			//required:true,
+			data : fields.letterStatus
+		});
+	
+	  $('#messageLettertype').combobox({
+			valueField : 'value',
+			//height:18,
+			width : 80,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			//required:true,
+			data : fields.letterType
+		});
 	
  </script>
 
@@ -175,13 +199,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<table>
 				<tr>
 				    <td>接收者：</td>
-					<td><input name="receiverDisplay" style="width: 80px;"
+					<td><input  name="receiverDisplay" style="width: 80px;"
 						class="spinner" /></td>
 				    <td>状态：</td>
-					<td><input name="letterstatus" style="width: 80px;"
+					<td><input id="messageLetterstatus" name="letterstatus" style="width: 80px;"
 						class="spinner" /></td>
 					<td>类型：</td>
-					<td><input name="lettertype" style="width: 80px;"
+					<td><input name="lettertype" id="messageLettertype" style="width: 80px;"
 						class="spinner" /></td>
 					<td>发送时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -192,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						onclick="glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid.datagrid('load',glacier.serializeObject($('#memberMessageNoticeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#memberMessageNoticeSearchForm input').val('');glacier.finace_mgr.finaceMemberRecord_mgr.glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#memberMessageNoticeSearchForm input').val('');glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
