@@ -8,12 +8,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
 %>
 
-<script type="text/javascript">
-	$.util.namespace('glacier.member_mgr.memberMessageNotice.memberMessageNotice');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+<script type="text/javascript"> 
+	$.util.namespace('glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.member_mgr.memberMessageNotice.memberMessageNotice.param = {
-		toolbarId : 'messageNoticeDataGrid_toolbar',
+	glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param = {
+		toolbarId : 'carrierMessageNoticeDataGrid_toolbar',
 		actions : {
              edit:{flag:'edit',controlType:'single'},
              del:{flag:'del',controlType:'multiple'},
@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      };
 
 	//初始化承运商合同记录DataGrid
-	glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid = $('#memberMessageNoticeDataGrid').datagrid({
+	glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.carrierMessageNoticeDataGrid = $('#carrierMessageNoticeDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
 						border : false,//是否存在边框
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						singleSelect : true,//限制单选
 						checkOnSelect : false,//选择复选框的时候选择该行
 						selectOnCheck : false,//选择的时候复选框打勾
-						url : ctx + '/do/memberMessageNotice/list.json',
+						url : ctx + '/do/carrierMemberMessageNotice/list.json',
 						sortName : 'createTime',//排序字段名称
 						sortOrder : 'DESC',//升序还是降序
 						remoteSort : true,//开启远程排序，默认为false
@@ -113,30 +113,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						pmemberSize : 10,//注意，pmemberSize必须在pmemberList存在
 						pmemberList : [ 2, 10, 50, 100 ],//从session中获取
 						rownumbers : true,//True 就会显示行号的列
-						toolbar : '#messageNoticeDataGrid_toolbar',
+						toolbar : '#carrierMessageNoticeDataGrid_toolbar',
 						onCheck : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).check();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).check();
 						},
 						onCheckAll : function(rows) {//取消勾选行状态触发事件
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).check();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).check();
 						},
 						onUncheck : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).unCheck();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).unCheck();
 						},
 						onUncheckAll : function(rows) {//取消勾选行状态触发事件
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).unCheck();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).unCheck();
 						},
 						onSelect : function(rowIndex, rowData) {//选择行事件触发
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).select();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).select();
 						},
 						onUnselectAll : function(rows) {
 							action_controller(
-									glacier.member_mgr.memberMessageNotice.memberMessageNotice.param,this).unSelect();
+									glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.param ,this).unSelect();
 						},
 						onLoadSuccess : function(index, record) {//加载数据成功触发事件
 							$(this).datagrid('clearSelections');
@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({
 								title : '【' + rowData.receiverDisplay + '】资金交易详细信息',
-								href : ctx+ '/do/memberMessageNotice/intoDetail.htm?messageNoticeId='+ rowData.messageNoticeId,//从controller请求jsp页面进行渲染
+								href : ctx+ '/do/carrierMemberMessageNotice/intoDetail.htm?messageNoticeId='+ rowData.messageNoticeId,//从controller请求jsp页面进行渲染
 								width : 530,
 								height : 340,
 								resizable : false,
@@ -162,15 +162,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	   //站内信息添加
-	  glacier.member_mgr.memberMessageNotice.memberMessageNotice.addMessageNotice=function(){
+	  glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.addMessageNotice=function(){
 		  glacier.basicAddOrEditDialog({
 				title : '会员站内信息增加',
 				width : 370,
 				height : 270,
-				queryUrl : ctx + '/do/memberMessageNotice/intoForm.htm',
-				submitUrl : ctx + '/do/memberMessageNotice/add.json',
+				queryUrl : ctx + '/do/carrierMemberMessageNotice/intoForm.htm',
+				submitUrl : ctx + '/do/carrierMemberMessageNotice/add.json',
 				successFun : function (){
-					glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid .datagrid('reload');
+					glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.carrierMessageNoticeDataGrid.datagrid('reload');
 				}
 			});
 	  };
@@ -203,16 +203,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!-- 所有承运商合同记录表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="memberMessageNoticeGridPanel" data-options="region:'center',border:true">
-		<table id="memberMessageNoticeDataGrid">
+	<div id="carrierMessageNoticeGridPanel" data-options="region:'center',border:true">
+		<table id="carrierMessageNoticeDataGrid">
               <!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-              <glacierui:toolbar panelEnName="messageNoticeList"
-				toolbarId="messageNoticeDataGrid_toolbar" menuEnName="messageNotice" />
+              <glacierui:toolbar panelEnName="carrierMessageNoticeList"
+				toolbarId="carrierMessageNoticeDataGrid_toolbar" menuEnName="carrierMessageNotice" />
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="memberMessageNoticeSearchForm">
+		<form id="carrierMessageNoticeSearchForm">
 			<table>
 				<tr>
 				    <td>接收者：</td>
@@ -230,10 +230,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid.datagrid('load',glacier.serializeObject($('#memberMessageNoticeSearchForm')));">查询</a>
+						onclick="glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.carrierMessageNoticeDataGrid.datagrid('load',glacier.serializeObject($('#carrierMessageNoticeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#memberMessageNoticeSearchForm input').val('');glacier.member_mgr.memberMessageNotice.memberMessageNotice.memberMessageNoticeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#carrierMessageNoticeSearchForm input').val('');glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.carrierMessageNoticeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

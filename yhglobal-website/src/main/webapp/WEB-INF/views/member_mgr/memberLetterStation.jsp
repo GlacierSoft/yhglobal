@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                   <fmt:formatDate value="${messageNotice.sendtime}" type="both"/>
 					                 </td>
 					                 <td>
-					                    <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doClick(${messageNotice.messageNoticeId});">详情</button>
+					                    <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doClick('${messageNotice.messageNoticeId}');">详情</button>
 					                 </td>
 					            </tr>
 					            </c:forEach>
