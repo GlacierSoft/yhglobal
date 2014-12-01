@@ -178,6 +178,25 @@ public class StorehouseBelaidupService {
         return returnResult;// 返回ExtGrid表
     }
     
+    /**
+     * @Title: listAsGrid 
+     * @Description: TODO(前台首页获取所有货物信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+    public Object listAsGridWBE(JqPager jqPager) {
+        JqGridReturn returnResult = new JqGridReturn();
+        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample();
+        belaidupSetExample.setOrderByClause("temp_storehouse_belaidup.create_time desc");
+        List<StorehouseBelaidup> belaidupSetTypeList = belaidupMapper.selectByExample(belaidupSetExample); // 查询所有会员列表
+        int total = belaidupMapper.countByExample(belaidupSetExample); // 查询总页数
+        returnResult.setRows(belaidupSetTypeList);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
     
     /**
      * @Title: listAsWebsite 

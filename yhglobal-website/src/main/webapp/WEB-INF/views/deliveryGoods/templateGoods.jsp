@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <div class="panel panel-default" >
 				  		<div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
-					         <li  class="active"><a href="#">我要发货</a></li> 
+					         <li  class="active"><a href="${ctx}/delivery/index.htm">我要发货</a></li>
 					         <li  class="active"><a href="${ctx}/template/index.htm?&p=1">模板管理</a></li>
 					      </ul>
 				  	  </div>  

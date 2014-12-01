@@ -146,6 +146,26 @@ public class CarrierRouterService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
       }
+     
+     /*** 
+ 	 * @Title: listAsGrid  
+ 	 * @Description: TODO(前台首页获取班线list)  
+ 	 * @param @param jqPager
+ 	 * @param @param q
+ 	 * @param @return    设定文件  
+ 	 * @return Object    返回类型  
+ 	 * @throws
+ 	 */
+	 public Object listAsGridWEB(JqPager jqPager) {
+	     JqGridReturn returnResult = new JqGridReturn();
+	     CarrierRouteExample carrierRouteExample = new CarrierRouteExample(); 
+	     carrierRouteExample.setOrderByClause("temp_carrier_route.create_time desc");
+	     List<CarrierRoute>  shippermembers = carrierRouteMapper.selectByExample(carrierRouteExample); // 查询所有会员列表
+	     int total = carrierRouteMapper.countByExample(carrierRouteExample); // 查询总页数
+	     returnResult.setRows(shippermembers);
+	     returnResult.setTotal(total);
+	     return returnResult;// 返回ExtGrid表
+	  }
       
      /*** 
       * @Title: getRoute  

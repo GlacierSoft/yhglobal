@@ -38,7 +38,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.orders.OrdersOrderInfoQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.orders.OrdersOrderInfoService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.website.WebsiteAnnouncementService;
 import com.glacier.frame.service.website.WebsiteNavService;
 import com.glacier.frame.service.website.WebsiteNewsService;
@@ -66,6 +68,12 @@ public class CommonController {
 	@Autowired
 	private OrdersOrderInfoService order_infoService;//注入订单详情业务类
 	
+	@Autowired
+	private StorehouseBelaidupService  storehouseBelaidupService;
+	
+	@Autowired
+    private CarrierRouterService carrierRouterService;
+	
     /**
      * 
      * @Title: index
@@ -82,6 +90,8 @@ public class CommonController {
         // 进入首页初始化导航信息
         mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1,"trade"));//主页加载新闻信息
+        mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWBE(pager));
+        mav.addObject("routerDatas", carrierRouterService.listAsGridWEB(pager));
         sessionStauts.setAttribute("newClass", "");
         return mav;
     }
@@ -102,6 +112,8 @@ public class CommonController {
         // 进入首页初始化导航信息
         mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1,"trade"));//主页加载新闻信息
+        mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWBE(pager));
+        mav.addObject("routerDatas", carrierRouterService.listAsGridWEB(pager));
         return mav;
     }
     
