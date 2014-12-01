@@ -103,4 +103,12 @@ public class StorehouseBelaidupController extends AbstractController{
 		mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWeb(p,jqPager, storehouseBelaidupQueryDTO));
 		return mav;
 	}
+	
+	//找货详情
+	@RequestMapping(value="/findGoodsDeailt.htm")
+	private Object findGoodsDeailt(String belaidupId) {
+		ModelAndView mav = new ModelAndView("/findGoods/findGoodsDeailt");
+		mav.addObject("belaidup", storehouseBelaidupService.getBelaidup(belaidupId));
+		return mav;
+	}
 }

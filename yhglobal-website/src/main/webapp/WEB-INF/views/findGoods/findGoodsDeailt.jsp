@@ -57,59 +57,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <div class="panel panel-primary">
                     <div class="panel-heading">
     					<h3 class="panel-title">货运</h3>
+    					<span style="float: right;margin-top: -20px;">发布日期：<fmt:formatDate value="${belaidup.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
   					</div>
   					
-					<div class="panel-body">
-						   <input type="hidden" name="routeType" value="${type}"> 
-						   <label for="name" style="float: left; padding-top: 5px">车长：</label>
-					       <select style="width: 180px;float: left;" class="form-control" id="shorteslength" 
-					       name="shorteslength" >
-					       		<option value="">不限</option>
-					       		<option value="4.5">4.5米</option>
-					       		<option value="5.5">5.5米</option>
-					       		<option value="6.5">6.5米</option>
-					       </select> 
-					       <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;出发站：</label> 
-					       <input type="text" style="width: 180px;float: left;" value="${storehouseBelaidupQueryDTO.belaidupInitiatin}" 
-					       name="belaidupInitiatin" id="belaidupInitiatin" style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-			               <label for="name" style="float: left;padding-top: 5px;margin-left: 5px">&nbsp;终点站：</label>
-					       <input type="text" style="width: 180px;float: left;" value="${storehouseBelaidupQueryDTO.belaidupTerminu}" 
-					       name="belaidupTerminu" id="belaidupTerminu"  style="height: 23px;border-color: #c3d9e0" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
-			               &nbsp;&nbsp;&nbsp; 
-					       <button type="submit" style="margin-top: 5px" class="btn btn-primary"  
-							> 查询
-						   </button>
-						   <!-- <button type="reset" style="margin-top: 5px" class="btn btn-primary"  
-						   data-toggle="button" onclick="formreset()"> 重置
-						   </button> -->
-					      <table class="table table-bordered" style="text-align: left;margin-top: 10px;float: right;">
-							<thead>
+					<div class="panel-body" >
+					      <table class="table table-bordered" style="text-align: left;margin-top: 10px;float: right;text-align: center;">
 								<tr>
-									<th>发货地</th><th>货重</th>
-									<th>车长</th><th>货物类型</th>
-									<th>发布日期</th><th>操作</th>
+									<td colspan="2" align="center">
+										${fn:replace(belaidup.belaidupInitiatin,'-','')}&nbsp;&nbsp;<img src="${ctx}/resources/images/delivery/cargoJinTou.gif">&nbsp;&nbsp;${fn:replace(belaidup.belaidupTerminu,'-','')}
+										<span style="font-size: 11px;margin-left: 20px;color: red;">联系人：${belaidup.shipperMemberDisplay }</span>
+									</td>
 								</tr>
-							</thead>
-							<c:forEach items="${belaidupList.rows}" var="belaidup" varStatus="status">
 								<tr>
-									<td width="300">${fn:replace(belaidup.belaidupInitiatin,'-','')}&nbsp;&nbsp;<img src="${ctx}/resources/images/delivery/lineIcon.gif">&nbsp;&nbsp;${fn:replace(belaidup.belaidupTerminu,'-','')}</td>
-									<td>${belaidup.belaidupWeight}&nbsp;吨</td>
-									<td>${belaidup.shorteslength}&nbsp;米</td><td>${belaidup.goodsTypeDisplay}</td>
-									<td><fmt:formatDate value="${belaidup.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-									<td><a href="${ctx}/delivery/findGoodsDeailt.htm?&belaidupId=${belaidup.belaidupId}">详情</a>&nbsp;&nbsp;</td>
+									<td>货物名称：${belaidup.belaidupProdName }</td><td>货物类型：${belaidup.goodsTypeDisplay }</td>
 								</tr>
-							</c:forEach>
-							<c:if test="${empty belaidupList.rows}">
-					        	<tfoot>
-						          <tr>
-						            <th colspan="8">
-						            	<div align="right">
-										    没有货物信息哦~~
-										</div>
-									</th>
-						          </tr>
-						        </tfoot>
-					        </c:if>
+								<tr>
+									<td>货物重量(吨)：${belaidup.belaidupWeight }</td><td>货物体积(方)：${belaidup.belaidupBulk }</td>
+								</tr>
+								<tr>
+									<td>车长(米)：${belaidup.shorteslength }</td><td>是否加急配送：<span id="yesOrNo"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2">备注：${belaidup.remark }</td>
+								</tr>
 						</table>
 					</div>
                  </div>
@@ -172,6 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
 $("#shorteslength").val("${storehouseBelaidupQueryDTO.shorteslength}");
+$("#yesOrNo").append(renderGridValue('${belaidup.yesOrNo }',fields.yesOrNo));
 
 //公共对话框定义
 function  doDailog(Id){
