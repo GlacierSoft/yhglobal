@@ -3,7 +3,7 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form method="post" style="padding:15px">
+<form method="post" style="padding:15px" id="carrierMessageNoticeForm">
 	<table class="formtable">
 		<tr>
 			<td>发件人：</td>

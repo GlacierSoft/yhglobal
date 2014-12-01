@@ -163,16 +163,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	   //站内信息添加
 	  glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.addMessageNotice=function(){
-		  glacier.basicAddOrEditDialog({
-				title : '会员站内信息增加',
-				width : 370,
-				height : 270,
-				queryUrl : ctx + '/do/carrierMemberMessageNotice/intoForm.htm',
-				submitUrl : ctx + '/do/carrierMemberMessageNotice/add.json',
-				successFun : function (){
-					glacier.carrier_mgr.carrierMessageNotice_mgr.carrierMessageNotice.carrierMessageNoticeDataGrid.datagrid('reload');
-				}
-			});
+		  $("#carrierMessageDailog").dialog({
+			  title:"邮件发送",
+			  width: 370,    
+			  height: 270,
+			  href :  ctx + '/do/carrierMemberMessageNotice/intoForm.htm',//从controller请求jsp页面进行渲染
+			  modal: true,
+		      closed: false   
+		});
 	  };
 	
 	
@@ -199,7 +197,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			data : fields.letterType
 		});
 	  
+	  //邮件发送
+	  function sendMessage(){
+		 $('#carrierMessageDailog').dialog('close');
+		 $.messager.progress({title : "短信提示",text : "短信正在发送中..."});  
+         $.ajax({
+			   type: "POST",
+			   url: ctx + '/do/carrierMemberMessageNotice/add.json',
+			   data:$("#carrierMessageNoticeForm").serialize(),
+			   dataType:'json',
+			   success: function(r){
+				   $.messager.progress('close');
+                   if(r.success){
+				    	$.messager.alert('我的消息','邮件发送成功','info');
+                      }else{
+                    	$.messager.alert('我的消息','邮件发送失败，请联系管理员！','info');
+                    }
+			   },
+		});
+	  }
+	  
 </script>
+<!--自定义对话款  -->
+<div id="carrierMessageDailog" class="easyui-dialog"  buttons="#carrierMessageDailogButton" closed="true"></div>
+
+<div id="carrierMessageDailogButton">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="sendMessage();">发送</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#carrierMessageDailog').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div>
 
 <!-- 所有承运商合同记录表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
