@@ -166,9 +166,7 @@
 					<table class="table table-bordered" style="text-align: center;">
 						<thead>
 				          <tr>
-						     <td width="100px"><b>编号</b></td>
 						     <td><b>班线名称</b></td>  
-						     <td><b>承运商</b></td>
 						     <td><b>班线起点</b></td>
 						     <td><b>班线终点</b></td>
 						     <td><b>发布时间</b></td>
@@ -183,9 +181,7 @@
 							</c:if>
 				        	<c:forEach items="${routerDatas.rows}" var="router"> 
 						         <tr>
-						            <td >${router.routeNumber}</td>
 						            <td >${router.routeName}</td>
-						            <td >${router.carrierDisplay}</td>
 						            <td >${router.routeOrigin}</td>
 						            <td >${router.routeStop}</td> 
 						            <td ><fmt:formatDate value="${router.createTime}" type="both"/></td>
