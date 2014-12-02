@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          <li><a href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">站内信</a></li>
 								  <li><a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">详细信息</a></li>
 								  <li><a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">会员头像</a></li>
-								  <li><a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">修改密码</a></li>
+								  <li><a href="${ctx}/member/changeMemberPassword.htm" class="btn btn-default" role="button">修改密码</a></li>
 							  </ul>
 							</div>
 					      </div>
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
 							  <li><a href="${ctx }/member/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a></li>
 							  <li><a href="#" class="btn btn-default" role="button">Content2</a></li>
-							  <li><a href="#" class="btn btn-default" role="button">交易密码修改</a></li>
+							  <li><a href="${ctx}/member/changeChargePassword.htm" class="btn btn-default" role="button">交易密码修改</a></li>
 							  </ul>
 							</div>
 					      </div>

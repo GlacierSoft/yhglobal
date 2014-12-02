@@ -225,4 +225,15 @@ public class MemberController extends AbstractController{
   		return mav;
     }
     
+    //登录密码密码修改页
+    @RequestMapping(value="changeMemberPassword.htm")
+    private Object intoMemberChangePassword(){
+    	return "member_mgr/memberChangePassword";
+    }
+    
+   //交易密码修改页面
+   @RequestMapping(value="changeChargePassword.htm")
+   private Object intoChargePassword(){
+	   return "member_mgr/memberChangeCharge";
+   }
 }
