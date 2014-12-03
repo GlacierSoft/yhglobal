@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="form-group col-sm-12">
 							    <label for="orderNumber" class="control-label col-sm-1">货物号</label>
 							    <div class="col-sm-4">
-							      <input type="text" placeholder="请输入订单号" class="form-control" name="codeNumber">
+							      <input type="text" placeholder="请输入货物单号" class="form-control" name="codeNumber">
 							    </div>
 							    <button type="submit" class="btn btn-primary" style="float: left;">查询</button>
 						</div>
