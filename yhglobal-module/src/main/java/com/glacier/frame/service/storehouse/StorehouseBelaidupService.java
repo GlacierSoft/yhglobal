@@ -383,18 +383,19 @@ public class StorehouseBelaidupService {
         belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");
         belaidup.setSortingStauts("waitsorting");
+        belaidup.setStauts("enable");
         belaidup.setCreater(pricipalUser.getMemberId());
         belaidup.setCreateTime(new Date());
         belaidup.setUpdater(pricipalUser.getMemberId());
         belaidup.setUpdateTime(new Date());
         count = belaidupMapper.insert(belaidup);
-        //如果是班线发货，增值服务表添加数据
+        //如果是关联班线发货，增值服务表添加数据
         if(type.equals("route")){
         	storehouseAddedService.setAddedServiceId(RandomGUID.getRandomGUID());
         	storehouseAddedService.setBelaidupId(belaidup.getBelaidupId()); 
+        	storehouseAddedService.setMessage("yes");
         	addedServiceMapper.insert(storehouseAddedService);
-        }
-         
+        } 
         if (count == 1) {
         	 returnResult.setSuccess(true);
         	returnResult.setMsg("[" + belaidup.getBelaidupProdName() + "] 货物信息已保存");
@@ -403,8 +404,7 @@ public class StorehouseBelaidupService {
         }
         return returnResult;
     }
-    
-    
+     
     /**
      * @Title: editBelaidup 
      * @Description: TODO(修改货物信息) 

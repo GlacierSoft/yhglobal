@@ -19,27 +19,34 @@
  */
 package com.glacier.frame.web.controller.deliveryGoods;
 
-import java.util.List;
-
+import java.util.List; 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.ModelAndView; 
+import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: DeliveryController 
@@ -51,10 +58,19 @@ import com.glacier.jqueryui.util.JqPager;
 
 @Controller
 @RequestMapping(value="delivery")
-public class DeliveryController {
-
+public class DeliveryController { 
+	
+	@Autowired  
+	private CarrierRouterService routeService;
+	
 	@Autowired
 	private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
+	
+	@Autowired
+    private CarrierRouterService carrierRouterService; 
+	
+	@Autowired  
+	private  HttpServletRequest request; 
 
 	@Autowired
 	private StorehouseBelaidupService belaidupService;
@@ -71,7 +87,7 @@ public class DeliveryController {
 		return mav;
 	}
 
-	// 发布货源信息,我要发货添加
+	//班线发货
 	@RequestMapping(value = "/addBelaidup.json", method = RequestMethod.POST)
 	@ResponseBody
 	private Object addBelaidup(@Valid StorehouseBelaidup belaidup,@Valid StorehouseAddedService storehouseAddedService,BindingResult bindingResult, String type) {
@@ -93,6 +109,77 @@ public class DeliveryController {
 			mav.addObject("belaidupDate",
 			belaidupService.getBelaidup(belaidupId));
 		}
-		return mav;
+		return mav; 
 	}
-}
+	
+    // 发布货源信息,我要发货添加，先存储数据，选择班线后再一并提交到数据库
+	@RequestMapping(value = "/belaidup.json", method = RequestMethod.POST)
+	@ResponseBody
+	private Object belaidup(@Valid StorehouseBelaidup belaidup,HttpSession httpSession) {
+	    Subject pricipalSubject = SecurityUtils.getSubject();
+        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        if( pricipalUser==null){
+        	returnResult.setMsg("请先登录，再操作！");
+        	return returnResult;
+        } else{
+        	returnResult.setSuccess(true);
+        	//暂时存在session
+        	httpSession.setAttribute("belaidup", belaidup); 
+        }
+		return returnResult;
+	}  
+	 
+	//转到“班线信息显示”页面
+  	@RequestMapping(value = "/routeInfo.htm")
+  	public Object routeList(JqPager pager, @RequestParam int p,CarrierRouteQueryDTO routeQueryDTO,HttpSession httpSession){ 
+  		ModelAndView mav = new ModelAndView("deliveryGoods/routeInfo"); 
+  		StorehouseBelaidup belaidup=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
+  		routeQueryDTO.setRouteOrigin(belaidup.getBelaidupInitiatin());
+  		routeQueryDTO.setRouteStop(belaidup.getBelaidupTerminu());
+  		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,p,"",routeQueryDTO));
+  		return mav;
+  	} 
+  	
+    // 查询单条班线信息
+ 	@RequestMapping(value = "/getRoute.json", method = RequestMethod.POST)
+ 	@ResponseBody
+ 	private Object getRoute(String routeId) { 
+	    JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	    returnResult.setSuccess(true);
+	    if (StringUtils.isNotBlank(routeId)) { 
+		    returnResult.setObj(carrierRouterService.getRoute(routeId));
+		}
+	    return returnResult;
+ 	}
+ 	
+	//运单提交转到运单提交成功页面
+  	@RequestMapping(value = "/add.htm")
+  	public Object add(@Valid StorehouseBelaidup storehouseBelaidup, @Valid StorehouseAddedService storehouseAddedService,String type,HttpSession httpSession){ 
+  		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+  		ModelAndView mav =null;
+  		//取出暂存的数据信息 
+  		StorehouseBelaidup belaidup=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
+  		belaidup.setBelaidupWeight(storehouseBelaidup.getBelaidupWeight()); //重量
+  		belaidup.setBelaidupBulk(storehouseBelaidup.getBelaidupBulk()); //体积
+  		belaidup.setSendSite(storehouseBelaidup.getSendSite());//发货地
+  		belaidup.setOrderSite(storehouseBelaidup.getOrderSite());//收货地
+  		belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery()); //是否加急配送
+  		belaidup.setRouterId(storehouseBelaidup.getRouterId());//班线id
+  		returnResult= (JqReturnJson) belaidupService.addBelaidup_website(belaidup,storehouseAddedService, type);
+  	 	if(returnResult.isSuccess()){
+        	//进入下单成功的页面
+        	mav= new ModelAndView("route_mgr/referDelivery"); 
+    		mav.addObject("router", routeService.getRoute(storehouseBelaidup.getRouterId())); 
+    		mav.addObject("referDelivery", belaidupService.selectTop()); 
+    		//用来区分是先选的班线还是先写的订单信息，页面头部的流程图不一样
+    		mav.addObject("sta", "sta");
+    		//清空临时session
+    		httpSession.removeAttribute("belaidup");
+        }else{
+        	//转发到发货页面
+        	mav= new ModelAndView("deliveryGoods/deliveryGoods");
+        } 
+  		return mav;
+  	}
+ }

@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	　　$(document).ready(function(){ 
 	　　    $(window).scroll(function (){
 	　　    	var offsetTop;
-	        // 让浮动层距离窗口顶部，始终保持80px
+	        // 让浮动层距离窗口顶部 
 	        if($(window).scrollTop()==0){
 	        	  offsetTop = $(window).scrollTop() -0+"px";
 	        }else{
@@ -267,7 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="col-sm-2" align="left">
 						       <input id="qing" type="text" class="form-control" name="belaidupBulk"  placeholder="立方米" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
 						    </div> 
-						     <a href="${ctx}/weightExplain.htm" style="color: #FF7300">什么是重货轻货？</a>
+						     <a href="${ctx}/weightExplain.htm" target=_blank style="color: #FF7300">什么是重货轻货？</a>
 						  </div> 
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" style="padding-left: 122px">注意事项:</label>
@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<div class="panel panel-default" style="width: 863px" >
 					  <div class="panel-heading">
-					    <b style="size: 3">增值服务</b> &nbsp;&nbsp;<a href="${ctx}/collectFees.htm"style="color: #FF7300">查看收费标准</a>
+					    <b style="size: 3">增值服务</b> &nbsp;&nbsp;<a href="${ctx}/collectFees.htm" target=_blank style="color: #FF7300">查看收费标准</a>
 					  </div>
 					  <div class="panel-body">
 					     <div class="form-group" >
@@ -354,10 +354,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="form-group" >
 						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
-							      <input  id="price"  type="text" class="form-control" style="width: 100px;float: left;" name="goodsSost" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
+							      <input  id="price"  type="text" class="form-control" style="width: 100px;float: left;" name="goodsCost" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'') ">
 							      <div class="checkbox" style="float: left;margin-left: 20px">
 								    <label>
-								      <input id="check1" type="checkbox" name="insurance"  value="yes" onchange="javaScript:prem(this)">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" style="color: #FF7300">投保协议</a>
+								      <input id="check1" type="checkbox" name="insurance"  value="yes" onchange="javaScript:prem(this)">购买货运险（中国平安承保，费率1.5‰，最低3元起）<a href="${ctx}/insuranceExplain.htm" target=_blank style="color: #FF7300">投保协议</a>
 								    </label>
 								   </div> 
 							      </div>

@@ -40,8 +40,9 @@ import com.glacier.jqueryui.util.JqPager;
 @Controller
 @RequestMapping(value = "/route")
 public class RouteController extends AbstractController{
+	
 	    @Autowired
-	    private CarrierRouterService carrierRouterService;// 注入公告业务Bean
+	    private CarrierRouterService carrierRouterService; 
 	    
 	    @Autowired  
 	    private  HttpServletRequest request;  
@@ -81,4 +82,5 @@ public class RouteController extends AbstractController{
 	  		mav.addObject("routerMap", carrierRouterService.getRouteMap(routeId));
 	  		return mav;
 	  	}
+	  	 
 }

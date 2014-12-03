@@ -93,6 +93,8 @@ public class StorehouseBelaidupController extends AbstractController{
 		ModelAndView mav = new ModelAndView("route_mgr/referDelivery");
 		mav.addObject("router", routeService.getRoute(routeId)); 
 		mav.addObject("referDelivery", storehouseBelaidupService.selectTop());
+		//用来区分是先选的班线还是先写的订单信息，页面头部的流程图不一样
+		mav.addObject("sta", "s");
 		return mav;
 	}
 	

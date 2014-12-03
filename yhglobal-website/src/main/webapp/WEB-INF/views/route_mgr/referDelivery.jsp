@@ -27,7 +27,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <div class="row"> 
 	       <!-- 左边导航 -->
 	        <div class="col-md-12" align="center" style="background-color: #E8E8E8" >
-		      <img hspace="0" vspace="0" src="${pageContext.request.contextPath}/resources/images/delivery/delivery2.png">
+	                       <c:choose>
+	                           <c:when test="${sta eq 'sta' }"> 
+	                          	   <img hspace="0" vspace="0" src="${pageContext.request.contextPath}/resources/images/delivery/delivery5.png">
+	                            </c:when> 
+								<c:otherwise>
+								   <img hspace="0" vspace="0" src="${pageContext.request.contextPath}/resources/images/delivery/delivery2.png">
+	                          	</c:otherwise> 
+						   </c:choose> 
+	       
 	        </div> 
     </div>
     <div class="row"> 
