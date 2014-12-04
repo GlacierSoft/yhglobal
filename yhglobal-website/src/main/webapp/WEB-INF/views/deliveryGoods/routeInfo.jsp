@@ -33,33 +33,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="row" style="margin-top: 15px;padding-top:15px; height: 65px;background-color: #ddf0f9"> 
 	       <!-- 左边导航 -->
 	        <div class="col-md-3" align="center" style="" >
-	                        <select class="form-control" name="replenishment">
-							    <option value="">默认排序</option>  
-							    <option value="">重货单价由低到高</option> 
-							    <option value="">重货单价由高到低</option>   
-							    <option value="">轻货单价由高到低</option>  
-							    <option value="">轻货单价由高到低</option>  
-							    <option value="">运输时效由短到长</option>  
-							    <option value="">信誉度由高到低</option>  
-							    <option value="">成交量由高到低</option>  
+	                        <select class="form-control" name="replenishment" id="selectRoute">
+							    <option  value="create_time" class="desc">默认排序</option>    
+							    <option value="starting_price" class="asc">起步价由低到高</option>  
+							    <option value="starting_price" class="desc">起步价由高到低</option>   
+							    <option value="light_goods_price" class="asc">轻货单价由低到高</option>  
+							    <option value="light_goods_price" class="desc">轻货单价由高到低</option>  
+							    <option value="weight_goods_price" class="asc">重货单价由低到高</option> 
+							    <option value="weight_goods_price" class="desc">重货单价由高到低</option> 
+							    <option value="route_bytime" class="asc">运输时效由短到长</option>  
+							    <option value="route_bytime" class="desc">运输时效由长到短</option>   
 							  </select>
 		      </div> 
-		       <div class="col-md-1">
-	                 <button type="button" class="btn btn-warning">重货单价↓</button>
+		      <div class="col-md-1">
+	                <button type="button" class="btn btn-warning"  onclick="sendInfo('starting_price','desc')">&nbsp;起步价↓&nbsp;&nbsp;</button>
 		      </div> 
 		       <div class="col-md-1">
-	                <button type="button" class="btn btn-warning">轻货单价↓</button>
+	                <button type="button" class="btn btn-warning" onclick="sendInfo('light_goods_price','desc')">轻货单价↓</button>
+		      </div> 
+		      <div class="col-md-1">
+	                 <button type="button" class="btn btn-warning" onclick="sendInfo('weight_goods_price','desc')">重货单价↓</button>
 		      </div> 
 		       <div class="col-md-1">
-	               <button type="button" class="btn btn-warning">运输时效↓</button>
+	               <button type="button" class="btn btn-warning" onclick="sendInfo('route_bytime','desc')">运输时效↓</button>
 		      </div> 
-		       <div class="col-md-1" >
-	                <button type="button" class="btn btn-warning">信誉度↓</button>
-		      </div> 
-		       <div class="col-md-1">
-	               <button type="button" class="btn btn-warning">成交量↓</button>
-		      </div> 
-		       <div class="col-md-4" align="right">
+		         
+		       <div class="col-md-5" align="right">
 	              共找到<font color="#FF7300">${routerDatas.total}</font>条线路
 		      </div>   
     </div>
@@ -298,8 +297,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 	<jsp:include page="../foot.jsp"/> 
 		
-	<script type="text/javascript"> 
+	<script type="text/javascript">   
 	
+	 //select选择项不变效果
+	 var index='${txt}'-0; 
+	 var obj = document.getElementById("selectRoute"); 
+	 obj.options[index].selected = true;
+	 
+    //select选择更新数据排序
+	$("#selectRoute").change(function(){
+		var str=$("#selectRoute option:selected").attr("value");
+		var sta=$("#selectRoute option:selected").attr("class");
+	 	sendInfo(str,sta);
+	});
+    
+	//构建表单,进行数据筛选
+	function sendInfo(str,sta){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>delivery/routeInfoList.htm?&p=1');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_inputSta = $('<input type="text" name="sta" />');  
+	    my_inputSta.attr('value', sta);  
+	    var my_input = $('<input type="text" name="str" />');   
+	    my_input.attr('value', str);   
+	    // 附加到Form  
+	    form.append(my_input); 
+	    form.append(my_inputSta); 
+		var obj = document.getElementById("selectRoute");
+		//保存序号，option自己设置的
+		var txt=obj.selectedIndex;
+	    var my_inputTxt = $('<input type="text" name="txt" />');   
+	    my_inputTxt.attr('value', txt);   
+	    // 附加到Form  
+	    form.append(my_inputTxt);  
+	    //表单设置隐藏
+	    form.css('display','none');
+	    //表单的构建 完成并提交
+	   form.appendTo(document.body).submit();
+	 }
 	
 	//提交fom表单数据,验证数据
 	function sub(){

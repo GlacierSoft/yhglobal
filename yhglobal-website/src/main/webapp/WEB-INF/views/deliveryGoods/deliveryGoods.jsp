@@ -334,51 +334,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		 }
     	 },    
     	 submitHandler:function(){
-    		 $('#myModal').modal('show');
-    		 
-    		 
-    		 /* 
-    		 
-    		 KindEditor.ready(function(K) {
-   	   		  var dialog = K.dialog({
-   	   	          width : 500,
-   	   	          title : '我要发货',
-   	   	          body : '<div style="margin:10px;"><strong>你确定寄送此货物吗?</strong></div>',
-   	   	          closeBtn : {
-   	   	                  name : '关闭',
-   	   	                  click : function(e) {
-   	   	                          dialog.remove();
-   	   	                  }
-   	   	          },
-   	   	          yesBtn : {
-   	   	                  name : '确定',
-   	   	                  click : function(e) {
-   	   	                      dialog.remove();
-	   	   	                      $.ajax({
-		    					   type: "POST",
-		    					   url: ctx + '/delivery/addBelaidup.json',
-		    					   data: $("#form_delivery").serialize(),
-		    					   dataType:'json',
-		    					   success: function(r){
-		    						 if(r.success){
-		    							doReset();
-		    							doDailog("发货成功,等待后台审核,可在记录中查看该条信息!");
-		    						 }
-		    						 else{
-		    							doDailog("发货失败，请联系管理员，刷新后在操作!");
-		    						 }
-		    					   }
-		                	     });
-   	   	                 }
-   	   	          },
-   	   	          noBtn : {
-   	   	                  name : '取消',
-   	   	                  click : function(e) {
-   	   	                          dialog.remove();
-   	   	                  }
-   	   	          }
-   	   	    });
-   	   	  });  */
+    		 $('#myModal').modal('show'); 
     	 }
      });
    
@@ -414,41 +370,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			     if(r.success){   //转到下一个选择班线页面
 			    	 window.location.href=ctx +"/delivery/routeInfo.htm?p=1"; 
 				  }
-		}
-	 /* 
-     function doReset(){
-    	 $("#form_delivery")[0].reset();  
-     };
-      */
-   /*   //公共对话框定义
-     function  doDailog(str){
-   	  KindEditor.ready(function(K) {
-   		  var dialog = K.dialog({
-   		        width : 500,
-   		        title : '发货提示',
-   		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
-   		        closeBtn : {
-    	                  name : '关闭',
-    	                  click : function(e) {
-    	                          dialog.remove();
-    	                  }
-    	          },
-   		     yesBtn : {
-   	                name : '确定',
-   	                click : function(e) {
-   	                	 dialog.remove();
-   	                }
-   	        },
-   	        noBtn : {
-   	                name : '取消',
-   	                click : function(e) {
-   	                		doClear();
-   	                        dialog.remove();
-   	                }
-   	        }
-   		}); 
-   	  });
-     } */
+		} 
    </script>
    
    <!--弹出省省市style="z-index:30;position:absolute;margin-left: 85px;margin-top: -820px;"-->

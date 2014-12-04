@@ -70,8 +70,9 @@ public class CarrierRouteQueryDTO extends CarrierRoute{
 
 	 if(null != this.getRouteType()){//状态Enum查询
 	        queryCriteria.andRouteTypeEqualTo(this.getRouteType().toString());
-	     	} 
-		} 
+	    }  
+	  }
+	
 	    
    @Override
    public String toString() {

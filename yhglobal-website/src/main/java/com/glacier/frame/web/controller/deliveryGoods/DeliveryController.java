@@ -139,8 +139,20 @@ public class DeliveryController {
   		routeQueryDTO.setRouteStop(belaidup.getBelaidupTerminu());
   		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,p,"",routeQueryDTO));
   		return mav;
-  	} 
+  	}  
   	
+	//条件查询（轻重货价格等）
+  	@RequestMapping(value = "/routeInfoList.htm")
+  	public Object routeInfoList(JqPager pager, @RequestParam int p,String txt,String str,String sta,CarrierRouteQueryDTO routeQueryDTO,HttpSession httpSession){ 
+  		ModelAndView mav = new ModelAndView("deliveryGoods/routeInfo"); 
+  		StorehouseBelaidup belaidup=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
+  		routeQueryDTO.setRouteOrigin(belaidup.getBelaidupInitiatin());
+  		routeQueryDTO.setRouteStop(belaidup.getBelaidupTerminu());
+  		mav.addObject("routerDatas", carrierRouterService.listWebsite(pager,p,str,sta,routeQueryDTO));
+  		mav.addObject("txt", txt);
+  		return mav;
+  	} 
+  	 
     // 查询单条班线信息
  	@RequestMapping(value = "/getRoute.json", method = RequestMethod.POST)
  	@ResponseBody
