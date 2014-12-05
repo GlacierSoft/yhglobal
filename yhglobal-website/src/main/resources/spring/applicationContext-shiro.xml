@@ -41,26 +41,9 @@
 				/resources/** = anon
 				/logout = logout
 				/member/* = user
-				/financeMember/* = user
-				/borrowingLoan/* = user
+				/delivery/*=user 
 				/messageNotice/* = user
-				/loanReview/* = user
-				/investment/confirmInvestment.htm = user
-				/investment/addInvestment.htm = user
-				/investment/memberTenderNotes.htm = user 
-				/investment/investmentdetail.htm=user
-				/receivablesNotes/* = user
-				/attentionBorrowing/* = user
-				/repaymentNotesDetail/* = user
-				/bankingStatistics/*=user
-				<!-- /investment/*=user
-			    /validateCode.htm = anon
-				/login.htm = authc
-				/resources/** = anon
-				/logout = logout
-				/member/* = forceLogout
-				/borrowingLoan/* = forceLogout,sysUser
-				/messageNotice/* = forceLogout,sysUser -->
+				/loanReview/* = user    
 			</value>
 		</property>
 	</bean>
