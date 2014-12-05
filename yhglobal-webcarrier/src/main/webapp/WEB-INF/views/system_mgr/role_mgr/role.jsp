@@ -118,8 +118,8 @@
 	glacier.system_mgr.role_mgr.role.addRole = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【角色管理】- 增加',
-			width : 500,
-			height : 500,
+			width : 385,
+			height : 250,
 			queryUrl : ctx + '/do/role/intoForm.htm',
 			submitUrl : ctx + '/do/role/add.json',
 			successFun : function (){

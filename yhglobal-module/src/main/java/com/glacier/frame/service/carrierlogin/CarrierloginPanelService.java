@@ -222,7 +222,7 @@ public class CarrierloginPanelService {
         count = carrierloginPanelMapper.deleteByPrimaryKey(carrierloginPanel.getPanelId());
         if (count > 0) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("成功删除名称为：[ "+carrierloginPanel.getPanelCnName()+" ]mianban ");
+            returnResult.setMsg("成功删除名称为：[ "+carrierloginPanel.getPanelCnName()+" ]面板");
             return returnResult;
         }
         returnResult.setMsg("发生未知错误，[ "+carrierloginPanel.getPanelCnName()+" ]面板删除失败");

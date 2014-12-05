@@ -400,6 +400,9 @@ public class CarrierMemberService {
         countToken = carrierMemberTokenMapper.insert(carrierMemberToken); 
         //判断增加信息是否成功，成功返回成功提示信息
         if (count == 1 && countToken == 1) {
+            
+            //注册成功，自动赋值菜单
+            
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + carrierMember.getMemberName() + "] 会员信息已保存");
             returnResult.setObj(carrierMember);

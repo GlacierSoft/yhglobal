@@ -221,7 +221,7 @@ public class PanelService {
         count = panelMapper.deleteByPrimaryKey(panel.getPanelId());
         if (count > 0) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("成功删除名称为：[ "+panel.getPanelCnName()+" ]mianban ");
+            returnResult.setMsg("成功删除名称为：[ "+panel.getPanelCnName()+" ]面板");
             return returnResult;
         }
         returnResult.setMsg("发生未知错误，[ "+panel.getPanelCnName()+" ]面板删除失败");
