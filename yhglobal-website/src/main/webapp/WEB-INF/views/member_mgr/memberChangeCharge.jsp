@@ -114,15 +114,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<table id="tab" style="margin: auto;float: left;">
 											<tr>
 												<td><span class="label label-default" style="background-color: #FF5400">输入旧密码:</span></td>
-												<td><input type="password" name="oldPassword" id="oldPassword" class="form-control"  placeholder="请输入当前密码"></td>
+												<td><input type="password" name="oldPassword" id="oldPassword" class="form-control"  placeholder="请输入当前交易密码"></td>
 											</tr>
 											<tr>
 												<td><span class="label label-default" style="background-color: #FF5400">输入新密码:</span></td>
-												<td><input type="password" name="newPassword" id="newPassword" class="form-control"  placeholder="请输入新密码"></td>
+												<td><input type="password" name="newPassword" id="newPassword" class="form-control"  placeholder="请输入交易新密码"></td>
 											</tr>
 											<tr>
-												<td><span class="label label-default" style="background-color: #FF5400">重复新密码:</span></td>
-												<td><input type="password" name="secondPassword" class="form-control"  placeholder="请确认新密码" id="secondPassword"></td>
+												<td><span class="label label-default" style="background-color: #FF5400">确认新密码:</span></td>
+												<td><input type="password" name="secondPassword" class="form-control"  placeholder="请确认交易密码" id="secondPassword"></td>
 											</tr>
 											<tr>
 												<td colspan="2" style="text-align: center;">
@@ -145,14 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 	function doChange() {
 		if ($("#oldPassword").val() == "") {
-			doShowError("请填写当前密码,再做操作!");
+			doShowError("请填写当前交易密码,再做操作!");
 		} else if ($("#newPassword").val() == "") {
-			doShowError("请填写新密码,之后再做操作！")
+			doShowError("请填写新交易密码,再做操作！")
 		} else if ($("#secondPassword").val() == "") {
-			doShowError("请确认密码之后在做操作!")
+			doShowError("请确认交易密码之后在做操作!")
 		} else {
 			if ($("#newPassword").val() != $("#secondPassword").val()) {
-				doShowError("密码认证错误，请重新填写！");
+				doShowError("确认密码填写错误，请正确填写！");
 			} else {
 				doCheck("你确定要修改修改交易密码?","${ctx}/memberPassword/changeChargePwd.json");
 			}

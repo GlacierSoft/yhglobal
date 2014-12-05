@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<td><input type="password" name="newPassword" class="form-control"  placeholder="请输入新登录密码" id="newPassword"></td>
 											</tr>
 											<tr>
-												<td><span class="label label-default" style="background-color: #FF5400">重复新密码:</span></td>
+												<td><span class="label label-default" style="background-color: #FF5400">确认新密码:</span></td>
 												<td><input type="password" name="secondPassword" class="form-control"  placeholder="请确认新登录密码" id="secondPassword"></td>
 											</tr>
 											<tr>
@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			doShowError("请确认密码之后在做操作!")
 		} else {
 			if ($("#newPassword").val() != $("#secondPassword").val()) {
-				doShowError("密码认证错误，请重新填写！");
+				doShowError("确认密码填写错误，请重新填写！");
 			} else {
 				doCheck("你确定要修改修改登录密码?","${ctx}/memberPassword/changeLoginPwd.json");
 			}
