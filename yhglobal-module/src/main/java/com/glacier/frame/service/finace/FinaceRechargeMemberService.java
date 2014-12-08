@@ -138,11 +138,11 @@ public class FinaceRechargeMemberService {
 			finaceMemberRecord.setMemberId(finaceRechargeMember.getMemberId());
 			finaceMemberRecord.setTransactionTarget("系统账号");
 			finaceMemberRecord.setTransactionType("充值");
-			finaceMemberRecord.setEarningMoney(finaceRechargeMember.getRechargeMoney());
+			finaceMemberRecord.setEarningMoney(finaceRechargeMember.getReceiveMoney());
 			finaceMemberRecord.setExpendMoney(new BigDecimal(0));
 			finaceMemberRecord.setUsableMoney(financeMember.getMrechageRemain());
 			finaceMemberRecord.setFrozenMoney(new BigDecimal(0));
-			finaceMemberRecord.setCollectingMoney(new BigDecimal(0));
+			finaceMemberRecord.setCollectingMoney(finaceRechargeMember.getChargeMoney());
 			finaceMemberRecord.setRefundMoney(new BigDecimal(0));
 			finaceMemberRecord.setAmount(financeMember.getMrechageRemain());
 			finaceMemberRecord.setRemark("充值");

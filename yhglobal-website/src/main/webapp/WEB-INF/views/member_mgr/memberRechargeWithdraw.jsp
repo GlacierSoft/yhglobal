@@ -155,10 +155,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <th>交易类型</th>
 					            <th>交易对象</th>
 					            <th>收入金额</th>
+					            <th>手续费</th>
 					            <th>支出金额</th>
 					            <th>可用金额</th>
 					            <th>冻结金额</th>
-					            <th>代收金额</th>
 					            <th>返还金额</th>
 					            <th>总金额</th>
 					            <th>交易时间</th>
@@ -177,10 +177,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>${finaceMemberRecordDate.transactionType}</td>
 						          	<td>${finaceMemberRecordDate.transactionTarget}</td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.earningMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.collectingMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.expendMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.usableMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.frozenMoney}' pattern='#,#00.00'/></td>
-						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.collectingMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.refundMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finaceMemberRecordDate.amount}' pattern='#,#00.00'/></td>
 						          	<td><fmt:formatDate value="${finaceMemberRecordDate.createTime}" type="both"/></td>

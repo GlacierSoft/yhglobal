@@ -151,10 +151,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		} else if ($("#secondPassword").val() == "") {
 			doShowError("请确认交易密码之后在做操作!")
 		} else {
-			if ($("#newPassword").val() != $("#secondPassword").val()) {
-				doShowError("确认密码填写错误，请正确填写！");
-			} else {
-				doCheck("你确定要修改修改交易密码?","${ctx}/memberPassword/changeChargePwd.json");
+			if($("#newPassword").val().length<5){
+				doShowError("交易密码最低长度不少于6位,请重新设定！");
+			}else if($("#newPassword").val().length>17){
+				doShowError("交易密码最大长度不超过16位,请重新设定！");
+			}else{
+				if ($("#newPassword").val() != $("#secondPassword").val()) {
+					doShowError("确认密码填写错误，请重新填写！");
+				} else {
+					doCheck("你确定要修改交易密码?","${ctx}/memberPassword/changeChargePwd.json");
+				}
 			}
 		}
 	}
