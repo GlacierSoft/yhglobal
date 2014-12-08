@@ -123,9 +123,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <span id="mobileNumberSpan"></span>
 									    </div>
 									  </div>
-									  <div class="form-group">
-									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
-									  </div>
 									  <div class="form-group" >
 									    <label for="mobileNumber" class="col-sm-2 control-label">*旧绑定邮箱:</label>
 									    <div class="col-sm-4" style="width: 300px;float: left;">
