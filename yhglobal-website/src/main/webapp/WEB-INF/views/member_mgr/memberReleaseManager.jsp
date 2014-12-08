@@ -49,13 +49,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
-						          <li><a href="${ctx}/member/index.htm" class="btn btn-default"  role="button">会员信息</a></li>
+						          <li><a href="${ctx}/member/index.htm"  class="btn btn-default" role="button">会员信息</a></li>
 						          <li><a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a></li>
 						          <li class="active" style="width: 120px;"><a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-info" role="button">货源管理</a></li>
-						          <li><a href="${ctx}/member/memberLetterStation.htm?p=1" class="btn btn-default" role="button">站内信</a></li>
+						          <li><a href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">站内信</a></li>
 								  <li><a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">详细信息</a></li>
 								  <li><a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">会员头像</a></li>
-								  <li><a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">修改密码</a></li>
+								  <li><a href="${ctx}/member/changeMemberPassword.htm" class="btn btn-default" role="button">修改密码</a></li>
 							  </ul>
 							</div>
 					      </div>
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
 							  <li><a href="${ctx }/member/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a></li>
 							  <li><a href="#" class="btn btn-default" role="button">Content2</a></li>
-							  <li><a href="#" class="btn btn-default" role="button">交易密码修改</a></li>
+							  <li><a href="${ctx}/member/changeChargePassword.htm" class="btn btn-default" role="button">交易密码修改</a></li>
 							  </ul>
 							</div>
 					      </div>
