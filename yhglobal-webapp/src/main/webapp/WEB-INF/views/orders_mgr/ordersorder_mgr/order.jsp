@@ -61,15 +61,7 @@
 			formatter : function(value, row, index) {
 				return renderGridValue(value, fields.orderStatus);
 			}
-		},{
-			field : 'distributeStatus',
-			title : '订单分拣状态',
-			width : 120,
-			sortable : true,
-			formatter : function(value, row, index) {
-				return renderGridValue(value, fields.distributeStatus);
-			}
-		},{
+		}, {
 			field : 'status',
 			title : '订单启禁状态',
 			width : 120,

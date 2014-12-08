@@ -1,6 +1,7 @@
 package com.glacier.frame.web.controller.orders;
  
-import org.apache.commons.lang3.StringUtils;
+import javax.servlet.http.HttpSession;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,21 +37,16 @@ public class OrdersOrder_infoController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrderInfoQueryDTO orderSetQueryDTO) {
-        return order_infoService.listAsGrid(jqPager, orderSetQueryDTO);
+    private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrderInfoQueryDTO orderSetQueryDTO,HttpSession httpSession) {
+        String orderid=httpSession.getAttribute("orderId").toString();
+        orderSetQueryDTO.setOrderId(orderid);
+    	return order_infoService.listAsGrid(jqPager, orderSetQueryDTO);
     }
       
     // 进入订单详情信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberOrderDetailPage(String orderInfoId) { 
     	ModelAndView mav = new ModelAndView("orders_mgr/ordersorder_info_mgr/order_info_detail");
-        if(StringUtils.isNotBlank(orderInfoId)){
-            mav.addObject("order_infoDate", order_infoService.getOrder_info(orderInfoId));
-        }
-	    return mav;
-    }
-    
-    
-    
-    
+        return mav;
+    } 
 }

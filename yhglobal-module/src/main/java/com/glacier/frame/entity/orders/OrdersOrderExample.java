@@ -196,6 +196,76 @@ public class OrdersOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andCarrierMemberIdIsNull() {
+            addCriterion("temp_orders_order.carrier_member_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdIsNotNull() {
+            addCriterion("temp_orders_order.carrier_member_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdEqualTo(String value) {
+            addCriterion("temp_orders_order.carrier_member_id =", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdNotEqualTo(String value) {
+            addCriterion("temp_orders_order.carrier_member_id <>", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdGreaterThan(String value) {
+            addCriterion("temp_orders_order.carrier_member_id >", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_orders_order.carrier_member_id >=", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdLessThan(String value) {
+            addCriterion("temp_orders_order.carrier_member_id <", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_orders_order.carrier_member_id <=", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdLike(String value) {
+            addCriterion("temp_orders_order.carrier_member_id like", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdNotLike(String value) {
+            addCriterion("temp_orders_order.carrier_member_id not like", value, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdIn(List<String> values) {
+            addCriterion("temp_orders_order.carrier_member_id in", values, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdNotIn(List<String> values) {
+            addCriterion("temp_orders_order.carrier_member_id not in", values, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdBetween(String value1, String value2) {
+            addCriterion("temp_orders_order.carrier_member_id between", value1, value2, "carrierMemberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarrierMemberIdNotBetween(String value1, String value2) {
+            addCriterion("temp_orders_order.carrier_member_id not between", value1, value2, "carrierMemberId");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderCodeIsNull() {
             addCriterion("temp_orders_order.order_code is null");
             return (Criteria) this;

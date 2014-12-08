@@ -17,12 +17,7 @@ public class OrdersDispatchingQueryDTO extends  OrdersDispatching {
 	//到站时间
 	private Date arriveStartTime;
 	
-	private Date arriveEndTime;
-	
-	
-	
-	
-	
+	private Date arriveEndTime; 
 	
    public Date getGoodsRunStartTime() {
 		return goodsRunStartTime;
@@ -68,6 +63,10 @@ public void setQueryCondition(Criteria queryCriteria, String q){
 		
 		if(null != this.getDispatchingSignfor()){//状态Enum查询
 			queryCriteria.andDispatchingSignforEqualTo(this.getDispatchingSignfor().toString());
+	   	}
+		
+		if(null != this.getCarrierId()){//承运商查询
+			queryCriteria.andCarrierIdEqualTo(this.getCarrierId());
 	   	}
 	    
 		if(null!=goodsRunStartTime&&null!=goodsRunEndTime){//创建时间段查询

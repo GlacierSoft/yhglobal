@@ -1,66 +1,166 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> 
-<!-- 引入国际化标签 -->
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<!-- 引入自定义权限标签 -->
+<%@ taglib prefix="glacierui"
+	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
-<form method="post" style="padding:15px">
-	<table class="detailtable" width="800">
-		<tr>
-			<td>订单编号：</td>
-			<td>
-				<input type="hidden" id="memberGrade_mgr_memberGrade_form_orderId" name="orderId" value="${orderDate.orderId}" />
-				<input id="memberGrade_mgr_memberGrade_form_orderCode" style="width:268px;height: 20px;" name="orderCode" value="${orderDate.orderCode}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
-			</td>
-			<td>订单总金额：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_orderPrice" name="orderPrice"  style="width:268px;" readonly="readonly" value="<fmt:formatNumber value='${orderDate.orderPrice}' pattern="#,#00.00元"/>" class="easyui-validatebox spinner" />
-			</td>
-		</tr>
-		<tr>
-			<td>货物数量：</td>
-			<td>
-				<input id="memberGrade_mgr_memberGrade_form_orderNum" style="width:268px;height: 20px;" name="orderNum" value="${orderDate.orderNum}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
-			</td>
-			<td>订单状态：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_orderStatus" name="orderStatus"  style="width:268px;" readonly="readonly" value="${orderDate.orderStatus}" class="easyui-validatebox spinner" />
-			</td>
-		</tr>
-		<tr>
-			<td>分拣状态：</td>
-			<td>
-				<input id="memberGrade_mgr_memberGrade_form_distributeStatus" style="width:268px;height: 20px;" name="distributeStatus" value="${orderDate.distributeStatus}" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
-			</td>
-		</tr>
-		<tr>
-			<td>创建人：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_createrDisplay" name="createrDisplay" readonly="readonly" style="width:268px;" value="${orderDate.createrDisplay}" class="easyui-validatebox spinner"/>
-			</td>
-			<td>创建时间：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_createTime" name="gradeDestination" readonly="readonly" style="width:268px;" value="<fmt:formatDate value="${orderDate.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="easyui-validatebox spinner"/>
-			</td>
-		</tr>
-		<tr>
-			<td>更新人：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_updaterDisplay" name="gradeCashpayment" readonly="readonly" style="width:268px;" value="${orderDate.updaterDisplay}" class="easyui-validatebox spinner"/>
-			</td>
-			<td>更新时间：</td>
-			<td>
-			<input id="memberGrade_mgr_memberGrade_form_updateTime" name="updateTime" readonly="readonly" style="width:268px;" value="<fmt:formatDate value="${orderDate.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="easyui-validatebox spinner"/>
-			</td>
-		</tr>
-		<tr>
-			<td>备注：</td>
-			<td colspan="3">
-				<textarea id="memberGrade_mgr_memberGrade_form_remark" name="remark" readonly="readonly" style="width:670px;" class="spinner formta">${orderDate.remark}</textarea>
-			</td>
-		</tr>
-	</table>
-</form>
 <script type="text/javascript">
-	$('#memberGrade_mgr_memberGrade_form_orderStatus').val(renderGridValue('${orderDate.orderStatus}',fields.orderStatus));
-	$('#memberGrade_mgr_memberGrade_form_distributeStatus').val(renderGridValue('${orderDate.distributeStatus}',fields.distributeStatus));
+	$.util.namespace('glacier.order_info_mgr.order_info_mgr.order_info');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+
+	//定义toolbar的操作，对操作进行控制
+	glacier.order_info_mgr.order_info_mgr.order_info.param = {
+		toolbarId : 'order_infoDataGrid_toolbar',
+		actions : {
+	            edit:{flag:'edit',controlType:'single'},
+	            del:{flag:'del',controlType:'multiple'}
+	         }
+     };
+
+	//初始化DataGrid
+	glacier.order_info_mgr.order_info_mgr.order_info.order_infoDataGrid = $('#order_infoDataGrids').datagrid({
+		fit : true,//控件自动resize占满窗口大小
+		iconCls : 'icon-save',//图标样式
+		border : false,//是否存在边框
+		fitColumns : true,//自动填充行
+		nowrap : true,//禁止单元格中的文字自动换行
+		autoRowHeight : false,//禁止设置自动行高以适应内容
+		striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+		singleSelect : true,//限制单选
+		checkOnSelect : false,//选择复选框的时候选择该行
+		selectOnCheck : false,//选择的时候复选框打勾
+		url : ctx + '/do/order_info/list.json',
+		sortName : 'createTime',//排序字段名称
+		sortOrder : 'DESC',//升序还是降序
+		remoteSort : true,//开启远程排序，默认为false
+		idField : 'belaidupId',
+		columns : [ [ {
+			field : 'belaidupId',
+			title : 'ID',
+			checkbox : true
+		},{
+			field : 'belaidupDisplay',
+			title : '货物名称',
+			width : 100,
+			sortable : true
+		},{
+			field : 'number',
+			title : '数量',
+			width : 120,
+			sortable : true
+		},{
+			field : 'belaidupWeight',
+			title : '重量',
+			width : 120,
+			sortable : true
+		},{
+			field : 'belaidupBulk',
+			title : '体积',
+			width : 120,
+			sortable : true
+		},{
+			field : 'consignor',
+			title : '发货人',
+			width : 120,
+			sortable : true
+		},{
+			field : 'sendPhone',
+			title : '发货人电话',
+			width : 120,
+			sortable : true
+		},{
+			field : 'sendAddress',
+			title : '发货地址',
+			width : 120,
+			sortable : true
+		},{
+			field : 'orderConsignee',
+			title : '收货人',
+			width : 120,
+			sortable : true
+		},{
+			field : 'orderPhone',
+			title : '收货人电话',
+			width : 120,
+			sortable : true
+		},{
+			field : 'orderAddress',
+			title : '收货地址',
+			width : 120,
+			sortable : true
+		},{
+			field : 'yesOrNo',
+			title : '损坏状态',
+			width : 120,
+			sortable : true,
+			formatter : function(value, row, index) {
+				return renderGridValue(value, fields.yesOrNo);
+			}
+		},{
+			field : 'belaidupRemark',
+			title : '注意事项',
+			sortable : true,
+			width : 120
+		} ] ],
+		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+		porder_infoSize : 10,//注意，porder_infoSize必须在porder_infoList存在
+		porder_infoList : [ 2, 10, 50, 100 ],//从session中获取
+		rownumbers : true,//True 就会显示行号的列
+		toolbar : '#order_infoDataGrid_toolbar',
+		onCheck : function(rowIndex, rowData) {//选择行事件触发
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).check();
+		},
+		onCheckAll : function(rows) {//取消勾选行状态触发事件
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).check();
+		},
+		onUncheck : function(rowIndex, rowData) {//选择行事件触发
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).unCheck();
+		},
+		onUncheckAll : function(rows) {//取消勾选行状态触发事件
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).unCheck();
+		},
+		onSelect : function(rowIndex, rowData) {//选择行事件触发
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).select();
+		},
+		onUnselectAll : function(rows) {
+			action_controller(
+					glacier.order_info_mgr.order_info_mgr.order_info.param,this).unSelect();
+		},
+		onLoadSuccess : function(index, record) {//加载数据成功触发事件
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
+		},
+		onDblClickRow : function(rowIndex, rowData){
+            $.easyui.showDialog({
+		title : '货物详细信息',
+		href : ctx+ '/do/belaidup/intoDetail.htm?belaidupId='+ rowData.belaidupId,//从controller请求jsp页面进行渲染
+		width : 830,
+		height : 630,
+		resizable : false,
+		enableApplyButton : false,
+		enableSaveButton : false
+	});
+        }
+	}); 
+	 
 </script>
+
+<!-- 所有列表面板和表格 -->
+<div class="easyui-layout" data-options="fit:true">
+	<div id="order_infoGridPanel" data-options="region:'center',border:true">
+		<table id="order_infoDataGrids">
+			<%-- <glacierui:toolbar panelEnName="Order_infoList"
+				toolbarId="order_infoDataGrid_toolbar" menuEnName="order_info" /> --%>
+			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		</table>
+	</div> 
+</div>

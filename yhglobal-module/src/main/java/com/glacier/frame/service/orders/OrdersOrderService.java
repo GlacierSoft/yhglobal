@@ -71,6 +71,7 @@ public class OrdersOrderService {
         JqGridReturn returnResult = new JqGridReturn();
         OrdersOrderExample orderExample = new OrdersOrderExample(); 
         Criteria queryCriteria = orderExample.createCriteria();
+        //查询未分配的订单
         orderQueryDTO.setQueryCondition(queryCriteria);
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	orderExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());

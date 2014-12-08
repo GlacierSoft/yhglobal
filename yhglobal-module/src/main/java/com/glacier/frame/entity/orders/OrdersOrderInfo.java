@@ -1,9 +1,8 @@
 package com.glacier.frame.entity.orders;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import java.util.Date; 
+import com.alibaba.fastjson.annotation.JSONField; 
 
 public class OrdersOrderInfo {
     private String orderInfoId;
@@ -41,6 +40,24 @@ public class OrdersOrderInfo {
      * 自定义字段，显示出货物的信息属性
      * @return
      */
+    private String consignor;//发货人
+    
+    private String sendPhone;//发货人电话
+    
+    private String sendAddress;//发货地址
+    
+    private Integer number;//数量
+    
+    private String orderPhone;//收货人电话
+    
+    private Float belaidupWeight;//物品重量 
+    
+    private Float belaidupBulk;//体积
+    
+    private String belaidupRemark;//注意事项
+    
+    private String orderAddress;//收货地址 ---- 
+    
     private String belaidupProdName;//货物名称
     
     private String orderConsignee;//收货人
@@ -48,10 +65,98 @@ public class OrdersOrderInfo {
     private String belaidupTerminu;//目的站
     
     private String belaidupStatus;//货物状态
-    
+     
     private BigDecimal belaidupUnitprice;//总费用 
-    
-    private String memberId;
+      
+     
+	public void setBelaidupWeight(float belaidupWeight) {
+		this.belaidupWeight = belaidupWeight;
+	}
+ 
+ 
+	public Integer getNumber() {
+		return number;
+	}
+ 
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+ 
+	public Float getBelaidupWeight() {
+		return belaidupWeight;
+	}
+ 
+	public void setBelaidupWeight(Float belaidupWeight) {
+		this.belaidupWeight = belaidupWeight;
+	}
+
+
+
+	public Float getBelaidupBulk() {
+		return belaidupBulk;
+	}
+
+
+
+	public void setBelaidupBulk(Float belaidupBulk) {
+		this.belaidupBulk = belaidupBulk;
+	}
+
+
+
+	public void setBelaidupBulk(float belaidupBulk) {
+		this.belaidupBulk = belaidupBulk;
+	}
+
+	public String getBelaidupRemark() {
+		return belaidupRemark;
+	}
+
+	public void setBelaidupRemark(String belaidupRemark) {
+		this.belaidupRemark = belaidupRemark;
+	}
+
+	public String getConsignor() {
+		return consignor;
+	}
+
+	public void setConsignor(String consignor) {
+		this.consignor = consignor;
+	}
+
+	public String getSendPhone() {
+		return sendPhone;
+	}
+
+	public void setSendPhone(String sendPhone) {
+		this.sendPhone = sendPhone;
+	}
+
+	public String getSendAddress() {
+		return sendAddress;
+	}
+
+	public void setSendAddress(String sendAddress) {
+		this.sendAddress = sendAddress;
+	}
+ 
+	public String getOrderPhone() {
+		return orderPhone;
+	}
+
+	public void setOrderPhone(String orderPhone) {
+		this.orderPhone = orderPhone;
+	}
+
+	public String getOrderAddress() {
+		return orderAddress;
+	}
+
+	public void setOrderAddress(String orderAddress) {
+		this.orderAddress = orderAddress;
+	}
+
+	private String memberId;
 
     public String getOrderInfoId() {
         return orderInfoId;
@@ -59,9 +164,9 @@ public class OrdersOrderInfo {
 
     public void setOrderInfoId(String orderInfoId) {
         this.orderInfoId = orderInfoId;
-    }
-
-    public String getBelaidupId() {
+    } 
+        
+	public String getBelaidupId() {
         return belaidupId;
     }
 

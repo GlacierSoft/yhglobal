@@ -82,6 +82,11 @@ public class OrdersOrderInfoQueryDTO extends OrdersOrderInfo{
 	}
 
 	public void setQueryCondition(Criteria queryCriteria){
+		
+	 if(null != this.getOrderId() && StringUtils.isNotBlank(this.getOrderId())){//订单id
+	            queryCriteria.andOrderIdEqualTo(this.getOrderId());
+	  } 
+		
    	 if(null != this.getBelaidupDisplay() && StringUtils.isNotBlank(this.getBelaidupDisplay())){//货物名称Like查询
             queryCriteria.andBelaidupDisplayLike("%" + this.getBelaidupDisplay() + "%");
         }  

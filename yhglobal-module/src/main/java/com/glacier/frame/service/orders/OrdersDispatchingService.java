@@ -37,6 +37,7 @@ import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
@@ -89,7 +90,7 @@ public class OrdersDispatchingService {
 	    JqGridReturn returnResult = new JqGridReturn();
 	    OrdersDispatchingExample ordersDispatchingExample = new OrdersDispatchingExample();
 	    Criteria queryCriteria = ordersDispatchingExample.createCriteria();
-	    ordersDispatchingQueryDTO.setQueryCondition(queryCriteria, q);
+	    ordersDispatchingQueryDTO.setQueryCondition(queryCriteria, q); 
 	    if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
 	    	ordersDispatchingExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
 	    	ordersDispatchingExample.setLimitEnd(jqPager.getRows());
@@ -177,25 +178,55 @@ public class OrdersDispatchingService {
 	 
 	 /**
 	     * @Title: addContractManager 
-	     * @Description: TODO(添加配送记录信息) 
+	     * @Description: TODO(更改分配记录信息) 
 	     * @param @param memberContractType
 	     * @param @return    设定文件 
 	     * @return Object    返回类型 
 	     * @throws
 	     */ 
 	    @Transactional(readOnly = false)
-	    public Object addDispatching(OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
+	    public Object updateDispatching(OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
 	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        int numb=0;
-	        int numb_two=0;
-	        
 	        OrdersOrder ordersOrder=ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
-	        ordersOrder.setDistributeStatus("hasdistribute");
-	        ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder);
-	        
-	        SimpleDateFormat sf=new SimpleDateFormat("dd_hh_ss");
+	        // ordersOrder.setDistributeStatus("hasdistribute");
+	        ordersOrder.setOrderStatus("hasconfirmed");//设置订单状态为已确认
+	        ordersOrder.setCarrierMemberId(ordersDispatching.getCarrierId());//关联承运商
+	        ordersOrder.setUpdater(pricipalUser.getUserId());
+	        ordersOrder.setUpdateTime(new Date());
+	        int numb=ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder); 
+	        if(numb>0){
+	        	returnResult.setSuccess(true);
+	        	returnResult.setMsg("分配成功!");
+	        }else{
+	        	returnResult.setSuccess(false);
+	        	returnResult.setMsg("分配失败!");
+	        } 
+	        return returnResult;
+	    } 
+	     
+	    /** 
+	     * @Title: addDispatching  
+	     * @Description: TODO(生成配送单)  
+	     * @param @param ordersDispatching
+	     * @param @param ordersOrdispatchingDetailed
+	     * @param @return    设定文件  
+	     * @return Object    返回类型  
+	     * @throws
+	     */
+	    @Transactional(readOnly = false)
+	    public Object addDispatching(OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
+	    	Subject pricipalSubject = SecurityUtils.getSubject();
+	    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int numb_two=0; 
+	        OrdersOrder ordersOrder=ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
+	        ordersOrder.setDistributeStatus("hasdistribute"); 
+	        ordersOrder.setUpdater(pricipalUser.getCarrierMemberId());
+	        ordersOrder.setUpdateTime(new Date());
+	        int numb=ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder); 
+            SimpleDateFormat sf=new SimpleDateFormat("dd_hh_ss");
 	        ordersDispatching.setDispatchingId(RandomGUID.getRandomGUID());
 	        ordersDispatching.setDispatchingCode("ST_"+sf.format(new Date()));
 	        ordersDispatching.setDispatchingSignfor("notsigned");
@@ -203,9 +234,10 @@ public class OrdersDispatchingService {
 	        ordersDispatching.setStatus("enable");
 	        ordersDispatching.setDispatchTime(new Date());
 	        ordersDispatching.setArriveTime(new Date());
-	        ordersDispatching.setCreater(pricipalUser.getUserId());
+	        ordersDispatching.setCarrierId(pricipalUser.getCarrierMemberId());
+	        ordersDispatching.setCreater(pricipalUser.getCarrierMemberId());
 	        ordersDispatching.setCreateTime(new Date());
-	        ordersDispatching.setUpdater(pricipalUser.getUserId());
+	        ordersDispatching.setUpdater(pricipalUser.getCarrierMemberId());
 	        ordersDispatching.setUpdateTime(new Date());
 	        numb=ordersDispatchingMapper.insert(ordersDispatching);
 	        if(numb>0){
@@ -219,9 +251,7 @@ public class OrdersDispatchingService {
 	        }else{
 	        	returnResult.setSuccess(false);
 	        	returnResult.setMsg("配送失败!");
-	        }
-	           
-	        
+	        } 
 	        return returnResult;
-	    }
+	    } 
 }

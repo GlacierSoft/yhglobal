@@ -21,11 +21,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
+import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrderInfoQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.orders.OrdersOrderInfo;
 import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
-import com.glacier.frame.entity.orders.OrdersOrderInfoExample.Criteria;
+import com.glacier.frame.entity.orders.OrdersOrderInfoExample.Criteria; 
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 /*** 
@@ -41,6 +42,9 @@ public class OrdersOrderInfoService {
 
 	@Autowired
 	private OrdersOrderInfoMapper orderInfoMapper;
+	
+	@Autowired
+	private StorehouseBelaidupMapper storehouseBelaidupMapper;
 	
 	/**
      * @Title: listAsOrderGrid 
@@ -58,12 +62,43 @@ public class OrdersOrderInfoService {
         Criteria queryCriteria = orderExample.createCriteria().andMemberIdDisplayLike(pricipalMember.getMemberId());
         orderQueryDTO.setQueryCondition(queryCriteria);
         List<OrdersOrderInfo> orderTypeList = orderInfoMapper.selectByExample(orderExample); // 查询所有会员列表
-        int total = orderInfoMapper.countByExample(orderExample); // 查询总页数
-        System.out.println("总条数为："+total);
+        int total = orderInfoMapper.countByExample(orderExample); // 查询总页数 
         returnResult.setRows(orderTypeList);
         returnResult.setTotal(total);
 		return returnResult;
 	}
+	
+	/**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取所有订单详情信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsGrids(JqPager jqPager, OrdersOrderInfoQueryDTO orderQueryDTO) {
+        JqGridReturn returnResult = new JqGridReturn();
+        OrdersOrderInfoExample orderExample = new OrdersOrderInfoExample(); 
+        Criteria queryCriteria = orderExample.createCriteria();
+        orderQueryDTO.setQueryCondition(queryCriteria);
+        if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
+        	orderExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+        	orderExample.setLimitEnd(jqPager.getRows());
+        }
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	orderExample.setOrderByClause(jqPager.getOrderBy("temp_orders_order_info_"));
+        }
+        List<OrdersOrderInfo> orderTypeList = orderInfoMapper.selectByExample(orderExample); // 查询所有订单列表   
+        int total = orderInfoMapper.countByExample(orderExample); // 查询总页数
+        returnResult.setRows(orderTypeList);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+	
+	
+	
+	
 	/**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有订单详情信息) 
@@ -84,7 +119,7 @@ public class OrdersOrderInfoService {
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	orderExample.setOrderByClause(jqPager.getOrderBy("temp_orders_order_info_"));
         }
-        List<OrdersOrderInfo> orderTypeList = orderInfoMapper.selectByExample(orderExample); // 查询所有会员列表
+        List<OrdersOrderInfo> orderTypeList = orderInfoMapper.selectByExample(orderExample); // 查询所有订单列表   
         int total = orderInfoMapper.countByExample(orderExample); // 查询总页数
         returnResult.setRows(orderTypeList);
         returnResult.setTotal(total);
@@ -99,9 +134,9 @@ public class OrdersOrderInfoService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getOrder_info(String orderId) {
-    	OrdersOrderInfo order_info = orderInfoMapper.selectByPrimaryKey(orderId);
-        return order_info;
+    public Object getOrderInfo(String orderId) {
+    	OrdersOrderInfo orderInfo = orderInfoMapper.selectByPrimaryKey(orderId);
+        return orderInfo;
     }
     
 }

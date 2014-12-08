@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.service.orders.OrdersDispatchingService;
@@ -64,7 +67,10 @@ public class OrdersDispatchingController {
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
   	@ResponseBody
   	private Object listActionAsGridByMenuId(JqPager jqPager, OrdersDispatchingQueryDTO ordersDispatchingQueryDTO, String q,HttpSession session) {
-  		JqGridReturn returnResult=(JqGridReturn)ordersDispatchingService.listAsGrid(jqPager, ordersDispatchingQueryDTO, q);
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+    	ordersDispatchingQueryDTO.setCarrierId(pricipalUser.getCarrierMemberId());
+    	JqGridReturn returnResult=(JqGridReturn)ordersDispatchingService.listAsGrid(jqPager, ordersDispatchingQueryDTO, q);
   	    if(returnResult!=null){
 	    	@SuppressWarnings("unchecked")
 	    	List<OrdersDispatching> list=(List<OrdersDispatching>) returnResult.getRows();
@@ -95,15 +101,20 @@ public class OrdersDispatchingController {
     @ResponseBody
     private Object checkOrdersDispatchingNumb(String belaidupId) {
     	return ordersDispatchingService.checkOrdersDispatchingNumb(belaidupId);
-    }
-   	
+    } 
     
-    //货物配送信息添加
+    //分配订单信息
     @RequestMapping(value = "/addDispatching.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addDispatching(@Valid OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
-    	return ordersDispatchingService.addDispatching(ordersDispatching,ordersOrdispatchingDetailed);
+    	return ordersDispatchingService.updateDispatching(ordersDispatching,ordersOrdispatchingDetailed);
     }
     
+    //生成配送单信息
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object add(@Valid OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
+    	return ordersDispatchingService.addDispatching(ordersDispatching,ordersOrdispatchingDetailed);
+    }
     
 }

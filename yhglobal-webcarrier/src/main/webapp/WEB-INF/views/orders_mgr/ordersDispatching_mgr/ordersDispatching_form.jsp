@@ -35,13 +35,16 @@
 				<input id="distributeStatus" required="true"  style="height:18px;width:180px;" class="easyui-validatebox spinner" readonly="readonly"/>
 			</td> 
 		 </tr>
-		<tr>
-			<td colspan="4">
-			承运商：<input id="belaidup_mgr_belaidup_form_carrierDisplay" name="carrierId" class="easyui-combogrid"  style="width:125px;height: 20px;"  required="true" />
-			车辆：<input id="belaidup_mgr_belaidup_form_carDisplay" name="carId"  style="width:125px;height: 20px;"  required="true" class="easyui-combogrid"  />
-			配送：<input id="belaidup_mgr_belaidup_form_driverDisplay" name="driverId"  style="width:125px;height: 20px;"  required="true" class="easyui-combogrid" />
-	      	</td>
-	    </tr>
+		  <tr>
+			<td>车辆：</td>
+			<td>
+			<input id="belaidup_mgr_belaidup_form_carDisplay" name="carId"  style="width:180px;height: 20px;"  required="true" class="easyui-combogrid"  />
+			</td>
+			<td style="padding-left:20px;">驾驶员：</td> 
+		 	<td>
+				<input id="belaidup_mgr_belaidup_form_driverDisplay" name="driverId"  style="width:180px;height: 20px;"  required="true" class="easyui-combogrid" />
+	      </td> 
+		 </tr> 
 
 	</table>   
 </form>
@@ -50,79 +53,9 @@
  
 
 <script type="text/javascript">
-     
-	//用于combogrid的客户信息绑定
-	$('#belaidup_mgr_belaidup_form_carrierDisplay').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		//iconCls:'icon-save',//图标样式
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	   idField:'carrierMemberId',    
-	   textField:'memberName',    
-	   url: ctx + '/do/carrierMember/list.json?status=enable&audit_state=pass',
-	   sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	   columns : [ [ 
-			{
-				field:'carrierMemberId',
-				title:'ID',
-				checkbox:true
-			},{
-				field : 'memberName',
-				title : '承运商',
-				width : 80,
-				sortable:true
-			}, {
-				field : 'memberType',
-				title : '类型',
-				width : 120,
-				sortable : true,
-				formatter : function(value, row, index) {
-					return renderGridValue(value, fields.memberType);
-				}
-			 }, {
-				field : 'status',
-				title : '状态',
-				width : 120,
-				sortable : true,
-				formatter : function(value, row, index) {
-					return renderGridValue(value, fields.status);
-				}
-			}] ],
-			pagination : true,//True 就会在 datagrid 的底部显示分页栏
-			pageSize : 10,//注意，pageSize必须在pageList存在
-			pageList : [2,10,50,100],//从session中获取
-			rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200,
-		onSelect: function (rowIndex, rowData){
-			  $('#belaidup_mgr_belaidup_form_carDisplay').combogrid("clear");
-			  $('#belaidup_mgr_belaidup_form_driverDisplay').combogrid("clear");
-			   doCheck_Carrier(rowData.carrierMemberId);
-		},
-		onLoadSuccess: function(){   
-			var rows= $('#belaidup_mgr_belaidup_form_carrierDisplay').combogrid('grid').datagrid('getRows');
-			if(rows.length>0)
-				$('#belaidup_mgr_belaidup_form_carrierDisplay').combogrid('grid').datagrid('selectRow',0);
-			else{
-				$('#belaidup_mgr_belaidup_form_carDisplay').combogrid("grid").datagrid("reload", {'carrierMemberId':0});
-				$('#belaidup_mgr_belaidup_form_driverDisplay').combogrid("grid").datagrid("reload", {'carrierMemberId':0});
-			}
-		} 
-	});
-	
-	function doCheck_Carrier(carrierMemberId){
-		
-		//用于combogrid的客户信息绑定
+      
+	 
+		//用于combogrid的车辆信息绑定
 		 $('#belaidup_mgr_belaidup_form_carDisplay').combogrid({
 			panelWidth:450,
 			fit:true,//控件自动resize占满窗口大小
@@ -137,7 +70,7 @@
 			selectOnCheck:false,//选择的时候复选框打勾
 		    idField:'carId',    
 		    textField:'plateNumber',    
-		    url: ctx + '/do/carrierCarInformation/list.json?carStatus=enable&transportStatus=wait&auditState=pass&carrierMemberId='+carrierMemberId,
+		    url: ctx + '/do/carrierCarInformation/list.json?carStatus=enable&transportStatus=wait&auditState=pass',
 		    sortName: 'createTime',//排序字段名称
 			sortOrder: 'ASC',//升序还是降序
 			remoteSort: true,//开启远程排序，默认为false
@@ -180,14 +113,14 @@
 			loadMsg : '数据加载中....',
 			mode : 'remote',
 			delay : 200,
-			onSelect: function (rowIndex, rowData){
+		/* 	onSelect: function (rowIndex, rowData){
 				  $('#belaidup_mgr_belaidup_form_driverDisplay').combogrid("clear");
 				  doCheck_Car(rowData.carrierMemberId);
 				  //$('#belaidup_mgr_belaidup_form_driverDisplay').combogrid("grid").datagrid("reload", {'carrierMemberId':rowData.carrierMemberId});
 				  //var rows= $('#belaidup_mgr_belaidup_form_driverDisplay').combogrid('grid').datagrid('getRows');
 				 
 				 
-			},
+			}, */
 			onLoadSuccess: function(){   
 				var rows= $('#belaidup_mgr_belaidup_form_carDisplay').combogrid('grid').datagrid('getRows');
 				if(rows.length>0)
@@ -196,13 +129,11 @@
 					$('#belaidup_mgr_belaidup_form_driverDisplay').combogrid("grid").datagrid("reload", {'carrierMemberId':0});
 				}
 			} 
-		});
-	};
+		}); 
 	
 	
-	
-	function doCheck_Car(carrierMemberId){
-    	 //用于combogrid的客户信息绑定
+	 
+    	 //用于combogrid的驾驶员信息绑定
     	 $('#belaidup_mgr_belaidup_form_driverDisplay').combogrid({
     		panelWidth:450,
     		fit:true,//控件自动resize占满窗口大小
@@ -217,7 +148,7 @@
     		selectOnCheck:false,//选择的时候复选框打勾
     	    idField:'driverId',    
     	    textField:'driverName',    
-    	    url: ctx + '/do/carrierDriver/list.json?status=enable&auditState=pass&driverStatus=wait&carrierMemberId='+carrierMemberId,
+    	    url: ctx + '/do/carrierDriver/list.json?status=enable&auditState=pass&driverStatus=wait',
     	    sortName: 'createTime',//排序字段名称
     		sortOrder: 'ASC',//升序还是降序
     		remoteSort: true,//开启远程排序，默认为false
@@ -266,9 +197,7 @@
     			if(rows.length>0)
 				$('#belaidup_mgr_belaidup_form_driverDisplay').combogrid('grid').datagrid('selectRow',0); 
     		 }
-    	}); 
-      };
-     
+    	});  
 	
 	  //下拉框数初始化
 	 $('#orderStatus').val(renderGridValue('${orderDate.orderStatus}',fields.orderStatus));

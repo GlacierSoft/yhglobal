@@ -30,18 +30,19 @@
 			<td>
 				<input id="status" required="true"  style="height:18px;width:180px;" class="easyui-validatebox spinner" readonly="readonly"/>
 			</td>
-			<td style="padding-left:20px;">分配状态：</td> 
+			<td style="padding-left:20px;">承运商：</td> 
 		 	<td>
-				<input id="distributeStatus" required="true"  style="height:18px;width:180px;" class="easyui-validatebox spinner" readonly="readonly"/>
+			<input id="belaidup_mgr_belaidup_form_carrierDisplay" name="carrierId" class="easyui-combogrid"  style="width:180px;height: 18px;"  required="true" />
 			</td> 
-		 </tr>
+		 </tr><!-- 
 		<tr>
-			<td colspan="4">
-			承运商：<input id="belaidup_mgr_belaidup_form_carrierDisplay" name="carrierId" class="easyui-combogrid"  style="width:125px;height: 20px;"  required="true" />
+		<td></td>
+			<td colspan="3">
+			
 			车辆：<input id="belaidup_mgr_belaidup_form_carDisplay" name="carId"  style="width:125px;height: 20px;"  required="true" class="easyui-combogrid"  />
 			配送：<input id="belaidup_mgr_belaidup_form_driverDisplay" name="driverId"  style="width:125px;height: 20px;"  required="true" class="easyui-combogrid" />
-	      	</td>
-	    </tr>
+	     </td>
+	    </tr> -->
 
 	</table>   
 </form>

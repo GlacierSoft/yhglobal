@@ -3,6 +3,7 @@
 <mapper namespace="com.glacier.frame.dao.orders.OrdersOrderMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.frame.entity.orders.OrdersOrder" >
     <id column="temp_orders_order_order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="temp_orders_order_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
     <result column="temp_orders_order_order_code" property="orderCode" jdbcType="VARCHAR" />
     <result column="temp_orders_order_order_price" property="orderPrice" jdbcType="DECIMAL" />
     <result column="temp_orders_order_order_num" property="orderNum" jdbcType="INTEGER" />
@@ -14,8 +15,8 @@
     <result column="temp_orders_order_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_orders_order_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_orders_order_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_orders_order_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_orders_order_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_orders_order_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_orders_order_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 --> 
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,20 +77,21 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_orders_order.order_id as temp_orders_order_order_id, temp_orders_order.order_code as temp_orders_order_order_code, 
-    temp_orders_order.order_price as temp_orders_order_order_price, temp_orders_order.order_num as temp_orders_order_order_num, 
-    temp_orders_order.order_status as temp_orders_order_order_status, temp_orders_order.status as temp_orders_order_status, 
-    temp_orders_order.distribute_status as temp_orders_order_distribute_status, temp_orders_order.remark as temp_orders_order_remark, 
-    temp_orders_order.creater as temp_orders_order_creater, temp_orders_order.create_time as temp_orders_order_create_time, 
-    temp_orders_order.updater as temp_orders_order_updater, temp_orders_order.update_time as temp_orders_order_update_time
-  	<!-- 以下字段属于扩展 -->
+    temp_orders_order.order_id as temp_orders_order_order_id, temp_orders_order.carrier_member_id as temp_orders_order_carrier_member_id, 
+    temp_orders_order.order_code as temp_orders_order_order_code, temp_orders_order.order_price as temp_orders_order_order_price, 
+    temp_orders_order.order_num as temp_orders_order_order_num, temp_orders_order.order_status as temp_orders_order_order_status, 
+    temp_orders_order.status as temp_orders_order_status, temp_orders_order.distribute_status as temp_orders_order_distribute_status, 
+    temp_orders_order.remark as temp_orders_order_remark, temp_orders_order.creater as temp_orders_order_creater, 
+    temp_orders_order.create_time as temp_orders_order_create_time, temp_orders_order.updater as temp_orders_order_updater, 
+    temp_orders_order.update_time as temp_orders_order_update_time
+		<!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_orders_order_creater_display
     ,temp_updater.user_cn_name as temp_orders_order_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_orders_order.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_orders_order.updater <!-- 扩展 -->
-  </sql>
+  </sql> 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.orders.OrdersOrderExample" >
     select
     <if test="distinct" >
@@ -97,7 +99,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_orders_order temp_orders_order
-    <include refid="Base_extend" />
+	 <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,7 +114,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_orders_order temp_orders_order
-    <include refid="Base_extend" />
+	 <include refid="Base_extend" />
     where temp_orders_order.order_id = #{orderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -126,22 +128,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.orders.OrdersOrder" >
-    insert into t_orders_order (order_id, order_code, order_price, 
-      order_num, order_status, status, 
-      distribute_status, remark, creater, 
-      create_time, updater, update_time
-      )
-    values (#{orderId,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, #{orderPrice,jdbcType=DECIMAL}, 
-      #{orderNum,jdbcType=INTEGER}, #{orderStatus,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
-      #{distributeStatus,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into t_orders_order (order_id, carrier_member_id, order_code, 
+      order_price, order_num, order_status, 
+      status, distribute_status, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{orderId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, 
+      #{orderPrice,jdbcType=DECIMAL}, #{orderNum,jdbcType=INTEGER}, #{orderStatus,jdbcType=CHAR}, 
+      #{status,jdbcType=CHAR}, #{distributeStatus,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.orders.OrdersOrder" >
     insert into t_orders_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         order_id,
+      </if>
+      <if test="carrierMemberId != null" >
+        carrier_member_id,
       </if>
       <if test="orderCode != null" >
         order_code,
@@ -181,6 +186,9 @@
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
       </if>
+      <if test="carrierMemberId != null" >
+        #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
       <if test="orderCode != null" >
         #{orderCode,jdbcType=VARCHAR},
       </if>
@@ -218,7 +226,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.orders.OrdersOrderExample" resultType="java.lang.Integer" >
     select count(*) from t_orders_order temp_orders_order
-    <include refid="Base_extend" />
+	 <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -228,6 +236,9 @@
     <set >
       <if test="record.orderId != null" >
         temp_orders_order.order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carrierMemberId != null" >
+        temp_orders_order.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
       </if>
       <if test="record.orderCode != null" >
         temp_orders_order.order_code = #{record.orderCode,jdbcType=VARCHAR},
@@ -270,6 +281,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_orders_order temp_orders_order
     set temp_orders_order.order_id = #{record.orderId,jdbcType=VARCHAR},
+      temp_orders_order.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
       temp_orders_order.order_code = #{record.orderCode,jdbcType=VARCHAR},
       temp_orders_order.order_price = #{record.orderPrice,jdbcType=DECIMAL},
       temp_orders_order.order_num = #{record.orderNum,jdbcType=INTEGER},
@@ -288,6 +300,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.orders.OrdersOrder" >
     update t_orders_order
     <set >
+      <if test="carrierMemberId != null" >
+        carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      </if>
       <if test="orderCode != null" >
         order_code = #{orderCode,jdbcType=VARCHAR},
       </if>
@@ -326,7 +341,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.orders.OrdersOrder" >
     update t_orders_order
-    set order_code = #{orderCode,jdbcType=VARCHAR},
+    set carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
+      order_code = #{orderCode,jdbcType=VARCHAR},
       order_price = #{orderPrice,jdbcType=DECIMAL},
       order_num = #{orderNum,jdbcType=INTEGER},
       order_status = #{orderStatus,jdbcType=CHAR},

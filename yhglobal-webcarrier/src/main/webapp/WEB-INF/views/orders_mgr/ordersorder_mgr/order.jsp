@@ -207,7 +207,7 @@
 					width : 560,
 					height : 230,
 					queryUrl : ctx + '/do/order/intoDispatching.htm',
-					submitUrl : ctx + '/do/ordersDispatching/addDispatching.json',
+					submitUrl : ctx + '/do/ordersDispatching/add.json',
 					queryParams : {
 						orderId : row.orderId
 					},

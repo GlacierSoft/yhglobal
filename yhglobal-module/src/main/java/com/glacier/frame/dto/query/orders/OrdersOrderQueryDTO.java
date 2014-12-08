@@ -81,6 +81,8 @@ public class OrdersOrderQueryDTO extends OrdersOrder{
 	}
 
 	public void setQueryCondition(Criteria queryCriteria){
+		
+	  
    	 if(null != this.getOrderCode() && StringUtils.isNotBlank(this.getOrderCode())){//订单名称Like查询
             queryCriteria.andOrderCodeLike("%" + this.getOrderCode() + "%");
         }  

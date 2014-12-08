@@ -98,11 +98,11 @@ public class OrdersDispatchingController {
     }
    	
     
-    //货物配送信息添加
+    //分配订单
     @RequestMapping(value = "/addDispatching.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addDispatching(@Valid OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
-    	return ordersDispatchingService.addDispatching(ordersDispatching,ordersOrdispatchingDetailed);
+    	return ordersDispatchingService.updateDispatching(ordersDispatching,ordersOrdispatchingDetailed);
     }
     
     

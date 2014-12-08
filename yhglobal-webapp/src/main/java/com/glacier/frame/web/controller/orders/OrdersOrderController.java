@@ -1,6 +1,9 @@
 package com.glacier.frame.web.controller.orders;
  
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller; 
@@ -39,15 +42,15 @@ public class OrdersOrderController extends AbstractController{
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrderQueryDTO orderSetQueryDTO) {
-        return orderSetService.listAsGrid(jqPager, orderSetQueryDTO);
+     	return orderSetService.listAsGrid(jqPager, orderSetQueryDTO);
     }
       
     // 进入订单信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoMemberOrderDetailPage(String orderId) { 
+    private Object intoMemberOrderDetailPage(String orderId,HttpSession httpSession) { 
     	ModelAndView mav = new ModelAndView("orders_mgr/ordersorder_mgr/order_detail");
         if(StringUtils.isNotBlank(orderId)){
-            mav.addObject("orderDate", orderSetService.getOrder(orderId));
+        	httpSession.setAttribute("orderId", orderId); 
         }
 	    return mav;
     }
