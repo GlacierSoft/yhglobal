@@ -108,7 +108,41 @@ public class StorehouseBelaidup {
     @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
      
-    //临时字段，存放改物品订单的增值服务
+    //运输费
+    private Float transportationCost;
+    
+    //保险费
+    private Float insuranceCost;
+    
+    //费用合计
+    private Float totalCost;
+     
+    
+    public Float getTransportationCost() {
+		return transportationCost;
+	}
+
+	public void setTransportationCost(Float transportationCost) {
+		this.transportationCost = transportationCost;
+	}
+
+	public Float getInsuranceCost() {
+		return insuranceCost;
+	}
+
+	public void setInsuranceCost(Float insuranceCost) {
+		this.insuranceCost = insuranceCost;
+	}
+
+	public Float getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(Float totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	//临时字段，存放改物品订单的增值服务
     private StorehouseAddedService addedService; 
 
     public StorehouseAddedService getAddedService() {

@@ -68,6 +68,21 @@
 				return renderGridValue(value, fields.yesOrNo);
 			}
 		},{
+			field : 'transportationCost',
+			title : '运输费',
+			width : 120,
+			sortable : true
+		},{
+			field : 'insuranceCost',
+			title : '保险费',
+			width : 120,
+			sortable : true
+		},{
+			field : 'totalCost',
+			title : '合计费用',
+			width : 120,
+			sortable : true
+		},{
 			field : 'belaidupInitiatin',
 			title : '起始站',
 			width : 120,

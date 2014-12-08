@@ -50,6 +50,10 @@
     <result column="temp_storehouse_belaidup_storage_display" property="storageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_package_display" property="packageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_package_code" property="packageCode" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_package_cost" property="packageCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_insurance_cost" property="insuranceCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_total_cost" property="totalCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -146,6 +150,9 @@
     ,temp_storage.storage_name as temp_storehouse_belaidup_storage_display
     ,temp_packagetype.packagetype_name as temp_storehouse_belaidup_package_display
     ,temp_packcode.pack_bar_code as temp_storehouse_belaidup_package_code
+    ,temp_added_service.transportation_cost as temp_storehouse_belaidup_transportation_cost 
+    ,temp_added_service.insurance_cost as temp_storehouse_belaidup_insurance_cost
+    ,temp_added_service.total_cost as temp_storehouse_belaidup_total_cost
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_storehouse_belaidup.creater <!-- 扩展 -->
@@ -155,6 +162,7 @@
     LEFT JOIN t_storehouse_storage temp_storage ON temp_storage.storage_id = temp_storehouse_belaidup.storehouse_id <!-- 扩展 -->
     LEFT JOIN t_storehouse_pack_code temp_packcode ON temp_packcode.belaidup_id = temp_storehouse_belaidup.belaidup_id <!-- 扩展 -->
     LEFT JOIN t_storehouse_packagetype_set temp_packagetype ON temp_packagetype.packagetype_id = temp_packcode.packagetype_id <!-- 扩展 --> 
+    LEFT JOIN t_storehouse_added_service temp_added_service ON temp_added_service.belaidup_id = temp_storehouse_belaidup.belaidup_id <!-- 扩展 --> 
   </sql>
   
   
