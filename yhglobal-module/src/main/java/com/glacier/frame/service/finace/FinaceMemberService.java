@@ -100,7 +100,11 @@ public class FinaceMemberService {
 	public Object getFinaceMemberProWebsite(String memberId){
 		FinanceMemberExample financeMemberExample = new FinanceMemberExample();
 		financeMemberExample.createCriteria().andMemberIdEqualTo(memberId);
-		FinanceMember financeMember=financeMemberMapper.selectByExample(financeMemberExample).get(0);
-		return financeMember;
+		List<FinanceMember> financeMembers=financeMemberMapper.selectByExample(financeMemberExample);
+		if(financeMembers.size()==0){
+			return null;
+		}else{
+			return financeMembers.get(0);
+		}
 	}
 }

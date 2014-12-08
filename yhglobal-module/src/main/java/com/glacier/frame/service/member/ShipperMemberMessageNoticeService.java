@@ -146,13 +146,16 @@ public class ShipperMemberMessageNoticeService {
 	 */
     public Object getMemberShipperMessageNoticeNumber(){
     	Map<Object, String> map=new HashMap<Object, String>();
+    	// 获取当前认证用户
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
     	//已读
         ShipperMemberMessageNoticeExample NoticeExampleAlready= new ShipperMemberMessageNoticeExample();
-        NoticeExampleAlready.createCriteria().andLetterstatusEqualTo("read");
+        NoticeExampleAlready.createCriteria().andLetterstatusEqualTo("read").andReceiverEqualTo(pricipalMember.getMemberId());
         int countAlready=shipperMemberMessageNoticeMapper.countByExample(NoticeExampleAlready);
         //未读
         ShipperMemberMessageNoticeExample NoticeExampleWithout= new ShipperMemberMessageNoticeExample();
-        NoticeExampleWithout.createCriteria().andLetterstatusEqualTo("unread");
+        NoticeExampleWithout.createCriteria().andLetterstatusEqualTo("unread").andReceiverEqualTo(pricipalMember.getMemberId());
         int countWithout=shipperMemberMessageNoticeMapper.countByExample(NoticeExampleWithout);
         //全部记录
         int countNumber=countAlready+countWithout;

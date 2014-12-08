@@ -124,6 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>优惠金额</td>
 						            <td>获赔金额</td>
 						          </tr>
+						         <c:if test="${!empty finaceMemberDate}">  	 
 						          <tr>
 						            <td>${finaceMemberDate.memberDisplay }</td>
 						            <td>￥<fmt:formatNumber value='${finaceMemberDate.mrechageRemain }' pattern='#,#00.00'/></td>
@@ -132,6 +133,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>￥<fmt:formatNumber value='${finaceMemberDate.mrechagePrefer }' pattern='#,#00.00'/></td>
 						            <td>￥<fmt:formatNumber value='${finaceMemberDate.mrechargeMark }' pattern='#,#00.00'/></td>
 						          </tr>
+						         </c:if>
+						          <c:if test="${empty finaceMemberDate}">
+						          <tr>
+						            <td>${currentMember.memberName }</td>
+						            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='0.00' pattern='#,#00.00'/></td>
+						          </tr>
+						          </c:if>
 					      	</tbody>
 					      </table>
 					      <div class="panel panel-default">
@@ -189,16 +201,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      		</c:forEach>
 					      	</c:if>
 					      	</tbody>
+					      	<c:if test="${!empty finaceMemberRecordDate.rows}"> 
 					      	<tfoot>
 					          <tr>
 					            <th colspan="11">
 					                <div align="right">
 									    <ul id='pagefinTransaction'></ul>
 									</div>
-
 								</th>
 					          </tr>
 					        </tfoot>
+					        </c:if> 
 					      </table>
 				        </div>
 				        <div class="tab-pane fade" id="recharge">
@@ -210,7 +223,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<tbody>
 						          	      <tr>
 								            <td align="right" >真实姓名：</td>
-								            <td><span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span></td>
+								            <td>
+								                 <c:if test="${!empty individuality}"> 
+								                   <span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span>
+								                </c:if>
+								                 <c:if test="${empty individuality}"> 
+								                     <span class="label label-default" style="background-color: #FF5400">${currentMember.memberName }</span>
+								                 </c:if>
+								            </td>
 								          </tr>
 								          <tr>
 								            <td align="right" >会员账号：</td>
@@ -271,7 +291,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<tbody>
 								          <tr>
 								            <td>真实姓名</td> 
-								            <td><span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span></td>
+								            <td>
+								               <c:if test="${!empty individuality}"> 
+								                <span class="label label-default" style="background-color: #FF5400">${individuality.memberRealName}</span>
+								               </c:if>
+								               <c:if test="${empty individuality}"> 
+								                <span class="label label-default" style="background-color: #FF5400">${currentMember.memberName }</span>
+								               </c:if>
+								            </td>
 								          </tr>
 								          <tr>
 								            <td>账号：</td>
