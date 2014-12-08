@@ -5,6 +5,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 <html lang="zh-cn">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -147,11 +151,14 @@
 				</div>
 				<div class="panel-body">
 					<ul class="list-group">
-					  <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#">国家发展和改革委员会主任徐绍史3</a></li>
-					  <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#">党中央打理支持改革委员会主任利民</a></li>
-					  <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#">寒流南下，海运区域存在不稳定因素</a></li>
-					  <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#">北京雾霾暂停飞往北京的空运运送因</a></li>
-					  <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#">珠海道路发生障碍，陆运将受到阻碍</a></li>
+					  <c:if test="${empty announcementDatas.rows}">
+							<tr>
+				           		<td colspan="7" style="text-align:center;vertical-align: middle;"><strong style="color: #0697DA">暂无信息</strong></td>
+				          	</tr>
+						</c:if>
+			        	<c:forEach items="${announcementDatas.rows}" var="announcement"> 
+					         <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#" onclick="doClick('${announcement.webAnnId}');">${announcement.webAnnTheme}</a></li>
+				      	</c:forEach>
 					</ul>
 				</div>
             </div>
@@ -255,3 +262,24 @@
    <jsp:include page="foot.jsp"/>
   </body>
 </html>
+<script type="text/javascript">
+//构建表单
+function doClick(str){
+	// 创建Form  
+  var form = $('<form></form>');  
+	// 设置属性  
+  form.attr('action', '<%=basePath%>announcement/announcementDetail.htm');  
+  form.attr('method', 'post');  
+  // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+  form.attr('target', '_self');  
+  // 创建Input  
+  var my_input = $('<input type="text" name="webAnnId" />');  
+  my_input.attr('value', str);  
+  // 附加到Form  
+  form.append(my_input);
+  //表单设置隐藏
+  form.css('display','none');
+  //表单的构建完成并提交
+  form.appendTo(document.body).submit();
+}
+</script>
