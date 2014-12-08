@@ -635,6 +635,18 @@ public class RegisterController extends AbstractController {
     public Object aboutUs() {
         return "about_mgr/aboutUs";
     }
+    
+    // 转到“越海物流展会”页面
+    @RequestMapping(value = "/logisticsExhibition.htm")
+    public Object logisticsExhibition() {
+        return "about_mgr/logisticsExhibition";
+    }
+    
+    // 转到“越海物流园区”页面
+    @RequestMapping(value = "/logisticsPark.htm")
+    public Object logisticsPark() {
+        return "about_mgr/logisticsPark";
+    }
 
     // 转到“招纳贤士”页面
     @RequestMapping(value = "/hiring.htm")
