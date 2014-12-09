@@ -437,4 +437,30 @@ public class ShipperMemberService {
         byte[] hashPassword = Digests.sha1(shipperMemberToken.getPassword().getBytes(), salt, HASH_INTERATIONS);
         shipperMemberToken.setPassword(Encodes.encodeHex(hashPassword));
     }
+    
+   /**
+    * @Title: addProInfo 
+    * @Description: TODO(会员忘记密码通过邮箱找回密码，设置新密码) 
+    * @param @param member
+    * @param @param  
+    * @param @return    设定文件 
+    * @return Object    返回类型 
+    * @throws
+    */
+   @Transactional(readOnly = false) 
+    public Object addProInfo(ShipperIndividualityMember shipperIndividualityMember,int mobileValidate,int mobile_true) {
+    	JqReturnJson returnResult=new JqReturnJson();
+    	if(mobileValidate!=mobile_true){
+    		returnResult.setMsg("验证码错误，请重新填写!");
+    	}else{
+    		int count=shipperIndividualityMemberMapper.updateByPrimaryKeySelective(shipperIndividualityMember);
+    		if(count>0){
+    			returnResult.setSuccess(true);
+    			returnResult.setMsg("信息更新成功!");
+    		}else{
+    			returnResult.setMsg("信息更新失败吗,请联系管理员!");
+    		}
+    	}
+    	return returnResult;    
+    }
 }

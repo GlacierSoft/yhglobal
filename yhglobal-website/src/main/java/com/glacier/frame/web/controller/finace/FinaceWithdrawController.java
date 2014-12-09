@@ -53,4 +53,7 @@ public class FinaceWithdrawController {
 		return finaceWithdrawMemberService.addWithdraw(finaceWithdrawMember, tradersPassword,bankCardId,mobile_code,mobile_true);
 	}
 	
+	
+	
+	
 }

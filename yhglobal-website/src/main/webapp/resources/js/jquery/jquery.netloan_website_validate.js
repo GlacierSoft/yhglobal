@@ -18,6 +18,11 @@
         var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
+    //QQ号码验证
+    jQuery.validator.addMethod("isQqNum", function(value, element) {
+    	var reg = /^[1-9]\d{4,8}$/;
+        return this.optional(element) || (reg.test(value));
+    }, "请正确填写QQ号码，卡号位数为9-11位");
     // 邮政编码验证
     jQuery.validator.addMethod("isZipCode", function(value, element) {
         var tel = /^[0-9]{6}$/;

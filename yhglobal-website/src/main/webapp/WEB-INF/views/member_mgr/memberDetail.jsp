@@ -102,60 +102,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   <div class="bs-example bs-example-tabs">
 				     <div id="myTabContent" class="tab-content">
 				       	 <div class="tab-pane fade in active" id="tabPersonalDetails">
-				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" onsubmit="return checkAll();">
+				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" >
 						       <div class="tab-pane fade in active" id="tabPersonalBase">
 							       	<br>
 							        <blockquote>
-								  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为个体会员必填项。</p>
+								  		<p class="text-primary">请正确填写信息，所有资料均会严格保密。</p>
 									</blockquote>
 							  		  <div class="form-group">
 							  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${member.memberId}" >
-									    <!-- 判断是按保存按钮还是保存并提交审核按钮 -->
-									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
-									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
+									    <label for="memberRealName" class="col-sm-2 control-label">真实姓名:</label>
 									    <div class="col-sm-4">
-									      <input type="text" maxlength="8" class="form-control" onblur="checkMemberRealName();" id="memberRealName" name="memberRealName" value="${individuality.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
-									      <span id="memberRealNameSpan"></span>
+									      <input  class="form-control" maxlength="11" style="float: left;" name="memberRealName" id="memberRealName" value="${individuality.memberRealName}"  placeholder="请填写真实姓名" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
 									    </div>
-									    <label for="educational" class="col-sm-2 control-label">更换手机号码:</label>
+									    <label for="educational" class="col-sm-2 control-label">省份证号:</label>
 									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="float: left;" name="mobileNumber" id="mobileNumber" value="${individuality.mobileNumber}"  placeholder="如不修改手机请保留为空" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-									      <span id="mobileNumberSpan"></span>
+									      <input class="form-control" maxlength="11" style="float: left;" name="cardId" id="cardId" value="${individuality.cardId}"  placeholder="请填写省份证号" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
 									    </div>
-									  </div>
-									  <div class="form-group" >
-									    <label for="mobileNumber" class="col-sm-2 control-label">*旧绑定邮箱:</label>
-									    <div class="col-sm-4" style="width: 300px;float: left;">
-									      <input type="tel"  class="form-control" style="width: 170px;float: left;" name="yanemail"  placeholder="如不修改请保留为空" >
-									      	<button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
-									      <span id="mobileNumberSpan"></span>
-					                 </div>
-					                 <div class="form-group" style="float: left;width: 400px" >
-									   <label for="mobileNumber" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
-									      <div class="col-sm-4" style="float: left;">
-									       	<input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
-									      </div> 
-									      </div>
 									  </div>
 									  <div class="form-group">
-									  	<label for="educational" class="col-sm-2 control-label">更换绑定邮箱:</label>
+									  	<label for="mobileNumber" class="col-sm-2 control-label">手机变更:</label>
 									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" style="float: left;" name="email" id="email" placeholder="新手机号码" >
-									      <span id="mobileNumberSpan"></span>
+									      <input class="form-control" style="float: left;width:175px;" name="mobileNumber" id="mobileNumber" placeholder="手机号码" value="${individuality.mobileNumber }"  >&nbsp;
+									      <input type="button" value="获取验证码" id="btnSendCode" style="float: right;"  name="btnSendCode" class="btn btn-default" onclick="get_mobile_code();"/>
 									    </div>
-									    <label for="sex" class="col-sm-2 control-label">性别:</label>
+									    <label for="sex" class="col-sm-2 control-label">短信验证:</label>
+									  	<div class="col-sm-4">
+									      <input type="tel" class="form-control"  maxlength="6" id="mobileValidate"  name="mobileValidate" style="float: left;"  placeholder="手机短信验证码" >&nbsp;
+									    </div>
+									  </div>
+									  <div class="form-group">
+									  	<label for="educational" class="col-sm-2 control-label">住宅电话:</label>
+									    <div class="col-sm-4">
+									      <input  class="form-control" style="float: left;" name="homePhone" value="${individuality.homePhone}" placeholder="填写住宅电话(非必填项)" >
+									    </div>
+									    <label for="sex" class="col-sm-2 control-label">会员性别:</label>
 									  	<div class="col-sm-4">
 									       <select class="form-control col-sm-6" name="sex" id="sex" >
 											  <option value="man">男</option>
 											  <option value="woman">女</option>
-											  <option value="secret">保密</option>
 											</select>
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="educational" class="col-sm-2 control-label">QQ:</label>
+									    <label for="educational" class="col-sm-2 control-label">QQ帐号:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="memberQq" id="memberQq" value="${individuality.memberQq}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="会员QQ">
+									      <input type="text" class="form-control" name="memberQq" value="${individuality.memberQq}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="请填写会员QQ">
 									    </div>
 									    <label for="memberAge" class="col-sm-2 control-label">会员年龄:</label>
 									    <div class="col-sm-4">
@@ -163,10 +154,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="detailedAddress" class="col-sm-2 control-label">*详细地址:</label>
+									    <label for="detailedAddress" class="col-sm-2 control-label">详细地址:</label>
 									    <div class="col-sm-10">
-									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" value="${individuality.detailedAddress}"  placeholder="现居住地址"></textarea>
-									      <span id="detailedAddressSpan"></span>
+									      <textarea class="form-control" rows="3" name="detailedAddress" id="detailedAddress"   placeholder="现居住地址">${individuality.detailedAddress}</textarea>
 									    </div>
 									  </div>
 						       </div>
@@ -179,9 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div>
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
-						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保  存</button>
-						      <!-- <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保存并提交审核</button> -->
-						      <div style="float: right;margin-top: 10px;margin-right:300px;"><span id="tieshi"></span></div>
+						      <button id="postButton" type="submit" class="btn btn-primary btn-lg" >保  存</button>
 						    </div>
 						  	</div>
 						   </form>  
@@ -192,300 +180,221 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 	    	</div>
 	    </div>
-	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
-	    <!-- CONTAINER START======================== -->
-	    		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
-	      <div class="alert alert-success fade in">
-	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	        <h4 style="text-align:center;"></h4>
-	      </div> 
-	    </div>
-	    <div id="danger_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
-	      <div class="alert alert-danger fade in">
-	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	        <h4 style="text-align:center;"></h4>
-	      </div> 
-	    </div>
-  </body>
+	   <jsp:include page="../foot.jsp"/>
+	</body>
 <script type="text/javascript"> 
-	    //禁用Enter键表单自动提交
-	      document.onkeydown = function(event) {
-	          var target, code, tag;
-	          if (!event) {
-	              event = window.event; //针对ie浏览器
-	              target = event.srcElement;
-	              code = event.keyCode;
-	              if (code == 13) {
-	                  tag = target.tagName;
-	                  if (tag == "TEXTAREA") {
-	                  	return true; 
-	                  } else {
-	                  	return false;
-	                  }
-	              }
-	          }else {
-	              target = event.target; //针对遵循w3c标准的浏览器，如Firefox
-	              code = event.keyCode;
-	              if (code == 13) {
-	                  tag = target.tagName;
-	                  if (tag == "INPUT") { 
-	                  	return false;
-	                  	
-	                  	}else{ 
-	                  		return true; 
-	                  	} 
-	              }
-	          }
-	      };
-
-	    	  $("#personalMessageForm").validate({
-	    		  rules:{
-	      		  },
-	      		  messages:{
-	      		  },
-	    		  submitHandler:function(){
-	    			 $.ajax({
-    				   type: "POST",
-    				   url: ctx+"/member/editIndividuality.htm",
-    				   dataType: "json",
-    				   data: $("#personalMessageForm").serialize(),
-	    			   success: function(r) { 
-	   					 	notClonedialog(r);
-	                    },
-	                    error: function() {
-	                        alert("提交出错！");
-	                    }
-			    	});
-	    		  }
-	    	  });
-	      
-	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
-	  	//验证所有
-		function checkAll(){
-			return checkMemberRealName()&&checkMobileNumber()&&checkLiveAddress();
-		}
-	    
-		//真实姓名验证
-	 	function checkMemberRealName(){
-			var memberRealName = $("#memberRealName").val();
-			if(memberRealName == ""){
-				document.getElementById("memberRealNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>真实姓名不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("memberRealNameSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-	    
-		//身份证验证
-		function checkCardId(){
-			var cardId = $("#cardId").val();
-			if(cardId == ""){
-				document.getElementById("cardIdSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>身份证号码不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("cardIdSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-		
-		//身份证验证
-		function checkMobileNumber(){
-			var mobileNumber = $("#mobileNumber").val();
-			if(mobileNumber == ""){
-				document.getElementById("mobileNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>手机号码不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("mobileNumberSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
+    $("#personalMessageForm").validate({
+         rules:{
+        	 memberRealName:{
+        		 required:true
+        	 },
+             cardId:{
+        		 required:true,
+        		 number:true
+        	},
+        	 mobileNumber:{
+        		 required:true,
+        		 number:true,
+        		 isMobile:true
+        	 },
+        	 mobileValidate:{
+        		 required:true,
+        		 number:true,
+        		 
+        	 },
+        	 homePhone:{
+        		 isPhone:true 
+        	 },
+        	 sex:{
+        	    required:true
+        	 },
+        	 memberQq:{
+        		 required:true,
+        		 number:true
+        	},
+        	 memberAge:{
+        		required:true,
+        		number:true,
+        		min:18,
+        		max:100
+        	 },
+        	 detailedAddress:{
+        		 required:true
+        	 }        	 
+         },
+         messages:{
+        	 memberRealName:{
+        		 required:"真实姓名不能为空！"
+        	 },
+        	 cardId:{
+            	 required:"省份证不能为空！",
+            	 number:"请正确填写身份证格式！ "
+             },
+        	 mobileNumber:{
+        		 required:"身份证号不能为空！",
+        		 number:"请正确填写手机号码格式",
+        		 isMobile:"请正确填写手机号码格式"
+        	 },
+        	 mobileValidate:{
+                  required:"请填写验证码",
+                  number:"请正确填写验证码格式",
+                  min:"验证码长度为6位",
+                  max:"验证码长度为6位"
+        	 },
+        	 homePhone:{
+        		   isPhone:"请正确电话格式！" 
+        	 },
+        	 memberQq:{
+        		 required:"请填写QQ号码",
+        		 number:'请正确填写QQ号码格式'
+        	},
+        	 memberAge:{
+        		 required:"请填写会员年龄",
+        		 number:'请填写正确格式',
+        		 min:"最小年龄不低于18",
+        		 max:"最大年龄不超过100"
+        	 },
+        	 detailedAddress:{
+        		 required:"请填写详细地址"
+        	 }
+         },errorPlacement: function(error, element) {     
+ 			if (element.attr("name") == "mobileNumber" )  
+		        error.insertAfter(element.next()); 
+			else
+				error.insertAfter(element); 
+		  },
+         submitHandler:function(){
+        	if(validateNumb){
+        		var d =art.dialog({
+ 		  		    title:'操作提示',
+ 		  		    fixed:true,
+ 		      	    lock: true,
+ 		      	    icon:'question',
+ 		      	    background:"#E6E6E6",
+ 		     		opacity:0.4,
+ 		  		    content: '你确定进行信息【保存】操作吗?',
+ 		  		    ok: function () {
+ 		  		    	$.ajax({
+ 				   				   type: "POST",
+ 				   				   url: ctx+"/memberDetail/addPro.json",
+ 				   				   dataType: "json",
+ 				   				   data:$("#personalMessageForm").serialize(),
+ 				    			   success: function(r) {
+ 				    				   window.clearInterval(InterValObj);// 停止计时器  
+ 							  	       $("#btnSendCode").removeAttr("disabled");// 启用按钮
+ 							  	       $("#mobileNumber").css("width","150px");
+ 							  	       $("#btnSendCode").val("重新发送验证码"); 
+ 							  	       mobile_code=0;
+ 							  	       validateNumb=false;
+ 							  	       if(r.success){
+ 							  	    	 $('#personalMessageForm')[0].reset();  
+ 							  	    	 doShow(r.msg); 	   
+ 							  	       }else{
+ 							  	    	 doShowError(r.msg);  
+ 							  	       }
+ 				    				 },
+ 				                    error: function() {
+ 				                    	doShowError("提交出错！"); 
+ 				                    }
+ 				   				});
+ 		  		    },
+ 		  		    cancel: function () {
+ 		  		        this.close();
+ 		  		    }
+ 		  		});
+ 		  		d.show(); 
+            }else{
+     		doShowError("请先获取验证码之后在做操作!");
+     	  }
+       } 	
+    });
+    
+    
+    var count =30; //间隔函数，1秒执行 
+	var curCount;//当前剩余秒数  
+	var InterValObj;//记录定时器
+	var validateNumb=false;//记录验证码发送次数
+    
+    function get_mobile_code(){
+    	 curCount=count;
+  	     clickNumber=true;
+  	   	 validateNumb=true;
+    	 if($("#mobileNumber").val()!=null&&$("#mobileNumber").val()!=""){
+    		 if('${individuality.mobileNumber}'!=null&&'${individuality.mobileNumber}'!=""){
+    			 $("#btnSendCode").attr("disabled", "true");  
+        		 $("#mobileNumber").css("width","100px");
+        		 $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+            	 InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 
+            	  $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${individuality.mobileNumber}'}, function(msg) {
+            			if(msg=='提交成功'){
+            				//暂无响应事件
+            		   }	
+          		});  
+    		 }else{
+    			 $("#btnSendCode").attr("disabled", "true");  
+            	 $("#mobileNumber").css("width","100px"); 
+            	  $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+            	  InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 
+            	  $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":$("mobileNumber").val()}, function(msg) {
+            			if(msg=='提交成功'){
+            				//暂无响应事件
+            		   }	
+          		});   
+    		 }
+    	 }else{
+    		 doShowError("请先添加手机!"); 
+    	 }
+    }
 	
-		//居住地址验证
-		function checkLiveAddress(){
-			var detailedAddress = $("#detailedAddress").val();
-			if(detailedAddress == ""){
-				document.getElementById("detailedAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>居住地址不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("detailedAddressSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-		
-	   	//功能判断
-	    function checksMember(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/member/judgeCheckMember.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-               },
-               error: function() {
-            	   location.href="${ctx}/login.htm";
-               }
-			});
-	    }
-	    
-	    //充值提现判断
-	    function checkRechargeWithdraw(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/financeMember/judgeCheckRechargeWithdraw.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-	            },
-	            error: function() {
-	            	location.href="${ctx}/login.htm";
-	            }
-			});
-	    }
-	    
-	  	function successHint(data,url){
-	  		//如果不存在，则转到借款页面
-	  		if(data.success){
-	    		window.location.href=url;
-	    	}else{//如果存在，则提示错误信息
-	    		KindEditor.ready(function(K) {
-					var dialog = K.dialog({
-				        width : 500,
-				        title : "提示",
-				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-				        closeBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                        dialog.remove();
-			                        window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-			        	},
-				        yesBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                	dialog.remove();
-			                	window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-				        }
-					});
-				});
-	      	}
-	    }
-	    
-	  	/*-------------------------------------------------基本信息验证结束---------------------------------------------*/
-	   	//功能判断
-	    function checksMember(memberId,url){
-	    	$.ajax({
-				   type: "POST",
-				   url: ctx+"/member/judgeCheckMember.json",
-				   dataType: "json",
-				   data: 'memberId='+memberId,
-			   success: function(r) {
-				   successHint(r,url);
-               },
-               error: function() {
-            	   location.href="${ctx}/login.htm";
-               }
-			});
-	    }
-	    
-	    function successHint(data,url){
-	  		//如果不存在，则转到借款页面
-	  		if(data.success){
-	    		window.location.href=url;
-	    	}else{//如果存在，则提示错误信息
-	    		KindEditor.ready(function(K) {
-					var dialog = K.dialog({
-				        width : 500,
-				        title : "提示",
-				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-				        closeBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                        dialog.remove();
-			                        window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-			        	},
-				        yesBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                	dialog.remove();
-			                	window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-				        }
-					});
-				});
-	      	}
-	    }
-	    
-	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
-	    $('#postAuthBut').bind('click', function(){    
-	    	$("#postAuth").val("postAuth");
-	        }); 
-	  	//通过判断是待审核或已审核，将表单改为只读状态。
-		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
-			$("form[id='personalMessageForm'] input,textarea[id='remark']").prop("readonly", true);
-			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
-			$("button[id='onlyPost']").prop("disabled", true);
-		} ;
-	    
-      	function addSecretSecuritydialog(data){
-			KindEditor.ready(function(K) {
-			var dialog = K.dialog({
-					        width : 300,
-					        title : '提示信息',
-					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-					        closeBtn : {
-					                name : '关闭',
-					                click : function(e) {
-					                        dialog.remove();
-					                }
-					        },
-					        yesBtn : {
-					                name : '确定',
-					                click : function(e) {
-					                		dialog.remove();
-					                		window.location.href="${ctx}/member/memberDetail.htm";
-					                }
-					        }
-						});
-			});
-		}
-      	function notClonedialog(msg){
-			KindEditor.ready(function(K) {
-			var dialog = K.dialog({
-					        width : 300,
-					        title : '提示信息',
-					        body : '<div style="margin:10px;"><strong>'+msg.msg+'</strong></div>',
-					        closeBtn : {
-					                name : '关闭',
-					                click : function(e) {
-					                        dialog.remove();
-					                }
-					        },
-					        yesBtn : {
-					                name : '确定',
-					                click : function(e) {
-					                		dialog.remove();
-					                }
-					        }
-						});
-			});
-		}
-		
-		
+	//timer处理函数  
+	function SetRemainTime() {  
+		if (curCount == 0) {
+			window.clearInterval(InterValObj);// 停止计时器  
+	        $("#btnSendCode").removeAttr("disabled");// 启用按钮  
+	        $("#mobileNumber").css("width","150px");
+	        $("#btnSendCode").val("重新发送验证码"); 
+	        $("#mobile_code").val("");
+	        validateNumb=false;
+	    }else {  
+	     curCount--;
+	     $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+	    }  
+	} 
+   //提示对话款
+    function doShowError(str){
+   	 var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'error',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	 this.close;
+   		    }
+   		});
+   		d.show();
+    } 
+	 //提示对话款
+    function doShow(str){
+   	 var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'succeed',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	 this.close;
+   		    	 location.href="${ctx}/member/memberDetail.htm";
+   		    }
+   		});
+   		d.show();
+    }
+    
 </script>
-		
-
 </html>
