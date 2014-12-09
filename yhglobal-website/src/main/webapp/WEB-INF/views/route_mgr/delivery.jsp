@@ -557,7 +557,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	 
 	$("#personalMessageForm").validate({ 
-		  /* rules:{
+		   rules:{
 			  consignor:"required",
 			  sendPhone:{
 	    			 required:true,
@@ -606,7 +606,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	    		number:"请输入合法手机号码!",
  	    		isMobile:"请输入合法手机号码!"
     		 },
-  		  }, */
+  		  },  
 		  submitHandler:function(){     
 			  $('#myModal').modal('show')
 		  }
