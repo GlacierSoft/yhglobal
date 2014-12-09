@@ -11,6 +11,7 @@
  * 
  */
 package com.glacier.frame.service.storehouse; 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinanceMemberDetailMapper;
+import com.glacier.frame.dao.finace.FinanceMemberMapper;
+import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
+import com.glacier.frame.dao.finace.FinancePlatformMapper;
+import com.glacier.frame.dao.member.MemberContractTypeMapper;
+import com.glacier.frame.dao.member.ShipperIntegralTypeMapper;
+import com.glacier.frame.dao.member.ShipperMemberContractRecordMapper;
+import com.glacier.frame.dao.member.ShipperMemberIntegralMapper;
+import com.glacier.frame.dao.member.ShipperMemberMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
 import com.glacier.frame.dao.orders.OrdersTrackingMapper;
@@ -32,9 +42,22 @@ import com.glacier.frame.dao.storehouse.StorehouseDamageMapper;
 import com.glacier.frame.dao.storehouse.StorehousePackCodeMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageGoodsrunMapper;
 import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
+import com.glacier.frame.entity.finace.FinanceMember;
+import com.glacier.frame.entity.finace.FinanceMemberDetail;
+import com.glacier.frame.entity.finace.FinanceMemberExample;
+import com.glacier.frame.entity.finace.FinancePlatform;
+import com.glacier.frame.entity.finace.FinancePlatformDetail;
+import com.glacier.frame.entity.finace.FinancePlatformExample;
+import com.glacier.frame.entity.member.MemberContractType;
+import com.glacier.frame.entity.member.MemberContractTypeExample;
+import com.glacier.frame.entity.member.ShipperIntegralType;
+import com.glacier.frame.entity.member.ShipperIntegralTypeExample;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.member.ShipperMemberContractRecord;
+import com.glacier.frame.entity.member.ShipperMemberIntegral;
 import com.glacier.frame.entity.orders.OrdersOrderInfo;
 import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
@@ -52,6 +75,7 @@ import com.glacier.frame.entity.storehouse.StorehouseStorage;
 import com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrun;
 import com.glacier.frame.entity.storehouse.StorehouseStorageGoodsrunExample;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -92,6 +116,36 @@ public class StorehouseBelaidupService {
 	
 	@Autowired
 	private StorehouseAddedServiceMapper addedServiceMapper; 
+	
+	@Autowired
+	private FinanceMemberDetailMapper financeMemberDetailMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
+	
+	@Autowired
+	private FinancePlatformMapper financePlatformMapper;
+	
+	@Autowired
+	private FinancePlatformDetailMapper financePlatformDetailMapper;
+	
+	@Autowired
+	private ShipperIntegralTypeMapper shipperIntegralTypeMapper;
+	
+	@Autowired
+	private ShipperMemberIntegralMapper shipperMemberIntegralMapper;
+	
+	@Autowired
+	private ShipperMemberMapper shipperMemberMapper;
+	
+	@Autowired
+	private MemberContractTypeMapper memberContractTypeMapper;
+	
+	@Autowired
+	private ShipperMemberContractRecordMapper shipperMemberContractRecordMapper;
 	
 	/**
      * @Title: notLogin 
@@ -378,6 +432,15 @@ public class StorehouseBelaidupService {
         	returnResult.setMsg("请先登录，再操作！");
         	return returnResult;
         } 
+        //查询账户是否够运输费
+        FinanceMemberExample finanMemberExample=new FinanceMemberExample();
+        finanMemberExample.createCriteria().andMemberIdEqualTo(pricipalUser.getMemberId());
+        FinanceMember fin=(FinanceMember)financeMemberMapper.selectByExample(finanMemberExample).get(0);
+        if(fin.getMrechageRemain().compareTo(storehouseAddedService.getTotalCost())==-1){
+        	returnResult.setMsg("账户余额不足，请先充值再发货！");
+        	return returnResult;
+        }
+        //新增物品信息
         int count = 0;
         belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setMemberId(pricipalUser.getMemberId());
@@ -395,6 +458,85 @@ public class StorehouseBelaidupService {
         	storehouseAddedService.setBelaidupId(belaidup.getBelaidupId()); 
         	storehouseAddedService.setMessage("yes");
         	addedServiceMapper.insert(storehouseAddedService);
+        	//新增会员资金记录
+        	FinanceMemberDetail financeMemberDetail=new FinanceMemberDetail();
+        	financeMemberDetail.setMdetailId(RandomGUID.getRandomGUID());
+        	financeMemberDetail.setMemberId(pricipalUser.getMemberId());
+        	financeMemberDetail.setArticleId(belaidup.getBelaidupId());
+        	financeMemberDetail.setMdetailType("nowPay");//现付
+        	financeMemberDetail.setMdetailPay(storehouseAddedService.getTotalCost()); 
+        	financeMemberDetail.setMdetaillPayfor(storehouseAddedService.getTotalCost());
+        	financeMemberDetail.setRemark("提交发货单扣款");
+        	financeMemberDetail.setCreater(getUserId());
+        	financeMemberDetail.setCreateTime(new Date());
+        	financeMemberDetail.setUpdater(getUserId());
+        	financeMemberDetail.setUpdateTime(new Date());
+        	financeMemberDetailMapper.insert(financeMemberDetail);
+        	//修改会员资金,账户金额减去此次运输总费用
+        	fin.setMrechageRemain(fin.getMrechageRemain().subtract(storehouseAddedService.getTotalCost()));
+        	fin.setUpdateTime(new Date());
+        	financeMemberMapper.updateByPrimaryKeySelective(fin);
+        	//取出默认平台资金账户
+        	FinancePlatformExample financePlatformExample=new FinancePlatformExample();
+        	financePlatformExample.createCriteria().andBankTypeEqualTo("default");
+        	FinancePlatform financePlatform=(FinancePlatform)financePlatformMapper.selectByExample(financePlatformExample).get(0);
+            //新增平台资金记录
+        	FinancePlatformDetail financePlatformDetail=new FinancePlatformDetail ();
+        	financePlatformDetail.setDetailId(RandomGUID.getRandomGUID());
+        	financePlatformDetail.setPlatformId(financePlatform.getPlatformId());
+        	financePlatformDetail.setTradeTarget(pricipalUser.getMemberName());
+        	financePlatformDetail.setTradeType("货主发货收款");
+        	financePlatformDetail.setTradeEarn(storehouseAddedService.getTotalCost());
+        	financePlatformDetail.setTradeSpend(new BigDecimal(0));
+        	financePlatformDetail.setTradeAmount(financePlatform.getRemainMoney().add(storehouseAddedService.getTotalCost()));
+        	financePlatformDetail.setCreater(getUserId());
+        	financePlatformDetail.setCreateTime(new Date());
+        	financePlatformDetail.setUpdater(getUserId());
+        	financePlatformDetail.setUpdateTime(new Date());
+        	financePlatformDetailMapper.insert(financePlatformDetail);
+        	//修改平台资金
+        	financePlatform.setRemainMoney(financePlatform.getRemainMoney().add(storehouseAddedService.getTotalCost()));
+        	financePlatform.setUpdateTime(new Date());
+        	financePlatformMapper.updateByPrimaryKeySelective(financePlatform);
+        	//取出发货的积分类型
+        	ShipperIntegralTypeExample integralTypeExample=new ShipperIntegralTypeExample();
+        	integralTypeExample.createCriteria().andIntegralTypeEqualTo("deliver").andChangeTypeEqualTo("increase");
+        	ShipperIntegralType shipperIntegralType=(ShipperIntegralType)shipperIntegralTypeMapper.selectByExample(integralTypeExample).get(0);
+            //新增积分记录
+        	ShipperMemberIntegral  shipperMemberIntegral =new ShipperMemberIntegral();
+        	shipperMemberIntegral.setShipperMemberIntegralId(RandomGUID.getRandomGUID());
+        	shipperMemberIntegral.setMemberId(pricipalUser.getMemberId());
+        	shipperMemberIntegral.setIntegralTypeId(shipperIntegralType.getIntegralTypeId());
+        	shipperMemberIntegral.setRemark("货主发货增加积分");
+        	shipperMemberIntegral.setCreater(getUserId());
+        	shipperMemberIntegral.setCreateTime(new Date());
+        	shipperMemberIntegral.setUpdater(getUserId());
+        	shipperMemberIntegral.setUpdateTime(new Date());
+        	shipperMemberIntegralMapper.insert(shipperMemberIntegral);
+        	//修改货主会员的资金和积分信息
+        	pricipalUser.setAccountBalance(fin.getMrechageRemain());//账户余额等于自己的资金余额
+        	pricipalUser.setIntegral(pricipalUser.getIntegral()+shipperIntegralType.getChangeValue());//原有积分+新增的
+        	shipperMemberMapper.updateByPrimaryKeySelective(pricipalUser);
+        	//查询合同类型--发货
+        	MemberContractTypeExample  memberContractTypeExample=new MemberContractTypeExample();
+        	memberContractTypeExample.createCriteria().andContractTypeNameEqualTo("货主承运商合同");
+        	MemberContractType memberContractType=(MemberContractType)memberContractTypeMapper.selectByExample(memberContractTypeExample).get(0);
+        	//生成合同信息
+        	ShipperMemberContractRecord shipperMemberContractRecord=new ShipperMemberContractRecord();
+        	shipperMemberContractRecord.setContractRecordId(RandomGUID.getRandomGUID());
+        	shipperMemberContractRecord.setGoodsId(belaidup.getBelaidupId());
+        	shipperMemberContractRecord.setMemberId(pricipalUser.getMemberId());
+        	shipperMemberContractRecord.setContractTypeId(memberContractType.getContractTypeId());
+        	shipperMemberContractRecord.setPlatformId("越海物流");
+        	shipperMemberContractRecord.setStatus("enable");
+        	shipperMemberContractRecord.setContractContent("合同内容。。。");
+        	shipperMemberContractRecord.setOperationTime(new Date());
+        	shipperMemberContractRecord.setRemark("此合同从订单成功提交即生效");
+        	shipperMemberContractRecord.setCreater(getUserId());
+        	shipperMemberContractRecord.setCreateTime(new Date());
+        	shipperMemberContractRecord.setUpdater(getUserId());
+        	shipperMemberContractRecord.setUpdateTime(new Date());
+        	shipperMemberContractRecordMapper.insert(shipperMemberContractRecord);
         } 
         if (count == 1) {
         	 returnResult.setSuccess(true);
@@ -592,4 +734,19 @@ public class StorehouseBelaidupService {
          return sto;
     }
    
+     /**
+      * 
+      * @Title: getUserId  
+      * @Description: TODO(获取系统管理员的id)  
+      * @param @return    设定文件  
+      * @return String    返回类型  
+      * @throws
+      */
+    public String getUserId(){ 
+    	UserExample userExample=new UserExample();
+    	userExample.createCriteria().andUsernameEqualTo("admin");
+    	User use= (User)userMapper.selectByExample(userExample).get(0);
+        return use.getUserId();
+    }
+    
 }

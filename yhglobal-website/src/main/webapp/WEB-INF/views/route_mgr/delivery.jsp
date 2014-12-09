@@ -379,9 +379,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	 
 		 <!-- 模态框（Modal） -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  
+		<div  class="modal fade" id="myModal" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
-			   <div class="modal-dialog">
+			   <div style="position: absolute; top: 25%; left: 30%;" class="modal-dialog">
 			      <div class="modal-content">
 			         <div class="modal-header">
 			            <button type="button" class="close" 
@@ -389,11 +389,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                  &times;
 			            </button>
 			            <h4 class="modal-title" id="myModalLabel">
-			                                 提交运单
+			                                  温馨提示
 			            </h4>
 			         </div>
-			         <div class="modal-body" > 
-			                               为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改~
+			         <div class="modal-body" style="color:#0697DA " > 
+			                               为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改哟~
 			         </div>
 			         <div class="modal-footer">
 			            <button type="button" class="btn btn-primary " 
@@ -408,9 +408,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		 
 		<!-- 模态框（Modal） -->
-		<div class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
+		<div  class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
-			   <div class="modal-dialog">
+			   <div style="position: absolute; top: 25%; left: 30%;" class="modal-dialog">
 			      <div class="modal-content">
 			         <div class="modal-header">
 			            <button type="button" class="close" 
@@ -418,11 +418,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                  &times;
 			            </button>
 			            <h4 class="modal-title" id="myModalLabel">
-			                            提示信息
+			                温馨提示
 			            </h4>
 			         </div>
-			         <div class="modal-body"  id="msg"> 
+			         <div class="modal-body" style="color:#0697DA "  id="msg"> 
 			         </div> 
+			         <div class="modal-footer"> 
+			            <button type="button" class="btn  btn-primary" data-dismiss="modal">
+			                                    确认
+			            </button>
+			         </div>
 			      </div> 
 			 </div> 
 		</div> 
@@ -529,13 +534,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   $("#msg").empty();
 				   $("#msg").text(r.msg); 
 				   $('#mymsg').modal('show');   
-				   setTimeout(hiden(r), 2000); 
+				   hiden(r); 
 			   }
    	     });
 	} 
 	//隐藏消息提示层，如果是未登录的，直接转到登录页面
 	function hiden(r){ 
-		  $('#mymsg').modal('hide');  
+		 
 		     var text=$("#msg").text(); 
 		     if(text== "请先登录，再操作！"){ 
 				 window.location.href=ctx +"/login.htm"; 
@@ -544,6 +549,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	 var routeId=$("#routeId").attr("value");
 		    	 send(routeId);
 			   }
+		   //  $('#mymsg').modal('hide');  
 	} 
 	
 	$("#sub").click(function(){
@@ -551,7 +557,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	 
 	$("#personalMessageForm").validate({ 
-		  rules:{
+		  /* rules:{
 			  consignor:"required",
 			  sendPhone:{
 	    			 required:true,
@@ -600,7 +606,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	    		number:"请输入合法手机号码!",
  	    		isMobile:"请输入合法手机号码!"
     		 },
-  		  },
+  		  }, */
 		  submitHandler:function(){     
 			  $('#myModal').modal('show')
 		  }
