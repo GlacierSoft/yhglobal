@@ -88,8 +88,7 @@ public class ShipperMemberMessageNoticeController {
 	        return mav;
 	    } 
 	   
-	   //会员站内信息添加
-	    // 增加消息通知
+	   // 增加消息通知
 	    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
 	    @ResponseBody
 	    private Object addMemberMessageNotice(@Valid ShipperMemberMessageNotice shipperMemberMessageNotice){

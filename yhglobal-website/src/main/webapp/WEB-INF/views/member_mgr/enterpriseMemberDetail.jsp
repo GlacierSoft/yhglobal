@@ -22,8 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 <jsp:include page="../nav.jsp"/>
        
-	    <!-- CONTAINER START======================== -->
-	    <div class="container">
+	   <div class="container">
 	    <div class="row">
 		    <div class="col-md-2">
 	    		<div class="panel-group" id="accordion">
