@@ -622,31 +622,41 @@ public class RegisterController extends AbstractController {
 
     // 转到“关于我们”页面
     @RequestMapping(value = "/aboutUs.htm")
-    public Object aboutUs() {
+    public Object aboutUs(HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "关于我们");
         return "about_mgr/aboutUs";
     }
     
     // 转到“越海物流展会”页面
     @RequestMapping(value = "/logisticsExhibition.htm")
-    public Object logisticsExhibition() {
+    public Object logisticsExhibition(HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "综合消息");
         return "about_mgr/logisticsExhibition";
     }
     
     // 转到“越海物流园区”页面
     @RequestMapping(value = "/logisticsPark.htm")
-    public Object logisticsPark() {
+    public Object logisticsPark(HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "综合消息");
         return "about_mgr/logisticsPark";
     }
 
     // 转到“招纳贤士”页面
     @RequestMapping(value = "/hiring.htm")
-    public Object hiring() {
+    public Object hiring(HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "关于我们");
         return "about_mgr/hiring";
     }
 
     // 转到“联系我们”页面
     @RequestMapping(value = "/contactUs.htm")
-    public Object contactUs() {
+    public Object contactUs(HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "关于我们");
         return "about_mgr/contactUs";
     }
 

@@ -82,7 +82,9 @@ public class MemberController extends AbstractController{
 
     // 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexMember(HttpServletRequest request,HttpSession session) {
+    private Object intoIndexMember(HttpServletRequest request,HttpSession session,HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "个人中心");
         ModelAndView mav = new ModelAndView("/member_mgr/member");
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
         ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
@@ -183,7 +185,9 @@ public class MemberController extends AbstractController{
     
     // 进入会员个人详细信息展示页面
     @RequestMapping(value = "/memberDetail.htm")
-    private Object intoMemberDetail(HttpServletRequest request) {
+    private Object intoMemberDetail(HttpServletRequest request,HttpSession tips) {
+    	//保存在session里面
+    	tips.setAttribute("tips", "个人中心");
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
         ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
         ModelAndView mav = null;
