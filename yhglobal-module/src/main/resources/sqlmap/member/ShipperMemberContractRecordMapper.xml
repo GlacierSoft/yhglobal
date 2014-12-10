@@ -18,9 +18,9 @@
     <result column="temp_shipper_member_contract_record_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     
     
-<!--     <result column="temp_shipper_member_contract_record_goods_display" property="goodsDisplay" jdbcType="VARCHAR"/> 自定义扩展字段 -->
+ 
 <!--     <result column="temp_shipper_member_contract_record_platform_display" property="platformDisplay" jdbcType="VARCHAR"/> 自定义扩展字段 -->
-	
+	 <result column="temp_shipper_member_contract_record_goods_display" property="goodsDisplay" jdbcType="VARCHAR"/><!-- 自定义扩展字段 -->
 	<result column="temp_shipper_member_contract_record_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--  自定义扩展字段 -->
     <result column="temp_shipper_member_contract_record_contract_type_display" property="contractTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_shipper_member_contract_record_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -103,7 +103,7 @@
     
      <!-- 以下字段属于扩展 -->
      
-     
+    ,temp_storehouse_belaidup.belaidup_prod_name as temp_shipper_member_contract_record_goods_display
     ,temp_shipper_member.member_name as temp_shipper_member_contract_record_member_display
     ,temp_member_contract_type.contract_type_name as temp_shipper_member_contract_record_contract_type_display
     ,temp_creater.user_cn_name as temp_shipper_member_contract_record_creater_display
@@ -112,9 +112,9 @@
   </sql>
   
   <sql id="Base_extend">
+    LEFT JOIN t_storehouse_belaidup temp_storehouse_belaidup ON temp_storehouse_belaidup.belaidup_id=temp_shipper_member_contract_record.goods_id <!-- 扩展 -->
     LEFT JOIN t_shipper_member temp_shipper_member ON temp_shipper_member.member_id =temp_shipper_member_contract_record.member_id <!-- 扩展 -->
     LEFT JOIN t_member_contract_type  temp_member_contract_type ON temp_member_contract_type.contract_type_id =temp_shipper_member_contract_record.contract_type_id <!-- 扩展 -->
-    
     LEFT JOIN t_user temp_creater ON temp_creater.user_id =temp_shipper_member_contract_record.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id =temp_shipper_member_contract_record.updater <!-- 扩展 -->
   </sql>

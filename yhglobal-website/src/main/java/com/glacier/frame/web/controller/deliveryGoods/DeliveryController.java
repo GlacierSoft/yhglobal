@@ -42,6 +42,7 @@ import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.carrier.CarrierRouterService;
+import com.glacier.frame.service.member.ContractService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -74,6 +75,9 @@ public class DeliveryController {
 
 	@Autowired
 	private StorehouseBelaidupService belaidupService;
+	
+	@Autowired
+	private ContractService contractService;
 
 	// 我要发货展示页
 	@RequestMapping(value = "index.htm")
@@ -190,8 +194,27 @@ public class DeliveryController {
     		httpSession.removeAttribute("belaidup");
         }else{
         	//转发到发货页面
-        	mav= new ModelAndView("deliveryGoods/deliveryGoods");
+        	 mav = new ModelAndView("deliveryGoods/routeInfo"); 
+        	 CarrierRouteQueryDTO routeQueryDTO=new CarrierRouteQueryDTO();
+      		StorehouseBelaidup belaidups=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
+      		routeQueryDTO.setRouteOrigin(belaidups.getBelaidupInitiatin());
+      		routeQueryDTO.setRouteStop(belaidups.getBelaidupTerminu());
+      		JqPager pager=new JqPager();
+      		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,1,"",routeQueryDTO));
+      	    mav.addObject("msg", returnResult.getMsg());
         } 
   		return mav;
   	}
+  	
+    //订单合同协议页面
+ 	@RequestMapping(value = "/contract.htm")
+ 	private Object contract(String belaidupId) {
+ 		ModelAndView mav = new ModelAndView("member_mgr/contract");
+ 		if (StringUtils.isNotBlank(belaidupId)) {
+ 			mav.addObject("contractDate", contractService.getContract(belaidupId));
+ 			mav.addObject("belaidupDate", belaidupService.getBelaidup(belaidupId)); 
+ 		}
+ 		return mav; 
+ 	}
+  	
  }

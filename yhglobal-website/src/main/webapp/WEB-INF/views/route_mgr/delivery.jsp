@@ -321,8 +321,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</select> 
 							    </div> 
 						   </div> 
-						   <div class="form-group" >
-							  <!-- <div class="col-sm-12" style="float: left;">
+						      <input type="hidden" name="modeOfPayment"    value="spotpayment">
+										  
+						   <!-- <div class="form-group" >
+							  <div class="col-sm-12" style="float: left;">
 							      <div class="checkbox" style="float: left; margin-left: 150px">
 								    <label>
 								      <input type="checkbox" checked="checked" disabled="disabled">工本费<font color="red">(6元)</font>
@@ -334,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    </label>
 								  </div>
 							   </div>  -->
-						       <div class="form-group" >
+						     <!--   <div class="form-group" >
 						         <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
 								     <div class="radio" style="float: left;">
@@ -350,7 +352,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										   </label>
 									  </div>
 							     </div>
-						    </div>  
+						    </div>   -->
 						    <div class="form-group" >
 						     <label for="inputEmail3" class="col-sm-3 control-label" >货物价值:</label>
 							     <div class="col-sm-9" style="float: left;"> 
@@ -393,7 +395,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </h4>
 			         </div>
 			         <div class="modal-body" style="color:#0697DA " > 
-			                               为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改哟~
+			        <img width="87px" height="87px" hspace="0" vspace="0" src="${pageContext.request.contextPath}/resources/images/delivery/80e.png">
+	                                               请认真核对所填信息，信息一经提交不可更改哟~
 			         </div>
 			         <div class="modal-footer">
 			            <button type="button" class="btn btn-primary " 

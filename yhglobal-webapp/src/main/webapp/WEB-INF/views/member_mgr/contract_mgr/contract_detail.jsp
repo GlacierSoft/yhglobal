@@ -8,7 +8,7 @@
 		<tr>
 			<td>货物名称：</td>
 			<td>
-				<input class="spinner" style="height:18px;width:180px" value="${contractData.goodsId}"  readonly="readonly"/>
+				<input class="spinner" style="height:18px;width:180px" value="${contractData.goodsDisplay}"  readonly="readonly"/>
 			</td>
 			<td>乙方(货主)：</td>
 			<td><input class="spinner" style="width:168px" value="${contractData.memberDisplay}" readonly="readonly"/></td>

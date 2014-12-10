@@ -176,10 +176,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          	<thead>
 				          <tr>
 				            <th width="100px">货物名称</th>
-				            <th>货物重量</th>
-				            <th>货物体积</th>
-				            <th>货物类型</th>
-				            <th>货物状态</th>
+				            <th>重量</th>
+				            <th>体积</th>
+				            <th>类型</th> 
 				            <th>起始站</th>
 				            <th>终点站</th>
 				            <th>创建时间</th>
@@ -199,18 +198,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          	<td>${storehouseBelaidupList.belaidupWeight}</td>
 					          	<td>${storehouseBelaidupList.belaidupBulk}</td>
 					          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
-					          	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
-					          	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
+					          <%-- 	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
+					           --%>	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
 					          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
 					          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
 					            <td>
 					                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
+					                 
 	                                 <c:if test="${storehouseBelaidupList.stauts=='enable'}">
 	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
 					                 </c:if>
 					                 <c:if test="${storehouseBelaidupList.stauts=='disable'}">
 	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
 					                 </c:if>
+					                  <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doContract('${storehouseBelaidupList.belaidupId}');">协议</button>
 					            </td>
 					          </tr>
 				      		</c:forEach>
@@ -357,6 +358,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		    }
     		});
     		d.show();
+     }
+     
+     //查看合同协议
+     function  doContract(id){
+    	// 创建Form  
+ 	    var form = $('<form></form>');  
+ 		// 设置属性  
+ 	    form.attr('action', '<%=basePath%>delivery/contract.htm');  
+ 	    form.attr('method', 'post');  
+ 	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+ 	    form.attr('target', '_self');  
+ 	    // 创建Input  
+ 	    var my_input = $('<input type="text" name="belaidupId" />');   
+ 	    my_input.attr('value', id);   
+ 	    // 附加到Form  
+ 	    form.append(my_input);  
+ 	    //表单设置隐藏
+ 	    form.css('display','none');
+ 	    //表单的构建 完成并提交
+ 	    form.appendTo(document.body).submit();
      }
    </script>
 </body>

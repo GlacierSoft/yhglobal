@@ -172,7 +172,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      <textarea class="form-control" name="remark" rows="2"></textarea>
 						    </div>  
 						  </div>  
-					 <div class="form-group col-sm-9" >
+					  <input type="hidden" name="modeOfPayment"   value="spotpayment">
+									
+					<!--  <div class="form-group col-sm-9" >
 						         <label for="inputEmail3" class="col-sm-3 control-label" >支付方式:</label>
 							     <div class="col-sm-6" style="float: left;"> 
 								     <div class="radio" style="float: left;">
@@ -188,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										   </label>
 									  </div>
 							     </div>
-						  </div> 
+						  </div>  -->
 						  <div class="form-group col-sm-9" align="center">
 					               <button style="width: 160px" type="submit" class="btn btn-primary">下一步</button> 
 					       </div> 
@@ -203,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- 模态框（Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
-			   <div class="modal-dialog">
+			   <div style="position: absolute; top: 25%; left: 30%;" class="modal-dialog">
 			      <div class="modal-content">
 			         <div class="modal-header">
 			            <button type="button" class="close" 
@@ -214,8 +216,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                                    温馨提示
 			            </h4>
 			         </div>
-			         <div class="modal-body" > 
-			                               为了您货物能准确到达目的地，请认真核对所填信息，信息一经提交不可更改~
+			         <div class="modal-body"  style="color:#0697DA "> 
+			     <img width="87px" height="87px" hspace="0" vspace="0" src="${pageContext.request.contextPath}/resources/images/delivery/80e.png">
+	                                    请认真核对所填信息，信息一经提交不可更改哟~
 			         </div>
 			         <div class="modal-footer">
 			            <button type="button" class="btn btn-primary " 
@@ -232,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- 模态框（Modal） -->
 		<div class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
 			   aria-labelledby="myModalLabel" aria-hidden="true">
-			   <div class="modal-dialog">
+			   <div style="position: absolute; top: 25%; left: 30%;" class="modal-dialog">
 			      <div class="modal-content">
 			         <div class="modal-header">
 			            <button type="button" class="close" 
@@ -240,11 +243,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                  &times;
 			            </button>
 			            <h4 class="modal-title" id="myModalLabel">
-			                            提示信息
+			                            温馨提示
 			            </h4>
 			         </div>
-			         <div class="modal-body"  id="msg"> 
+			         <div class="modal-body"  style="color:#0697DA " id="msg"> 
 			         </div> 
+			          <div class="modal-footer"> 
+			            <button type="button" class="btn  btn-primary" data-dismiss="modal">
+			                                    确认
+			            </button>
+			         </div>
 			      </div> 
 			 </div> 
 		</div> 
@@ -252,7 +260,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
    <script type="text/javascript">
 	 $("#form_delivery").validate({
-    	    rules:{
+    	   rules:{
     		 consignor:{
     			 required:true
     		 },
@@ -332,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			 required:"货物数量不能为空!",
     			 number:"请填写合法数量!"
     		 }
-    	 },    
+    	 },  
     	 submitHandler:function(){
     		 $('#myModal').modal('show'); 
     	 }
@@ -355,7 +363,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   $("#msg").text(r.msg); 
 						   $('#mymsg').modal('show');  
 					   } 
-					   setTimeout(hiden(r), 2000); 
+					    hiden(r); 
 				   }
 	   	     });
 		} 

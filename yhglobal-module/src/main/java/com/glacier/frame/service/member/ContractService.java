@@ -92,6 +92,21 @@ public class ContractService {
 		return shipperMemberContractRecord;
 	}
 	
+	/** 
+	 * @Title: getContract  
+	 * @Description: TODO(根据物品id获取对应的合同记录)  
+	 * @param @param contractRecordId
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
+	 */
+	public Object getContract(String belaidupId) {
+		ShipperMemberContractRecordExample shipperMemberContractRecordExample=new ShipperMemberContractRecordExample();
+		shipperMemberContractRecordExample.createCriteria().andGoodsIdEqualTo(belaidupId);
+	    ShipperMemberContractRecord shipperMemberContractRecord = shipperMemberContractRecordMapper.selectByExample(shipperMemberContractRecordExample).get(0);
+		return shipperMemberContractRecord;
+	}
+	
 	 /**
 	  * @Title: export 
 	  * @Description: TODO(货主合同记录信息导出EXCEL) 
@@ -176,7 +191,7 @@ public class ContractService {
 				//时间格式转化
 		        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 					
-				cell_Zero.setCellValue(contract.getGoodsId());
+				cell_Zero.setCellValue(contract.getGoodsDisplay());
 				cell_One.setCellValue(contract.getMemberDisplay());
 				cell_Two.setCellValue(contract.getPlatformId());
 				cell_Three.setCellValue(contract.getContractTypeDisplay());

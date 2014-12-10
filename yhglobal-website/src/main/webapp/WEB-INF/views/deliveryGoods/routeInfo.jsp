@@ -295,9 +295,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div> 
 		</div>
   
+  	    <!-- 模态框（Modal） -->
+		<div  class="modal fade" id="mymsg" tabindex="-1" role="dialog"  
+			   aria-labelledby="myModalLabel" aria-hidden="true">
+			   <div style="position: absolute; top: 25%; left: 30%;" class="modal-dialog">
+			      <div class="modal-content">
+			         <div class="modal-header">
+			            <button type="button" class="close" 
+			               data-dismiss="modal" aria-hidden="true">
+			                  &times;
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">
+			                温馨提示
+			            </h4>
+			         </div>
+			         <div class="modal-body" style="color:#0697DA "  id="msg">  
+			         </div> 
+			         <div class="modal-footer"> 
+			            <button type="button" class="btn  btn-primary" data-dismiss="modal">
+			                                    确认
+			            </button>
+			         </div>
+			      </div> 
+			 </div> 
+		</div> 
 	<jsp:include page="../foot.jsp"/> 
 		
-	<script type="text/javascript">   
+	<script type="text/javascript">    
+	var msg="${msg}";  
+	if(msg!=""){
+		 $("#msg").empty();
+		 $("#msg").text(msg); 
+		 $('#mymsg').modal('show');
+	}
+	
+	
 	
 	 //select选择项不变效果
 	 var index='${txt}'-0; 

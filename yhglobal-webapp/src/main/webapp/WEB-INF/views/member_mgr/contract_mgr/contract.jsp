@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							title : 'ID',
 							checkbox : true
 						}, {
-							field : 'goodsId',
+							field : 'goodsDisplay',
 							title : '货物名称',
 							width : 120,
 							sortable : true

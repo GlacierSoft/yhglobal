@@ -50,7 +50,7 @@
     <result column="temp_storehouse_belaidup_storage_display" property="storageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_package_display" property="packageDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_package_code" property="packageCode" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_storehouse_belaidup_package_cost" property="packageCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_transportation_cost" property="transportationCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_insurance_cost" property="insuranceCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_total_cost" property="totalCost" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     

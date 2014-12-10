@@ -25,11 +25,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinanceMemberMapper;
 import com.glacier.frame.dao.member.ShipperEnterpriseMemberMapper;
 import com.glacier.frame.dao.member.ShipperIndividualityMemberMapper;
 import com.glacier.frame.dao.member.ShipperMemberMapper;
 import com.glacier.frame.dao.member.ShipperMemberTokenMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.member.ShipperMemberQueryDTO;
+import com.glacier.frame.entity.finace.FinanceMember;
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
@@ -37,6 +40,7 @@ import com.glacier.frame.entity.member.ShipperMemberExample;
 import com.glacier.frame.entity.member.ShipperMemberExample.Criteria;
 import com.glacier.frame.entity.member.ShipperMemberToken;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -65,6 +69,12 @@ public class ShipperMemberService {
 
 	@Autowired
     private ShipperMemberTokenMapper shipperMemberTokenMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	 
+	@Autowired
+	private UserMapper userMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -354,6 +364,23 @@ public class ShipperMemberService {
             shipperIndividualityMember.setMemberId(shipperMemberId);
             shipperIndividualityMemberMapper.insert(shipperIndividualityMember);
         }
+        
+        //生成会员资金
+        FinanceMember financeMember =new FinanceMember();
+        financeMember.setMrechageId(RandomGUID.getRandomGUID());
+        financeMember.setMemberId(shipperMemberId);
+        financeMember.setMrechageAdd(new BigDecimal(0));
+        financeMember.setMrechagePay(new BigDecimal(0));
+        financeMember.setMrechagePrefer(new BigDecimal(0));
+        financeMember.setMrechageRemain(new BigDecimal(0));
+        financeMember.setMrechargeMark(new BigDecimal(0));
+        financeMember.setRemark("注册会员资金账户");
+        financeMember.setCreater(getUserId());
+        financeMember.setCreateTime(new Date());
+        financeMember.setUpdater(getUserId());
+        financeMember.setUpdateTime(new Date());
+        financeMemberMapper.insert(financeMember); 
+         
         //判断增加信息是否成功，成功返回成功提示信息
         if (count == 1 && countToken == 1) {
             returnResult.setSuccess(true);
@@ -463,4 +490,20 @@ public class ShipperMemberService {
     	}
     	return returnResult;    
     }
+   
+   /**
+    * 
+    * @Title: getUserId  
+    * @Description: TODO(获取系统管理员的id)  
+    * @param @return    设定文件  
+    * @return String    返回类型  
+    * @throws
+    */
+  public String getUserId(){ 
+  	UserExample userExample=new UserExample();
+  	userExample.createCriteria().andUsernameEqualTo("admin");
+  	User use= (User)userMapper.selectByExample(userExample).get(0);
+      return use.getUserId();
+  }
+  
 }
