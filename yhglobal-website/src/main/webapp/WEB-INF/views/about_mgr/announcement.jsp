@@ -52,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 					        <li><a href="${ctx}/others/otherAddress.htm">公司地图</a></li>
 					        <li><a href="${ctx}/others/others.htm">其他业务</a></li>
+					      	<li><a href="${ctx}/feedback/feedback.htm">意见反馈</a></li>
 					      </ul>
 				  		</div>
 				  	</div>

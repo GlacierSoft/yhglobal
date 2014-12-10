@@ -148,17 +148,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td><img alt="" src="${ctx}/resources/images/member/zhaiquanzhuanrang.jpg"></td>
 			        		<td><img alt="" src="${ctx}/resources/images/member/huankuan.jpg"></td>
 			        		<td><img alt="" src="${ctx}/resources/images/member/daishoukuan.jpg"></td>
-			        		<td><img alt="" src="${ctx}/resources/images/member/zijinliushui.jpg"></td>
-			        		<td><img alt="" src="${ctx}/resources/images/member/jiekuan.jpg"></td>
+			        		<%-- <td><img alt="" src="${ctx}/resources/images/member/zijinliushui.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/jiekuan.jpg"></td> --%>
 			        	</tr>
 			        	<tr style="height:40px;margin: 10px;">
-			        		<td><a href="javascript:checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="navbar-link"><span>我要充值</span></a></td>
-			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>消费情况</span></a></td>
-			        		<td><a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')"  class="navbar-link"><span>我要订单</span></a></td>
-			        		<td><a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')"  class="navbar-link"><span>我的运单</span></a></td>
-			        		<td><a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}')"  class="navbar-link"><span>我的报表</span></a></td>
-			        		<td><a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');"  class="navbar-link"><span>车辆管理</span></a></td>
-			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>查看档案</span></a></td>
+			        		<td><a href="${ctx}/member/rechargeWithdraw.htm?p=1" class="navbar-link"><span>我要充值</span></a></td>
+			        		<td><a href="${ctx}/member/release.htm" class="navbar-link"><span>发布货源</span></a></td>
+			        		<td><a href="${ctx}/orderQuery.htm?&p=1" class="navbar-link"><span>我的订单</span></a></td>
+			        		<td><a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="navbar-link"><span>货源管理</span></a></td>
+			        		<td><a href="${ctx}/member/changeMemberPassword.htm" class="navbar-link"><span>修改密码</span></a></td>
+			        		<%-- <td><a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');"  class="navbar-link"><span>车辆管理</span></a></td>
+			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>查看档案</span></a></td> --%>
 			        	</tr>
 			        </table>
 			        </div>

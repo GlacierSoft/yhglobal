@@ -34,41 +34,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="item">
           <dl>
             <dt>简介</dt>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">互联网简介</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">产品服务</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">创新优势</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">友情链接</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">联系我们</a></dd>
+            <dd><a href="<%=basePath %>aboutUs.htm" target="_blank" rel="nofollow" style="font-size: 12px;">公司简介</a></dd>
+            <dd><a href="<%=basePath %>announcement/announcement.htm?&p=1" target="_blank" rel="nofollow" style="font-size: 12px;">网站公告</a></dd>
+            <dd><a href="<%=basePath %>hiring/hiring.htm?&p=1" target="_blank" rel="nofollow" style="font-size: 12px;">招贤纳士</a></dd>
+            <dd><a href="<%=basePath %>others/otherAddress.htm" target="_blank" rel="nofollow" style="font-size: 12px;">公司地图</a></dd>
+            <dd><a href="<%=basePath %>contactUs.htm" target="_blank" rel="nofollow" style="font-size: 12px;">联系我们</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>帮助</dt>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">禁用品说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">轻/重货说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">发货流程说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">货运险承保说明</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">帮助中心</a></dd>
+            <dd><a href="<%=basePath %>contrabandExplain.htm" target="_blank" rel="nofollow" style="font-size: 12px;">禁用品说明</a></dd>
+            <dd><a href="<%=basePath %>weightExplain.htm" target="_blank" rel="nofollow" style="font-size: 12px;">轻/重货说明</a></dd>
+            <dd><a href="<%=basePath %>collectFees.htm" target="_blank" rel="nofollow" style="font-size: 12px;">增殖服务说明</a></dd>
+            <dd><a href="<%=basePath %>insuranceExplain.htm" target="_blank" rel="nofollow" style="font-size: 12px;">货运险承保说明</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>共赢</dt>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">承运商合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">货主合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">个体司机合作</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">意见反馈</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">加入互联网</a></dd>
+            <dd><a href="<%=basePath %>intoregisterCarrier.htm" target="_blank" rel="nofollow" style="font-size: 12px;">承运商合作</a></dd>
+            <dd><a href="<%=basePath %>intoregister.htm" target="_blank" rel="nofollow" style="font-size: 12px;">货主合作</a></dd>
+            <dd><a href="<%=basePath %>logisticsPark.htm" target="_blank" rel="nofollow" style="font-size: 12px;">物流园区</a></dd>
+            <dd><a href="<%=basePath %>logisticsExhibition.htm" target="_blank" rel="nofollow" style="font-size: 12px;">物流展会</a></dd>
+            <dd><a href="<%=basePath %>" target="_blank" rel="nofollow" style="font-size: 12px;">意见反馈</a></dd>
           </dl>
         </div>
         <div class="item">
           <dl>
             <dt>导航</dt>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">我要发货</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">查看班线</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">查看订单</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">个人中心</a></dd>
-            <dd><a href="#" target="_blank" rel="nofollow" style="font-size: 12px;">综合信息</a></dd>
+            <dd><a href="<%=basePath %>delivery/index.htm" target="_blank" rel="nofollow" style="font-size: 12px;">我要发货</a></dd>
+            <dd><a href="<%=basePath %>route/route.htm?&p=1&routeType=landCarriage" target="_blank" rel="nofollow" style="font-size: 12px;">查看班线</a></dd>
+            <dd><a href="<%=basePath %>orderQuery.htm?&p=1" target="_blank" rel="nofollow" style="font-size: 12px;">查看订单</a></dd>
+            <dd><a href="<%=basePath %>member/index.htm" target="_blank" rel="nofollow" style="font-size: 12px;">个人中心</a></dd>
+            <dd><a href="<%=basePath %>logisticsPark.htm" target="_blank" rel="nofollow" style="font-size: 12px;">综合信息</a></dd>
           </dl>
         </div>
         <div class="item item-weibo">

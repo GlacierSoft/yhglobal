@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.website.WebsiteFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.website.WebsiteFeedback" >
+    <id column="temp_website_feedback_web_fdb_id" property="webFdbId" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_web_fdb_theme" property="webFdbTheme" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_web_fdb_status" property="webFdbStatus" jdbcType="CHAR" />
+    <result column="temp_website_feedback_web_fdb_phone" property="webFdbPhone" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_web_fdb_name" property="webFdbName" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_web_fdb_email" property="webFdbEmail" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_website_feedback_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_website_feedback_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<result column="temp_website_feedback_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_feedback_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.glacier.frame.entity.website.WebsiteFeedback" extends="BaseResultMap" >
+    <result column="temp_website_feedback_web_fdb_content" property="webFdbContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_website_feedback.web_fdb_id as temp_website_feedback_web_fdb_id, temp_website_feedback.web_fdb_theme as temp_website_feedback_web_fdb_theme, 
+    temp_website_feedback.web_fdb_status as temp_website_feedback_web_fdb_status, temp_website_feedback.web_fdb_phone as temp_website_feedback_web_fdb_phone, 
+    temp_website_feedback.web_fdb_name as temp_website_feedback_web_fdb_name, temp_website_feedback.web_fdb_email as temp_website_feedback_web_fdb_email, 
+    temp_website_feedback.remark as temp_website_feedback_remark, temp_website_feedback.creater as temp_website_feedback_creater, 
+    temp_website_feedback.create_time as temp_website_feedback_create_time, temp_website_feedback.updater as temp_website_feedback_updater, 
+    temp_website_feedback.update_time as temp_website_feedback_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.member_name as temp_website_feedback_creater_display
+    ,temp_updater.member_name as temp_website_feedback_updater_display
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_shipper_member temp_creater ON temp_website_feedback.creater =  temp_creater.member_id<!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_updater ON temp_website_feedback.updater =  temp_updater.member_id<!-- 扩展 -->
+  </sql>
+  <sql id="Blob_Column_List" >
+    temp_website_feedback.web_fdb_content as temp_website_feedback_web_fdb_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.frame.entity.website.WebsiteFeedbackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_website_feedback temp_website_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.website.WebsiteFeedbackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_website_feedback temp_website_feedback
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_website_feedback temp_website_feedback
+    <include refid="Base_extend"/>
+    where temp_website_feedback.web_fdb_id = #{webFdbId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_website_feedback
+    where web_fdb_id = #{webFdbId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.website.WebsiteFeedbackExample" >
+    delete temp_website_feedback from t_website_feedback temp_website_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.website.WebsiteFeedback" >
+    insert into t_website_feedback (web_fdb_id, web_fdb_theme, web_fdb_status, 
+      web_fdb_phone, web_fdb_name, web_fdb_email, 
+      remark, creater, create_time, 
+      updater, update_time, web_fdb_content
+      )
+    values (#{webFdbId,jdbcType=VARCHAR}, #{webFdbTheme,jdbcType=VARCHAR}, #{webFdbStatus,jdbcType=CHAR}, 
+      #{webFdbPhone,jdbcType=VARCHAR}, #{webFdbName,jdbcType=VARCHAR}, #{webFdbEmail,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{webFdbContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.website.WebsiteFeedback" >
+    insert into t_website_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="webFdbId != null" >
+        web_fdb_id,
+      </if>
+      <if test="webFdbTheme != null" >
+        web_fdb_theme,
+      </if>
+      <if test="webFdbStatus != null" >
+        web_fdb_status,
+      </if>
+      <if test="webFdbPhone != null" >
+        web_fdb_phone,
+      </if>
+      <if test="webFdbName != null" >
+        web_fdb_name,
+      </if>
+      <if test="webFdbEmail != null" >
+        web_fdb_email,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="webFdbContent != null" >
+        web_fdb_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="webFdbId != null" >
+        #{webFdbId,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbTheme != null" >
+        #{webFdbTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbStatus != null" >
+        #{webFdbStatus,jdbcType=CHAR},
+      </if>
+      <if test="webFdbPhone != null" >
+        #{webFdbPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbName != null" >
+        #{webFdbName,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbEmail != null" >
+        #{webFdbEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="webFdbContent != null" >
+        #{webFdbContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.website.WebsiteFeedbackExample" resultType="java.lang.Integer" >
+    select count(*) from t_website_feedback temp_website_feedback
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_website_feedback temp_website_feedback
+    <set >
+      <if test="record.webFdbId != null" >
+        temp_website_feedback.web_fdb_id = #{record.webFdbId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webFdbTheme != null" >
+        temp_website_feedback.web_fdb_theme = #{record.webFdbTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webFdbStatus != null" >
+        temp_website_feedback.web_fdb_status = #{record.webFdbStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.webFdbPhone != null" >
+        temp_website_feedback.web_fdb_phone = #{record.webFdbPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webFdbName != null" >
+        temp_website_feedback.web_fdb_name = #{record.webFdbName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webFdbEmail != null" >
+        temp_website_feedback.web_fdb_email = #{record.webFdbEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_website_feedback.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_website_feedback.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_website_feedback.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_website_feedback.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_website_feedback.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.webFdbContent != null" >
+        temp_website_feedback.web_fdb_content = #{record.webFdbContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_website_feedback temp_website_feedback
+    set temp_website_feedback.web_fdb_id = #{record.webFdbId,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_theme = #{record.webFdbTheme,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_status = #{record.webFdbStatus,jdbcType=CHAR},
+      temp_website_feedback.web_fdb_phone = #{record.webFdbPhone,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_name = #{record.webFdbName,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_email = #{record.webFdbEmail,jdbcType=VARCHAR},
+      temp_website_feedback.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_website_feedback.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_website_feedback.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_website_feedback.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_website_feedback.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_website_feedback.web_fdb_content = #{record.webFdbContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_website_feedback temp_website_feedback
+    set temp_website_feedback.web_fdb_id = #{record.webFdbId,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_theme = #{record.webFdbTheme,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_status = #{record.webFdbStatus,jdbcType=CHAR},
+      temp_website_feedback.web_fdb_phone = #{record.webFdbPhone,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_name = #{record.webFdbName,jdbcType=VARCHAR},
+      temp_website_feedback.web_fdb_email = #{record.webFdbEmail,jdbcType=VARCHAR},
+      temp_website_feedback.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_website_feedback.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_website_feedback.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_website_feedback.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_website_feedback.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.website.WebsiteFeedback" >
+    update t_website_feedback
+    <set >
+      <if test="webFdbTheme != null" >
+        web_fdb_theme = #{webFdbTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbStatus != null" >
+        web_fdb_status = #{webFdbStatus,jdbcType=CHAR},
+      </if>
+      <if test="webFdbPhone != null" >
+        web_fdb_phone = #{webFdbPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbName != null" >
+        web_fdb_name = #{webFdbName,jdbcType=VARCHAR},
+      </if>
+      <if test="webFdbEmail != null" >
+        web_fdb_email = #{webFdbEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="webFdbContent != null" >
+        web_fdb_content = #{webFdbContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where web_fdb_id = #{webFdbId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.glacier.frame.entity.website.WebsiteFeedback" >
+    update t_website_feedback
+    set web_fdb_theme = #{webFdbTheme,jdbcType=VARCHAR},
+      web_fdb_status = #{webFdbStatus,jdbcType=CHAR},
+      web_fdb_phone = #{webFdbPhone,jdbcType=VARCHAR},
+      web_fdb_name = #{webFdbName,jdbcType=VARCHAR},
+      web_fdb_email = #{webFdbEmail,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      web_fdb_content = #{webFdbContent,jdbcType=LONGVARCHAR}
+    where web_fdb_id = #{webFdbId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.website.WebsiteFeedback" >
+    update t_website_feedback
+    set web_fdb_theme = #{webFdbTheme,jdbcType=VARCHAR},
+      web_fdb_status = #{webFdbStatus,jdbcType=CHAR},
+      web_fdb_phone = #{webFdbPhone,jdbcType=VARCHAR},
+      web_fdb_name = #{webFdbName,jdbcType=VARCHAR},
+      web_fdb_email = #{webFdbEmail,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where web_fdb_id = #{webFdbId,jdbcType=VARCHAR}
+  </update>
+</mapper>
