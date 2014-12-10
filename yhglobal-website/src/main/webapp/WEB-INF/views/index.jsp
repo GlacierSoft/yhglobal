@@ -157,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				          	</tr>
 						</c:if>
 			        	<c:forEach items="${announcementDatas.rows}" var="announcement"> 
-					         <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="#" onclick="doClick('${announcement.webAnnId}');">${announcement.webAnnTheme}</a></li>
+					         <li class="list-group-item" style="padding-bottom: 5px;padding-top: 5px;"><font size="2" color="orange"><b>·</b>&nbsp;&nbsp;</font><a href="javascript:doClick('${announcement.webAnnId}');">${announcement.webAnnTheme}</a></li>
 				      	</c:forEach>
 					</ul>
 				</div>

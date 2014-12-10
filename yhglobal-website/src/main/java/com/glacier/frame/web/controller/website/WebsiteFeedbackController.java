@@ -12,6 +12,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dao.member.ShipperEnterpriseMemberMapper;
@@ -61,7 +63,8 @@ public class WebsiteFeedbackController extends AbstractController{
   	}
   	
   	//增加意见反馈
-  	@RequestMapping(value = "/addfeedback.json")
+  	@RequestMapping(value = "/addfeedback.json", method = RequestMethod.POST)
+  	@ResponseBody
   	public Object addFeedback(@Valid WebsiteFeedback feedback){
   		return feedbackService.addFeedback(feedback);
   	}
