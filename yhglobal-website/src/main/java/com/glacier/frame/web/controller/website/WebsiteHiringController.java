@@ -1,5 +1,7 @@
 package com.glacier.frame.web.controller.website;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,9 @@ public class WebsiteHiringController extends AbstractController{
 	
 	//转到“招纳贤士”页面
 	@RequestMapping(value = "/hiring.htm")
-	public Object hiring(JqPager pager, @RequestParam int p){
+	public Object hiring(JqPager pager, @RequestParam int p,HttpSession tips){
+		//保存在session里面
+    	tips.setAttribute("tips", "关于我们");
 		ModelAndView mav = new ModelAndView("about_mgr/hiring");
 		mav.addObject("hiringDatas", websiteHiringService.listAsWebsite(pager, p));
 		return mav;

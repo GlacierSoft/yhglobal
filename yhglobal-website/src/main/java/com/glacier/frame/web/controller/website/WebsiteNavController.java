@@ -30,10 +30,11 @@ public class WebsiteNavController extends AbstractController{
     // 根据网站导航ID取出子项信息
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object getSubitemWebNav(String webNavId,HttpSession tips,String name) {
+    private Object getSubitemWebNav(HttpSession tips,String webNavId,String name) {
     	if(tips.getAttribute("tips") != null){
     		tips.removeAttribute("tips");
     	}
+    	//保存在session里面
     	tips.setAttribute("tips", name);
         return navService.getSubitemWebNav(webNavId);
     } 
