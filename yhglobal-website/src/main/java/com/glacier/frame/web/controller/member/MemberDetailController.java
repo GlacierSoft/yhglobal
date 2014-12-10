@@ -106,8 +106,7 @@ public class MemberDetailController {
 	@ResponseBody
 	private Object updateMail(String email,int emailValidate,String memberId,HttpSession session){
     	int mailCode=(Integer)session.getAttribute("mailCode");
-        //return shipperMemberService.updateMail(email, emailValidate, mailCode);
-        return null; 
-    }
+        return shipperMemberService.updateMail(email, emailValidate, mailCode);
+     }
     
 }

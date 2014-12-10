@@ -506,4 +506,32 @@ public class ShipperMemberService {
       return use.getUserId();
   }
   
+  /**
+   * @Title: addProInfo 
+   * @Description: TODO(会员忘记密码通过邮箱找回密码，设置新密码) 
+   * @param @param member
+   * @param @param  
+   * @param @return    设定文件 
+   * @return Object    返回类型 
+   * @throws
+   */
+  @Transactional(readOnly = false) 
+  public Object updateMail(String email,int emailValidate,int mailCode) {
+  	JqReturnJson returnResult=new JqReturnJson();
+  	if(emailValidate!=mailCode){
+  		returnResult.setMsg("验证码错误，请重新填写!");
+  	}else{
+  		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+ 		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+ 		pricipalMember.setEmail(email);
+  		int count=shipperMemberMapper.updateByPrimaryKeySelective(pricipalMember);
+  		if(count>0){
+  			returnResult.setSuccess(true);
+  			returnResult.setMsg("邮箱绑定修改成功!");
+  		}else{
+  			returnResult.setMsg("邮箱绑定修改失败,请联系管理员!");
+  		}
+  	}
+  	return returnResult;    
+  }
 }
