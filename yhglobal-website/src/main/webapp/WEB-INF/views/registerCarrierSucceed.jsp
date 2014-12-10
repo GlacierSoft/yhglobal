@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <div class="panel-heading panel-title">承运商注册信息提示</div>
 		  <div class="panel-body">
 		  	</br></br></br>
-			恭喜您，注册成功，请耐心等待我司为您审核。
+			恭喜您，注册成功，请耐心等待我司为您审核，审核成功后，我司将会发送邮件通知您。
 			</br></br></br></br>
 		  </div>
 		</div>

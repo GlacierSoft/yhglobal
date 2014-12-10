@@ -404,16 +404,6 @@ public class RegisterController extends AbstractController {
         if (!returnResult.isSuccess()) {
             return mav;
         }
-        String carrierMemberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在互联网注册会员成功！注册的账号为"+carrierMember.getMemberName()+"。" +
-                "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由互联网系统自动发送，请勿回复！</font>";
-        //htmlEmailPublic.goEmail(carrierMember,carrierMemberMsg);
-        List<String> CarrierMemberMailList = new ArrayList<String>();
-        CarrierMemberMailList.add(carrierMember.getEmail());
-        htmlEmailPublic.setToMailsList(CarrierMemberMailList);
-        htmlEmailPublic.setTitle("互联网提示");
-        htmlEmailPublic.setMsg(carrierMemberMsg);
-        Thread borrowingLoanThread = new Thread(htmlEmailPublic);
-        borrowingLoanThread.start();//启动线程
         return "registerCarrierSucceed";
     }
     

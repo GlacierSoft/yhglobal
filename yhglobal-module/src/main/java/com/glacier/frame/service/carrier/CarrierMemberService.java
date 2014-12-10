@@ -17,6 +17,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,6 +180,37 @@ public class CarrierMemberService {
         carrierMember.setUpdateTime(new Date());
         count = carrierMemberMapper.updateByPrimaryKeySelective(carrierMember);
         if (count == 1) {
+            if(enterpriseMember.getEmail()!=null && enterpriseMember.getEmail().length()!=0){//发送成功邮件通知承运商审核成功
+                HtmlEmail email = new HtmlEmail();
+                email.setHostName("smtp.qq.com");// QQ郵箱服務器
+                // email.setHostName("smtp.163.com");// 163郵箱服務器
+                // email.setHostName("smtp.gmail.com");// gmail郵箱服務器
+
+                email.setSmtpPort(465);// 设置端口号
+                email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com", "zx5304960"));// 用1240033960@qq.com这个邮箱发送验证邮件的
+                email.setTLS(true);// tls要设置为true,没有设置会报错。
+                email.setSSL(true);// ssl要设置为true,没有设置会报错。
+                try {
+                    email.setFrom("1240033960@qq.com", "互联网管理员", "UTF-8");
+                    // email.setFrom("13798985542@163.com", "13798985542@163.com",
+                    // "UTF-8");
+                    // email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
+                } catch (EmailException e1) {
+                    e1.printStackTrace();
+                }
+                email.setCharset("UTF-8");// 没有设置会乱码。
+                try {
+                    email.setSubject("互联网审核成功");// 设置邮件名称
+                    email.setHtmlMsg("尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在互联网注册的帐号已经审核成功！账号为"+enterpriseMember.getMemberName()+"。" +
+                            "<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由互联网系统自动发送，请勿回复！</font>");// 设置邮件内容
+                    email.addTo(enterpriseMember.getEmail());// 给会员发邮件
+                    // email.addTo("804346249@qq.com");
+                    email.send();// 邮件发送
+                } catch (EmailException e) {
+                    // throw new RuntimeException(e);
+                    e.printStackTrace();
+                }
+            }
             returnResult.setSuccess(true);
             returnResult.setMsg("会员【"+enterpriseMember.getMemberName()+"】审核操作成功");
         } else {
