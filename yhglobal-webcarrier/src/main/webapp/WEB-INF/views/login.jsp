@@ -201,7 +201,7 @@
 				<% 
 				 	if(error.contains("DisabledAccountException")){
 		 	    %>
-				 	  	$('#danger_alert h4').html('用户已被屏蔽，请登录其他用户！');
+				 	  	$('#danger_alert h4').html('用户已被屏蔽或者还没审核成功，请登录其它用户！');
 				 	  	$('#username_form_group').addClass("has-error");
 				 	  	$('#username').focus();
 				 	   <%
