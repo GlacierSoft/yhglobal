@@ -31,12 +31,14 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.carrier.CarrierEnterpriserMemberMapper;
 import com.glacier.frame.dao.carrier.CarrierIndividualityMemberMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberMapper;
+import com.glacier.frame.dao.carrier.CarrierMemberMessageNoticeMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberTokenMapper;
 import com.glacier.frame.dao.carrierlogin.CarrierloginUserRoleMapper;
 import com.glacier.frame.dto.query.carrier.CarrierMemberQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierEnterpriserMember;
 import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.carrier.CarrierMemberExample;
+import com.glacier.frame.entity.carrier.CarrierMemberMessageNotice;
 import com.glacier.frame.entity.carrier.CarrierMemberExample.Criteria;
 import com.glacier.frame.entity.carrier.CarrierMemberToken;
 import com.glacier.frame.entity.carrierlogin.CarrierloginUserRoleExample;
@@ -72,6 +74,9 @@ public class CarrierMemberService {
 	
 	@Autowired
 	private CarrierloginUserRoleMapper carrierloginUserRoleMapper;
+	
+	@Autowired
+	private CarrierMemberMessageNoticeMapper carrierMemberMessageNoticeMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -454,7 +459,22 @@ public class CarrierMemberService {
         //判断增加信息是否成功，成功返回成功提示信息
         if (count == 1 && countToken == 1) {
             
-            //注册成功，自动赋值菜单
+            //注册成功，发送站内信通知
+            CarrierMemberMessageNotice carrierMemberMessageNotice = new CarrierMemberMessageNotice();
+            carrierMemberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+            carrierMemberMessageNotice.setSender("8b25651c2d896297530b64e4b80ec503");
+            carrierMemberMessageNotice.setReceiver(carrierMemberId);
+            carrierMemberMessageNotice.setTitle("注册成功");
+            carrierMemberMessageNotice.setContent("恭喜您注册成功，成为互联网其中一员。");
+            carrierMemberMessageNotice.setRemark("注册成功");
+            carrierMemberMessageNotice.setSendtime(new Date());
+            carrierMemberMessageNotice.setLetterstatus("unread");
+            carrierMemberMessageNotice.setLettertype("system");
+            carrierMemberMessageNotice.setCreater("8b25651c2d896297530b64e4b80ec503");
+            carrierMemberMessageNotice.setCreateTime(new Date());
+            carrierMemberMessageNotice.setUpdater("8b25651c2d896297530b64e4b80ec503");
+            carrierMemberMessageNotice.setUpdateTime(new Date());
+            carrierMemberMessageNoticeMapper.insert(carrierMemberMessageNotice);
             
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + carrierMember.getMemberName() + "] 会员信息已保存");
