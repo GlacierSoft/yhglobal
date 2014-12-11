@@ -59,7 +59,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      </div> 
 		         
 		       <div class="col-md-5" align="right">
-	              共找到<font color="#FF7300">${routerDatas.total}</font>条线路
+	              共找到<font color="#FF7300">
+	              <c:if test="${empty routerDatas.rows}">0</c:if>
+	              <c:if test="${! empty routerDatas.rows}">${routerDatas.total}</c:if>
+	              </font>条线路
 		      </div>   
     </div>
     <div class="row">  
