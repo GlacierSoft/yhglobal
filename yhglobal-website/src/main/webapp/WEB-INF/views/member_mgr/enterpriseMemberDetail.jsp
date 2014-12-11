@@ -297,30 +297,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   function changeEntrpriseInfo(){
 	   if(validateNumb){
 		   if($("#mobileValidate").val()!=""&&$("#mobileValidate").val()!=null){
-			   $.ajax({
-				   type: "POST",
-				   url: ctx+"/memberDetail/addEnterPrise.json?mobileValidate="+$('#mobileValidate').val(),
-				   dataType: "json",
-				   data: $('#enterPriseMessageForm').serialize(),
-				   success: function(data) {
-					   window.clearInterval(InterValObj);// 停止计时器  
-				  	   $("#btnSendCode").removeAttr("disabled");// 启用按钮
-			  	       $("#enterprisePhone").css("width","110px");
-				       $("#btnSendCode").val("重新发送验证码"); 
-				       $("#mobileValidate").val("");
-			  	       validateNumb=false;
-			  	       count=30;
-					    if(data.success){
-					    	doShow(data.msg);
-					    }else{
-					    	doShowError(data.msg);
-					    }   
-					},
-		        	error: function() {
-		        		doShowError("提交出错！");
-		        	}
-				});
-		   }else{
+			   if($("#mobileValidate").val().length==6){
+				   if($("#url").val()!=null&&$("#url").val()!=""){
+					   $.ajax({
+						   type: "POST",
+						   url: ctx+"/memberDetail/addEnterPrise.json?mobileValidate="+$('#mobileValidate').val(),
+						   dataType: "json",
+						   data: $('#enterPriseMessageForm').serialize(),
+						   success: function(data) {
+							   window.clearInterval(InterValObj);// 停止计时器  
+						  	   $("#btnSendCode").removeAttr("disabled");// 启用按钮
+					  	       $("#enterprisePhone").css("width","110px");
+						       $("#btnSendCode").val("重新发送验证码"); 
+						       $("#mobileValidate").val("");
+					  	       validateNumb=false;
+					  	       count=30;
+							    if(data.success){
+							    	doShow(data.msg);
+							    }else{
+							    	doShowError(data.msg);
+							    }   
+							},
+				        	error: function() {
+				        		doShowError("提交出错！");
+				        	}
+						});   
+				   }else{
+					   doShowError("请上传企业LOGO图片!");  
+				   }
+				}else{
+				   doShowError("验证码为长度为6的随机数，请合理填写!");  
+			   }
+			}else{
 			   doShowError("请先填写手机验证码!");
 		   }
 		 }
