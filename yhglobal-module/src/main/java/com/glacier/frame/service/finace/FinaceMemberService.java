@@ -90,6 +90,18 @@ public class FinaceMemberService {
 	}
 	
 	/**
+	 * @Title: getFinaceMemberProMemberId 
+	 * @Description: TODO(会员资金信息) 
+	 * @param @param memberId
+	 * @param @return    设定文件 
+	 * @return Object    返回记录 
+	 * @throws
+	 */
+	public FinanceMember getFinaceMemberProMemberId(String memberId){
+      return financeMemberMapper.selectByMemberId(memberId);
+	}
+	
+	/**
 	 * @Title: getFinaceMemberPro 
 	 * @Description: TODO(会员资金信息) 
 	 * @param @param withdrawId

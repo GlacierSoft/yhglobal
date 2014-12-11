@@ -18,6 +18,8 @@ public interface FinanceMemberMapper {
 
     List<FinanceMember> selectByExample(FinanceMemberExample example);
 
+    FinanceMember selectByMemberId(String memberId);
+    
     FinanceMember selectByPrimaryKey(String mrechageId);
 
     int updateByExampleSelective(@Param("record") FinanceMember record, @Param("example") FinanceMemberExample example);

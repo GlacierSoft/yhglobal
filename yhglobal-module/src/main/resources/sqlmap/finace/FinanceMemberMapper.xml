@@ -124,6 +124,15 @@
     <include refid="Base_extend" />
     where temp_finance_member.mrechage_id = #{mrechageId,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
+    where temp_finance_member.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_finance_member
     where mrechage_id = #{mrechageId,jdbcType=VARCHAR}
