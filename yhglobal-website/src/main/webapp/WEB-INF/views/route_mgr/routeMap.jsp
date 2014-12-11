@@ -80,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		// 百度地图API功能
 		var map = new BMap.Map("dituContent"); 
-		var start = new BMap.Point(${routerMap.deliverList[0].latitude},${routerMap.deliverList[0].longitude});//定义一个起点坐标
-		var end = new BMap.Point(${routerMap.pickUpList[0].latitude},${routerMap.pickUpList[0].longitude});//定义一个终点坐标
+		var start = new BMap.Point(${routerMap.deliverList[0].longitude},${routerMap.deliverList[0].latitude});//定义一个起点坐标
+		var end = new BMap.Point(${routerMap.pickUpList[0].longitude},${routerMap.pickUpList[0].latitude});//定义一个终点坐标
 	    map.enableScrollWheelZoom();
 		
 		//三种驾车策略：最少时间，最短距离，避开高速

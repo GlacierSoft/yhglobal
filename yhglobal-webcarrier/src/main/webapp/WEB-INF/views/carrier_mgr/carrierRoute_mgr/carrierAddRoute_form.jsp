@@ -314,7 +314,7 @@
 					    <tr>   
 					     <td>站点经度：</td>
 						 <td><input class="spinner"   
-					    	style="height:18px;width:150px"  name="deliverList[0].longitude"/></td>
+					    	style="height:18px;width:150px"  name="deliverList[3].longitude"/></td>
 						   <td style="padding-left:20px;">站点纬度：</td>
 						  <td >
 						 	<input class="  easyui-validatebox spinner"   style="height:18px;width:150px" name="deliverList[3].latitude" />

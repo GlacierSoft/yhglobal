@@ -241,10 +241,7 @@
 <!-- 所有货物流动记录列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="ordersDispatchingGridPanel" data-options="region:'center',border:true">
-		<table id="ordersDispatchingDataGrid">
-			<glacierui:toolbar panelEnName="OrdersDispatchingList"
-				toolbarId="ordersDispatchingDataGrid_toolbar" menuEnName="ordersDispatching" />
-			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="ordersDispatchingDataGrid"> 
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
