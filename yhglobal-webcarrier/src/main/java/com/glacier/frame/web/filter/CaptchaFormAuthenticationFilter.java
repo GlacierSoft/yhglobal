@@ -18,13 +18,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.glacier.basic.exception.IncorrectCaptchaException;
 import com.glacier.basic.util.IpUtil;
 import com.glacier.frame.compent.realm.CaptchaUsernamePasswordToken;
+import com.glacier.frame.entity.carrier.CarrierMember;
+import com.glacier.frame.service.carrier.CarrierMemberService;
 
 /**
  * @ClassName: CaptchaFormAuthenticationFilter 
@@ -40,17 +44,35 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 
+    @Autowired
+    private CarrierMemberService carrierMemberService;
+    
     public String getCaptchaParam() {
         return captchaParam;
     }
 
+    
     protected String getCaptcha(ServletRequest request) {
         return WebUtils.getCleanParam(request, getCaptchaParam());
     }
 
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
 
-        String username = getUsername(request);
+        String username=getUsername(request);
+        //判断该会员的状态是否禁用
+        CarrierMember carrierMember = carrierMemberService.retrieveName(username);
+        if(carrierMember!=null){
+            //是否禁用了该会员
+            if(carrierMember.getStatus().equals("disable")){
+                username="NO";//不让它登陆
+            }
+            //审核状态是否为审核中和审核失败
+            if(carrierMember.getAuditState().equals("authstr")){
+                username="AUTHSTR";//不让它登陆
+            } else if (carrierMember.getAuditState().equals("failure")) {
+                username="FAILURE";//不让它登陆
+            }
+        } 
         String password = getPassword(request);
         String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
@@ -73,6 +95,15 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) createToken(request, response);
         try {
             doCaptchaValidate( (HttpServletRequest)request,token);
+            if(token.getUsername().equals("NO")){
+                throw new DisabledAccountException("该用户被禁用，请联系客服！");
+            } 
+            if(token.getUsername().equals("AUTHSTR")){
+                throw new DisabledAccountException("该用户还未通过审核，请等待审核通过，或者联系客服！");
+            }
+            if(token.getUsername().equals("FAILURE")){
+                throw new DisabledAccountException("该用户审核失败，请联系客服！");
+            }
             Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
