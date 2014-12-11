@@ -534,4 +534,32 @@ public class ShipperMemberService {
   	}
   	return returnResult;    
   }
+  
+  /**
+   * @Title: addEnterPriseInfo 
+   * @Description: TODO(会员详细信息添加) 
+   * @param @param member
+   * @param @param  
+   * @param @return    设定文件 
+   * @return Object    返回类型 
+   * @throws
+   */ 
+  @Transactional(readOnly = false) 
+  public Object addEnterPriseInfo(ShipperEnterpriseMember shipperEnterpriseMember,int mobileValidate,int mobile_true) {
+  	JqReturnJson returnResult=new JqReturnJson();
+  	if(mobileValidate!=mobile_true){
+  		returnResult.setMsg("验证码错误，请重新填写!");
+  	}else{
+  		int count=shipperEnterpriseMemberMapper.updateByPrimaryKeySelective(shipperEnterpriseMember);
+  		if(count>0){
+  			returnResult.setSuccess(true);
+  			returnResult.setMsg("信息更新成功!");
+  		}else{
+  			returnResult.setMsg("信息更新失败吗,请联系管理员!");
+  		}
+  	}
+  	return returnResult;    
+  }
+  
+  
 }

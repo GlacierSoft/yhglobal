@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.service.member.ShipperMemberService;
@@ -59,7 +60,7 @@ public class MemberDetailController {
         return shipperMemberService.addProInfo(shipperIndividualityMember, mobileValidate,mobile_true);
      }
     
-    //会员邮箱修改
+    //个体会员邮箱修改
     @RequestMapping(value="sendMailCode.json")
     @ResponseBody
     private Object sendMailCode(HttpSession session){
@@ -101,12 +102,21 @@ public class MemberDetailController {
      }
     
     
-  //个体会员信息添加
+    //个体会员信息
     @RequestMapping(value="updateMail.json")
 	@ResponseBody
 	private Object updateMail(String email,int emailValidate,String memberId,HttpSession session){
     	int mailCode=(Integer)session.getAttribute("mailCode");
         return shipperMemberService.updateMail(email, emailValidate, mailCode);
      }
+    
+    //个体会员信息添加
+    @RequestMapping(value="addEnterPrise.json")
+	@ResponseBody
+	private Object addEnterPrise(ShipperEnterpriseMember shipperEnterpriseMember,int mobileValidate,HttpSession session){
+    	int mobile_true=(Integer)session.getAttribute("mobile_code");
+        return shipperMemberService.addEnterPriseInfo(shipperEnterpriseMember, mobileValidate,mobile_true);
+     }
+    
     
 }

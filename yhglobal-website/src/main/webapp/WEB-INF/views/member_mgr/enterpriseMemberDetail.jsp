@@ -97,396 +97,547 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </div>
 				  <div class="panel-body">
 				   <div class="bs-example bs-example-tabs">
+				    <ul id="myTab" class="nav nav-tabs">
+				        <li class="active"><a href="#finance" data-toggle="tab">详细信息</a></li>
+				        <li><a href="#mobileChange" data-toggle="tab">手机设置</a></li>
+				        <li><a href="#emailChange" data-toggle="tab">邮箱设置</a></li>
+				      </ul>
 				     <div id="myTabContent" class="tab-content">
-				       	 <div class="tab-pane fade in active" id="tabPersonalDetails">
-				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" onsubmit="return checkAll();">
-						       <div class="tab-pane fade in active" id="tabPersonalBase">
-							       	<br>
-							        <blockquote>
-								  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为企业会员必填项。</p>
-									</blockquote>
-							  		  <div class="form-group">
-							  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${member.memberId}" >
-									    <!-- 判断是按保存按钮还是保存并提交审核按钮 -->
-									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
-									    <label for="enterpriseName" class="col-sm-2 control-label">*企业名称:</label>
+				     
+				     <!--企业会员详细信息  -->
+				     <div class="tab-pane fade in active" id="finance">
+				      <div class="row" style="width: 90%; margin: 0 auto; border-radius: 5px;margin-top: 25px;">
+				       <div class="panel panel-default">
+						  <div class="panel-heading" style="color: #FF5400;background-color: #FF5400;color: white;height:30px;padding-top: 2px;">企业会员详情</div>
+						  <div class="panel-body">
+						     <form id="enterPriseMessageForm"  class=" form-horizontal" role="form"  method="post" >     
+					              <div class="form-group">
+						  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${member.memberId}" >
+								    <!-- 判断是按保存按钮还是保存并提交审核按钮 -->
+								    <label for="enterpriseName" class="col-sm-2 control-label">企业名称:</label>
+								    <div class="col-sm-4">
+								      <input type="text" maxlength="8" class="form-control" id="enterpriseName" name="enterpriseName" value="${enterprise.enterpriseName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
+								     </div>
+								    <label for="educational" class="col-sm-2 control-label">企业类型:</label>
+								    <div class="col-sm-4">
+								      <input type="tel"  class="form-control" maxlength="11" style="float: left;" name="enterpriseType" id="enterpriseType" value="${enterprise.enterpriseType}"  placeholder="请填写企业类型">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="enterpriseName" class="col-sm-2 control-label">法人代表:</label>
+								    <div class="col-sm-4">
+								      <input type="text" maxlength="8" class="form-control" id="deputy" name="deputy" placeholder="请填写法人代表"  value="${enterprise.deputy}">
+								    </div>
+								    <label for="educational" class="col-sm-2 control-label">企业性质:</label>
+								    <div class="col-sm-4">
+								      <input type="tel"  class="form-control" maxlength="11" style="float: left;" name="property" id="property" value="${enterprise.property}"  placeholder="请填写企业性质">
+								    </div>
+								  </div>
+								  <div class="form-group">
+									  	<label class="col-sm-2 control-label">手机变更:</label>
 									    <div class="col-sm-4">
-									      <input type="text" maxlength="8" class="form-control" onblur="checkEnterpriseName();" id="enterpriseName" name="enterpriseName" value="${enterprise.enterpriseName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
-									      <span id="enterpriseNameSpan"></span>
+									      <input class="form-control" style="float: left;width:140px;" name="enterprisePhone" id="enterprisePhone" placeholder="手机号码" value="${enterprise.enterprisePhone }" readonly="readonly" >&nbsp;
+									      <input type="button" value="获取验证码" id="btnSendCode" style="float: right;"  name="btnSendCode" class="btn btn-default" onclick="get_mobile_code();"/>
 									    </div>
-									    <label for="educational" class="col-sm-2 control-label">*企业类型:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkEnterpriseType();" style="float: left;" name="enterpriseType" id="enterpriseType" value="${enterprise.enterpriseType}"  placeholder="请填写企业类型">
-									      <span id="enterpriseTypeSpan"></span>
+									    <label for="sex" class="col-sm-2 control-label">短信验证:</label>
+									  	<div class="col-sm-4">
+									      <input type="tel" class="form-control"  maxlength="6" id="mobileValidate"  name="mobileValidate" style="float: left;"  placeholder="手机短信验证码" onkeyup='this.value=this.value.replace(/\D/gi,"")' size="6" maxlength="6" >&nbsp;
 									    </div>
-									  </div>
-									  <!-- -------------------------------------------------------------------------- -->
-									  <div class="form-group">
-									    <label for="enterpriseName" class="col-sm-2 control-label">*法人代表:</label>
-									    <div class="col-sm-4">
-									      <input type="text" maxlength="8" class="form-control" onblur="checkDeputy();" id="deputy" name="deputy" value="${enterprise.deputy}" placeholder="请填写法人代表" >
-									      <span id="deputySpan"></span>
-									    </div>
-									    <label for="educational" class="col-sm-2 control-label">*企业性质:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkProperty();" style="float: left;" name="property" id="property" value="${enterprise.property}"  placeholder="请填写企业性质">
-									      <span id="propertySpan"></span>
-									    </div>
-									  </div>
-									  
-									  <div class="form-group">
-									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
-									  </div>
-									  <div class="form-group" >
-									    <label for="enterpriseType" class="col-sm-2 control-label">*旧绑定邮箱:</label>
-									    <div class="col-sm-4" style="width: 300px;float: left;">
-									      <input type="tel"  class="form-control" style="width: 170px;float: left;" name="yanemail"  placeholder="如不修改请保留为空" >
-									      	<button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
-									      <span id="enterpriseTypeSpan"></span>
-					                 </div>
-					                 <div class="form-group" style="float: left;width: 400px" >
-									   <label for="enterpriseType" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
-									      <div class="col-sm-4" style="float: left;">
-									       	<input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
-									      </div> 
-									      </div>
-									  </div>
-									  <div class="form-group">
-									  	<label for="educational" class="col-sm-2 control-label">更换绑定邮箱:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" style="float: left;" name="email" id="email" placeholder="填写要更换的邮箱" >
-									      <span id="enterpriseTypeSpan"></span>
-									    </div>
-									    <label for="educational" class="col-sm-2 control-label">*所属地区:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkArea();" style="float: left;" name="area" id="area" value="${enterprise.area}"  placeholder="请填写所属地区">
-									      <span id="areaSpan"></span>
-									    </div>
-									  </div>
-									  
-									  <div class="form-group">
-									    <label for="enterpriseName" class="col-sm-2 control-label">*所属行业:</label>
-									    <div class="col-sm-4">
-									      <input type="text" maxlength="8" class="form-control" onblur="checkTrade();" id="trade" name="trade" value="${enterprise.trade}" placeholder="请填写所属行业" >
-									      <span id="tradeSpan"></span>
-									    </div>
-									    <label for="educational" class="col-sm-2 control-label">*企业传真:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkEnterpriseFax();" style="float: left;" name="enterpriseFax" id="enterpriseFax" value="${enterprise.enterpriseFax}"  placeholder="请填写企业传真">
-									      <span id="enterpriseFaxSpan"></span>
-									    </div>
-									  </div>
-									  
-									  <div class="form-group">
-									    <label for="educational" class="col-sm-2 control-label">企业电话:</label>
-									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="enterprisePhone" id="enterprisePhone" value="${enterprise.enterprisePhone}" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="请填写企业电话">
-									    </div>
-									    <label for="personalDes" class="col-sm-2 control-label">企业Logo:</label>
-									    <div class="col-sm-4" style="float: left;">
-											<input class="ke-input-text" type="text" name="enterpriseLogo" id="url" value="${enterprise.enterpriseLogo}" readonly="readonly" />
-											<input type="button" id="uploadButton" value="上传"/>
-											<img id="memberPhotoDivImg"  src="${enterprise.enterpriseLogo}" style="width: 50px;height: 50px ;margin-left: 20px;" />
-									    </div> 
-									  </div>
-									  <div class="form-group">
-									    <label for="detailedAddress" class="col-sm-2 control-label">*详细地址:</label>
-									    <div class="col-sm-10">
-									      <textarea class="form-control" rows="3" onblur="checkLiveAddress();" name="detailedAddress" id="detailedAddress" placeholder="请填写详细地址">${enterprise.detailedAddress}</textarea>
-									      <span id="detailedAddressSpan"></span>
-									    </div>
-									  </div>
-						       </div>
-						    <!-- /example -->
-						   <div class="form-group">
-						    <div class="col-sm-2"></div>
-						    <div class="col-sm-10">
-						      <p class="text-warning">温馨提示:请确保您所填写的信息都是真实可靠的，一旦审核，如有发现虚假，将会审核失败！</p>
-						    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="educational" class="col-sm-2 control-label">所属地区:</label>
+								    <div class="col-sm-4">
+								      <input type="tel"  class="form-control" maxlength="11" style="float: left;" name="area" id="area" value="${enterprise.area}"  placeholder="请填写所属地区">
+								      <span id="areaSpan"></span>
+								    </div>
+								    <label for="enterpriseName" class="col-sm-2 control-label">所属行业:</label>
+								       <div class="col-sm-4">
+								      <input type="text" maxlength="8" class="form-control"  id="trade" name="trade" value="${enterprise.trade}" placeholder="请填写所属行业" >
+								    </div>
+								  </div>
+								  
+								  <div class="form-group">
+								    <label for="educational" class="col-sm-2 control-label">企业传真:</label>
+								    <div class="col-sm-4">
+								      <input type="tel"  class="form-control" maxlength="11"  style="float: left;" name="enterpriseFax" id="enterpriseFax" value="${enterprise.enterpriseFax}"  placeholder="请填写企业传真" size="7" maxlength="7" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+								    </div>
+								   <label for="personalDes" class="col-sm-2 control-label">企业Logo:</label>
+								    <div class="col-sm-4" style="float: left;">
+										<input class="ke-input-text" type="text" name="enterpriseLogo" id="url" value="${enterprise.enterpriseLogo}" readonly="readonly" style="width:110px;"/>
+										<input type="button" id="uploadButton" value="上传" style="background-color: #FF5400;color:white;"/>
+										<img id="memberPhotoDivImg"  src="${enterprise.enterpriseLogo}" style="width: 50px;height: 50px ;margin-left: 20px;" />
+								    </div> 
+								  </div>
+								  <div class="form-group">
+								    <label for="detailedAddress" class="col-sm-2 control-label">详细地址:</label>
+								    <div class="col-sm-10">
+								      <textarea class="form-control" rows="3" name="detailedAddress" id="detailedAddress" placeholder="请填写详细地址">${enterprise.detailedAddress}</textarea>
+								    </div>
+								  </div>
+					               <div class="form-group">
+					    			<div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
+					      			    <input type="button" class="btn btn-primary" style="width: 70px; height: 30px; padding-top: 4px;" onclick="changeEntrpriseInfo();" value="提交">
+					    			</div>
+					  			</div>
+						  </form>  
 						  </div>
-						    <div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
-						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保  存</button>
-						      <div style="float: right;margin-top: 10px;margin-right:300px;"><span id="tieshi"></span></div>
-						    </div>
-						  	</div>
-						   </form>  
-				       </div>
+						</div>
 				     </div>
-				   </div><!-- /example -->
+				     </div>
+				     <!-- 会员短信设置 -->
+				     <div class="tab-pane fade" id="mobileChange">
+				           <div class="row" style="width: 76%; margin: 0 auto; border-radius: 5px;">
+				               <div class="panel panel-default" style="margin-top: 20px;">
+								  <div class="panel-heading" style="color: #FF5400;background-color: #FF5400;color: white;height:30px;padding-top: 2px;">手机设置(修改/添加)</div>
+								  <div class="panel-body">
+								      <form id="updatePhoneForm" class="form-horizontal" role="form" method="post" >
+									     <table id="tab" style="margin: auto;height: 250px;width:600px;" id="tableMobile">
+											 <c:if test="${!empty enterprise.enterprisePhone}"> 
+											    <tr>
+												  <td><span class="label label-default" style="background-color: #FF5400">绑定手机:</span></td>
+												  <td>
+												      <input name="mobileCodeOld"  id="mobileCodeOld" value="${enterprise.enterprisePhone}" readonly="readonly" style="width: 220px;border-radius:3px;border: 1px solid #CCCCCC;" />
+							               			  <input class="btn btn-default"  name="mobileCodeButton" id="mobileCodeButton" type="button" value=" 发送手机验证码 " onclick="doSendMobileCode();" >
+												   </td>
+											   </tr>
+											   <tr>
+												<td><span class="label label-default" style="background-color: #FF5400">手机号码:</span></td>
+												<td>
+												    <input class="form-control"  placeholder="输入新手机号码" name="mobileCodeOldNew" id="mobileCodeOldNew" style="width: 350px;" size="11" maxlength="11" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+												</td>
+											    </tr>
+											 </c:if>
+											 <c:if test="${empty enterprise.enterprisePhone}">
+											   <td><span class="label label-default" style="background-color: #FF5400">绑定手机:</span></td>
+												  <td>
+												      <input type="text" name="mobileCodeOld" id="mobileCodeOld"  placeholder="输入要绑定的手机号码" style="width: 220px;border-radius:3px;border: 1px solid #CCCCCC;" size="11" maxlength="11" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
+							               			  <input class="btn btn-default"  name="mobileCodeButton"  id="mobileCodeButton" type="button" value=" 发送手机验证码 " onclick="doSendMobileCode();">
+												   </td>
+											 </c:if>
+											<tr>
+												<td><span class="label label-default" style="background-color: #FF5400">手机验证:</span></td>
+												<td><input  name="mobileCodeCheck" id="mobileCodeCheck" class="form-control"  placeholder="请输入手机验证码" id="newPassword" style="width: 350px;" size="6" maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")'></td>
+											</tr>
+											<tr>
+												<td><span  class="label label-default" style="background-color: #FF5400">变更备注:</span></td>
+												<td><input name="secondPassword" class="form-control"  placeholder="变更备注" id="secondPassword" style="width: 350px;"></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="padding-left: 200px;">
+													<input type="button" class="btn btn-primary" style="width: 50px; height: 25px; padding-top: 2px;" onclick="MobileCodeChange();" value="提交">
+													<button type="reset" class="btn btn-primary" style="width: 50px; height: 25px; padding-top: 2px;">重置</button>
+												</td>
+											</tr>
+										</table>
+									  </form>
+								  </div>
+								</div>
+				           </div>
+				      </div>
+				     <!--会员邮箱设置  -->
+				     <div class="tab-pane fade" id="emailChange">
+				      	   <div class="row" style="width: 76%; margin: 0 auto; border-radius: 5px;">
+				               <div class="panel panel-default" style="margin-top: 20px;">
+								  <div class="panel-heading" style="color: #FF5400;background-color: #FF5400;color: white;height:30px;padding-top: 2px;">邮箱设置</div>
+								  <div class="panel-body">
+								      <form id="updateEmailForm" class="form-horizontal" role="form" method="post" >
+									     <table style="margin: auto;height: 250px;width:600px;" id="tableEmail">
+									         <tr>
+									            <td><span class="label label-default" style="background-color: #FF5400">当前邮箱:</span></td>
+												<td>
+												    <input value="${member.email}"  name="emailCodeOld" id="emailCodeOld"  readonly="readonly" style="width: 220px;border-radius:3px;border: 1px solid #CCCCCC;" />
+							               			<input class="btn btn-default"  name="emailCodeButton" id="emailCodeButton" type="button" value=" 发送邮箱验证码 " onclick="doSendEmailCode();" >
+												</td>
+											</tr>
+											 <tr>
+												<td><span class="label label-default" style="background-color: #FF5400">邮箱绑定:</span></td>
+												<td>
+												    <input class="form-control"  placeholder="输入新绑定邮箱" name="emailCodeNew" id="emailCodeNew" style="width: 350px;">
+												</td>
+											    </tr>
+											<tr>
+												<td><span class="label label-default" style="background-color: #FF5400">邮箱验证:</span></td>
+												<td><input  name="emailCodeCheck" id="emailCodeCheck" class="form-control"  placeholder="请输入邮箱验证码" id="newPassword" style="width: 350px;" size="6" maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")'></td>
+											</tr>
+											<tr>
+												<td><span  class="label label-default" style="background-color: #FF5400">变更备注:</span></td>
+												<td><input name="secondPassword" class="form-control"  placeholder="变更备注" id="secondPassword" style="width: 350px;"></td>
+											</tr>
+											<tr>
+										     <td colspan="2" style="padding-left: 200px;">
+													<input type="button" class="btn btn-primary" style="width: 50px; height: 25px; padding-top: 2px;" onclick="EmailCodeChange();" value="提交">
+													<button type="reset" class="btn btn-primary" style="width: 50px; height: 25px; padding-top: 2px;">重置</button>
+												</td>
+											</tr>
+									     </table>
+									   </form>
+								  </div>
+								</div>
+				           </div>
+				       </div>
+				     
+				     </div>
+				   </div>
 				  </div>
 				</div>
 	    	</div>
 	    </div>
+	   </div>
 	    <hr class="featurette-divider2">
 	    <jsp:include page="../foot.jsp"/>
-	    <!-- CONTAINER START======================== -->
-	    		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
-	      <div class="alert alert-success fade in">
-	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	        <h4 style="text-align:center;"></h4>
-	      </div> 
-	    </div>
-	    <div id="danger_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
-	      <div class="alert alert-danger fade in">
-	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	        <h4 style="text-align:center;"></h4>
-	      </div> 
-	    </div>
-  </body>
+	</body>
 <script type="text/javascript"> 
 
-	      //禁用Enter键表单自动提交
-	      document.onkeydown = function(event) {
-	          var target, code, tag;
-	          if (!event) {
-	              event = window.event; //针对ie浏览器
-	              target = event.srcElement;
-	              code = event.keyCode;
-	              if (code == 13) {
-	                  tag = target.tagName;
-	                  if (tag == "TEXTAREA") {
-	                  	return true; 
-	                  } else {
-	                  	return false;
-	                  }
-	              }
-	          }else {
-	              target = event.target; //针对遵循w3c标准的浏览器，如Firefox
-	              code = event.keyCode;
-	              if (code == 13) {
-	                  tag = target.tagName;
-	                  if (tag == "INPUT") { 
-	                  	return false;
-	                  	
-	                  	}else{ 
-	                  		return true; 
-	                  	} 
-	              }
-	          }
-	      };
+	var count =30; //间隔函数，1秒执行 
+	var curCount;//当前剩余秒数  
+	var InterValObj;//记录定时器
+	var clickNumber=false;//记录验证码发送次数
+	var validateNumb=false;//记录验证码发送次数
 
-	      
-	    
-	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
-	  	//验证所有
-		function checkAll(){
-			return checkEnterpriseName()&&checkEnterpriseType()&&checkDeputy()&&checkArea();
-		}
-	    
-		//真实姓名验证
-	 	function checkEnterpriseName(){
-			var enterpriseName = $("#enterpriseName").val();
-			if(enterpriseName == ""){
-				document.getElementById("enterpriseNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业名称不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
+  function changeEntrpriseInfo(){
+	   if(validateNumb){
+		   if($("#mobileValidate").val()!=""&&$("#mobileValidate").val()!=null){
+			   $.ajax({
+				   type: "POST",
+				   url: ctx+"/memberDetail/addEnterPrise.json?mobileValidate="+$('#mobileValidate').val(),
+				   dataType: "json",
+				   data: $('#enterPriseMessageForm').serialize(),
+				   success: function(data) {
+					   window.clearInterval(InterValObj);// 停止计时器  
+				  	   $("#btnSendCode").removeAttr("disabled");// 启用按钮
+			  	       $("#enterprisePhone").css("width","110px");
+				       $("#btnSendCode").val("重新发送验证码"); 
+				       $("#mobileValidate").val("");
+			  	       validateNumb=false;
+			  	       count=30;
+					    if(data.success){
+					    	doShow(data.msg);
+					    }else{
+					    	doShowError(data.msg);
+					    }   
+					},
+		        	error: function() {
+		        		doShowError("提交出错！");
+		        	}
+				});
+		   }else{
+			   doShowError("请先填写手机验证码!");
+		   }
+		 }
+	   else{
+		   doShowError("请先发送手机验证码!"); 
+	   }
+	}
+   
+	//获取验证码
+   function get_mobile_code(){
+	   curCount=count;
+	   validateNumb=true;
+  	  if($("#enterprisePhone").val()!=null&&$("#enterprisePhone").val()!=""){
+		   $("#btnSendCode").attr("disabled", "true");  
+           $("#enterprisePhone").css("width","70px"); 
+           $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+           InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 
+           $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":$("enterprisePhone").val()}, function(msg) {
+      			if(msg=='提交成功'){
+      				//暂无响应事件
+      		    }	
+           });   
+	  }else{
+  		   doShowError("请先添加手机!"); 
+  	  }
+	}
+	
+     //timer处理函数  
+	function SetRemainTime() {  
+		if (curCount == 0) {
+			window.clearInterval(InterValObj);// 停止计时器  
+	        $("#btnSendCode").removeAttr("disabled");// 启用按钮  
+	        $("#enterprisePhone").css("width","110px");
+	        $("#btnSendCode").val("重新发送验证码"); 
+	        $("#mobileValidate").val("");
+	        validateNumb=false;
+	    }else {  
+	     curCount--;
+	     $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+	    }  
+	} 
+  
+    //手机绑定变更
+     function doSendMobileCode(){
+    	  curCount=count;
+    	  clickNumber=true;
+		  if('${enterprise.enterprisePhone}'!=null&&'${enterprise.enterprisePhone}'!=""){
+			 $("#mobileCodeButton").attr("disabled", "true");  
+     		 $("#mobileCodeOld").css("width","200px");
+     		 $("#mobileCodeButton").val("请在" + curCount + "秒内输入验证码");  
+         	 InterValObj = window.setInterval(SetRemainTimeChange, 1000); // 启动计时器，1秒执行一次 
+         	  $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${enterprise.enterprisePhone}'}, function(msg) {
+         			if(msg=='提交成功'){
+         				//暂无响应事件
+         		   }	
+       		});  
+		  }else{
+			if($("#mobileCodeOld").val()!=null&&$("#mobileCodeOld").val()!=""){
+				var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+				if(mobile.test($("#mobileCodeOld").val())){
+					$("#mobileCodeButton").attr("disabled", "true");  
+		     		 $("#mobileCodeOld").css("width","200px");
+		     		 $("#mobileCodeButton").val("请在" + curCount + "秒内输入验证码");  
+		         	 InterValObj = window.setInterval(SetRemainTimeChange, 1000); // 启动计时器，1秒执行一次 
+		         	  $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":$("mobileCodeOld").val()}, function(msg) {
+		         			if(msg=='提交成功'){
+		         				//暂无响应事件
+		         		   }	
+		       		}); 
+				}else{
+					doShowError("请填入格式正确的手机号码!");
+				}
 			}else{
-				document.getElementById("enterpriseNameSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
+				doShowError("请填入需要绑定的手机号码!");
 			}
-		}
-		
-	 	//法人代表验证
-	 	function checkDeputy(){
-			var enterpriseName = $("#deputy").val();
-			if(enterpriseName == ""){
-				document.getElementById("deputySpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>法人代表不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("deputySpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-		
-		//企业性质验证
-	 	function checkProperty(){
-			var enterpriseName = $("#property").val();
-			if(enterpriseName == ""){
-				document.getElementById("propertySpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业性质不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("propertySpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-		
-	 	//所属地区验证
-	 	function checkArea(){
-			var enterpriseName = $("#area").val();
-			if(enterpriseName == ""){
-				document.getElementById("areaSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>所属地区不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("areaSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-	 	
-	 	//所属行业验证
-	 	function checkTrade(){
-			var enterpriseName = $("#trade").val();
-			if(enterpriseName == ""){
-				document.getElementById("tradeSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>所属行业不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("tradeSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-	 	
-	 	//企业传真验证
-	 	function checkEnterpriseFax(){
-			var enterpriseName = $("#enterpriseFax").val();
-			if(enterpriseName == ""){
-				document.getElementById("enterpriseFaxSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业传真不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("enterpriseFaxSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
-		}
-	    
-		//企业类型验证
-		function checkEnterpriseType(){
-			var enterpriseType = $("#enterpriseType").val();
-			if(enterpriseType == ""){
-				document.getElementById("enterpriseTypeSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>企业类型不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("enterpriseTypeSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
+		  }
 		}
 	
-		//详细地址验证
-		function checkLiveAddress(){
-			var detailedAddress = $("#detailedAddress").val();
-			if(detailedAddress == ""){
-				document.getElementById("detailedAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>详细地址不能为空!</font>";
-				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-				return false;
-			}else{
-				document.getElementById("detailedAddressSpan").innerHTML="";
-				$("#tieshi").html("");
-				return true;
-			}
+	
+	//手机变更
+	function MobileCodeChange(){
+		var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		if(clickNumber){
+			if('${enterprise.enterprisePhone}'!=null&&'${enterprise.enterprisePhone}'!=""){
+				if($("#mobileCodeOld").val()!=null&&$("#mobileCodeOld").val()!=""){
+					  if($("#mobileCodeOldNew").val()!=null&&$("#mobileCodeOldNew").val()!=""){
+						  if(mobile.test($("#mobileCodeOldNew").val())){
+							  if($("#mobileCodeCheck").val()!=null&&$("#mobileCodeOldNew").val()!=""){
+								  if($("#mobileCodeCheck").val().length==6){
+									  var url="${ctx}/memberDetail/addEnterPrise.json?enterprisePhone="+$("#mobileCodeOldNew").val()+"&mobileValidate="+$("#mobileCodeCheck").val(); 
+									  doMobileCheck("你确定要修改绑定的手机?",url,'mobile');
+								  }else{
+									  doShowError("请填写验证码,验证码为任意随机数，且长度为6！");
+								  }
+							  }else{
+								  doShowError("请填写验证码信息!");	 
+							  }
+						  }else{
+							  doShowError("请正确填写需要绑定的手机号码格式");
+						  }
+					  }else{
+						  doShowError("请填写需要绑定的手机号码");		  
+					  }
+				}else{
+					
+				}
+		 }else{
+			 if($("#mobileCodeOld").val()!=null&&$("#mobileCodeOld").val()!=""){
+				 if(mobile.test($("#mobileCodeOld").val())){
+					 if($("#mobileCodeCheck").val()!=null&&$("#mobileCodeOldNew").val()!=""){
+						  if($("#mobileCodeCheck").val().length==6){
+							var url="${ctx}/memberDetail/addEnterPrise.json?enterprisePhone="+$("#mobileCodeOld").val()+"&mobileValidate="+$("#mobileCodeCheck").val();
+							doMobileCheck("你确定要添加绑定手机?",url,'mobile');
+						  }else{
+							  doShowError("请填写验证码,验证码为任意随机数，且长度为6！");
+						  }
+					  }else{
+						  doShowError("请填写验证码信息!");	 
+					  }
+				 }else{
+					 doShowError("请正确填写绑定手机号码格式！");
+				 }
+			 }else{
+				 doShowError("请填写需要绑定的手机号码！");
+			 }
+		 }
+		}else{
+			doShowError("请发送验证码之后在做操作!");
 		}
-		
-	  	function successHint(data,url){
-	  		//如果不存在，则转到借款页面
-	  		if(data.success){
-	    		window.location.href=url;
-	    	}else{//如果存在，则提示错误信息
-	    		KindEditor.ready(function(K) {
-					var dialog = K.dialog({
-				        width : 500,
-				        title : "提示",
-				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
-				        closeBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                        dialog.remove();
-			                        window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-			        	},
-				        yesBtn : {
-			                name : '关闭',
-			                click : function(e) {
-			                	dialog.remove();
-			                	window.location.href="${ctx}/member/memberDetail.htm";
-			                }
-				        }
-					});
-				});
-	      	}
+	}
+	
+	
+	//timer函数手机变更
+	function SetRemainTimeChange(){
+		if (curCount == 0) {
+			window.clearInterval(InterValObj);// 停止计时器  
+	        $("#mobileCodeButton").removeAttr("disabled");// 启用按钮  
+	        $("#mobileCodeOld").css("width","200px");
+	        $("#mobileCodeButton").val("重新发送验证码"); 
+	        $("#mobileCodeCheck").val("");
+	        clickNumber=false;
+	    }else {  
+	       curCount--;
+	       $("#mobileCodeButton").val("请在" + curCount + "秒内输入验证码");  
 	    }
-	    
-	  	$(function(){
-	  		/* KindEditor.ready(function(K) {
-				var uploadbutton = K.uploadbutton({
-					button : K('#uploadButton')[0],
-					fieldName : 'imgFile',
-					url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
-					afterUpload : function(data) {
-						if (data.error == 0) {
-							var url = K.formatUrl(data.url, 'domain');
-							K('#url').val(url);
-							$("#memberPhotoDivImg").attr("src",url);
-						} else {
-							alert(data.message);
-						}
-					},
-					afterError : function(str) {
-						alert('自定义错误信息: ' + str);
-					}
-				});
-				uploadbutton.fileBox.change(function(e) {
-					uploadbutton.submit();
-				});
-			}); */
-	  		$("#personalMessageForm").validate({
-	    		rules:{
-	    		},
-	    		messages:{
-	    		},
-	    		submitHandler:function(){
-	    			$.ajax({
-	    				   type: "POST",
-	    				   url: ctx+"/member/editEnterprise.htm",
-	    				   dataType: "json",
-	    				   data: $("#personalMessageForm").serialize(),
-		    			   success: function(r) {
-		    				   notClonedialog(r); 
-		                    },
-		                    error: function() {
-		                        alert("提交出错！");
-		                    }
-	    			 });
-	    		}
-	    	});
-	  		
-	  	});
-	  	
-	  	
-	  	/*-------------------------------------------------基本信息验证结束---------------------------------------------*/
-      	function notClonedialog(msg){
-			KindEditor.ready(function(K) {
-			var dialog = K.dialog({
-					        width : 300,
-					        title : '提示信息',
-					        body : '<div style="margin:10px;"><strong>'+msg.msg+'</strong></div>',
-					        closeBtn : {
-					                name : '关闭',
-					                click : function(e) {
-					                        dialog.remove();
-					                }
-					        },
-					        yesBtn : {
-					                name : '确定',
-					                click : function(e) {
-					                		dialog.remove();
-					                }
-					        }
-						});
-			});
-		}
-		
-		
+	} 
+     
+     //个人头像上传。
+   KindEditor.ready(function(K) {
+		var uploadbutton = K.uploadbutton({
+			button : K('#uploadButton')[0],
+			fieldName : 'imgFile',
+			url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
+			afterUpload : function(data) {
+				if (data.error === 0) {
+					var url = K.formatUrl(data.url, 'domain');
+					K('#url').val(url);
+					$("#memberPhotoDivImg").attr("src",url);
+				} else {
+					alert(data.message);
+				}
+			},
+			afterError : function(str) {
+				alert('自定义错误信息: ' + str);
+			}
+		});
+		uploadbutton.fileBox.change(function(e) {
+			uploadbutton.submit();
+		});
+	});	
+    
+    var countMail =60; //间隔函数，1秒执行 
+	var curCountMail;//当前剩余秒数  
+	var InterValObjMail;//记录定时器
+	var validateNumbMail=false;//记录验证码发送次数
+    //邮箱验证
+    function doSendEmailCode(){
+    	 curCountMail=countMail;
+    	 validateNumbMail=true;
+    	 $("#emailCodeButton").attr("disabled", "true");  
+		 $("#emailCodeOld").css("width","200px");
+		 $("#emailCodeButton").val("请在" + countMail + "秒内输入验证码");  
+		 InterValObjMail = window.setInterval(SetRemainTimeMail, 1000); // 启动计时器，1秒执行一次 
+    	 $.ajax({
+			   type: "POST",
+			   url: '${ctx}/memberDetail/sendMailCode.json',
+			   dataType:'json',
+			   success: function(r){
+				 alert(r.msg);
+			   }
+ 	     });
+    }
+	
+	function SetRemainTimeMail(){
+		if (curCountMail == 0) {
+			window.clearInterval(InterValObjMail);// 停止计时器  
+	        $("#emailCodeButton").removeAttr("disabled");// 启用按钮  
+	        $("#emailCodeOld").css("width","200px");
+	        $("#emailCodeButton").val("重新发送验证码"); 
+	        $("#emailCodeCheck").val("");
+	        validateNumbMail=false;
+	    }else {  
+	    	curCountMail--;
+	       $("#emailCodeButton").val("请在" + curCountMail + "秒内输入验证码");  
+	    }
+	}
+	
+	//邮箱验证
+    function EmailCodeChange(){
+    	 var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    	  if(validateNumbMail){
+    		   if($("#emailCodeNew").val()!=null&&$("#emailCodeNew").val()!=""){
+    			   if(filter.test($("#emailCodeNew").val())){
+    				    if($("#emailCodeCheck").val()!=null&&$("#emailCodeCheck").val()!=""){
+    				    	 if($("#emailCodeCheck").val().length==6){
+    				    		 var url="${ctx}/memberDetail/updateMail.json?email="+$("#emailCodeNew").val()+"&emailValidate="+$("#emailCodeCheck").val(); 
+								 doMobileCheck("你确定要修改绑定邮箱?",url,'email'); 
+    				    	 }else{
+    				    		 doShowError("验证码填写错误,验证码长度为6位!!"); 
+    				    	 }
+    				    }else{
+    				    	 doShowError("请填写邮箱验证码!"); 
+    				    }
+    			   }else{
+    				   doShowError("请正确填写邮箱格式的邮箱!"); 
+    			   }
+    		   }else{
+    			   doShowError("请填写需要绑定的邮箱!");
+    		   }
+    	  }else{
+    		  doShowError("请填写邮箱验证码!");
+    	  }
+    }
+     
+   //提示对话款
+   function doShowError(str){
+  	 var d =art.dialog({
+  		    title: '提示',
+  		    content:str ,
+  		    fixed:true,
+        	    lock: true,
+        	    icon:'error',
+        	    background:"#E6E6E6",
+       		opacity:0.4,
+  		    okValue: '确定',
+  		    ok: function () {
+  		    	 this.close;
+  		    }
+  		});
+  		d.show();
+   } 
+	 //提示对话款
+   function doShow(str){
+  	 var d =art.dialog({
+  		    title: '提示',
+  		    content:str ,
+  		    fixed:true,
+        	    lock: true,
+        	    icon:'succeed',
+        	    background:"#E6E6E6",
+       		opacity:0.4,
+  		    okValue: '确定',
+  		    ok: function () {
+  		    	 this.close;
+  		    	 location.href="${ctx}/member/memberDetail.htm";
+  		    }
+  		});
+  		d.show();
+   }
+	 
+   //确认提示框
+   function doMobileCheck(str,url,sign){
+     var d =art.dialog({
+  		    title:'操作提示',
+  		    fixed:true,
+      	    lock: true,
+      	    icon:'question',
+      	    background:"#E6E6E6",
+     		opacity:0.4,
+  		    content: str,
+  		    ok: function () {
+  		    	 $.ajax({
+					   type: "POST",
+					   url: url,
+					   dataType:'json',
+					   data:{"memberId":'${enterprise.memberId}'},
+					   success: function(r){
+						  if(sign=="mobile"){
+							  window.clearInterval(InterValObj);// 停止计时器  
+							  $("#mobileCodeOld").css("width","200px");
+							  $("#mobileCodeButton").removeAttr("disabled");// 启用按钮  
+	 					      $("#mobileCodeButton").val("重新发送验证码"); 
+	 					      $("#mobileCodeCheck").val("");
+	 					      clickNumber=false; 
+						  }else{
+							  window.clearInterval(InterValObjMail);// 停止计时器  
+							  $("#emailCodeOld").css("width","200px");
+							  $("#emailCodeButton").removeAttr("disabled");// 启用按钮  
+	 					      $("#emailCodeButton").val("重新发送验证码"); 
+	 					      $("#emailCodeCheck").val("");
+	 					     validateNumbMail=false;
+						  }
+						 if(r.success){
+							 doShow(r.msg);  
+						 }
+						 else{
+							doShowError(r.msg);
+						 }
+					   }
+          	     });
+  		    },
+  		    cancel: function () {
+  		        this.close();
+  		    }
+  		});
+  		d.show(); 
+   }	 
+	 
 </script>
-		
-
 </html>
