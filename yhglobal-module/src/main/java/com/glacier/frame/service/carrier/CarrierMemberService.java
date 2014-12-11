@@ -34,6 +34,7 @@ import com.glacier.frame.dao.carrier.CarrierMemberMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberMessageNoticeMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberTokenMapper;
 import com.glacier.frame.dao.carrierlogin.CarrierloginUserRoleMapper;
+import com.glacier.frame.dao.finace.FinanceCarrierMapper;
 import com.glacier.frame.dto.query.carrier.CarrierMemberQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierEnterpriserMember;
 import com.glacier.frame.entity.carrier.CarrierMember;
@@ -43,6 +44,7 @@ import com.glacier.frame.entity.carrier.CarrierMemberExample.Criteria;
 import com.glacier.frame.entity.carrier.CarrierMemberToken;
 import com.glacier.frame.entity.carrierlogin.CarrierloginUserRoleExample;
 import com.glacier.frame.entity.carrierlogin.CarrierloginUserRoleKey;
+import com.glacier.frame.entity.finace.FinanceCarrier;
 import com.glacier.frame.entity.system.User;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -77,6 +79,9 @@ public class CarrierMemberService {
 	
 	@Autowired
 	private CarrierMemberMessageNoticeMapper carrierMemberMessageNoticeMapper;
+	
+	@Autowired
+    private FinanceCarrierMapper financeCarrierMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -475,6 +480,23 @@ public class CarrierMemberService {
             carrierMemberMessageNotice.setUpdater("8b25651c2d896297530b64e4b80ec503");
             carrierMemberMessageNotice.setUpdateTime(new Date());
             carrierMemberMessageNoticeMapper.insert(carrierMemberMessageNotice);
+            
+            //注册成功，自动生成该承运商的财务信息记录
+            FinanceCarrier financeCarrier = new FinanceCarrier();
+            financeCarrier.setCarrierId(RandomGUID.getRandomGUID());
+            financeCarrier.setCarrierMemberId(carrierMemberId);
+            financeCarrier.setCarrierIncome(new BigDecimal("0"));
+            financeCarrier.setCarrierFreeze(new BigDecimal("0"));
+            financeCarrier.setCarrierDeduct(new BigDecimal("0"));
+            financeCarrier.setCarrierReturn(new BigDecimal("0"));
+            financeCarrier.setCarrierRecharge(new BigDecimal("0"));
+            financeCarrier.setCarrierWithdraw(new BigDecimal("0"));
+            financeCarrier.setRemark("会员注册成功。");
+            financeCarrier.setCreater("8b25651c2d896297530b64e4b80ec503");
+            financeCarrier.setCreateTime(new Date());
+            financeCarrier.setUpdater("8b25651c2d896297530b64e4b80ec503");
+            financeCarrier.setUpdateTime(new Date());
+            financeCarrierMapper.insert(financeCarrier);
             
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + carrierMember.getMemberName() + "] 会员信息已保存");
