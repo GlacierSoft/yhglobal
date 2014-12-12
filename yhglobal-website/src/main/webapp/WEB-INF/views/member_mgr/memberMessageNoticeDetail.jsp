@@ -29,8 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       }
       
       input{
-         border: 1px solid #F78441;
+         border: 1px solid #F28041;
          padding :0px 5px;
+         border-radius:5px;
       }
       
      </style>
@@ -39,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <table id="tab">
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">发件人:</span></td>
-               <td><input value="${memberMessageNoticeDetailDate.senderDisplay}" readonly="readonly" style="border: " > </td>
+               <td><input value="${memberMessageNoticeDetailDate.senderDisplay}" readonly="readonly"> </td>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">收件人:</span></td>
                <td><input value="${memberMessageNoticeDetailDate.receiverDisplay }" readonly="readonly" ></td>
             </tr>
@@ -59,13 +60,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                
                <td class="str" ><span class="label label-default" style="background-color: #F28041">备注</span></td>
                <td colspan="3" style="text-align: center;">
-                    	<textarea style="width:400px;height: 30px;border: 1px solid #F78441;" readonly="readonly">${memberMessageNoticeDetailDate.remark}</textarea>
+                    	<textarea style="width:400px;height: 30px;border: 1px solid #F28041;padding:0px 5px;border-radius:5px; " readonly="readonly" >${memberMessageNoticeDetailDate.remark}</textarea>
                </td>
             </tr>
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">正文:</span></td>
                <td colspan="3" style="text-align: center;">
-                    	<textarea style="width:400px;height: 60px;border: 1px solid #F78441;" readonly="readonly">${memberMessageNoticeDetailDate.content}</textarea>
+                    	<textarea style="width:400px;height: 60px;border: 1px solid #F28041;padding:0px 5px;border-radius:5px;" readonly="readonly" >${memberMessageNoticeDetailDate.content}</textarea>
                </td>
                
             </tr>
