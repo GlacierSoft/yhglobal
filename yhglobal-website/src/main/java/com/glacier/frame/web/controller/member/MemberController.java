@@ -92,6 +92,7 @@ public class MemberController extends AbstractController{
         ShipperEnterpriseMember enterpriseMember = enterpriseMemberService.getShipperMember(pricipalMember.getMemberId());
         mav.addObject("individuality", individuality);
         mav.addObject("enterprise", enterpriseMember);
+        mav.addObject("messageCount", shipperMemberMessageNoticeService.getMemberShipperMessageCount());
         session.removeAttribute("currentMember");
         session.setAttribute("currentMember", member);
         return mav;

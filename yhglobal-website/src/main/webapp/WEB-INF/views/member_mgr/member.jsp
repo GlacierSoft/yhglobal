@@ -112,11 +112,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              <td>注册时间：</td>
 			              <td><fmt:formatDate value="${currentMember.registrationTime}" type="both"/></td>
 			              <td>会员到期：</td>
-			              <td><%-- <fmt:formatDate value="${currentMember.expireTime}" type="both"/> --%>待开通</td>
+			              <td>暂定</td>
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>
-			              <td><%-- <fmt:formatNumber value='${currentMember.integral}' pattern='#,#00'/> --%>100</td>
+			              <td>${currentMember.integral}</td>
 			              <td>最后登录ip：</td>
 			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              <td>信誉度：</td>
 			              <td>暂定</td>
 			              <td>账户可用余额：</td>
-			              <td>￥<%-- <fmt:formatNumber value='${currentMember.lastLoginTime}' pattern='#,#00.00'/> --%>0</td>
+			              <td>￥<fmt:formatNumber value='${currentMember.accountBalance}' pattern='#,#00.00'/></td>
 			            </tr>
 			             <tr>
 			              <td>个人统计:</td>
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <div style="border: 1px solid #DDDDDD;">
 			        <div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></div>
-					  <div class="col-md-2"><span>未读站内信<a  href="#" onclick="doClick('messageNotice/intoMessageNotice.htm?&p=1','${currentMember.memberId}')" class="navbar-link"><span class="badge">8</span></a>封</span></div>
+					  <div class="col-md-2"><span>未读站内信<a  href="${ctx}/member/memberLetterStation.htm?loanState=secondAudit&p=1" class="navbar-link"><span class="badge">${messageCount }</span></a>封</span></div>
 					 
 					 </div>
 			        </div>

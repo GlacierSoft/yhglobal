@@ -135,6 +135,24 @@ public class ShipperMemberMessageNoticeService {
         return returnResult;// 返回ExtGrid表
     }
     
+    /**
+	 * @Title: getMemberShipperMessageCount
+	 * @Description: TODO(获取未读消息总数量) 
+	 * @param @param messageNoticeId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public int getMemberShipperMessageCount(){
+    	// 获取当前认证用户
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+        //未读
+        ShipperMemberMessageNoticeExample NoticeExampleWithout= new ShipperMemberMessageNoticeExample();
+        NoticeExampleWithout.createCriteria().andLetterstatusEqualTo("unread").andReceiverEqualTo(pricipalMember.getMemberId());
+        int countWithout=shipperMemberMessageNoticeMapper.countByExample(NoticeExampleWithout);
+        return countWithout;
+    }
     
     /**
 	 * @Title: getMemberShipperMessageNoticeNumber 
