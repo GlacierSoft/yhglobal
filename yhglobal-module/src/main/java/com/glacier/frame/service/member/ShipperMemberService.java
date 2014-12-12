@@ -29,6 +29,7 @@ import com.glacier.frame.dao.finace.FinanceMemberMapper;
 import com.glacier.frame.dao.member.ShipperEnterpriseMemberMapper;
 import com.glacier.frame.dao.member.ShipperIndividualityMemberMapper;
 import com.glacier.frame.dao.member.ShipperMemberMapper;
+import com.glacier.frame.dao.member.ShipperMemberMessageNoticeMapper;
 import com.glacier.frame.dao.member.ShipperMemberTokenMapper;
 import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.member.ShipperMemberQueryDTO;
@@ -37,6 +38,7 @@ import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.member.ShipperMemberExample;
+import com.glacier.frame.entity.member.ShipperMemberMessageNotice;
 import com.glacier.frame.entity.member.ShipperMemberExample.Criteria;
 import com.glacier.frame.entity.member.ShipperMemberToken;
 import com.glacier.frame.entity.system.User;
@@ -75,6 +77,9 @@ public class ShipperMemberService {
 	 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+    private ShipperMemberMessageNoticeMapper shipperMemberMessageNoticeMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -343,9 +348,9 @@ public class ShipperMemberService {
         shipperMember.setLoginCount(1); 
         shipperMember.setMemberPhoto("http://bdmu.v068041.10000net.cn/netloan-website/resources/images/shipperMember/shipperMember.jpg");//会员注册后的默认头像
         shipperMember.setRemark("货主会员创建帐号");
-        shipperMember.setCreater("超级管理员");
+        shipperMember.setCreater(getUserId());
         shipperMember.setCreateTime(new Date());
-        shipperMember.setUpdater("超级管理员");
+        shipperMember.setUpdater(getUserId());
         shipperMember.setUpdateTime(new Date());
         shipperMember.setTradersPassword(shipperMemberToken.getPassword());//会员交易密码
         count = shipperMemberMapper.insert(shipperMember); 
@@ -364,6 +369,22 @@ public class ShipperMemberService {
             shipperIndividualityMember.setMemberId(shipperMemberId);
             shipperIndividualityMemberMapper.insert(shipperIndividualityMember);
         }
+        //生成站内信信息
+        ShipperMemberMessageNotice memberMessageNotice = new ShipperMemberMessageNotice();
+        memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+        memberMessageNotice.setSender(getUserId());
+        memberMessageNotice.setReceiver(shipperMemberId);
+        memberMessageNotice.setTitle("注册成功");
+        memberMessageNotice.setContent("恭喜您，成为我们其中的一员。");
+        memberMessageNotice.setRemark(memberMessageNotice.getTitle());
+        memberMessageNotice.setSendtime(new Date());
+        memberMessageNotice.setLetterstatus("unread");
+        memberMessageNotice.setLettertype("system");
+        memberMessageNotice.setCreater(getUserId());
+        memberMessageNotice.setCreateTime(new Date());
+        memberMessageNotice.setUpdater(getUserId());
+        memberMessageNotice.setUpdateTime(new Date());
+        shipperMemberMessageNoticeMapper.insert(memberMessageNotice);
         
         //生成会员资金
         FinanceMember financeMember =new FinanceMember();
