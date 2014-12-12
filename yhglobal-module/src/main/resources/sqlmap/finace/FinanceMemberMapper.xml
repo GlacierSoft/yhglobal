@@ -124,7 +124,7 @@
     <include refid="Base_extend" />
     where temp_finance_member.mrechage_id = #{mrechageId,jdbcType=VARCHAR}
   </select>
-  
+  <!-- 自定义根据会员ID查询会员资金信息 -->
   <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

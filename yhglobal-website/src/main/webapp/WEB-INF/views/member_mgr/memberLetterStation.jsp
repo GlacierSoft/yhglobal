@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                   <fmt:formatDate value="${messageNotice.sendtime}" type="both"/>
 					                 </td>
 					                 <td>
-					                    <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doClick('${messageNotice.messageNoticeId}');">详情</button>
+					                    <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doClick('${messageNotice.messageNoticeId}','${messageNotice.letterstatus}','${buttonState}');">详情</button>
 					                 </td>
 					            </tr>
 					            </c:forEach>
@@ -259,7 +259,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	    element.bootstrapPaginator(options);
      });          
      
-     function doClick(id){
+     function doClick(id,letterstatus,buttonState){
     	var url=ctx + '/memberMessageNotice/intoDetail.htm?messageNoticeId='+id;
       	art.dialog.open(url, {
                width: '500px',
@@ -271,11 +271,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           	   okValue: '确定',
      		       ok: function () {
      		    	   this.close;
+     		    	   doChangeState(id,letterstatus,buttonState);
+     		    	   
      		    	}
           });
        }
      
-     function selectAll(){  
+     function doChangeState(id,letterstatus,buttonState){
+    	 if(letterstatus=='unread'){
+    		 $.ajax({
+  			   type: "POST",
+  			   url: ctx + '/memberMessageNotice/editAlready.json?messageNoticeIds='+id,
+  			   dataType:'json',
+  			   success: function(r){
+  				 window.location.href="${ctx}/member/memberLetterStation.htm?p=1&loanState="+buttonState;
+  			   }
+   	       });
+     	 }
+     };
+     
+    function selectAll(){  
     	if ($("#totalCheckbox").prop("checked")) {  
     	        $(":input[name='messageNoticeIds']").prop("checked", true);  
     	}else{  

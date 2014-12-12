@@ -29,7 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.frame.entity.finace.FinanceMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.service.finace.FinaceMemberService;
-import com.glacier.frame.service.member.MemberPasswordChangeService;
+import com.glacier.frame.service.finace.FinaceWithdrawMemberService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 
 /**
  * @ClassName: MemberStatisticsController 
@@ -45,6 +46,12 @@ public class MemberStatisticsController {
 	@Autowired
 	private FinaceMemberService finaceMemberService;
 	
+	@Autowired
+	private StorehouseBelaidupService belaidupService;
+	
+	@Autowired
+	private FinaceWithdrawMemberService withdrawMemberService;
+	
 	//会员信息统计展示页
     @RequestMapping(value="/memberStatistics.htm")
     private Object intoRechargeWithdraw(){
@@ -52,8 +59,20 @@ public class MemberStatisticsController {
         ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal();
     	ModelAndView mav=new ModelAndView("member_mgr/memberStatistics");
     	FinanceMember finacemember = finaceMemberService.getFinaceMemberProMemberId(pricipalUser.getMemberId());
+    	//运输费用
+    	mav.addObject("CountTransportationData", belaidupService.getByCountPrice(pricipalUser.getMemberId()));
+    	//保险费用
+    	mav.addObject("CountInsuranceData", belaidupService.selectByInsurance(pricipalUser.getMemberId()));
+    	//全部费用
+    	mav.addObject("CountGoodsData", belaidupService.selectByGoods(pricipalUser.getMemberId()));
+    	//交易次数
+    	mav.addObject("CountStatusData", belaidupService.getCountByStatus(pricipalUser.getMemberId()));
+    	//提现总金额
+    	mav.addObject("withdrawMoneyData", withdrawMemberService.getWithdrawMoney(pricipalUser.getMemberId()));
+    	//实际提现总金额
+    	mav.addObject("withdrawReallyMoneyData", withdrawMemberService.getWithdrawReallyMoney(pricipalUser.getMemberId()));
+    	//充值总金额
     	mav.addObject("finaceMemberData", finacemember);
-    	System.out.println("1111111111111111111111111111111111111111"+finacemember.getMrechageAdd());
   		return mav;
     }
 	  

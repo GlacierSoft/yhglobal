@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                 <button type="button" class="btn btn-warning" onclick="sendInfo('weight_goods_price','desc')">重货单价↓</button>
 		      </div> 
 		       <div class="col-md-1">
-	               <button type="button" class="btn btn-warning" onclick="sendInfo('route_bytime','asc')">运输时效↑</button>
+	               <button type="button" class="btn btn-warning" onclick="sendInfo('route_bytime','desc')">运输时效↓</button>
 		      </div> 
 		         
 		       <div class="col-md-5" align="right">

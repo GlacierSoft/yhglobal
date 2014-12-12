@@ -14,14 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.glacier.core.controller.AbstractController;
+import org.springframework.web.servlet.ModelAndView; 
+import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
-import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO;
+import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO; 
 import com.glacier.frame.dto.query.member.ShipperMemberMessageNoticeQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
@@ -52,8 +51,7 @@ public class MemberController extends AbstractController{
     private ShipperIndividualityMemberService individualityMemberService;
     
     @Autowired
-    private ShipperEnterpriseMemberService enterpriseMemberService;
-    
+    private ShipperEnterpriseMemberService enterpriseMemberService; 
     
     @Autowired
     private StorehouseGoodstypeSetService StorehouseGoodstypeSetService;
@@ -94,6 +92,7 @@ public class MemberController extends AbstractController{
         ShipperEnterpriseMember enterpriseMember = enterpriseMemberService.getShipperMember(pricipalMember.getMemberId());
         mav.addObject("individuality", individuality);
         mav.addObject("enterprise", enterpriseMember);
+        mav.addObject("messageCount", shipperMemberMessageNoticeService.getMemberShipperMessageCount());
         session.removeAttribute("currentMember");
         session.setAttribute("currentMember", member);
         return mav;
@@ -156,8 +155,7 @@ public class MemberController extends AbstractController{
        }else if("thirdAudit".equals(loanState)){
     	mav.addObject("buttonState","thirdAudit");
       	shipperMemberMessageNoticeQueryDTO.setLetterstatus("read");
-       }
-       
+       } 
       mav.addObject("shipperMemberMessageNoticeDate", shipperMemberMessageNoticeService.listAsGridWebsite(shipperMemberMessageNoticeQueryDTO, pager, p));
       mav.addObject("NoticeNumb",shipperMemberMessageNoticeService.getMemberShipperMessageNoticeNumber());
       return mav;
@@ -229,6 +227,16 @@ public class MemberController extends AbstractController{
   		return mav;
     }
     
+    //会员资金记录显示页面
+    @RequestMapping(value="memberFinance.htm")
+    private Object memberFinance(JqPager jqPager, FinaceMemberRecordQueryDTO finaceMemberRecordQueryDTO, int p){
+    	ModelAndView mav=new ModelAndView("member_mgr/memberFinance");
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
+    	mav.addObject("memberRecordDate", finaceMemberRecordService.listAsWebsite(jqPager, finaceMemberRecordQueryDTO,pricipalUser.getMemberId(),p)); 
+    	return mav;
+    }
+     
     //登录密码密码修改页
     @RequestMapping(value="changeMemberPassword.htm")
     private Object intoMemberChangePassword(){
