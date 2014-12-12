@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
 							  <li  class="active" style="width: 120px;"><a href="${ctx }/member/rechargeWithdraw.htm?p=1" class="btn btn-info" role="button">充值提现</a></li>
-							  <li><a href="#" class="btn btn-default" role="button">Content2</a></li>
+							 <li><a href="${ctx }/member/memberFinance.htm?p=1" class="btn btn-default" role="button">资金记录</a></li>
 							  <li><a href="${ctx}/member/changeChargePassword.htm" class="btn btn-default" role="button">交易密码修改</a></li>
 							  </ul>
 							</div>
