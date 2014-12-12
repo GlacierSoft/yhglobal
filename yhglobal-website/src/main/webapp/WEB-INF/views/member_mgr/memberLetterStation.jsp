@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <ul class="nav nav-pills nav-stacked" id="u2" style="max-width: 300px;text-align: center;">
 							  <li><a href="${ctx }/member/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a></li>
-							  <li><a href="${ctx }/member/memberFinance.htm?p=1" class="btn btn-default" role="button">资金记录</a></li>
+							  <li><a href="#" class="btn btn-default" role="button">Content2</a></li>
 							  <li><a href="#" class="btn btn-default" role="button">交易密码修改</a></li>
 							  </ul>
 							</div>
@@ -284,7 +284,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			   url: ctx + '/memberMessageNotice/editAlready.json?messageNoticeIds='+id,
   			   dataType:'json',
   			   success: function(r){
-  				   alert(r.msg);
   				 window.location.href="${ctx}/member/memberLetterStation.htm?p=1&loanState="+buttonState;
   			   }
    	       });

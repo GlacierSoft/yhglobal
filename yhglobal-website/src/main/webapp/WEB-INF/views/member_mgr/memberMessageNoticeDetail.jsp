@@ -19,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          width: 480px;text-align: center;float: left;
       }
       
-      
       .str{text-align: right;}
       
       #tab{margin: 10px;}
@@ -29,7 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       }
       
       input{
-         border: 1px solid #F28041;
+         border: 1px solid white;
+         padding :0px 5px;
+         border-radius:5px;
+      }
+      
+      textarea{
+         border: 1px solid white;
          padding :0px 5px;
          border-radius:5px;
       }
@@ -60,13 +65,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                
                <td class="str" ><span class="label label-default" style="background-color: #F28041">备注</span></td>
                <td colspan="3" style="text-align: center;">
-                    	<textarea style="width:400px;height: 30px;border: 1px solid #F28041;padding:0px 5px;border-radius:5px; " readonly="readonly" >${memberMessageNoticeDetailDate.remark}</textarea>
+                    	<textarea style="width:400px;height: 30px;" readonly="readonly" >${memberMessageNoticeDetailDate.remark}</textarea>
                </td>
             </tr>
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">正文:</span></td>
                <td colspan="3" style="text-align: center;">
-                    	<textarea style="width:400px;height: 60px;border: 1px solid #F28041;padding:0px 5px;border-radius:5px;" readonly="readonly" >${memberMessageNoticeDetailDate.content}</textarea>
+                    	<textarea style="width:400px;height: 60px;" readonly="readonly" >${memberMessageNoticeDetailDate.content}</textarea>
                </td>
                
             </tr>
