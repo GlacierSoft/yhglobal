@@ -125,6 +125,30 @@ public class FinaceWithdrawMemberService {
       return finaceWithdrawMemberMapper.selectByPrimaryKey(withdrawId); 
 	}
 	
+	/**
+     * @Title: getWithdrawMoney
+     * @Description: TODO(查询出会员的提现总金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> getWithdrawMoney(String memberId) {
+		return finaceWithdrawMemberMapper.getWithdrawMoney(memberId);
+	}
+	
+	/**
+     * @Title: getWithdrawReallyMoney
+     * @Description: TODO(查询出会员的提现实际总金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> getWithdrawReallyMoney(String memberId) {
+		return finaceWithdrawMemberMapper.getWithdrawReallyMoney(memberId);
+	}
+	
      /**
 	 * @Title: auditRechargeMember 
 	 * @Description: TODO(审核会员充值记录) 

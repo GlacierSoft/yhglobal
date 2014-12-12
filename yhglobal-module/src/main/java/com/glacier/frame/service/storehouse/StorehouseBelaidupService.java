@@ -147,6 +147,55 @@ public class StorehouseBelaidupService {
 	@Autowired
 	private ShipperMemberContractRecordMapper shipperMemberContractRecordMapper;
 	
+	
+	/**
+     * @Title: getByCountPrice
+     * @Description: TODO(查询出会员的运输总金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> getByCountPrice(String memberId) {
+		return addedServiceMapper.selectByTransportation(memberId);
+	}
+	
+	/**
+     * @Title: selectByInsurance
+     * @Description: TODO(查询出会员的保险总金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> selectByInsurance(String memberId) {
+		return addedServiceMapper.selectByInsurance(memberId);
+	}
+	
+	/**
+     * @Title: selectByGoods
+     * @Description: TODO(查询出会员的费用总金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> selectByGoods(String memberId) {
+		return addedServiceMapper.selectByGoods(memberId);
+	}
+	
+	/**
+     * @Title: getCountByStatus
+     * @Description: TODO(查询出交易成功次数) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public int getCountByStatus(String memberId) {
+		return belaidupMapper.countByStatusExample(memberId);
+	}
+	
 	/**
      * @Title: notLogin 
      * @Description: TODO(根据货物条形码获取货物状态) 

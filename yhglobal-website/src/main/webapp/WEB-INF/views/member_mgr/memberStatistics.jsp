@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<table class="table table-bordered">
 							          	<thead>
 								          <tr>
-								            <th colspan="7" style="text-align: center;" >会员信息统计</th>
+								            <th colspan="8" style="text-align: center;" >会员信息统计</th>
 								          </tr>
 								        </thead>
 							          	<tbody>
@@ -127,19 +127,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									          	<td>交易成功次数</td>
 									            <td>充值总金额</td>
 									            <td>提现总金额</td>
+									            <td>实际提现金额</td>
 									            <td>获赔总金额</td>
 									            <td>运输费总金额</td>
 									            <td>保险费总金额</td>
 									            <td>总费用金额</td>
 									          </tr>
 									          <tr>
-									          	<td>1</td>
+									          	<td>${CountStatusData}次</td>
 									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechageAdd}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='1' pattern='#,#00.00'/>元</td>
+									            <td>￥<fmt:formatNumber value='${withdrawMoneyData[0]}' pattern='#,#00.00'/>元</td>
+									            <td>￥<fmt:formatNumber value='${withdrawReallyMoneyData[0]}' pattern='#,#00.00'/>元</td>
 									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechargeMark}' pattern='#,#00.00'/>元</td>
-									            <td></td>
-									            <td></td>
-									            <td></td>
+									            <td>￥<fmt:formatNumber value='${CountTransportationData[0]}' pattern='#,#00.00'/>元</td>
+									            <td>￥<fmt:formatNumber value='${CountInsuranceData[0]}' pattern='#,#00.00'/>元</td>
+									            <td>￥<fmt:formatNumber value='${CountGoodsData[0]}' pattern='#,#00.00'/>元</td>
 									          </tr>
 								      	</tbody>
 								      </table>

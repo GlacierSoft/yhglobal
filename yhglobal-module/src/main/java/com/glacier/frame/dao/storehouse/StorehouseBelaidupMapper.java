@@ -16,6 +16,9 @@ public interface StorehouseBelaidupMapper {
 
     int insertSelective(StorehouseBelaidup record);
     
+    //自定义查询：查询交易成功次数
+    int countByStatusExample(String memberId);
+    
    //倒序查询最后一次添加的订单，取出它的基本信息
    //  @Select("SELECT  * FROM t_storehouse_belaidup where member_id = #{memberId} ORDER BY create_time DESC LIMIT 1")
     StorehouseBelaidup selectTop(String memberId);

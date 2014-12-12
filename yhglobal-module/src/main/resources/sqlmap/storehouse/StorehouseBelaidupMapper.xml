@@ -504,6 +504,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <!-- 查询货物交易成功次数 -->
+  <select id="countByStatusExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_belaidup temp_storehouse_belaidup
+    <include refid="Base_extend" />
+    where temp_storehouse_belaidup.member_id=#{memberId,jdbcType=VARCHAR} and temp_storehouse_belaidup.belaidup_status='business'
+  </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update t_storehouse_belaidup temp_storehouse_belaidup
     <set >
