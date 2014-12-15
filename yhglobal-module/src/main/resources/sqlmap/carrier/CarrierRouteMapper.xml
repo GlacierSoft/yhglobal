@@ -32,7 +32,8 @@
     <result column="temp_carrier_route_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_carrier_route_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_carrier_route_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-      <!-- 自定义扩展字段 -->
+    <result column="temp_carrier_route_is_sale" property="isSale" jdbcType="CHAR" />
+    <!-- 自定义扩展字段 -->
     <result column="temp_carrier_route_carrier_display" property="carrierDisplay" jdbcType="VARCHAR"/>
     <result column="temp_carrier_route_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> 
     <result column="temp_carrier_route_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> 
@@ -111,8 +112,9 @@
     temp_carrier_route.audit as temp_carrier_route_audit, temp_carrier_route.audit_opinion as temp_carrier_route_audit_opinion, 
     temp_carrier_route.audit_time as temp_carrier_route_audit_time, temp_carrier_route.remark as temp_carrier_route_remark, 
     temp_carrier_route.creater as temp_carrier_route_creater, temp_carrier_route.create_time as temp_carrier_route_create_time, 
-    temp_carrier_route.updater as temp_carrier_route_updater, temp_carrier_route.update_time as temp_carrier_route_update_time
-   <!-- 以下字段属于扩展 -->
+    temp_carrier_route.updater as temp_carrier_route_updater, temp_carrier_route.update_time as temp_carrier_route_update_time, 
+    temp_carrier_route.is_sale as temp_carrier_route_is_sale
+    <!-- 以下字段属于扩展 -->
     ,temp_carrier_member.member_name as temp_carrier_route_carrier_display
     ,temp_creater.member_name as temp_carrier_route_creater_display
     ,temp_updater.member_name as temp_carrier_route_updater_display 
@@ -171,8 +173,8 @@
       premium, telephone, mileage, 
       audit_state, audit, audit_opinion, 
       audit_time, remark, creater, 
-      create_time, updater, update_time
-      )
+      create_time, updater, update_time, 
+      is_sale)
     values (#{routerId,jdbcType=VARCHAR}, #{routeName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
       #{routeOrigin,jdbcType=VARCHAR}, #{originAddress,jdbcType=VARCHAR}, #{routeStop,jdbcType=VARCHAR}, 
       #{stopAddress,jdbcType=VARCHAR}, #{routeType,jdbcType=CHAR}, #{routeBytime,jdbcType=INTEGER}, 
@@ -182,8 +184,8 @@
       #{premium,jdbcType=DECIMAL}, #{telephone,jdbcType=VARCHAR}, #{mileage,jdbcType=VARCHAR}, 
       #{auditState,jdbcType=CHAR}, #{audit,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, 
       #{auditTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isSale,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierRoute" >
     insert into t_carrier_route
@@ -278,6 +280,9 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="isSale != null" >
+        is_sale,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="routerId != null" >
@@ -370,11 +375,14 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isSale != null" >
+        #{isSale,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.carrier.CarrierRouteExample" resultType="java.lang.Integer" >
-    select count(*) from t_carrier_route temp_carrier_route
-	 <include refid="Base_extend" />
+    select count(*) from t_carrier_route temp_carrier_route 
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -472,6 +480,9 @@
       <if test="record.updateTime != null" >
         temp_carrier_route.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.isSale != null" >
+        temp_carrier_route.is_sale = #{record.isSale,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -508,7 +519,8 @@
       temp_carrier_route.creater = #{record.creater,jdbcType=VARCHAR},
       temp_carrier_route.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_carrier_route.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_carrier_route.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      temp_carrier_route.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_carrier_route.is_sale = #{record.isSale,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -603,6 +615,9 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isSale != null" >
+        is_sale = #{isSale,jdbcType=CHAR},
+      </if>
     </set>
     where router_id = #{routerId,jdbcType=VARCHAR}
   </update>
@@ -636,7 +651,8 @@
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_sale = #{isSale,jdbcType=CHAR}
     where router_id = #{routerId,jdbcType=VARCHAR}
   </update>
 </mapper>

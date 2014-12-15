@@ -36,6 +36,11 @@ public class CarrierRouteQueryDTO extends CarrierRoute{
   
 	public void setQueryCondition(Criteria queryCriteria){
 		 
+	//班线审核状态
+	if(null!=this.getAuditState()&& StringUtils.isNotBlank(this.getAuditState())){
+		 queryCriteria.andAuditStateEqualTo(this.getAuditState());
+	}
+		
      //班线编号
    	 if(null != this.getRouteNumber() && StringUtils.isNotBlank(this.getRouteNumber())){
             queryCriteria.andRouteNumberLike("%" + this.getRouteNumber() + "%");

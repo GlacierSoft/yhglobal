@@ -138,10 +138,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="panel-body">
 				
-					<p>广东省-珠海市-斗门区 &nbsp; <span class="glyphicon glyphicon-arrow-right"></span> &nbsp; 广东省-广州市-花都区</p>
+				 <c:if test="${empty routerSale.rows}">
+						<tr>
+			           		<td colspan="7" style="text-align:center;vertical-align: middle;"><strong style="color: #0697DA">暂无信息</strong></td>
+			          	</tr>
+				  </c:if>
+			      <c:forEach items="${routerSale.rows}" var="sale"> 
+					<a href="#" onclick="doClickRoute('${sale.routerId}','${sale.routeType}')" >    
+					   <p style="color: #0697DA;margin-top: 2px">${sale.routeOrigin}&nbsp; <span class="glyphicon glyphicon-arrow-right"></span> &nbsp; ${sale.routeStop}</p>
+				    </a>
+				  </c:forEach>
+				<!-- 	<p>广东省-珠海市-斗门区 &nbsp; <span class="glyphicon glyphicon-arrow-right"></span> &nbsp; 广东省-广州市-花都区</p>
 					<p>广东省-珠海市-香洲区 &nbsp; <span class="glyphicon glyphicon-arrow-right"></span> &nbsp; 广东省-深圳市-宝安区</p>
-					<br>
-					<H2>￥0.45/公斤（9.7折）</H2>
+				 -->	<br> 
 					
 				</div>
             </div>

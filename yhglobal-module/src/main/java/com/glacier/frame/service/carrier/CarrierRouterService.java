@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;  
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject; 
+import org.apache.shiro.subject.Subject;  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -198,6 +198,7 @@ public class CarrierRouterService {
 	 public Object listAsGridWEB(JqPager jqPager) {
 	     JqGridReturn returnResult = new JqGridReturn();
 	     CarrierRouteExample carrierRouteExample = new CarrierRouteExample(); 
+	     carrierRouteExample.createCriteria().andAuditStateEqualTo("pass");//审核通过的班线
 	     carrierRouteExample.setOrderByClause("temp_carrier_route.create_time desc");
 	     List<CarrierRoute>  shippermembers = carrierRouteMapper.selectByExample(carrierRouteExample); // 查询所有会员列表
 	     int total = carrierRouteMapper.countByExample(carrierRouteExample); // 查询总页数
@@ -205,7 +206,29 @@ public class CarrierRouterService {
 	     returnResult.setTotal(total);
 	     return returnResult;// 返回ExtGrid表
 	  }
-      
+       
+	 /** 
+	  * @Title: listAsGrid  
+	  * @Description: TODO(首页获取特价班线)  
+	  * @param @param jqPager
+	  * @param @return    设定文件  
+	  * @return Object    返回类型  
+	  * @throws
+	  */
+	 public Object listAsGrid(JqPager jqPager) {
+	     JqGridReturn returnResult = new JqGridReturn();
+	     CarrierRouteExample carrierRouteExample = new CarrierRouteExample(); 
+	     carrierRouteExample.createCriteria().andIsSaleEqualTo("yes").andAuditStateEqualTo("pass"); //审核通过的班线
+	     carrierRouteExample.setOrderByClause("temp_carrier_route.update_time desc");
+	     carrierRouteExample.setLimitStart(0); 
+	     carrierRouteExample.setLimitEnd(10);
+	     List<CarrierRoute>  shippermembers = carrierRouteMapper.selectByExample(carrierRouteExample); // 查询所有会员列表
+	     int total = carrierRouteMapper.countByExample(carrierRouteExample); // 查询总页数
+	     returnResult.setRows(shippermembers);
+	     returnResult.setTotal(total);
+	     return returnResult;// 返回ExtGrid表
+	  }
+	 
      /*** 
       * @Title: getRoute  
       * @Description: TODO(获取班线详情)  

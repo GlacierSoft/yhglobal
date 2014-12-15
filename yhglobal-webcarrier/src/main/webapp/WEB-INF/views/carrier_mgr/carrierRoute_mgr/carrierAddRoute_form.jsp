@@ -15,7 +15,11 @@
 				<td>班次编号：</td>
 				<td>
 					<input type="text" class="easyui-validatebox spinner"  required="true" name="routeNumber" style="height:18px;width:180px" value="${routeNub}" readonly="readonly" />
-			    </td>  
+			    </td> 
+			    <td  style="padding-left:10px;">特价班线：</td>
+				<td>
+					<input id="isSale" style="height:18px;width:180px;" name="isSale" required="true" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.isSale"/>
+		        </td>
 			</tr>
 			<tr>
 			    <td>班线名称：</td>

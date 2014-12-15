@@ -92,6 +92,7 @@ public class CommonController {
         mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1,"trade"));//主页加载新闻信息
         mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWBE(pager));
         mav.addObject("routerDatas", carrierRouterService.listAsGridWEB(pager));
+        mav.addObject("routerSale",carrierRouterService.listAsGrid(pager));
         mav.addObject("announcementDatas", announcementService.listAsGrid(pager));
         sessionStauts.setAttribute("newClass", "");
         return mav;
@@ -114,7 +115,9 @@ public class CommonController {
         mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1,"trade"));//主页加载新闻信息
         mav.addObject("belaidupList", storehouseBelaidupService.listAsGridWBE(pager));
+        mav.addObject("routerSale",carrierRouterService.listAsGrid(pager));
         mav.addObject("routerDatas", carrierRouterService.listAsGridWEB(pager));
+        mav.addObject("announcementDatas", announcementService.listAsGrid(pager));
         return mav;
     }
     

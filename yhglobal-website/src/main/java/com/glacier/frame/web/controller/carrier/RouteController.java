@@ -51,6 +51,7 @@ public class RouteController extends AbstractController{
 	  	@RequestMapping(value = "/route.htm")
 	  	public Object routeList(JqPager pager, @RequestParam int p,String routeType,CarrierRouteQueryDTO routeQueryDTO){ 
 	  		ModelAndView mav = new ModelAndView("route_mgr/route");
+	  		routeQueryDTO.setAuditState("pass");
 	  		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,p,routeType,routeQueryDTO));
 	  		request.setAttribute("type", routeType); 
 	  		return mav;
@@ -61,6 +62,7 @@ public class RouteController extends AbstractController{
 	  	public Object selectRoute(JqPager pager,CarrierRouteQueryDTO carrierRouteQueryDTO,@RequestParam int p){ 
 	  		String routeType=request.getParameter("routeType");  
 	  		ModelAndView mav = new ModelAndView("route_mgr/route");
+	  		carrierRouteQueryDTO.setAuditState("pass");
 	  		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager, p,routeType,carrierRouteQueryDTO));
 	  		request.setAttribute("type", routeType); 
 	  		return mav; 

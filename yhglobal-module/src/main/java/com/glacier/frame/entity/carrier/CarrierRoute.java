@@ -10,28 +10,32 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class CarrierRoute {
     private String routerId;
-     
+
     private String routeName;
 
     private String status;
 
     private String routeOrigin;
 
+    private String originAddress;
+
     private String routeStop;
 
+    private String stopAddress;
+
     private String routeType;
-  
+
     private Integer routeBytime;
 
     private String routeNumber;
 
-    @JSONField(format="HH:mm")
+	@JSONField(format="HH:mm")
     private Date startofTime;
 
     private Float availablePosition;
 
     private String boxType;
-
+	
     @JSONField(format="HH:mm")
     private Date ceaseTakeDeliveryTime;
 
@@ -44,8 +48,8 @@ public class CarrierRoute {
     private String extractGoodsTime;
 
     private BigDecimal premium;
-   
-    @Pattern(regexp = "(^(\\d{3,4}-)?\\d{7,8})$|(13[0-9]{9})", message = "{Route.telephone.illegal}")
+
+	@Pattern(regexp = "(^(\\d{3,4}-)?\\d{7,8})$|(13[0-9]{9})", message = "{Route.telephone.illegal}") 
     private String telephone;
 
     private String mileage;
@@ -56,26 +60,24 @@ public class CarrierRoute {
 
     private String auditOpinion;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
-    
-    private String originAddress; 
-
-    private String stopAddress;
 
     private String remark;
 
     private String creater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-    
-    //自定义字段承运商
+
+    private String isSale;
+	
+	 //自定义字段承运商
     private String carrierDisplay;
     
     //创建人
@@ -100,56 +102,9 @@ public class CarrierRoute {
     
     //收货区域集合 
     private List<CarrierPickUpgoodsArea> pickUpList; 
+ 
     
-    public List<CarrierPickUpgoodsArea> getPickUpList() {
-		return pickUpList;
-	}
-
-	public void setPickUpList(List<CarrierPickUpgoodsArea> pickUpList) {
-		this.pickUpList = pickUpList;
-	}
-
-	public List<CarrierDeliverGoodsArea> getDeliverList() {
-		return deliverList;
-	}
-
-	public void setDeliverList(List<CarrierDeliverGoodsArea> deliverList) {
-		this.deliverList = deliverList;
-	}
-
-	public String getOutTime() {
-		return outTime;
-	}
-
-	public void setOutTime(String outTime) {
-		this.outTime = outTime;
-	}
-
-	public String getOriginAddress() {
-		return originAddress;
-	}
-
-	public void setOriginAddress(String originAddress) {
-		this.originAddress = originAddress;
-	}
-
-	public String getStopAddress() {
-		return stopAddress;
-	}
-
-	public void setStopAddress(String stopAddress) {
-		this.stopAddress = stopAddress;
-	}
-
-	public String getIntTime() {
-		return intTime;
-	}
-
-	public void setIntTime(String intTime) {
-		this.intTime = intTime;
-	}
-
-	public String getCarrierDisplay() {
+    public String getCarrierDisplay() {
 		return carrierDisplay;
 	}
 
@@ -179,6 +134,38 @@ public class CarrierRoute {
 
 	public void setAuditDisplay(String auditDisplay) {
 		this.auditDisplay = auditDisplay;
+	}
+
+	public String getOutTime() {
+		return outTime;
+	}
+
+	public void setOutTime(String outTime) {
+		this.outTime = outTime;
+	}
+
+	public String getIntTime() {
+		return intTime;
+	}
+
+	public void setIntTime(String intTime) {
+		this.intTime = intTime;
+	}
+
+	public List<CarrierDeliverGoodsArea> getDeliverList() {
+		return deliverList;
+	}
+
+	public void setDeliverList(List<CarrierDeliverGoodsArea> deliverList) {
+		this.deliverList = deliverList;
+	}
+
+	public List<CarrierPickUpgoodsArea> getPickUpList() {
+		return pickUpList;
+	}
+
+	public void setPickUpList(List<CarrierPickUpgoodsArea> pickUpList) {
+		this.pickUpList = pickUpList;
 	}
 
 	public String getRouterId() {
@@ -213,12 +200,28 @@ public class CarrierRoute {
         this.routeOrigin = routeOrigin;
     }
 
+    public String getOriginAddress() {
+        return originAddress;
+    }
+
+    public void setOriginAddress(String originAddress) {
+        this.originAddress = originAddress;
+    }
+
     public String getRouteStop() {
         return routeStop;
     }
 
     public void setRouteStop(String routeStop) {
         this.routeStop = routeStop;
+    }
+
+    public String getStopAddress() {
+        return stopAddress;
+    }
+
+    public void setStopAddress(String stopAddress) {
+        this.stopAddress = stopAddress;
     }
 
     public String getRouteType() {
@@ -405,6 +408,14 @@ public class CarrierRoute {
         this.updateTime = updateTime;
     }
 
+    public String getIsSale() {
+        return isSale;
+    }
+
+    public void setIsSale(String isSale) {
+        this.isSale = isSale;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -421,7 +432,9 @@ public class CarrierRoute {
             && (this.getRouteName() == null ? other.getRouteName() == null : this.getRouteName().equals(other.getRouteName()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRouteOrigin() == null ? other.getRouteOrigin() == null : this.getRouteOrigin().equals(other.getRouteOrigin()))
+            && (this.getOriginAddress() == null ? other.getOriginAddress() == null : this.getOriginAddress().equals(other.getOriginAddress()))
             && (this.getRouteStop() == null ? other.getRouteStop() == null : this.getRouteStop().equals(other.getRouteStop()))
+            && (this.getStopAddress() == null ? other.getStopAddress() == null : this.getStopAddress().equals(other.getStopAddress()))
             && (this.getRouteType() == null ? other.getRouteType() == null : this.getRouteType().equals(other.getRouteType()))
             && (this.getRouteBytime() == null ? other.getRouteBytime() == null : this.getRouteBytime().equals(other.getRouteBytime()))
             && (this.getRouteNumber() == null ? other.getRouteNumber() == null : this.getRouteNumber().equals(other.getRouteNumber()))
@@ -444,7 +457,8 @@ public class CarrierRoute {
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getIsSale() == null ? other.getIsSale() == null : this.getIsSale().equals(other.getIsSale()));
     }
 
     @Override
@@ -455,7 +469,9 @@ public class CarrierRoute {
         result = prime * result + ((getRouteName() == null) ? 0 : getRouteName().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRouteOrigin() == null) ? 0 : getRouteOrigin().hashCode());
+        result = prime * result + ((getOriginAddress() == null) ? 0 : getOriginAddress().hashCode());
         result = prime * result + ((getRouteStop() == null) ? 0 : getRouteStop().hashCode());
+        result = prime * result + ((getStopAddress() == null) ? 0 : getStopAddress().hashCode());
         result = prime * result + ((getRouteType() == null) ? 0 : getRouteType().hashCode());
         result = prime * result + ((getRouteBytime() == null) ? 0 : getRouteBytime().hashCode());
         result = prime * result + ((getRouteNumber() == null) ? 0 : getRouteNumber().hashCode());
@@ -479,6 +495,7 @@ public class CarrierRoute {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getIsSale() == null) ? 0 : getIsSale().hashCode());
         return result;
     }
 }

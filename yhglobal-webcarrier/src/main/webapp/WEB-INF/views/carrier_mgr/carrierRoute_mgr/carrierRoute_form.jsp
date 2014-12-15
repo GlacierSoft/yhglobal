@@ -9,14 +9,18 @@
  <form id="carrierAddRoute_form" method="post" style="padding:15px;width: 605px">
  <div title="基本信息" style="padding:15px">
    <fieldset style="padding:10px;" class="spinner">
-			<legend>班线基本信息</legend>  
-			<table class="formtable">
+	 <legend>班线基本信息</legend>  
+	 <table class="formtable">
 		<tr>
 			<td>班次编号：</td>
 			<td>
 				<input type="hidden" name="routerId" value="${carrierRouteData.routerId}" />
 			    <input type="text" class="easyui-validatebox spinner"  required="true" name="routeNumber" style="height:18px;width:180px" value="${carrierRouteData.routeNumber}" readonly="readonly" />
-		 	</td>  
+		 	</td> 
+		 	<td  style="padding-left:10px;">特价班线：</td> 
+		 	<td>
+				<input id="isSale" style="height:18px;width:180px;" value="${carrierRouteData.isSale}" name="isSale" required="true" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.isSale"/>
+		   </td>
 		 </tr>
 		 <tr>
 		    <td>班线名称：</td>

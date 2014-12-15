@@ -3,7 +3,7 @@ package com.glacier.frame.entity.carrier;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
 
 public class CarrierRouteExample {
     protected String orderByClause;
@@ -104,14 +104,13 @@ public class CarrierRouteExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+		
 		 //自定承运商名称查询方法
         public Criteria andCarrierDisplayLike(String value) {
         	addCriterion(" temp_carrier_member.member_name like ",value," carrierDisplay ");
             return (Criteria) this;
         } 
-		  
-        
+
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -2120,6 +2119,76 @@ public class CarrierRouteExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("temp_carrier_route.update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleIsNull() {
+            addCriterion("temp_carrier_route.is_sale is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleIsNotNull() {
+            addCriterion("temp_carrier_route.is_sale is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleEqualTo(String value) {
+            addCriterion("temp_carrier_route.is_sale =", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleNotEqualTo(String value) {
+            addCriterion("temp_carrier_route.is_sale <>", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleGreaterThan(String value) {
+            addCriterion("temp_carrier_route.is_sale >", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.is_sale >=", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleLessThan(String value) {
+            addCriterion("temp_carrier_route.is_sale <", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleLessThanOrEqualTo(String value) {
+            addCriterion("temp_carrier_route.is_sale <=", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleLike(String value) {
+            addCriterion("temp_carrier_route.is_sale like", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleNotLike(String value) {
+            addCriterion("temp_carrier_route.is_sale not like", value, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleIn(List<String> values) {
+            addCriterion("temp_carrier_route.is_sale in", values, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleNotIn(List<String> values) {
+            addCriterion("temp_carrier_route.is_sale not in", values, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.is_sale between", value1, value2, "isSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSaleNotBetween(String value1, String value2) {
+            addCriterion("temp_carrier_route.is_sale not between", value1, value2, "isSale");
             return (Criteria) this;
         }
     }
