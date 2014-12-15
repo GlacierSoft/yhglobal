@@ -4,6 +4,7 @@ import com.glacier.frame.entity.finace.FinaceRechargeMember;
 import com.glacier.frame.entity.finace.FinaceRechargeMemberExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface FinaceRechargeMemberMapper {
     int countByExample(FinaceRechargeMemberExample example);
@@ -15,6 +16,9 @@ public interface FinaceRechargeMemberMapper {
     int insert(FinaceRechargeMember record);
 
     int insertSelective(FinaceRechargeMember record);
+    
+    @Select("SELECT SUM(m.receive_money) FROM t_finace_recharge_member m WHERE m.member_id=#{memberId}")
+    List<String> selectByReceiveMoney(String memberId);
 
     List<FinaceRechargeMember> selectByExample(FinaceRechargeMemberExample example);
 

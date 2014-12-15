@@ -32,7 +32,9 @@ import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.finace.FinaceMemberRecordService;
 import com.glacier.frame.service.finace.FinaceMemberService;
+import com.glacier.frame.service.finace.FinaceRechargeMemberService;
 import com.glacier.frame.service.finace.FinaceRechargeMemberSetService;
+import com.glacier.frame.service.finace.FinaceWithdrawMemberService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.frame.service.finace.FinaceMemberDetailService;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -69,6 +71,9 @@ public class MemberController extends AbstractController{
     private FinaceRechargeMemberSetService finaceRechargeMemberSetService;
     
     @Autowired
+    private FinaceRechargeMemberService finaceRechargeMemberService;
+    
+    @Autowired
     private ShipperMemberBankCardService shipperMemberBankCardService;
     
     @Autowired
@@ -76,6 +81,9 @@ public class MemberController extends AbstractController{
     
     @Autowired
     private ShipperMemberMessageNoticeService shipperMemberMessageNoticeService; 
+    
+	@Autowired
+	private FinaceWithdrawMemberService withdrawMemberService;
     
 
     // 进入会员个人主页展示页面
@@ -93,6 +101,22 @@ public class MemberController extends AbstractController{
         mav.addObject("individuality", individuality);
         mav.addObject("enterprise", enterpriseMember);
         mav.addObject("messageCount", shipperMemberMessageNoticeService.getMemberShipperMessageCount());
+      //运输费用
+    	mav.addObject("CountTransportationData", storehouseBelaidupService.getByCountPrice(pricipalMember.getMemberId()));
+    	//保险费用
+    	mav.addObject("CountInsuranceData", storehouseBelaidupService.selectByInsurance(pricipalMember.getMemberId()));
+    	//全部费用
+    	mav.addObject("CountGoodsData", storehouseBelaidupService.selectByGoods(pricipalMember.getMemberId()));
+    	//交易次数
+    	mav.addObject("CountStatusData", storehouseBelaidupService.getCountByStatus(pricipalMember.getMemberId()));
+    	//实际到账总金额
+    	mav.addObject("receiveMoneyData", finaceRechargeMemberService.getByCountReceiveMoney(pricipalMember.getMemberId()));
+    	//提现总金额
+    	mav.addObject("withdrawMoneyData", withdrawMemberService.getWithdrawMoney(pricipalMember.getMemberId()));
+    	//实际提现总金额
+    	mav.addObject("withdrawReallyMoneyData", withdrawMemberService.getWithdrawReallyMoney(pricipalMember.getMemberId()));
+    	//充值总金额
+    	mav.addObject("finaceMemberData", finaceMemberService.getFinaceMemberProMemberId(pricipalMember.getMemberId()));
         session.removeAttribute("currentMember");
         session.setAttribute("currentMember", member);
         return mav;

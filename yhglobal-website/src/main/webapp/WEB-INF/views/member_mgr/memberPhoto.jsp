@@ -81,12 +81,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    </div>
 					    <div id="collapseThree" class="panel-collapse collapse">
 					      <div class="panel-body">
-					      	<div class="btn-group-vertical">
-					      	  <a href="#" class="btn btn-default" role="button">Content1</a>
-					      	  <a href="#" class="btn btn-default" role="button">Content2</a>
-					      	  <a href="#" class="btn btn-default" role="button">Content3</a>
-					      </div>
-					    </div>
+								<div class="btn-group-vertical">
+									<ul class="nav nav-pills nav-stacked" id="u2"
+										style="max-width: 300px; text-align: center;">
+										<li style="width: 120px;"><a href="${ctx}/memberStatistics/memberStatistics.htm" class="btn btn-default" role="button">会员统计信息</a></li>
+									</ul>
+								</div>
+							</div>
 					  </div>
 					</div>
 				</div>

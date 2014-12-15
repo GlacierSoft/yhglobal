@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									data-parent="#accordion" href="#collapseOne"> 基本信息 </a>
 							</h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse in">
+						<div id="collapseOne" class="panel-collapse collapse">
 							<div class="panel-body">
 								<div class="btn-group-vertical">
 									<ul class="nav nav-pills nav-stacked" id="u2"
@@ -92,14 +92,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									data-parent="#accordion" href="#collapseThree"> 统计信息 </a>
 							</h4>
 						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
+						<div id="collapseThree" class="panel-collapse in">
 							<div class="panel-body">
 								<div class="btn-group-vertical">
 									<ul class="nav nav-pills nav-stacked" id="u2"
 										style="max-width: 300px; text-align: center;">
 										<li class="active" style="width: 120px;"><a href="${ctx}/memberStatistics/memberStatistics.htm" class="btn btn-info" role="button">会员统计信息</a></li>
-										<li><a href="#" class="btn btn-default" role="button">Content2</a></li>
-										<li><a href="#" class="btn btn-default" role="button">Content3</a></li>
 									</ul>
 								</div>
 							</div>
@@ -135,13 +133,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									          </tr>
 									          <tr>
 									          	<td>${CountStatusData}次</td>
-									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechageAdd}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${withdrawMoneyData[0]}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${withdrawReallyMoneyData[0]}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechargeMark}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${CountTransportationData[0]}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${CountInsuranceData[0]}' pattern='#,#00.00'/>元</td>
-									            <td>￥<fmt:formatNumber value='${CountGoodsData[0]}' pattern='#,#00.00'/>元</td>
+									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechageAdd}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${withdrawMoneyData[0]}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${withdrawReallyMoneyData[0]}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${finaceMemberData.mrechargeMark}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${CountTransportationData[0]}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${CountInsuranceData[0]}' pattern='#,#00.00'/></td>
+									            <td>￥<fmt:formatNumber value='${CountGoodsData[0]}' pattern='#,#00.00'/></td>
 									          </tr>
 								      	</tbody>
 								      </table>

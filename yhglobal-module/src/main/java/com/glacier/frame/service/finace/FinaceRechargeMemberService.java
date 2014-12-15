@@ -86,6 +86,18 @@ public class FinaceRechargeMemberService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	/**
+     * @Title: getByCountReceiveMoney
+     * @Description: TODO(查询出会员的实际充值金额) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回 
+     * @throws
+     */
+	public List<String> getByCountReceiveMoney(String memberId) {
+		return finaceRechargeMemberMapper.selectByReceiveMoney(memberId);
+	}
+	
 	public Object listAsGrid(JqPager jqPager,FinaceRechargeMemberQueryDTO finaceRechargeMemberQueryDTO, String q) {
 		JqGridReturn returnResult = new JqGridReturn();
 		FinaceRechargeMemberExample finaceRechargeMemberExample = new FinaceRechargeMemberExample();

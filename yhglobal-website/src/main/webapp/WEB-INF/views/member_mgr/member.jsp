@@ -81,12 +81,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    </div>
 					    <div id="collapseThree" class="panel-collapse collapse">
 					      <div class="panel-body">
-					      	<div class="btn-group-vertical">
-					      	  <a href="${ctx}/memberStatistics/memberStatistics.htm" class="btn btn-default" role="button">会员统计信息</a>
-					      	  <a href="#" class="btn btn-default" role="button">Content2</a>
-					      	  <a href="#" class="btn btn-default" role="button">Content3</a>
-					      </div>
-					    </div>
+								<div class="btn-group-vertical">
+									<ul class="nav nav-pills nav-stacked" id="u2"
+										style="max-width: 300px; text-align: center;">
+										<li style="width: 120px;"><a href="${ctx}/memberStatistics/memberStatistics.htm" class="btn btn-default" role="button">会员统计信息</a></li>
+									</ul>
+								</div>
+							</div>
 					  </div>
 					</div>
 				</div>
@@ -234,33 +235,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</blockquote>
 					<table class="table table-bordered" style="padding: 10px;">
 						<tr>
-			        		<td colspan="3"><span><strong>账户总汇：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>账户总额：￥<fmt:formatNumber value='1000' pattern='#,#00.00'/></span></td>
-			        		<td><span>可用余额：￥<fmt:formatNumber value='1000' pattern='#,#00.00'/></span></td>
-			        		<td><span>冻结金额：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td colspan="3"><span><strong>详情总汇：</strong></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>下单奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>线下/线上冲值奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>其它奖励：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>交易成功次数：${CountStatusData}次</span></td>
+			        		<td><span>充值总金额：￥<fmt:formatNumber value='${finaceMemberData.mrechageAdd}' pattern='#,#00.00'/></span></td>
+			        		<td><span>实际到账总金额：￥<fmt:formatNumber value='${receiveMoneyData[0]}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td colspan="3"><span><strong>订单总汇：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>订单总额：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>订单本金：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>订单利润：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>提现总金额：￥<fmt:formatNumber value='${withdrawMoneyData[0]}' pattern='#,#00.00'/></span></td>
+			        		<td><span>实际提现金额：￥<fmt:formatNumber value='${withdrawReallyMoneyData[0]}' pattern='#,#00.00'/></span></td>
+			        		<td><span>获赔总金额：￥<fmt:formatNumber value='${finaceMemberData.mrechargeMark}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td colspan="3"><span><strong>消费总汇：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>停车消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>刷卡消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
-			        		<td><span>其他消费：￥<fmt:formatNumber value='0' pattern='#,#00.00'/></span></td>
+			        		<td><span>运输费总金额：￥<fmt:formatNumber value='${CountTransportationData[0]}' pattern='#,#00.00'/></span></td>
+			        		<td><span>保险费总金额：￥<fmt:formatNumber value='${CountInsuranceData[0]}' pattern='#,#00.00'/></span></td>
+			        		<td><span>总费用金额：￥<fmt:formatNumber value='${CountGoodsData[0]}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        </table>
 				  </div>

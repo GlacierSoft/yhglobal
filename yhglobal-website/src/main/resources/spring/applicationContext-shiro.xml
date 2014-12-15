@@ -43,7 +43,8 @@
 				/member/* = user
 				/delivery/*=user 
 				/messageNotice/* = user
-				/loanReview/* = user    
+				/loanReview/* = user
+				/feedback/* = user    
 			</value>
 		</property>
 	</bean>
