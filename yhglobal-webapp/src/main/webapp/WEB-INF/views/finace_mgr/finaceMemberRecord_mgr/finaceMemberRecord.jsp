@@ -78,18 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							width : 120,
 							sortable : true
 						},{
-							field : 'frozenMoney',
-							title : '冻结金额',
-							width : 120,
-							sortable : true
-						},{
 							field : 'collectingMoney',
 							title : '待收金额',
-							width : 120,
-							sortable : true
-						},{
-							field : 'refundMoney',
-							title : '待还金额',
 							width : 120,
 							sortable : true
 						},{

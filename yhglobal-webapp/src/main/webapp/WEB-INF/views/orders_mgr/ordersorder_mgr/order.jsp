@@ -193,7 +193,7 @@
 	glacier.order_mgr.order_mgr.order.addDispatching=function(){
 		var row= glacier.order_mgr.order_mgr.order.orderDataGrid.datagrid("getSelected");
 		if(row.status=="enable"){
-			if(row.distributeStatus=="waitdistribute"){
+			if(row.orderStatus=="waitconfirm"){
 				glacier.basicAddOrEditDialog({
 					title : '【'+row.orderCode+'】- 配送',
 					width : 560,
@@ -208,7 +208,7 @@
 					}
 				});
 			}else{
-				$.messager.alert("操作提示", "该条记录已在配送中!","info");
+				$.messager.alert("操作提示", "该条订单已确认，不可再分配!","info");
 			}
 		}else{
 			$.messager.alert("操作提示", "该条记录禁用中，无法配送!","info");

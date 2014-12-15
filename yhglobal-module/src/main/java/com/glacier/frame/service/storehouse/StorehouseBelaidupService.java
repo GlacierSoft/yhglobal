@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinaceMemberRecordMapper;
 import com.glacier.frame.dao.finace.FinanceMemberDetailMapper;
 import com.glacier.frame.dao.finace.FinanceMemberMapper;
 import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
@@ -45,8 +46,8 @@ import com.glacier.frame.dao.storehouse.StorehouseStorageMapper;
 import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
-import com.glacier.frame.entity.finace.FinanceMember;
-import com.glacier.frame.entity.finace.FinanceMemberDetail;
+import com.glacier.frame.entity.finace.FinaceMemberRecord;
+import com.glacier.frame.entity.finace.FinanceMember; 
 import com.glacier.frame.entity.finace.FinanceMemberExample;
 import com.glacier.frame.entity.finace.FinancePlatform;
 import com.glacier.frame.entity.finace.FinancePlatformDetail;
@@ -147,6 +148,8 @@ public class StorehouseBelaidupService {
 	@Autowired
 	private ShipperMemberContractRecordMapper shipperMemberContractRecordMapper;
 	
+	@Autowired
+	private FinaceMemberRecordMapper financeMemberRecordMapper;
 	
 	/**
      * @Title: getByCountPrice
@@ -507,20 +510,26 @@ public class StorehouseBelaidupService {
         	storehouseAddedService.setBelaidupId(belaidup.getBelaidupId()); 
         	storehouseAddedService.setMessage("yes");
         	addedServiceMapper.insert(storehouseAddedService);
-        	//新增会员资金记录
-        	FinanceMemberDetail financeMemberDetail=new FinanceMemberDetail();
-        	financeMemberDetail.setMdetailId(RandomGUID.getRandomGUID());
-        	financeMemberDetail.setMemberId(pricipalUser.getMemberId());
-        	financeMemberDetail.setArticleId(belaidup.getBelaidupId());
-        	financeMemberDetail.setMdetailType("nowPay");//现付
-        	financeMemberDetail.setMdetailPay(storehouseAddedService.getTotalCost()); 
-        	financeMemberDetail.setMdetaillPayfor(storehouseAddedService.getTotalCost());
-        	financeMemberDetail.setRemark("提交发货单扣款");
-        	financeMemberDetail.setCreater(getUserId());
-        	financeMemberDetail.setCreateTime(new Date());
-        	financeMemberDetail.setUpdater(getUserId());
-        	financeMemberDetail.setUpdateTime(new Date());
-        	financeMemberDetailMapper.insert(financeMemberDetail);
+        	//新增会员交易记录
+        	FinaceMemberRecord financeMemberRecord=new FinaceMemberRecord();
+        	financeMemberRecord.setTransactionMemberId(RandomGUID.getRandomGUID());
+        	financeMemberRecord.setMemberId(pricipalUser.getMemberId());
+        	financeMemberRecord.setFinaceMemberId(fin.getMrechageId());
+        	financeMemberRecord.setTransactionTarget("系统账号");//现付
+        	financeMemberRecord.setTransactionType("发货"); 
+        	financeMemberRecord.setEarningMoney(new BigDecimal(0));
+        	financeMemberRecord.setExpendMoney(storehouseAddedService.getTotalCost());//支出费用
+        	financeMemberRecord.setUsableMoney(fin.getMrechageRemain().subtract(storehouseAddedService.getTotalCost()));//可用余额
+        	financeMemberRecord.setFrozenMoney(storehouseAddedService.getTotalCost());//冻结金额
+        	financeMemberRecord.setCollectingMoney(new BigDecimal(0));
+        	financeMemberRecord.setRefundMoney(new BigDecimal(0));
+        	financeMemberRecord.setAmount(fin.getMrechageRemain().subtract(storehouseAddedService.getTotalCost()));
+        	financeMemberRecord.setRemark("提交发货单扣款");
+        	financeMemberRecord.setCreater(getUserId());
+        	financeMemberRecord.setCreateTime(new Date());
+        	financeMemberRecord.setUpdater(getUserId());
+        	financeMemberRecord.setUpdateTime(new Date());
+        	financeMemberRecordMapper.insert(financeMemberRecord);
         	//修改会员资金,账户金额减去此次运输总费用
         	fin.setMrechageRemain(fin.getMrechageRemain().subtract(storehouseAddedService.getTotalCost()));
         	fin.setUpdateTime(new Date());
@@ -568,7 +577,7 @@ public class StorehouseBelaidupService {
         	shipperMemberMapper.updateByPrimaryKeySelective(pricipalUser);
         	//查询合同类型--发货
         	MemberContractTypeExample  memberContractTypeExample=new MemberContractTypeExample();
-        	memberContractTypeExample.createCriteria().andContractTypeNameEqualTo("货主承运商合同");
+        	memberContractTypeExample.createCriteria().andContractTypeNameEqualTo("货主-平台合同");
         	MemberContractType memberContractType=(MemberContractType)memberContractTypeMapper.selectByExample(memberContractTypeExample).get(0);
         	//生成合同信息
         	ShipperMemberContractRecord shipperMemberContractRecord=new ShipperMemberContractRecord();
