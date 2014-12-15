@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
 					                 </c:if>
 					                 <c:if test="${storehouseBelaidupList.stauts=='disable'}">
-	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
+	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doPublish('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
 					                 </c:if>
 					                  <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doContract('${storehouseBelaidupList.belaidupId}');">协议</button>
 					            </td>
@@ -302,6 +302,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            })
        }
       
+       //发布操作
+       function  doPublish(id,name,status){
+    	   var d =art.dialog({
+     		    title:'操作提示',
+     		    fixed:true,
+         	    lock: true,
+         	    icon:'warning',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+     		    content: '你确定对【'+name+'】信息进行【发布】操作吗?',
+     		    ok: function () {
+     		    	 doRoute(id,name,status);
+     		    },
+     		    cancel: function () {
+     		        this.close();
+     		    }
+     		});
+     		d.show();  
+     };
+     
+     
+    function doRoute(id,name,status){
+       var url=ctx + '/delivery/releaseRoute.htm?p=1&&belaidupId='+id;
+  	   art.dialog.open(url, {
+             width: '720px',
+             height: 'auto',
+             lock: true,
+             background:"#E6E6E6",
+      	     opacity:0.4,
+      	     fixed:true,
+      	     okValue: '确定',
+ 		       ok: function () {
+ 		    	   this.close;
+ 		    	}
+         })
+    }
+     
+       
       //撤销发布操作
       function doAction(id,name,status){
     	  var action;//操作
