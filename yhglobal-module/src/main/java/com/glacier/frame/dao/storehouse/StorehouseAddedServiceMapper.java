@@ -18,6 +18,11 @@ public interface StorehouseAddedServiceMapper {
 
     int insertSelective(StorehouseAddedService record);
 
+    @Select("SELECT SUM(s.transportation_cost),SUM(s.insurance_cost),SUM(s.goods_cost) from t_storehouse_belaidup b " +
+    		"LEFT JOIN t_storehouse_added_service s ON b.belaidup_id = s.belaidup_id " +
+    		"WHERE b.member_id=#{memberId}")
+    List<String> selectByTest(String memberId);
+    
     @Select("SELECT SUM(s.transportation_cost) from t_storehouse_belaidup b " +
     		"LEFT JOIN t_storehouse_added_service s ON b.belaidup_id = s.belaidup_id " +
     		"WHERE b.member_id=#{memberId}")
