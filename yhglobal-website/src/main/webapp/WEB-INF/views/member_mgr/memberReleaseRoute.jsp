@@ -110,9 +110,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
    <script>
           function send(id){
-        	  var url=ctx + '/delivery/getRouteInfo.htm'+id;
+        	  var url=ctx + '/delivery/getRouteInfo.htm?routeId='+id;
             	art.dialog.open(url, {
-                     width: '500px',
+                     width: '900px',
                      height: 'auto',
                      lock: true,
                      background:"#E6E6E6",
@@ -124,10 +124,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            		    	}
                 });
           }
-          
-          
-          
-   </script>
-
+    </script>
   </body>
 </html>
