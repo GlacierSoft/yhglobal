@@ -112,7 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           function send(id){
         	  var url=ctx + '/delivery/getRouteInfo.htm?routeId='+id;
             	art.dialog.open(url, {
-                     width: '900px',
+            		title:'发布信息完善',
+            		 width: '750px',
                      height: 'auto',
                      lock: true,
                      background:"#E6E6E6",
@@ -120,9 +121,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	   fixed:true,
                 	   okValue:'确定',
            		       ok: function () {
-           		    	   this.close;
-           		    	}
+           		    	    var sendSite= $("#sendSite option:selected").attr("value"); 
+        		    		var orderSite= $("#orderSite option:selected").attr("value"); 
+        		    		var boo=1;
+        		    		 if(sendSite==""){
+        		    			boo=0;
+        		    			doShowError("请选择发货网点!");
+        		    		 }else{
+        		    			 if(orderSite==""){
+             		    			boo=0;
+             		    			doShowError("请选择收货网点!");
+             		    		 }else{
+             		    			if($("#zhongPrice").val()==""&&$("#qingPrice").val()==""){ 
+               		    			 boo=0;
+               		    			 doShowError("请填写重量或体积");
+               		    		   }else{
+               		    			 $("#fom").submit(); 
+               		    		   } 
+             		    		}
+        		    		 } 
+        		    	}
                 });
+          }
+          
+          
+          //警告对话款
+          function doShowError(str){
+         	 var d =art.dialog({
+         		    title: '提示',
+         		    content:str ,
+         		    fixed:true,
+               	    lock: true,
+               	    icon:'error',
+               	    background:"#E6E6E6",
+              		opacity:0.4,
+         		    okValue: '确定',
+         		    ok: function () {
+         		    	this.close;
+         		    }
+         		});
+         		d.show();
           }
     </script>
   </body>

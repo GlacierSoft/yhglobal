@@ -160,7 +160,7 @@ public class DeliveryController {
    	@RequestMapping(value="getRouteInfo.htm")
    	private Object getRouteInfo(String routeId ){
    		ModelAndView mav=new ModelAndView("member_mgr/MemberRouteInfo");
-   		mav.addObject("carrierRouter", carrierRouterService.getRoute(routeId));
+   		mav.addObject("route", carrierRouterService.getRoute(routeId));
    	   return mav;
    	}
    	
