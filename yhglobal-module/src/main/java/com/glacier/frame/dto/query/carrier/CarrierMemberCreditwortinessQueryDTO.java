@@ -40,9 +40,15 @@ public class CarrierMemberCreditwortinessQueryDTO extends CarrierMemberCreditwor
     }
     
     public void setQueryCondition(Criteria queryCriteria){
+    	
+	if(null != this.getCarrierMemberId()){//会员id
+        queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId());
+    }
+    	
    	if(null != this.getMemberName()){//会员真实名称Like查询
         queryCriteria.andMemberName("%" + this.getMemberName() + "%");
     }
+   	
    	 if(null != this.getCreditworthinessType()){//根据积分类型查询
         queryCriteria.andCreditworthinessTypeEqualTo(this.getCreditworthinessType().toString());
    	 	}

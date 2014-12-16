@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.frame.dto.query.orders.OrdersOrderQueryDTO;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.service.orders.OrdersOrderService;
 
 /*** 
@@ -42,7 +45,11 @@ public class OrdersOrderController extends AbstractController{
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, OrdersOrderQueryDTO orderSetQueryDTO) {
-        return orderSetService.listAsGrid(jqPager, orderSetQueryDTO);
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+    	orderSetQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId());
+    	orderSetQueryDTO.setOrderStatus("waitconfirm");
+    	return orderSetService.listAsGrid(jqPager, orderSetQueryDTO);
     }
       
     // 进入订单信息Detail信息页面

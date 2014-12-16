@@ -33,6 +33,10 @@ public class CarrierBankCardQueryDTO extends CarrierBankCard {
 	
 	
 	public void setQueryCondition(Criteria queryCriteria, String q){
+		
+		if(null != this.getCarrierMemberId()){//会员id
+	        queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId());
+	    }
 		 
 		if(null!=this.getMemberDisplay()){
 			queryCriteria.andCarrierRealNamelike("%"+this.getMemberDisplay()+"%");

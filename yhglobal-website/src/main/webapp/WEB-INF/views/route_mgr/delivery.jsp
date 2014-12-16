@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <c:if test="${router.boxType eq 'semiClosed'}">
 						              半封闭
 						  </c:if> 
-						  <c:if test="${router.routeType eq 'air'}">
+						  <c:if test="${router.boxType eq 'flat'}">
 						              平板
 						  </c:if>
 						 </td>

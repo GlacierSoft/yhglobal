@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          	</tr>
 				  </c:if>
 			      <c:forEach items="${routerSale.rows}" var="sale"> 
-					<a href="#" onclick="doClickRoute('${sale.routerId}','${sale.routeType}')" >    
+					<a href="javascript:doClickRoute('${sale.routerId}','${sale.routeType}')" >    
 					   <p style="color: #0697DA;margin-top: 2px">${sale.routeOrigin}&nbsp; <span class="glyphicon glyphicon-arrow-right"></span> &nbsp; ${sale.routeStop}</p>
 				    </a>
 				  </c:forEach>

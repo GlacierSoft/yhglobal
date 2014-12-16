@@ -82,6 +82,10 @@ public class OrdersOrderQueryDTO extends OrdersOrder{
 
 	public void setQueryCondition(Criteria queryCriteria){
 		
+	//查看属于承运商自己的订单
+	if(null != this.getCarrierMemberId() && StringUtils.isNotBlank(this.getCarrierMemberId())){
+        queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId());
+    } 
 	  
    	 if(null != this.getOrderCode() && StringUtils.isNotBlank(this.getOrderCode())){//订单名称Like查询
             queryCriteria.andOrderCodeLike("%" + this.getOrderCode() + "%");
@@ -90,7 +94,7 @@ public class OrdersOrderQueryDTO extends OrdersOrder{
         queryCriteria.andDistributeStatusEqualTo(this.getDistributeStatus().toString());
    	 	}
    	if(null != this.getOrderStatus()){//订单状态查询
-        queryCriteria.andOrderStatusEqualTo(this.getOrderStatus().toString());
+        queryCriteria.andOrderStatusNotEqualTo(this.getOrderStatus().toString());
    	 	}
      if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
