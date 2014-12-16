@@ -22,6 +22,8 @@ package com.glacier.frame.web.controller.carrier;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.carrier.CarrierBankCardQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierBankCard;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.service.carrier.CarrierBankCardService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -63,7 +66,10 @@ public class CarrierBankCardController {
    	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
    	@ResponseBody
    	private Object listActionAsGridByMenuId(JqPager jqPager, CarrierBankCardQueryDTO carrierBankCardQueryDTO, String q) {
-   	    return carrierBankCardService.listAsGrid(jqPager, carrierBankCardQueryDTO, q);
+   		Subject pricipalSubject = SecurityUtils.getSubject();
+    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+    	carrierBankCardQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId());
+   		return carrierBankCardService.listAsGrid(jqPager, carrierBankCardQueryDTO, q);
    	}
    	
     //进入承运商会员银行卡信息详情页

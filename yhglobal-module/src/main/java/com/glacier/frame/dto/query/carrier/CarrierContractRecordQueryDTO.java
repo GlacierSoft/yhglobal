@@ -51,6 +51,10 @@ public class CarrierContractRecordQueryDTO extends CarrierContractRecord  {
 
 	public void setQueryCondition(Criteria queryCriteria, String q){
 		
+		if(null != this.getCarrierMemberId()){//会员id
+	        queryCriteria.andCarrierMemberIdEqualTo(this.getCarrierMemberId());
+	    } 
+		
 		if(null!=this.getCarrierDisplay()){
 			queryCriteria.andCarrierRealNamelike("%" + this.getCarrierDisplay() + "%");
 		}

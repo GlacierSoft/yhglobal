@@ -19,6 +19,8 @@
  */
 package com.glacier.frame.web.controller.carrier; 
 import org.apache.commons.lang3.StringUtils; 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.dto.query.carrier.CarrierMemberCreditwortinessQueryDTO;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.service.carrier.CarrierMemberCreditwortinessService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -65,6 +68,9 @@ public class CarrierMemberCreditwortinessController extends AbstractController{
 	    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	    @ResponseBody
 	    private Object listIntegralAsGridByMenuId(CarrierMemberCreditwortinessQueryDTO  carrierMemberCreditwortinessQueryDTO, JqPager pintegralr) {
-	        return creditwortinessService.listAsGrid(pintegralr, carrierMemberCreditwortinessQueryDTO);
+	    	Subject pricipalSubject = SecurityUtils.getSubject();
+	    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+	    	carrierMemberCreditwortinessQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId());
+	    	return creditwortinessService.listAsGrid(pintegralr, carrierMemberCreditwortinessQueryDTO);
 	    }
 }

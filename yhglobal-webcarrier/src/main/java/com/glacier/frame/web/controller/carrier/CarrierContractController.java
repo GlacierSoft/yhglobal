@@ -31,6 +31,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.carrier.CarrierContractRecordQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierContractRecord;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.service.carrier.CarrierContractRecordService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -69,6 +72,9 @@ public class CarrierContractController {
    	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
    	@ResponseBody
    	private Object listActionAsGridByMenuId(JqPager jqPager, CarrierContractRecordQueryDTO carrierContractRecordQueryDTO, String q,HttpSession session) {
+   		Subject pricipalSubject = SecurityUtils.getSubject();
+    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+    	carrierContractRecordQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId()); 
    		JqGridReturn returnResult=(JqGridReturn)carrierContractRecordService.listAsGrid(jqPager, carrierContractRecordQueryDTO, q);
    	    if(returnResult!=null){
  	    	@SuppressWarnings("unchecked")

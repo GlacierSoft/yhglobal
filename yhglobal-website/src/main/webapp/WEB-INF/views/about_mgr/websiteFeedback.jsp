@@ -23,6 +23,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			padding-top: 75px;
 		}
 	</style>
+	  <script type="text/javascript">
+	$(function(){   
+		var type='<%=request.getAttribute("type")%>'; 
+		$("#u2").hide(); 
+		//取到列表
+		var li=$("#u2").children(); 
+		var clas=null;
+		$.each(li, function(key, val) {
+			clas = $(val).attr('name');
+		    if(type == clas){
+		    	$("#u2").children().eq(key).addClass("active");
+		    	return false;
+		    } 
+		});
+		 
+		$("#new").click(function(){ 
+			//用于改变选择了的样式
+			 $("li").removeClass("active");
+			 $(this).parent().addClass("active"); 
+			$("#u2").slideToggle("slow"); 
+		});
+	});
+	</script>
 	</head>
   <body>
   <jsp:include page="../nav.jsp"/>
