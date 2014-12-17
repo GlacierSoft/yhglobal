@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-cn">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>冰川网贷平台</title>
+    <title>越海物流</title>
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="../inc.jsp"/>
 	<!--引入地图库  -->
