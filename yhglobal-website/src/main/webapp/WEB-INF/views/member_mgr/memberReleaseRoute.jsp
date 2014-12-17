@@ -109,9 +109,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div> 
    
    <script>
-          function send(id){
+   function send(id){
         	  var url=ctx + '/delivery/getRouteInfo.htm?routeId='+id;
-            	art.dialog.open(url, {
+        	   art.dialog.open(url, {
             		title:'发布信息完善',
             		 width: '750px',
                      height: 'auto',
@@ -119,49 +119,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      background:"#E6E6E6",
                 	   opacity:0.4,
                 	   fixed:true,
-                	   okValue:'确定',
-           		       ok: function () {
-           		    	    var sendSite= $("#sendSite option:selected").attr("value"); 
-        		    		var orderSite= $("#orderSite option:selected").attr("value"); 
-        		    		var boo=1;
-        		    		 if(sendSite==""){
-        		    			boo=0;
-        		    			doShowError("请选择发货网点!");
-        		    		 }else{
-        		    			 if(orderSite==""){
-             		    			boo=0;
-             		    			doShowError("请选择收货网点!");
-             		    		 }else{
-             		    			if($("#zhongPrice").val()==""&&$("#qingPrice").val()==""){ 
-               		    			 boo=0;
-               		    			 doShowError("请填写重量或体积");
-               		    		   }else{
-               		    			 $("#fom").submit(); 
-               		    		   } 
-             		    		}
-        		    		 } 
-        		    	}
-                });
-          }
-          
-          
-          //警告对话款
-          function doShowError(str){
-         	 var d =art.dialog({
-         		    title: '提示',
-         		    content:str ,
-         		    fixed:true,
-               	    lock: true,
-               	    icon:'error',
-               	    background:"#E6E6E6",
-              		opacity:0.4,
-         		    okValue: '确定',
-         		    ok: function () {
-         		    	this.close;
-         		    }
-         		});
-         		d.show();
-          }
+                	   button:[{
+                		    name: '提交',
+                		    focus: true,
+                		    callback: function () {
+ 								var sendSite= this.iframe.contentWindow.$("#sendSite option:selected").prop("value"); 
+            		    		var orderSite=this.iframe.contentWindow.$("#orderSite option:selected").prop("value"); 
+            		    		var zhongPrice=this.iframe.contentWindow.$("#zhongPrice").val();
+            		    		var qingPrice=this.iframe.contentWindow.$("#qingPrice").val();
+            		    		if(sendSite=="--请选择--"||sendSite==""||sendSite==null){
+            		    			this.iframe.contentWindow.doShowErrorRoute("请选择发货点!");
+            		    		}else{
+            		    			if(orderSite=="--请选择--"||orderSite==""||orderSite==null){
+            		    				this.iframe.contentWindow.doShowErrorRoute("请选择收货点!");
+            		    			}else{
+            		    				if(zhongPrice==""||zhongPrice==null||qingPrice==""||qingPrice==null){
+            		    					this.iframe.contentWindow.doShowErrorRoute("请填写重量或者体积!");
+            		    				}else{
+            		    					$.ajax({
+            		   	    					   type: "POST",
+            		   	    					   url:ctx + '/delivery/addRouteInfo.json',
+            		   	    					   data: this.iframe.contentWindow.$("#fom").serialize(),
+            		   	    					   dataType:'json',
+            		   	    					   success: function(r){
+            		   	    						 this.close;
+            		   	    						 if(r.success){
+            		   	    							doShowRight("货源发布成功，可在记录中查看该条信息!");
+            		   	    						 }
+            		   	    						 else{
+            		   	    							doShowError("货源发布失败，请联系管理员!");
+            		   	    						 }
+            		   	    					   }
+            		   	                	  });
+            		    				}
+            		    			}
+            		    		}	
+                		    	return false;
+                		    }
+                		}, {
+                		    name: '取消',
+                		    callback:function(){
+                		    	sign=true;
+                		    }
+                		}]
+           		 });
+           }
+   //警告对话款
+   function doShowError(str){
+	   var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'error',
+         	    background:"#E6E6E6",
+         	 	opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	this.close;
+   		    }
+   		});
+   		d.show();
+  	}
+   
+   function doShowRight(str){
+  	 var d =art.dialog({
+  		    title: '提示',
+  		    content:str ,
+  		    fixed:true,
+        	    lock: true,
+        	    icon:'succeed',
+        	    background:"#E6E6E6",
+       		opacity:0.4,
+  		    okValue: '确定',
+  		    ok: function () {
+  		    	this.close;
+  		    }
+  		});
+  		d.show();
+  }
+      
     </script>
   </body>
 </html>

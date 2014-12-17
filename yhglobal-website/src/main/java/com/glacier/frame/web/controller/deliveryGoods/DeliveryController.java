@@ -225,7 +225,24 @@ public class DeliveryController {
   		return mav;
   	}
   	
-    //订单合同协议页面
+    //运单提交转到运单提交成功页面
+  	@RequestMapping(value = "/addRouteInfo.json")
+  	@ResponseBody
+  	public Object addRouteInfo(@Valid StorehouseBelaidup storehouseBelaidup, @Valid StorehouseAddedService storehouseAddedService,String type,HttpSession httpSession){ 
+  		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        //取出暂存的数据信息 
+  		StorehouseBelaidup belaidup=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
+  		belaidup.setBelaidupWeight(storehouseBelaidup.getBelaidupWeight()); //重量
+  		belaidup.setBelaidupBulk(storehouseBelaidup.getBelaidupBulk()); //体积
+  		belaidup.setSendSite(storehouseBelaidup.getSendSite());//发货地
+  		belaidup.setOrderSite(storehouseBelaidup.getOrderSite());//收货地
+  		belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery()); //是否加急配送
+  		belaidup.setRouterId(storehouseBelaidup.getRouterId());//班线id
+  		returnResult= (JqReturnJson) belaidupService.addBelaidup_website(belaidup,storehouseAddedService, type);
+  	    return returnResult;
+  	}
+  	
+  	//订单合同协议页面
  	@RequestMapping(value = "/contract.htm")
  	private Object contract(String belaidupId) {
  		ModelAndView mav = new ModelAndView("member_mgr/contract");

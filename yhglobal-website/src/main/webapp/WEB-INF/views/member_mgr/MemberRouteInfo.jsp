@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
       <div style="width: 700px;margin: 0px auto;vertical-align: middle;">
             <!-- 表单构建 -->
-              <form method="post" id="fom" action="${ctx}/delivery/add.htm">
+            <form method="post" id="fom" action="${ctx}/delivery/add.htm">
              <!--右侧 -->
              <div style="width: 130px;height: 245px;float: left;background-color: #FFFBE4;margin-top: 10px;border: 1px solid #E7E5E5;border-radius:5px;">
                	 <span style="color:#0697DA;padding-left: 5px" >起步价：<label id="qi" style="color: #FF7300">${route.startingPrice}</label></span><br>
@@ -112,16 +112,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	                      </div>
    	                </div>
    	                      
-   	                <input type="hidden" id="routerId"   name="routerId">
+   	                <input type="hidden" id="routerId"  value="${route.routerId}"  name="routerId">
 	                <input type="hidden" value="route" name="type">
 					<input id="insuranceCost" type="hidden" value="3.00" name="insuranceCost">
 					<input id="transportationCost" type="hidden" value="0.00"  name="transportationCost">
 					<input id="totalCost" type="hidden" value="0.00"  name="totalCost">      
-   	                      
-             </div>
+   	         </div>
             </form> 
         </div>
- </body>
+   </body>
  <script>
       //发货区域
       function selectDeliver(){
@@ -259,6 +258,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#totalCost").attr("value",sum.toFixed(2));
 	}
 	
-	
+	//警告对话款
+    function doShowErrorRoute(str){
+	   var d =art.dialog({
+    		    title: '提示',
+    		    content:str ,
+    		    fixed:true,
+          	    lock: true,
+          	    icon:'error',
+          	    background:"#E6E6E6",
+          	 	opacity:0.4,
+    		    okValue: '确定',
+    		    ok: function () {
+    		    	this.close;
+    		    }
+    		});
+    		d.show();
+   	}
 </script>
 </html>
