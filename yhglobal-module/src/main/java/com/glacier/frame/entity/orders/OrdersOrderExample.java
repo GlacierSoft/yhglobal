@@ -266,6 +266,66 @@ public class OrdersOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andOrderCostIsNull() {
+            addCriterion("temp_orders_order.order_cost is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostIsNotNull() {
+            addCriterion("temp_orders_order.order_cost is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostEqualTo(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost =", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostNotEqualTo(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost <>", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostGreaterThan(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost >", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost >=", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostLessThan(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost <", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("temp_orders_order.order_cost <=", value, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostIn(List<BigDecimal> values) {
+            addCriterion("temp_orders_order.order_cost in", values, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostNotIn(List<BigDecimal> values) {
+            addCriterion("temp_orders_order.order_cost not in", values, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_orders_order.order_cost between", value1, value2, "orderCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCostNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("temp_orders_order.order_cost not between", value1, value2, "orderCost");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderCodeIsNull() {
             addCriterion("temp_orders_order.order_code is null");
             return (Criteria) this;

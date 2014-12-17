@@ -492,16 +492,28 @@ public class StorehouseBelaidupService {
         	returnResult.setMsg("账户余额不足，请先充值再发货！");
         	return returnResult;
         }
+        
+        if(storehouseAddedService.getGoodsCost()==null){
+        	storehouseAddedService.setGoodsCost(new BigDecimal(0));
+        }
+        
+        if(storehouseAddedService.getUrgentDelivery()==null){
+        	storehouseAddedService.setUrgentDelivery("no");
+        	
+        }
+        
         //新增物品信息
         int count = 0;
+        belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery());
         belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");
         belaidup.setSortingStauts("waitsorting");
         belaidup.setStauts("enable");
-        belaidup.setCreater(pricipalUser.getMemberId());
+        belaidup.setCreater(getUserId());
         belaidup.setCreateTime(new Date());
-        belaidup.setUpdater(pricipalUser.getMemberId());
+        belaidup.setBelaidupUnitprice(storehouseAddedService.getGoodsCost());//货物价值
+        belaidup.setUpdater(getUserId());
         belaidup.setUpdateTime(new Date());
         count = belaidupMapper.insert(belaidup);
         //如果是关联班线发货，增值服务表添加数据

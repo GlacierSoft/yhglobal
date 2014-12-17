@@ -43,8 +43,8 @@
 			width : 100,
 			sortable : true
 		},{
-			field : 'number',
-			title : '数量',
+			field : 'belaidupUnitprice',
+			title : '价值',
 			width : 120,
 			sortable : true
 		},{
@@ -57,22 +57,7 @@
 			title : '体积',
 			width : 120,
 			sortable : true
-		},{
-			field : 'consignor',
-			title : '发货人',
-			width : 120,
-			sortable : true
-		},{
-			field : 'sendPhone',
-			title : '发货人电话',
-			width : 120,
-			sortable : true
-		},{
-			field : 'sendAddress',
-			title : '发货地址',
-			width : 120,
-			sortable : true
-		},{
+		}, {
 			field : 'orderConsignee',
 			title : '收货人',
 			width : 120,

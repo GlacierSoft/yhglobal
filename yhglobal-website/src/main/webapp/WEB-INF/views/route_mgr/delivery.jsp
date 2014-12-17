@@ -568,6 +568,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			 isMobile:true
 	    		 }, 
 	    	  sendAddress:"required",
+	    	  goodsCost:"required",
 	    	  orderAddress:"required",
 	    	  sendSite:"required",
 	    	  orderSite:"required",
@@ -588,6 +589,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  messages:{
   			consignor:"请输入发货人姓名",
   			sendSite:"请选择发货网点",
+  			goodsCost:"请填写货物价值",
   			belaidupProdName:"请输入货物名称",
   			orderSite:"请选择收货网点",
   			sendAddress:"请输入发货地详细地址",

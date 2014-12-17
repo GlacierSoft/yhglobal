@@ -20,7 +20,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>货物单价：</td>
+			<td>货物价值：</td>
 			<td>
 				<input id="belaidup_mgr_belaidup_form_belaidupUnitprice" style="width:268px;height: 20px;" name="belaidupUnitprice" value="${belaidupDate.belaidupUnitprice}" required="true" class="easyui-validatebox spinner" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']"/>
 			</td>

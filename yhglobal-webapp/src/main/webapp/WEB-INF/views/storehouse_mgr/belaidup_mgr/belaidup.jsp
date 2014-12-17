@@ -51,7 +51,7 @@
 			sortable : true
 		},{
 			field : 'belaidupUnitprice',
-			title : '货物单价',
+			title : '货物价值',
 			width : 120,
 			sortable : true
 		},{

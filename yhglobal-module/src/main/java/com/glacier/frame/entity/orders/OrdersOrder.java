@@ -1,4 +1,4 @@
- package com.glacier.frame.entity.orders;
+package com.glacier.frame.entity.orders;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,6 +9,8 @@ public class OrdersOrder {
     private String orderId;
 
     private String carrierMemberId;
+
+    private BigDecimal orderCost;
 
     private String orderCode;
 
@@ -40,28 +42,30 @@ public class OrdersOrder {
     private String createrDisplay;
     
     private String updaterDisplay;
-
-    public String getOrderId() {
-        return orderId;
-    } 
     
+    
+
     public String getCreaterDisplay() {
 		return createrDisplay;
 	}
- 
+
 	public void setCreaterDisplay(String createrDisplay) {
 		this.createrDisplay = createrDisplay;
-	} 
+	}
 
 	public String getUpdaterDisplay() {
 		return updaterDisplay;
-	} 
+	}
 
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
 	}
- 
-	public void setOrderId(String orderId) {
+
+	public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -71,6 +75,14 @@ public class OrdersOrder {
 
     public void setCarrierMemberId(String carrierMemberId) {
         this.carrierMemberId = carrierMemberId;
+    }
+
+    public BigDecimal getOrderCost() {
+        return orderCost;
+    }
+
+    public void setOrderCost(BigDecimal orderCost) {
+        this.orderCost = orderCost;
     }
 
     public String getOrderCode() {
@@ -175,6 +187,7 @@ public class OrdersOrder {
         OrdersOrder other = (OrdersOrder) that;
         return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getCarrierMemberId() == null ? other.getCarrierMemberId() == null : this.getCarrierMemberId().equals(other.getCarrierMemberId()))
+            && (this.getOrderCost() == null ? other.getOrderCost() == null : this.getOrderCost().equals(other.getOrderCost()))
             && (this.getOrderCode() == null ? other.getOrderCode() == null : this.getOrderCode().equals(other.getOrderCode()))
             && (this.getOrderPrice() == null ? other.getOrderPrice() == null : this.getOrderPrice().equals(other.getOrderPrice()))
             && (this.getOrderNum() == null ? other.getOrderNum() == null : this.getOrderNum().equals(other.getOrderNum()))
@@ -194,6 +207,7 @@ public class OrdersOrder {
         int result = 1;
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getCarrierMemberId() == null) ? 0 : getCarrierMemberId().hashCode());
+        result = prime * result + ((getOrderCost() == null) ? 0 : getOrderCost().hashCode());
         result = prime * result + ((getOrderCode() == null) ? 0 : getOrderCode().hashCode());
         result = prime * result + ((getOrderPrice() == null) ? 0 : getOrderPrice().hashCode());
         result = prime * result + ((getOrderNum() == null) ? 0 : getOrderNum().hashCode());

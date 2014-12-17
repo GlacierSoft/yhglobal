@@ -44,6 +44,11 @@
 			width : 120,
 			sortable : true
 		},{
+			field : 'orderCost',
+			title : '货物价值',
+			width : 120,
+			sortable : true
+		},{
 			field : 'orderPrice',
 			title : '订单总额',
 			width : 120,

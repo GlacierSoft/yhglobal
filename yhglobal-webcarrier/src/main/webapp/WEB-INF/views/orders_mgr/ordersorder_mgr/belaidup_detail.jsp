@@ -17,7 +17,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>货物单价：</td>
+			<td>货物价值：</td>
 			<td>
 				<input id="memberGrade_mgr_memberGrade_detail_belaidupUnitprice" style="width:268px;height: 20px;" name="belaidupUnitprice" value="<fmt:formatNumber value='${belaidupDate.belaidupUnitprice}' pattern="#,#00.00元"/>" class="easyui-validatebox spinner"  required="true" readonly="readonly"/>
 			</td>

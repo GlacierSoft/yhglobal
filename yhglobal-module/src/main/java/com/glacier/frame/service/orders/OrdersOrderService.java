@@ -25,10 +25,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
+import com.glacier.frame.dao.finace.FinancePlatformMapper;
+import com.glacier.frame.dao.member.ShipperMemberMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
 import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dto.query.orders.OrdersOrderQueryDTO;
+import com.glacier.frame.entity.finace.FinancePlatform;
+import com.glacier.frame.entity.finace.FinancePlatformDetail;
+import com.glacier.frame.entity.finace.FinancePlatformExample;
 import com.glacier.frame.entity.orders.OrdersOrder;
 import com.glacier.frame.entity.orders.OrdersOrderExample;
 import com.glacier.frame.entity.orders.OrdersOrderExample.Criteria;
@@ -58,6 +64,15 @@ public class OrdersOrderService {
 	
 	@Autowired
 	private StorehouseBelaidupMapper belaidupMapper;
+	
+	@Autowired
+	private FinancePlatformMapper financePlatformMapper;
+	
+	@Autowired
+	private FinancePlatformDetailMapper financePlatformDetailMapper;
+	
+	@Autowired
+	private ShipperMemberMapper shipperMemberMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -160,16 +175,30 @@ public class OrdersOrderService {
         if (count > 0) {
         	order.setOrderCode("OR_ORDER_"+formatDate.format(new Date())+"_"+(orderCount+2));
         }
+        FinancePlatformDetail financePlatformDetail=new FinancePlatformDetail ();
         order.setOrderNum(belaidupIds.size());
+        //累加货物价值
+        BigDecimal sum=new BigDecimal(0);
+      //累加货物总额
+        BigDecimal cost=new BigDecimal(0); 
+        String name="";
         for (String belaidupId : belaidupIds) {
         	StorehouseBelaidup belaidupMoney = belaidupMapper.selectByPrimaryKey(belaidupId);
         	if(order.getOrderPrice() != null){//判断是否为空
-        		order.setOrderPrice(order.getOrderPrice().add(belaidupMoney.getStockPrice()));
+        		order.setOrderPrice(order.getOrderPrice().add(new BigDecimal(belaidupMoney.getTotalCost())));
+        		name+="、";
         	}else{
-        		order.setOrderPrice(belaidupMoney.getStockPrice());
-        	}
+        		order.setOrderPrice(new BigDecimal(belaidupMoney.getTotalCost()));
+        	 }
+        	name+=shipperMemberMapper.selectByPrimaryKey(belaidupMoney.getMemberId()).getMemberName();
+             //计算物品的价值和总额
+        	sum=sum.add(belaidupMoney.getBelaidupUnitprice()); 
         }
+        cost=order.getOrderPrice();
+        //平台收取中间费用
+        order.setOrderPrice(order.getOrderPrice().multiply(new BigDecimal(0.8)));
         order.setOrderStatus("waitconfirm");
+        order.setOrderCost(sum);//赋值订单的货物价值
         order.setStatus("enable");
         order.setDistributeStatus("waitdistribute");
         order.setRemark("暂无");
@@ -179,6 +208,29 @@ public class OrdersOrderService {
         order.setUpdateTime(new Date());
         count = orderMapper.insert(order);
         if (count == 1) {
+        	//增加平台资金记录
+        	//取出默认平台资金账户
+        	FinancePlatformExample financePlatformExample=new FinancePlatformExample();
+        	financePlatformExample.createCriteria().andBankTypeEqualTo("default");
+        	FinancePlatform financePlatform=(FinancePlatform)financePlatformMapper.selectByExample(financePlatformExample).get(0);
+            //新增平台资金记录
+        	
+        	financePlatformDetail.setDetailId(RandomGUID.getRandomGUID());
+        	financePlatformDetail.setPlatformId(financePlatform.getPlatformId());
+        	financePlatformDetail.setTradeTarget(name);//交易对象
+        	financePlatformDetail.setTradeType("订单手续费");
+        	financePlatformDetail.setTradeEarn(cost.multiply(new BigDecimal(0.2)));//手续费20%
+        	financePlatformDetail.setTradeSpend(new BigDecimal(0));
+        	financePlatformDetail.setTradeAmount(financePlatform.getRemainMoney().add(financePlatformDetail.getTradeEarn()));
+        	financePlatformDetail.setCreater(pricipalUser.getUserId());
+        	financePlatformDetail.setCreateTime(new Date());
+        	financePlatformDetail.setUpdater(pricipalUser.getUserId());
+        	financePlatformDetail.setUpdateTime(new Date());
+        	financePlatformDetailMapper.insert(financePlatformDetail);
+        	//修改平台资金
+        	financePlatform.setRemainMoney(financePlatform.getRemainMoney().add(financePlatformDetail.getTradeEarn()));
+        	financePlatform.setUpdateTime(new Date());
+        	financePlatformMapper.updateByPrimaryKeySelective(financePlatform);
         	for (String belaidupId : belaidupIds) {
 				//构建订单详情信息
         		OrdersOrderInfo order_Info = new OrdersOrderInfo();
