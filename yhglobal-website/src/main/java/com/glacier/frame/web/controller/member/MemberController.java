@@ -22,7 +22,7 @@ import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO; 
 import com.glacier.frame.dto.query.member.ShipperMemberMessageNoticeQueryDTO;
-import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
+import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupSourceQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
 import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
@@ -30,6 +30,7 @@ import com.glacier.frame.service.member.ShipperMemberBankCardService;
 import com.glacier.frame.service.member.ShipperMemberMessageNoticeService;
 import com.glacier.frame.service.member.ShipperMemberService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupSourceService;
 import com.glacier.frame.service.finace.FinaceMemberRecordService;
 import com.glacier.frame.service.finace.FinaceMemberService;
 import com.glacier.frame.service.finace.FinaceRechargeMemberService;
@@ -84,6 +85,10 @@ public class MemberController extends AbstractController{
     
 	@Autowired
 	private FinaceWithdrawMemberService withdrawMemberService;
+	
+	
+	@Autowired
+	private StorehouseBelaidupSourceService storehouseBelaidupSourceService;
     
 
     // 进入会员个人主页展示页面
@@ -142,11 +147,12 @@ public class MemberController extends AbstractController{
   	
     //货源管理展示页
   	@RequestMapping(value="releaseManager.htm")
-    private Object intoReleaseManager(JqPager pager, StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO,int p,String loanState){
+    private Object intoReleaseManager(JqPager pager, StorehouseBelaidupSourceQueryDTO storehouseBelaidupSourceQueryDTO,int p,String loanState){
   		ModelAndView mav=new ModelAndView("/member_mgr/memberReleaseManager");
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
-  		 if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
+  		storehouseBelaidupSourceQueryDTO.setMemberId(pricipalMember.getMemberId());
+  		if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
   			 //按钮状态
   			if ("firstAudit".equals(loanState)) {
   			    mav.addObject("buttonState","firstAudit");
@@ -156,10 +162,10 @@ public class MemberController extends AbstractController{
   				mav.addObject("buttonState","thirdAudit");
   			}
   			//货源发布记录
-  	  		JqGridReturn returnResult=(JqGridReturn)storehouseBelaidupService.listAsWebsite(pager, storehouseBelaidupsQuerysDTO,pricipalMember.getMemberId(),p);
+  	  		JqGridReturn returnResult=(JqGridReturn)storehouseBelaidupSourceService.listAsWebsite(pager, storehouseBelaidupSourceQueryDTO,p);
   	  		mav.addObject("returnResult",returnResult); 
   	      	mav.addObject("currentMemberId",pricipalMember.getMemberId()); 
-	  		mav.addObject("storehouseBelaidupsQuerysDTO",storehouseBelaidupsQuerysDTO);
+	  		mav.addObject("storehouseBelaidupSourceQueryDTO",storehouseBelaidupSourceQueryDTO);
   		 }
   		 return mav;
   	 } 	

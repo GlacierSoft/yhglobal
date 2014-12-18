@@ -182,6 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <th>类型</th> 
 				            <th>起始站</th>
 				            <th>终点站</th>
+				            <th>状态</th>
 				            <th>创建时间</th>
 				            <th>操作</th>
 				            </tr>
@@ -197,22 +198,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <tr>
 					            <td>${storehouseBelaidupList.belaidupProdName}</td>
 					          	<td>${storehouseBelaidupList.belaidupWeight}</td>
-					          	<td>${storehouseBelaidupList.belaidupBulk}</td>
+					          	<td>${storehouseBelaidupList.belaidupVolume }</td>
 					          	<td>${storehouseBelaidupList.goodsTypeDisplay}</td>
-					          <%-- 	<td>${storehouseBelaidupList.stauts=="enable"?"启用":"禁用"}</td>
-					           --%>	<td>${storehouseBelaidupList.belaidupInitiatin}</td>
-					          	<td>${storehouseBelaidupList.belaidupTerminu}</td>
+					            <td>${storehouseBelaidupList.originationStation}</td>
+					          	<td>${storehouseBelaidupList.endStation}</td>
+					          	<td>${storehouseBelaidupList.showStyle=='hide'?'未发布':'已发布'}</td>
 					          	<td><fmt:formatDate value="${storehouseBelaidupList.createTime}" type="both"/></td>
 					            <td>
 					                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
-					                 
-	                                 <c:if test="${storehouseBelaidupList.stauts=='enable'}">
-	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doAction('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');"> 撤销</button>
+					                 <c:if test="${storehouseBelaidupList. showStyle=='hide'}" >
+					                       <button  type="button" class="btn btn-primary" data-toggle="button" >发布</button>  
 					                 </c:if>
-					                 <c:if test="${storehouseBelaidupList.stauts=='disable'}">
-	                                      <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doPublish('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.stauts}');">发布</button>
+					                 <c:if test="${storehouseBelaidupList. showStyle=='show'}" >
+					                       <button  type="button" class="btn btn-primary" data-toggle="button" >航线</button>   	
 					                 </c:if>
-					                  <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doContract('${storehouseBelaidupList.belaidupId}');">协议</button>
 					            </td>
 					          </tr>
 				      		</c:forEach>
