@@ -42,7 +42,7 @@ import com.glacier.jqueryui.util.JqPager;
  */
 
 @Controller
-@RequestMapping(value="/storehouseBelaidupSource")
+@RequestMapping(value="storehouseBelaidupSource")
 public class StorehouseSourcesController {
 
 	   @Autowired

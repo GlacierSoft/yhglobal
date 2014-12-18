@@ -111,17 +111,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      <c:choose>
 				       <c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
 			                <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">货源记录</a>
-					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default" role="button">发布记录</a>
-					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default" role="button">撤销记录</a>						   	   
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default" role="button">已发布记录</a>
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录</a>						   	   
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&loanState=firstAudit&loanState=firstAudit" >
 									   <div class="form-group">
 									    <div>
 									       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
-									                            货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
-									                            起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
-									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+									                            货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupSourceQueryDTO.belaidupProdName}"/>              
+									                            起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
 										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
 									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');$('#financeTransactionSearch').submit();"> 重置</button>
 									    </div>
@@ -132,17 +132,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      </c:when>
 				      <c:when test="${buttonState == 'secondAudit'}">
 				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">发布记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default" role="button">撤销记录</a>	
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">已发布记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录</a>	
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						       <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=enable&loanState=secondAudit" >
 									   <div class="form-group">
 									     <div>
 									       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
-									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
-									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
-									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupSourceQueryDTO.belaidupProdName}"/>              
+									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
 										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
 									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
 									     </div>
@@ -153,17 +153,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      </c:when>
 				      <c:when test="${buttonState == 'thirdAudit'}">
 				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&stauts=enable" class="btn btn-default"  role="button">发布记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&stauts=disable" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">撤销记录</a>	
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  role="button">已发布记录</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">未发布记录</a>	
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=disableloanState=thirdAudit" >
 									   <div class="form-group">
 									    <div>
 									       <input type="hidden" id="dtp_input3" name="memberId" value="${currentMemberId}" />
-									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupsQuerysDTO.belaidupProdName}"/>              
-									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
-									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupsQuerysDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+									                        货物名称： <input id="belaidupProdName" name="belaidupProdName" type="text" class="inp140" value="${storehouseBelaidupSourceQueryDTO.belaidupProdName}"/>              
+									                       起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+									      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${storehouseBelaidupSourceQueryDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
 										 	<button id="financeTransactionSubmit" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch').submit();">提交</button>
 									        <button id="financeTransactionReset" type="button" class="btn btn-primary" data-toggle="button" onclick="$('#financeTransactionSearch input').val('');;$('#financeTransactionSearch').submit();"> 重置</button>
 									    </div>
@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <td>
 					                 <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doCheck('${storehouseBelaidupList.belaidupId}');">详情</button>
 					                 <c:if test="${storehouseBelaidupList. showStyle=='hide'}" >
-					                       <button  type="button" class="btn btn-primary" data-toggle="button" >发布</button>  
+					                       <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doPublish('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.showStyle}');">发布</button>  
 					                 </c:if>
 					                 <c:if test="${storehouseBelaidupList. showStyle=='show'}" >
 					                       <button  type="button" class="btn btn-primary" data-toggle="button" >航线</button>   	

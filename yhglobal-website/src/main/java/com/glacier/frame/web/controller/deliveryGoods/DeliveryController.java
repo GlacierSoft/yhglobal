@@ -40,10 +40,12 @@ import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidupSource;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.member.ContractService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupSourceService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -78,6 +80,10 @@ public class DeliveryController {
 	
 	@Autowired
 	private ContractService contractService;
+	
+	
+	@Autowired
+	private StorehouseBelaidupSourceService storehouseBelaidupSourceService;
 
 	// 我要发货展示页
 	@RequestMapping(value = "index.htm")
@@ -110,8 +116,7 @@ public class DeliveryController {
 	private Object intoMemberGradeDetailPage(String belaidupId) {
 		ModelAndView mav = new ModelAndView("member_mgr/memberReleaseManagerDetail");
 		if (StringUtils.isNotBlank(belaidupId)) {
-			mav.addObject("belaidupDate",
-			belaidupService.getBelaidup(belaidupId));
+			mav.addObject("belaidupDate",storehouseBelaidupSourceService.getBelaidup(belaidupId));
 		}
 		return mav; 
 	}
@@ -149,9 +154,9 @@ public class DeliveryController {
    	@RequestMapping(value="/releaseRoute.htm")
    	private Object doPublish(String belaidupId,JqPager pager,@RequestParam int p,CarrierRouteQueryDTO routeQueryDTO) {
    		ModelAndView mav=new ModelAndView("member_mgr/memberReleaseRoute");
-   		StorehouseBelaidup belaidup=(StorehouseBelaidup)belaidupService.getBelaidup(belaidupId);
-   		routeQueryDTO.setRouteOrigin(belaidup.getBelaidupInitiatin());
-  		routeQueryDTO.setRouteStop(belaidup.getBelaidupTerminu());
+   		StorehouseBelaidupSource belaidup=(StorehouseBelaidupSource)storehouseBelaidupSourceService.getBelaidup(belaidupId);
+   		routeQueryDTO.setRouteOrigin(belaidup.getOriginationStation());
+  		routeQueryDTO.setRouteStop(belaidup.getEndStation());
   		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,p,"",routeQueryDTO));
    		return mav;
    	}

@@ -44,32 +44,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">货物名称:</span></td>
                <td><input value=" ${belaidupDate.belaidupProdName}" readonly="readonly"></td>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">交易手机</span></td>
-               <td><input value=" ${belaidupDate.orderPhone }" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">交易手机:</span></td>
+               <td><input value=" ${belaidupDate.membermobile }" readonly="readonly"></td>
             </tr>
             <tr>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">起始站:</span></td>
-               <td><input value="${belaidupDate.belaidupInitiatin}" readonly="readonly"> </td>
-                <td class="str" ><span class="label label-default" style="background-color: #F28041">加急配送</span></td>
-                <td><input value="${belaidupDate.yesOrNo=='yes'?'是':'否'}" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">起始站点:</span></td>
+               <td><input value="${belaidupDate.originationStation}" readonly="readonly"> </td>
+                <td class="str" ><span class="label label-default" style="background-color: #F28041">加急配送:</span></td>
+                <td><input value="${belaidupDate.belaidupUrgent=='yes'?'是':'否'}" readonly="readonly"></td>
             </tr>  
             <tr >
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">终点站:</span></td>
-               <td><input value="${belaidupDate.belaidupTerminu}" readonly="readonly"> </td>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">取货方式</span></td>
-               <td><input value="${belaidupDate.replenishment=='storepickup'?'上门取货':'送货上门'}" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">终点站点:</span></td>
+               <td><input value="${belaidupDate.endStation}" readonly="readonly"> </td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">取货方式:</span></td>
+               <td><input value="${belaidupDate.receivcStyle=='storepickup'?'上门取货':'送货上门'}" readonly="readonly"></td>
             </tr>
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">货物类型:</span></td>
                <td><input value="${belaidupDate.goodsTypeDisplay}" readonly="readonly"> </td>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物状态</span></td>
-               <td><input value=" ${belaidupDate.stauts=='enable'?'已发布':'已撤销' }" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物状态:</span></td>
+               <td><input value=" ${belaidupDate.showStyle=='show'?'已发布':'未发布' }" readonly="readonly"></td>
             </tr>
            <tr>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物体积</span></td>
-               <td><input value="${belaidupDate.belaidupBulk}" readonly="readonly"> </td>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物重量</span></td>
-               <td><input value=" ${belaidupDate.belaidupWeight }" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物体积:</span></td>
+               <td><input value="${belaidupDate.belaidupVolume}" readonly="readonly"> </td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">货物重量:</span></td>
+               <td><input value=" ${belaidupDate.belaidupWeight}" readonly="readonly"></td>
             </tr>
           </table>
    </body>

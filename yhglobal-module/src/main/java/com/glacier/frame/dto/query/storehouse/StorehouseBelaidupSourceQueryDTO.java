@@ -35,6 +35,11 @@ public class StorehouseBelaidupSourceQueryDTO extends StorehouseBelaidupSource  
     	 queryCriteria.andBelaidupIdLike("%"+this.getBelaidupProdName()+"%");
      }
      
+     
+     if(this.getShowStyle()!=null){
+    	 queryCriteria.andShowStyleEqualTo(this.getShowStyle());
+     }
+     
      if(null != createStartTime && null != createEndTime){//创建时间段查询
          queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
      }else{
