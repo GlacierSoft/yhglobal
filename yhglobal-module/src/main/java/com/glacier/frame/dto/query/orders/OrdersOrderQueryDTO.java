@@ -19,8 +19,8 @@ import com.glacier.frame.entity.orders.OrdersOrder;
  * @date 2014-10-15
  */
 public class OrdersOrderQueryDTO extends OrdersOrder{
-	private Date createStartTime;
-
+	private Date createStartTime; 
+	
     private Date createEndTime;
     
     private Date lastStartLoginTime;
@@ -29,10 +29,9 @@ public class OrdersOrderQueryDTO extends OrdersOrder{
     
     private String loginStartCount;
     
-    private String loginEndCount;
+    private String loginEndCount; 
     
-
-    public Date getCreateStartTime() {
+	public Date getCreateStartTime() {
         return createStartTime;
     }
 
@@ -90,12 +89,20 @@ public class OrdersOrderQueryDTO extends OrdersOrder{
    	 if(null != this.getOrderCode() && StringUtils.isNotBlank(this.getOrderCode())){//订单名称Like查询
             queryCriteria.andOrderCodeLike("%" + this.getOrderCode() + "%");
         }  
+   	  
+   	 
    	 if(null != this.getDistributeStatus()){//分配状态查询
         queryCriteria.andDistributeStatusEqualTo(this.getDistributeStatus().toString());
    	 	}
+   	 
+   	 
    	if(null != this.getOrderStatus()){//订单状态查询
         queryCriteria.andOrderStatusNotEqualTo(this.getOrderStatus().toString());
+   	 	}else{
+   	 	 queryCriteria.andOrderStatusEqualTo("waitconfirm");
    	 	}
+   	
+   	
      if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
      }else{

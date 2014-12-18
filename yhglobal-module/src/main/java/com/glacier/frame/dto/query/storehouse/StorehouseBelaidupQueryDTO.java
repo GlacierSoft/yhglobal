@@ -95,7 +95,7 @@ public class StorehouseBelaidupQueryDTO extends StorehouseBelaidup{
    	 	}
    	if(null != this.getSortingStauts()){//分拣状态查询
         queryCriteria.andSortingStautsEqualTo(this.getSortingStauts().toString());
-   	 	}
+   	 	} 
      if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
      }else{
