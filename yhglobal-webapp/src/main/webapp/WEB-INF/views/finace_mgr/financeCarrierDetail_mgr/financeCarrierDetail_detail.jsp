@@ -10,11 +10,7 @@
 			<td>
 				<input type="hidden" id="finance_mgr_carrierDetail_form_detailId" name="detailId" value="${CarrierDetailData.detailId}" />
 				<input id="finance_mgr_carrierDetail_form_carrierMemberDisplay" style="width:268px;height: 20px;" name="carrierMemberDisplay" value="${CarrierDetailData.carrierMemberDisplay}" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
-			</td>
-			<td>货物名称:</td>
-	    	<td>
-	    	<input id="finance_mgr_carrierDetail_form_articleDisplay" style="width:268px;height: 20px;" class="easyui-validatebox spinner" readonly="readonly" type="text" name="articleDisplay" value="${CarrierDetailData.articleDisplay}" required="true" />
-	    	</td>
+			</td> 
 		</tr>
 		<tr>
 			<td>收入金额:</td>
@@ -25,17 +21,7 @@
 	    	<td>
 	    	<input id="finance_mgr_carrierDetail_form_detailFreeze" style="width:268px;height: 20px;" type="text" name="detailFreeze"  value="<fmt:formatNumber value='${CarrierDetailData.detailFreeze}' pattern="#,#00.00元"/>" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
 	    	</td>
-		</tr>
-		<tr>
-			<td>冻结时间:</td>
-	    	<td>
-	    	<input id="finance_mgr_carrierDetail_form_detailStart" style="width:268px;height: 20px;" type="text" name="detailStart"  value="<fmt:formatDate value='${CarrierDetailData.detailStart}' pattern="yyyy-MM-dd HH:mm:ss"/>" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
-	    	</td>
-	    	<td>解冻时间：</td>
-			<td>
-				<input id="finance_mgr_carrierDetail_form_detailEnd" style="width:268px;height: 20px;" name="detailEnd" value="<fmt:formatDate value='${CarrierDetailData.detailEnd}' pattern="yyyy-MM-dd HH:mm:ss"/>" required="true" class="easyui-validatebox spinner" readonly="readonly"/>
-			</td>
-		</tr>
+		</tr> 
 		<tr>
 			<td>解冻金额：</td>
 			<td>

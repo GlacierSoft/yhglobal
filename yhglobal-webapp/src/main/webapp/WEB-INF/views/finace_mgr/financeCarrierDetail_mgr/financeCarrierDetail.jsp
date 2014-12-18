@@ -43,14 +43,14 @@
 							title : '承运商名称',
 							width : 120,
 							sortable : true
-						}, {
+						}, /* {
 							field : 'articleDisplay',
 							title : '货物名称',
 							width : 120,
 							sortable : true
-						},{
+						}, */{
 							field : 'detailIncome',
-							title : '收入金额',
+							title : '账户余额',
 							width : 120,
 							sortable : true
 						},{
@@ -58,8 +58,8 @@
 							title : '冻结金额',
 							width : 120,
 							sortable : true
-						},{
-							field : 'detailStart',
+						},/* {
+							field : 'createTime',
 							title : '冻结时间',
 							width : 120,
 							sortable : true
@@ -68,7 +68,7 @@
 							title : '解冻时间',
 							width : 120,
 							sortable : true
-						},{
+						}, */{
 							field : 'removeFreeze',
 							title : '解冻金额',
 							width : 120,
@@ -157,7 +157,7 @@
 						},
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({
-								title : '提现类型详细信息',
+								title : '资金记录详细信息',
 								href : ctx+ '/do/financeCarrierDetail/intoDetail.htm?carrierId='+ rowData.detailId,//从controller请求jsp页面进行渲染
 								width : 830,
 								height : 490,

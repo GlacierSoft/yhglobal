@@ -60,6 +60,14 @@
 			width : 120,
 			sortable : true
 		},{
+			field : 'sortingStauts',
+			title : '分拣状态',
+			width : 120,
+			sortable : true,
+			formatter : function(value, row, index) {
+				return renderGridValue(value, fields.sortingStauts);
+			}
+		},{
 			field : 'yesOrNo',
 			title : '加急配送',
 			width : 120,
@@ -105,14 +113,6 @@
 			title : '收货人名称',
 			width : 120,
 			sortable : true
-		},{
-			field : 'sortingStauts',
-			title : '分拣状态',
-			width : 120,
-			sortable : true,
-			formatter : function(value, row, index) {
-				return renderGridValue(value, fields.sortingStauts);
-			}
 		},{
 			field : 'storageDisplay',
 			title : '货物库房',

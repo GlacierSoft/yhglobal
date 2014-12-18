@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.orders;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,12 +33,18 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.finace.FinanceCarrierDetailMapper;
+import com.glacier.frame.dao.finace.FinanceCarrierMapper;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierMember;
+import com.glacier.frame.entity.finace.FinanceCarrier;
+import com.glacier.frame.entity.finace.FinanceCarrierDetail;
+import com.glacier.frame.entity.finace.FinanceCarrierExample;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
@@ -47,6 +54,7 @@ import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -76,6 +84,14 @@ public class OrdersDispatchingService {
 	@Autowired
 	private OrdersOrderMapper ordersOrderMapper;
 	 
+	@Autowired
+	private FinanceCarrierMapper financeCarrierMapper;
+	
+	@Autowired
+	private FinanceCarrierDetailMapper financeCarrierDetailMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	 /**
 	    * 
@@ -219,6 +235,7 @@ public class OrdersDispatchingService {
 	    public Object addDispatching(OrdersDispatching ordersDispatching,OrdersOrdispatchingDetailed ordersOrdispatchingDetailed) {
 	    	Subject pricipalSubject = SecurityUtils.getSubject();
 	    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+	    	
 	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 	        int numb_two=0; 
 	        OrdersOrder ordersOrder=ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
@@ -234,16 +251,44 @@ public class OrdersDispatchingService {
 	        ordersDispatching.setStatus("enable");
 	        ordersDispatching.setDispatchTime(new Date());
 	        ordersDispatching.setArriveTime(new Date());
+	        ordersDispatching.setDispatchingGoodsDeposit(ordersOrder.getOrderCost().multiply(new BigDecimal(0.5)));//押金为订单价值的50%
 	        ordersDispatching.setCarrierId(pricipalUser.getCarrierMemberId());
-	        ordersDispatching.setCreater(pricipalUser.getCarrierMemberId());
+	        ordersDispatching.setCreater(getUserId());
 	        ordersDispatching.setCreateTime(new Date());
-	        ordersDispatching.setUpdater(pricipalUser.getCarrierMemberId());
+	        ordersDispatching.setUpdater(getUserId());
 	        ordersDispatching.setUpdateTime(new Date());
 	        numb=ordersDispatchingMapper.insert(ordersDispatching);
 	        if(numb>0){
 	        	ordersOrdispatchingDetailed.setOrdisdetailedId(RandomGUID.getRandomGUID());
 	        	ordersOrdispatchingDetailed.setDispatchingId(ordersDispatching.getDispatchingId());
 	            numb_two=ordersOrdispatchingDetailedMapper.insert(ordersOrdispatchingDetailed);
+	            //冻结承运商一部分资金  ,取出承运商资金
+	            FinanceCarrierExample financeCarrierExample=new FinanceCarrierExample();
+	            financeCarrierExample.createCriteria().andCarrierMemberIdEqualTo(pricipalUser.getCarrierMemberId());
+	            FinanceCarrier financeCarrier = financeCarrierMapper.selectByExample(financeCarrierExample).get(0);
+	            financeCarrier.setCarrierIncome(financeCarrier.getCarrierIncome().subtract(ordersOrder.getOrderCost().multiply(new BigDecimal(0.5))));//余额-冻结金额
+	            financeCarrier.setCarrierFreeze(financeCarrier.getCarrierFreeze().add(ordersOrder.getOrderCost().multiply(new BigDecimal(0.5))));//当前冻结金额+以前的
+	            //financeCarrier.setCarrierDeduct(financeCarrier.getCarrierDeduct().add(ordersOrder.getOrderCost().multiply(new BigDecimal(0.5))));//扣除金额=以前的+现在的
+	            financeCarrier.setUpdateTime(new Date());
+	            financeCarrierMapper.updateByPrimaryKeySelective(financeCarrier);//更资金信息
+	            //新增资金详细记录
+	            FinanceCarrierDetail detail=new FinanceCarrierDetail();
+	            detail.setDetailId(RandomGUID.getRandomGUID());
+	            detail.setCarrierId(pricipalUser.getCarrierMemberId());
+	            detail.setArticleId(ordersDispatching.getDispatchingId());//配送单id
+	            detail.setDetailIncome(financeCarrier.getCarrierIncome());//余额
+	            detail.setDetailFreeze(ordersDispatching.getDispatchingGoodsDeposit());//冻结金额
+	            detail.setCreateTime(new Date());
+	            detail.setCreater(getUserId() );
+	            detail.setRemoveFreeze(new BigDecimal(0));
+	            detail.setDetailStatus("normal");
+	            detail.setDetailMark(new BigDecimal(0));
+	            detail.setDetailReturn(new BigDecimal(0));
+	            detail.setRemark("配送冻结押金");
+	            detail.setUpdater(getUserId());
+	            detail.setUpdateTime(new Date());
+	            financeCarrierDetailMapper.insert(detail);//添加资金记录
+	            
 	        }
 	        if(numb>0&&numb_two>0){
 	        	returnResult.setSuccess(true);
@@ -254,4 +299,19 @@ public class OrdersDispatchingService {
 	        } 
 	        return returnResult;
 	    } 
+	    
+	    /**
+	      * 
+	      * @Title: getUserId  
+	      * @Description: TODO(获取系统管理员的id)  
+	      * @param @return    设定文件  
+	      * @return String    返回类型  
+	      * @throws
+	      */
+	    public String getUserId(){ 
+	    	UserExample userExample=new UserExample();
+	    	userExample.createCriteria().andUsernameEqualTo("admin");
+	    	User use= (User)userMapper.selectByExample(userExample).get(0);
+	        return use.getUserId();
+	    }
 }

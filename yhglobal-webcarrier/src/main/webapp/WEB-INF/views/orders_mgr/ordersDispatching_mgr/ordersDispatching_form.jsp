@@ -36,14 +36,20 @@
 			</td> 
 		 </tr>
 		  <tr>
-			<td>车辆：</td>
+			<td>货物价值：</td>
 			<td>
-			<input id="belaidup_mgr_belaidup_form_carDisplay" name="carId"  style="width:180px;height: 20px;"  required="true" class="easyui-combogrid"  />
-			</td>
+				<input  required="true"  style="height:18px;width:180px;" class="easyui-validatebox spinner" value="${orderDate.orderCost}" readonly="readonly"/>
+			</td> 
 			<td style="padding-left:20px;">驾驶员：</td> 
 		 	<td>
 				<input id="belaidup_mgr_belaidup_form_driverDisplay" name="driverId"  style="width:180px;height: 20px;"  required="true" class="easyui-combogrid" />
 	      </td> 
+		 </tr>
+		  <tr>
+			<td>车辆：</td>
+			<td>
+			<input id="belaidup_mgr_belaidup_form_carDisplay" name="carId"  style="width:180px;height: 20px;"  required="true" class="easyui-combogrid"  />
+			</td> 
 		 </tr> 
 
 	</table>   
