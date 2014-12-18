@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.storehouse.StorehouseBelaidupSourceMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
+    <id column="temp_storehouse_belaidup_source_belaidup_id" property="belaidupId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_belaidup_prod_name" property="belaidupProdName" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_belaidup_type_id" property="belaidupTypeId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_belaidup_volume" property="belaidupVolume" jdbcType="REAL" />
+    <result column="temp_storehouse_belaidup_source_belaidup_weight" property="belaidupWeight" jdbcType="REAL" />
+    <result column="temp_storehouse_belaidup_source_origination_station" property="originationStation" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_origination_address" property="originationAddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_belaidup_urgent" property="belaidupUrgent" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_source_memberMobile" property="membermobile" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_end_station" property="endStation" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_end_address" property="endAddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_receive_mobile" property="receiveMobile" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_receivc_style" property="receivcStyle" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_source_show_style" property="showStyle" jdbcType="CHAR" />
+    <result column="temp_storehouse_belaidup_source_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_storehouse_belaidup_source_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_storehouse_belaidup_source_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_source_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_source_member_display" property="shipperMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_source_goods_type_display" property="goodsTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_storehouse_belaidup_source.belaidup_id as temp_storehouse_belaidup_source_belaidup_id, 
+    temp_storehouse_belaidup_source.belaidup_prod_name as temp_storehouse_belaidup_source_belaidup_prod_name, 
+    temp_storehouse_belaidup_source.belaidup_type_id as temp_storehouse_belaidup_source_belaidup_type_id, 
+    temp_storehouse_belaidup_source.belaidup_volume as temp_storehouse_belaidup_source_belaidup_volume, 
+    temp_storehouse_belaidup_source.belaidup_weight as temp_storehouse_belaidup_source_belaidup_weight, 
+    temp_storehouse_belaidup_source.origination_station as temp_storehouse_belaidup_source_origination_station, 
+    temp_storehouse_belaidup_source.origination_address as temp_storehouse_belaidup_source_origination_address, 
+    temp_storehouse_belaidup_source.member_id as temp_storehouse_belaidup_source_member_id, 
+    temp_storehouse_belaidup_source.belaidup_urgent as temp_storehouse_belaidup_source_belaidup_urgent, 
+    temp_storehouse_belaidup_source.memberMobile as temp_storehouse_belaidup_source_memberMobile, 
+    temp_storehouse_belaidup_source.end_station as temp_storehouse_belaidup_source_end_station, 
+    temp_storehouse_belaidup_source.end_address as temp_storehouse_belaidup_source_end_address, 
+    temp_storehouse_belaidup_source.receive_mobile as temp_storehouse_belaidup_source_receive_mobile, 
+    temp_storehouse_belaidup_source.receivc_style as temp_storehouse_belaidup_source_receivc_style, 
+    temp_storehouse_belaidup_source.show_style as temp_storehouse_belaidup_source_show_style, 
+    temp_storehouse_belaidup_source.remark as temp_storehouse_belaidup_source_remark, 
+    temp_storehouse_belaidup_source.creater as temp_storehouse_belaidup_source_creater, 
+    temp_storehouse_belaidup_source.create_time as temp_storehouse_belaidup_source_create_time, 
+    temp_storehouse_belaidup_source.updater as temp_storehouse_belaidup_source_updater, 
+    temp_storehouse_belaidup_source.update_time as temp_storehouse_belaidup_source_update_time
+    
+     <!-- 以下属于拓展字段 -->
+    ,temp_creater.user_cn_name as temp_storehouse_belaidup_source_creater_display
+    ,temp_updater.user_cn_name as temp_storehouse_belaidup_source_updater_display
+    ,temp_goodstype.goodstype_name as temp_storehouse_belaidup_source_goods_type_display
+    ,temp_member.member_name as temp_storehouse_belaidup_source_shipper_member_display
+   </sql>
+   
+   <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id =  temp_storehouse_belaidup_source.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_belaidup_source.updater <!-- 扩展 -->
+    LEFT JOIN t_storehouse_goodstype_set temp_goodstype ON temp_goodstype.goodstype_id = temp_storehouse_belaidup_source.belaidup_type_id <!-- 扩展 -->
+    LEFT JOIN t_shipper_member temp_member ON temp_member.member_id = temp_storehouse_belaidup_source.member_id <!-- 扩展 -->
+   </sql>
+   
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    <include refid="Base_extend" />
+    where temp_storehouse_belaidup_source.belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_storehouse_belaidup_source
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSourceExample" >
+    delete from t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
+    insert into t_storehouse_belaidup_source (belaidup_id, belaidup_prod_name, belaidup_type_id, 
+      belaidup_volume, belaidup_weight, origination_station, 
+      origination_address, member_id, belaidup_urgent, 
+      memberMobile, end_station, end_address, 
+      receive_mobile, receivc_style, show_style, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{belaidupId,jdbcType=VARCHAR}, #{belaidupProdName,jdbcType=VARCHAR}, #{belaidupTypeId,jdbcType=VARCHAR}, 
+      #{belaidupVolume,jdbcType=REAL}, #{belaidupWeight,jdbcType=REAL}, #{originationStation,jdbcType=VARCHAR}, 
+      #{originationAddress,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{belaidupUrgent,jdbcType=CHAR}, 
+      #{membermobile,jdbcType=VARCHAR}, #{endStation,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
+      #{receiveMobile,jdbcType=VARCHAR}, #{receivcStyle,jdbcType=CHAR}, #{showStyle,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
+    insert into t_storehouse_belaidup_source
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="belaidupId != null" >
+        belaidup_id,
+      </if>
+      <if test="belaidupProdName != null" >
+        belaidup_prod_name,
+      </if>
+      <if test="belaidupTypeId != null" >
+        belaidup_type_id,
+      </if>
+      <if test="belaidupVolume != null" >
+        belaidup_volume,
+      </if>
+      <if test="belaidupWeight != null" >
+        belaidup_weight,
+      </if>
+      <if test="originationStation != null" >
+        origination_station,
+      </if>
+      <if test="originationAddress != null" >
+        origination_address,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="belaidupUrgent != null" >
+        belaidup_urgent,
+      </if>
+      <if test="membermobile != null" >
+        memberMobile,
+      </if>
+      <if test="endStation != null" >
+        end_station,
+      </if>
+      <if test="endAddress != null" >
+        end_address,
+      </if>
+      <if test="receiveMobile != null" >
+        receive_mobile,
+      </if>
+      <if test="receivcStyle != null" >
+        receivc_style,
+      </if>
+      <if test="showStyle != null" >
+        show_style,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="belaidupId != null" >
+        #{belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupProdName != null" >
+        #{belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupTypeId != null" >
+        #{belaidupTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupVolume != null" >
+        #{belaidupVolume,jdbcType=REAL},
+      </if>
+      <if test="belaidupWeight != null" >
+        #{belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="originationStation != null" >
+        #{originationStation,jdbcType=VARCHAR},
+      </if>
+      <if test="originationAddress != null" >
+        #{originationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupUrgent != null" >
+        #{belaidupUrgent,jdbcType=CHAR},
+      </if>
+      <if test="membermobile != null" >
+        #{membermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="endStation != null" >
+        #{endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="endAddress != null" >
+        #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null" >
+        #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receivcStyle != null" >
+        #{receivcStyle,jdbcType=CHAR},
+      </if>
+      <if test="showStyle != null" >
+        #{showStyle,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSourceExample" resultType="java.lang.Integer" >
+    select count(*) from t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    <set >
+      <if test="record.belaidupId != null" >
+        temp_storehouse_belaidup_source.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupProdName != null" >
+        temp_storehouse_belaidup_source.belaidup_prod_name = #{record.belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupTypeId != null" >
+        temp_storehouse_belaidup_source.belaidup_type_id = #{record.belaidupTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupVolume != null" >
+        temp_storehouse_belaidup_source.belaidup_volume = #{record.belaidupVolume,jdbcType=REAL},
+      </if>
+      <if test="record.belaidupWeight != null" >
+        temp_storehouse_belaidup_source.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="record.originationStation != null" >
+        temp_storehouse_belaidup_source.origination_station = #{record.originationStation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originationAddress != null" >
+        temp_storehouse_belaidup_source.origination_address = #{record.originationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_storehouse_belaidup_source.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belaidupUrgent != null" >
+        temp_storehouse_belaidup_source.belaidup_urgent = #{record.belaidupUrgent,jdbcType=CHAR},
+      </if>
+      <if test="record.membermobile != null" >
+        temp_storehouse_belaidup_source.memberMobile = #{record.membermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endStation != null" >
+        temp_storehouse_belaidup_source.end_station = #{record.endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endAddress != null" >
+        temp_storehouse_belaidup_source.end_address = #{record.endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveMobile != null" >
+        temp_storehouse_belaidup_source.receive_mobile = #{record.receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivcStyle != null" >
+        temp_storehouse_belaidup_source.receivc_style = #{record.receivcStyle,jdbcType=CHAR},
+      </if>
+      <if test="record.showStyle != null" >
+        temp_storehouse_belaidup_source.show_style = #{record.showStyle,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_storehouse_belaidup_source.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_storehouse_belaidup_source.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_storehouse_belaidup_source.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_storehouse_belaidup_source.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_storehouse_belaidup_source.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_storehouse_belaidup_source temp_storehouse_belaidup_source
+    set temp_storehouse_belaidup_source.belaidup_id = #{record.belaidupId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.belaidup_prod_name = #{record.belaidupProdName,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.belaidup_type_id = #{record.belaidupTypeId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.belaidup_volume = #{record.belaidupVolume,jdbcType=REAL},
+      temp_storehouse_belaidup_source.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
+      temp_storehouse_belaidup_source.origination_station = #{record.originationStation,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.origination_address = #{record.originationAddress,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.belaidup_urgent = #{record.belaidupUrgent,jdbcType=CHAR},
+      temp_storehouse_belaidup_source.memberMobile = #{record.membermobile,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.end_station = #{record.endStation,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.end_address = #{record.endAddress,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.receive_mobile = #{record.receiveMobile,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.receivc_style = #{record.receivcStyle,jdbcType=CHAR},
+      temp_storehouse_belaidup_source.show_style = #{record.showStyle,jdbcType=CHAR},
+      temp_storehouse_belaidup_source.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_storehouse_belaidup_source.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
+    update t_storehouse_belaidup_source
+    <set >
+      <if test="belaidupProdName != null" >
+        belaidup_prod_name = #{belaidupProdName,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupTypeId != null" >
+        belaidup_type_id = #{belaidupTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupVolume != null" >
+        belaidup_volume = #{belaidupVolume,jdbcType=REAL},
+      </if>
+      <if test="belaidupWeight != null" >
+        belaidup_weight = #{belaidupWeight,jdbcType=REAL},
+      </if>
+      <if test="originationStation != null" >
+        origination_station = #{originationStation,jdbcType=VARCHAR},
+      </if>
+      <if test="originationAddress != null" >
+        origination_address = #{originationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="belaidupUrgent != null" >
+        belaidup_urgent = #{belaidupUrgent,jdbcType=CHAR},
+      </if>
+      <if test="membermobile != null" >
+        memberMobile = #{membermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="endStation != null" >
+        end_station = #{endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="endAddress != null" >
+        end_address = #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null" >
+        receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receivcStyle != null" >
+        receivc_style = #{receivcStyle,jdbcType=CHAR},
+      </if>
+      <if test="showStyle != null" >
+        show_style = #{showStyle,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
+    update t_storehouse_belaidup_source
+    set belaidup_prod_name = #{belaidupProdName,jdbcType=VARCHAR},
+      belaidup_type_id = #{belaidupTypeId,jdbcType=VARCHAR},
+      belaidup_volume = #{belaidupVolume,jdbcType=REAL},
+      belaidup_weight = #{belaidupWeight,jdbcType=REAL},
+      origination_station = #{originationStation,jdbcType=VARCHAR},
+      origination_address = #{originationAddress,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      belaidup_urgent = #{belaidupUrgent,jdbcType=CHAR},
+      memberMobile = #{membermobile,jdbcType=VARCHAR},
+      end_station = #{endStation,jdbcType=VARCHAR},
+      end_address = #{endAddress,jdbcType=VARCHAR},
+      receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
+      receivc_style = #{receivcStyle,jdbcType=CHAR},
+      show_style = #{showStyle,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where belaidup_id = #{belaidupId,jdbcType=VARCHAR}
+  </update>
+</mapper>
