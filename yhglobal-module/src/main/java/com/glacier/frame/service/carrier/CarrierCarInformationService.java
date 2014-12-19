@@ -23,13 +23,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.carrier.CarrierCarInformationMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.carrier.CarrierCarInformationQueryDTO;
 import com.glacier.frame.entity.carrier.CarrierCarInformation;
 import com.glacier.frame.entity.carrier.CarrierCarInformationExample;
+import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.frame.entity.carrier.CarrierCarInformationExample.Criteria;
 /*** 
  * @ClassName:  CarrierCarInformationService
@@ -44,6 +47,9 @@ public class CarrierCarInformationService {
 
 	@Autowired
 	private CarrierCarInformationMapper carrierCarInformationMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -96,7 +102,7 @@ public class CarrierCarInformationService {
     @Transactional(readOnly = false)
     public Object addNews(CarrierCarInformation carInformation) {
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         CarrierCarInformationExample memberGradeExample = new CarrierCarInformationExample();
         int count = 0;
@@ -110,9 +116,10 @@ public class CarrierCarInformationService {
         }
         carInformation.setAuditState("authstr");
         carInformation.setCarId(RandomGUID.getRandomGUID());
-        carInformation.setCreater(pricipalUser.getUserId());
+        carInformation.setCarrierMemberId(pricipalUser.getCarrierMemberId()); 
+        carInformation.setCreater(getUserId());
         carInformation.setCreateTime(new Date());
-        carInformation.setUpdater(pricipalUser.getUserId());
+        carInformation.setUpdater(getUserId());
         carInformation.setUpdateTime(new Date());
         count = carrierCarInformationMapper.insert(carInformation);
         if (count == 1) {
@@ -218,4 +225,19 @@ public class CarrierCarInformationService {
         }
         return returnResult;
     }
+    
+    /**
+     * 
+     * @Title: getUserId  
+     * @Description: TODO(获取系统管理员的id)  
+     * @param @return    设定文件  
+     * @return String    返回类型  
+     * @throws
+     */
+   public String getUserId(){ 
+   	UserExample userExample=new UserExample();
+   	userExample.createCriteria().andUsernameEqualTo("admin");
+   	User use= (User)userMapper.selectByExample(userExample).get(0);
+       return use.getUserId();
+   }
 }
