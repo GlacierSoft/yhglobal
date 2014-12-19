@@ -491,17 +491,13 @@ public class StorehouseBelaidupService {
         if(fin.getMrechageRemain().compareTo(storehouseAddedService.getTotalCost())==-1){
         	returnResult.setMsg("账户余额不足，请先充值再发货！");
         	return returnResult;
-        }
-        
+        } 
         if(storehouseAddedService.getGoodsCost()==null){
         	storehouseAddedService.setGoodsCost(new BigDecimal(0));
-        }
-        
+        } 
         if(storehouseAddedService.getUrgentDelivery()==null){
-        	storehouseAddedService.setUrgentDelivery("no");
-        	
-        }
-        
+        	storehouseAddedService.setUrgentDelivery("no"); 
+        } 
         //新增物品信息
         int count = 0;
         belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery());
@@ -608,7 +604,19 @@ public class StorehouseBelaidupService {
         	shipperMemberContractRecord.setCreateTime(new Date());
         	shipperMemberContractRecord.setUpdater(getUserId());
         	shipperMemberContractRecord.setUpdateTime(new Date());
-        	shipperMemberContractRecordMapper.insert(shipperMemberContractRecord);
+        	shipperMemberContractRecordMapper.insert(shipperMemberContractRecord); 
+        	//构建包装中间表
+        	StorehousePackCode packCode = new StorehousePackCode();
+        	packCode.setPackCodeId(RandomGUID.getRandomGUID());
+        	packCode.setBelaidupId(belaidup.getBelaidupId());//货物ID
+        	packCode.setPackagetypeId(belaidup.getPackageDisplay());//包装类型ID
+        	packCode.setCreater(getUserId());
+        	packCode.setCreateTime(new Date());
+        	packCode.setUpdater(getUserId());
+        	packCode.setUpdateTime(new Date());
+        	//执行添加
+        	packcodeMapper.insert(packCode); 
+        	
         } 
         if (count == 1) {
         	 returnResult.setSuccess(true);

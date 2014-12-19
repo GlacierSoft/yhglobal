@@ -240,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="col-sm-6" align="left">
 						       <select class="form-control" name="goodstype" id="goodstype" onchange="getId()">
 							      <option value="">--请选择--</option>
-								    <c:forEach items="${storehousePackagetype}" var="ty">  
+								    <c:forEach items="${storehouseGoodstype}" var="ty">  
 						             	<option id="${ty.goodstypeId}" >${ty.goodstypeName}</option>
 								    </c:forEach>   
 						    	</select>
@@ -248,6 +248,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    </div> 
 						    <div class="col-sm-3" ></div>
 						  </div>
+						  
+						  <div class="form-group" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>包装类型:</label>
+						    <div class="col-sm-6" align="left">
+						       <select class="form-control" name="packageDisplay"  >
+							      <option value="">--请选择--</option>
+								    <c:forEach items="${storehousePackagetype}" var="ty">  
+						             	<option value="${ty.packagetypeId}" >${ty.packagetypeName}</option>
+								    </c:forEach>   
+						    	</select> 
+						    </div> 
+						    <div class="col-sm-3" ></div>
+						  </div>
+						  
 						  <div class="form-group" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >取货方式:</label>
 						    <div class="col-sm-6" align="left">
@@ -567,6 +581,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			 number:true,
 	    			 isMobile:true
 	    		 }, 
+	    	 packageDisplay:"required",
 	    	  sendAddress:"required",
 	    	  goodsCost:"required",
 	    	  orderAddress:"required",
@@ -591,6 +606,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			sendSite:"请选择发货网点",
   			goodsCost:"请填写货物价值",
   			belaidupProdName:"请输入货物名称",
+  			packageDisplay:"请选择包装类型",
   			orderSite:"请选择收货网点",
   			sendAddress:"请输入发货地详细地址",
   			orderAddress:"请输入收货地详细地址", 

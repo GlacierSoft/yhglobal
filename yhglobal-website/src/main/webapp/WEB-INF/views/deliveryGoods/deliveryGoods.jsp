@@ -144,6 +144,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     </select> 
 						    </div>  
 						  </div>
+						  
+						   <div class="form-group col-sm-9" >
+						    <label for="inputEmail3" class="col-sm-3 control-label" ><font color="red">*</font>包装类型:</label>
+						    <div class="col-sm-6" align="left">
+						          <select class="form-control" name="packageDisplay"  >
+							      <option value="">--请选择--</option>
+								    <c:forEach items="${storehousePackagetype}" var="ty">  
+						             	<option value="${ty.packagetypeId}" >${ty.packagetypeName}</option>
+								    </c:forEach>   
+						    	</select> 
+						    </div>  
+						  </div>
+						  
 						  <div class="form-group col-sm-9" >
 						    <label for="inputEmail3" class="col-sm-3 control-label" >取货方式:</label>
 						    <div class="col-sm-6" align="left">

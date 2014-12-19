@@ -34,12 +34,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParameterCarrierCreditworthinessTypeMapper;
+import com.glacier.frame.dao.carrier.CarrierContractRecordMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberCreditworthinessMapper;
 import com.glacier.frame.dao.carrier.CarrierMemberMapper;
 import com.glacier.frame.dao.finace.FinanceCarrierDetailMapper;
 import com.glacier.frame.dao.finace.FinanceCarrierMapper;
 import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
 import com.glacier.frame.dao.finace.FinancePlatformMapper;
+import com.glacier.frame.dao.member.MemberContractTypeMapper;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
@@ -49,6 +51,7 @@ import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessType;
 import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessTypeExample;
+import com.glacier.frame.entity.carrier.CarrierContractRecord;
 import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness;
 import com.glacier.frame.entity.finace.FinanceCarrier;
@@ -57,6 +60,8 @@ import com.glacier.frame.entity.finace.FinanceCarrierExample;
 import com.glacier.frame.entity.finace.FinancePlatform;
 import com.glacier.frame.entity.finace.FinancePlatformDetail;
 import com.glacier.frame.entity.finace.FinancePlatformExample;
+import com.glacier.frame.entity.member.MemberContractType;
+import com.glacier.frame.entity.member.MemberContractTypeExample; 
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
@@ -110,6 +115,9 @@ public class OrdersDispatchingService {
 	private StorehouseBelaidupMapper belaidupMapper;
 	
 	@Autowired
+	private MemberContractTypeMapper memberContractTypeMapper;
+	
+	@Autowired
 	private FinancePlatformMapper platformMapper;
 	
 	@Autowired
@@ -124,6 +132,8 @@ public class OrdersDispatchingService {
 	@Autowired
 	private CarrierMemberMapper carrierMemberMapper;
 	
+	@Autowired
+	private CarrierContractRecordMapper carrierContractRecordMapper;
 	/**
      * 
      * @Title: signOrdersDispatchingStatus 
@@ -385,6 +395,27 @@ public class OrdersDispatchingService {
 	        ordersOrder.setUpdateTime(new Date());
 	        int numb=ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder); 
 	        if(numb>0){
+	        	//查询合同类型--配送
+	        	MemberContractTypeExample  memberContractTypeExample=new MemberContractTypeExample();
+	        	memberContractTypeExample.createCriteria().andContractTypeNameEqualTo("承运商-平台合同");
+	        	MemberContractType memberContractType=(MemberContractType)memberContractTypeMapper.selectByExample(memberContractTypeExample).get(0);
+	        	//生成合同信息
+	        	CarrierContractRecord carrierContractRecord=new CarrierContractRecord();
+	        	carrierContractRecord.setContractRecordId(RandomGUID.getRandomGUID());
+	        	carrierContractRecord.setDeliverId(ordersOrder.getOrderCode());//订单编号
+	        	carrierContractRecord.setCarrierMemberId(ordersDispatching.getCarrierId());//关联承运商
+	        	carrierContractRecord.setContractType(memberContractType.getContractTypeId());//合同类型
+	        	carrierContractRecord.setPlatformId("越海物流");
+	        	carrierContractRecord.setStatus("enable");
+	        	carrierContractRecord.setContractContent("承运商在运输过程中要确保物品完好无损");
+	        	carrierContractRecord.setEnableTime(new Date());
+	        	carrierContractRecord.setRemark("此合同从订单分配给承运商时即生效");
+	        	carrierContractRecord.setCreater(getUserId());
+	        	carrierContractRecord.setCreateTime(new Date());
+	        	carrierContractRecord.setUpdater(getUserId());
+	        	carrierContractRecord.setUpdateTime(new Date());
+	        	carrierContractRecordMapper.insert(carrierContractRecord);
+	        	 
 	        	returnResult.setSuccess(true);
 	        	returnResult.setMsg("分配成功!");
 	        }else{

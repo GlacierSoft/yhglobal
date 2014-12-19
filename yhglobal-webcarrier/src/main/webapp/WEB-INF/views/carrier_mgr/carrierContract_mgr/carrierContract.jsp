@@ -39,7 +39,7 @@
 							checkbox : true
 						}, {
 							field : 'deliverId',
-							title : '配送货物',
+							title : '订单编号',
 							width : 120,
 							sortable : true
 						}, {

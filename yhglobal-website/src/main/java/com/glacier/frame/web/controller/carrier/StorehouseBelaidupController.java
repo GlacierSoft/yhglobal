@@ -29,12 +29,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.dto.query.storehouse.StorehousePackagetypeSetQueryDTO;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.entity.storehouse.StorehousePackagetypeSet;
 import com.glacier.frame.service.carrier.CarrierDeliverGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierPickUpGoodsAreaService;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService; 
+import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 /**
@@ -62,6 +65,9 @@ public class StorehouseBelaidupController extends AbstractController{
 	
 	@Autowired
 	private StorehouseBelaidupService  storehouseBelaidupService;
+	
+	@Autowired
+	private StorehousePackagetypeSetService packagetypeSetService;
 	 
 	//进入发货页面 
 	@RequestMapping(value = "/delivery.htm")
@@ -71,7 +77,13 @@ public class StorehouseBelaidupController extends AbstractController{
 		JqGridReturn returnResult=(JqGridReturn) StorehouseGoodstypeSetService.listAsGrid(pager,storehouseGoodstypeSetQueryDTO);
      	@SuppressWarnings("unchecked")
         List<StorehouseGoodstypeSet> StorehouseGoodstypeSetList=(List<StorehouseGoodstypeSet>) returnResult.getRows();
-     	mav.addObject("storehousePackagetype",StorehouseGoodstypeSetList);
+     	
+     	JqGridReturn retu=(JqGridReturn) packagetypeSetService.listAsGrid(pager, new StorehousePackagetypeSetQueryDTO());
+     	@SuppressWarnings("unchecked")
+        List<StorehousePackagetypeSet>  lis=(List<StorehousePackagetypeSet>) retu.getRows();
+     	
+     	mav.addObject("storehouseGoodstype",StorehouseGoodstypeSetList);
+     	mav.addObject("storehousePackagetype",lis);
 	    return mav;
 	} 
 	

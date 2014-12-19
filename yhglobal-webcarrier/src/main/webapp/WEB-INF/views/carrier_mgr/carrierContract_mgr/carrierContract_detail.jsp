@@ -6,7 +6,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>配送记录：</td>
+			<td>订单编号：</td>
 			<td>
 				<input class="spinner" style="height:18px;width:180px" value="${carrierContractData.deliverId}"  readonly="readonly"/>
 			</td>

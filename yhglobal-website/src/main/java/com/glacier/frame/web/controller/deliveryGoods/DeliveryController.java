@@ -37,16 +37,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
+import com.glacier.frame.dto.query.storehouse.StorehousePackagetypeSetQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
 import com.glacier.frame.entity.storehouse.StorehouseAddedService;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseBelaidupSource;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
+import com.glacier.frame.entity.storehouse.StorehousePackagetypeSet;
 import com.glacier.frame.service.carrier.CarrierRouterService;
 import com.glacier.frame.service.member.ContractService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupSourceService;
 import com.glacier.frame.service.storehouse.StorehouseGoodstypeSetService;
+import com.glacier.frame.service.storehouse.StorehousePackagetypeSetService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -80,7 +83,9 @@ public class DeliveryController {
 	
 	@Autowired
 	private ContractService contractService;
-	
+	 
+	@Autowired
+	private StorehousePackagetypeSetService packagetypeSetService;
 	
 	@Autowired
 	private StorehouseBelaidupSourceService storehouseBelaidupSourceService;
@@ -94,6 +99,11 @@ public class DeliveryController {
 		@SuppressWarnings("unchecked")
 		List<StorehouseGoodstypeSet> StorehouseGoodstypeSetList = (List<StorehouseGoodstypeSet>) returnResult.getRows();
 		mav.addObject("StorehouseGoodstypeSetList", StorehouseGoodstypeSetList);
+		
+		JqGridReturn retu=(JqGridReturn) packagetypeSetService.listAsGrid(pager, new StorehousePackagetypeSetQueryDTO());
+     	@SuppressWarnings("unchecked")
+        List<StorehousePackagetypeSet>  lis=(List<StorehousePackagetypeSet>) retu.getRows();
+     	mav.addObject("storehousePackagetype", lis); 
 		return mav;
 	}
 
