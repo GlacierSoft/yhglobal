@@ -577,6 +577,8 @@ public class StorehouseBelaidupService {
         	shipperMemberIntegral.setShipperMemberIntegralId(RandomGUID.getRandomGUID());
         	shipperMemberIntegral.setMemberId(pricipalUser.getMemberId());
         	shipperMemberIntegral.setIntegralTypeId(shipperIntegralType.getIntegralTypeId());
+        	shipperMemberIntegral.setChangeType(shipperIntegralType.getChangeType());
+        	shipperMemberIntegral.setChangeValue(shipperIntegralType.getChangeValue());
         	shipperMemberIntegral.setRemark("货主发货增加积分");
         	shipperMemberIntegral.setCreater(getUserId());
         	shipperMemberIntegral.setCreateTime(new Date());

@@ -2,7 +2,8 @@ package com.glacier.frame.entity.member;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;  
+import java.util.List;
+
 public class ShipperMemberIntegralExample {
     protected String orderByClause;
 
@@ -102,8 +103,8 @@ public class ShipperMemberIntegralExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        
-        //自定会员名称查询方法
+
+		  //自定会员名称查询方法
         public Criteria andMemberName(String value) {
         	addCriterion(" temp_shipper_member.member_name like ",value," memberName ");
             return (Criteria) this;
@@ -114,13 +115,7 @@ public class ShipperMemberIntegralExample {
         	addCriterion(" temp_shipper_integral_type.integral_type = ",value," integralTypeName");
             return (Criteria) this;
         }  
-        
-         //自定义改变类型查询方法
-        public Criteria andChangeTypeEqualTo(String value) {
-            addCriterion(" temp_shipper_change_type.change_type = ", value, " changeType");
-            return (Criteria) this;
-        } 
-        
+         
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -349,6 +344,136 @@ public class ShipperMemberIntegralExample {
 
         public Criteria andIntegralTypeIdNotBetween(String value1, String value2) {
             addCriterion("temp_shipper_member_integral.integral_type_id not between", value1, value2, "integralTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeIsNull() {
+            addCriterion("temp_shipper_member_integral.change_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeIsNotNull() {
+            addCriterion("temp_shipper_member_integral.change_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeEqualTo(String value) {
+            addCriterion("temp_shipper_member_integral.change_type =", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeNotEqualTo(String value) {
+            addCriterion("temp_shipper_member_integral.change_type <>", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeGreaterThan(String value) {
+            addCriterion("temp_shipper_member_integral.change_type >", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_shipper_member_integral.change_type >=", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeLessThan(String value) {
+            addCriterion("temp_shipper_member_integral.change_type <", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_shipper_member_integral.change_type <=", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeLike(String value) {
+            addCriterion("temp_shipper_member_integral.change_type like", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeNotLike(String value) {
+            addCriterion("temp_shipper_member_integral.change_type not like", value, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeIn(List<String> values) {
+            addCriterion("temp_shipper_member_integral.change_type in", values, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeNotIn(List<String> values) {
+            addCriterion("temp_shipper_member_integral.change_type not in", values, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeBetween(String value1, String value2) {
+            addCriterion("temp_shipper_member_integral.change_type between", value1, value2, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_shipper_member_integral.change_type not between", value1, value2, "changeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueIsNull() {
+            addCriterion("temp_shipper_member_integral.change_value is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueIsNotNull() {
+            addCriterion("temp_shipper_member_integral.change_value is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueEqualTo(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value =", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueNotEqualTo(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value <>", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueGreaterThan(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value >", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueGreaterThanOrEqualTo(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value >=", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueLessThan(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value <", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueLessThanOrEqualTo(Integer value) {
+            addCriterion("temp_shipper_member_integral.change_value <=", value, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueIn(List<Integer> values) {
+            addCriterion("temp_shipper_member_integral.change_value in", values, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueNotIn(List<Integer> values) {
+            addCriterion("temp_shipper_member_integral.change_value not in", values, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueBetween(Integer value1, Integer value2) {
+            addCriterion("temp_shipper_member_integral.change_value between", value1, value2, "changeValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeValueNotBetween(Integer value1, Integer value2) {
+            addCriterion("temp_shipper_member_integral.change_value not between", value1, value2, "changeValue");
             return (Criteria) this;
         }
 

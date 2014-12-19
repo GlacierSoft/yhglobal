@@ -5,58 +5,58 @@ import java.util.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ShipperMemberIntegral {
-	
     private String shipperMemberIntegralId;
 
     private String memberId;
 
     private String integralTypeId;
 
+    private String changeType;
+
+    private Integer changeValue;
+
     private String remark;
 
     private String creater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-    
-    //自定义字段
+	
+	//自定义字段
     private String memberName; 
     
     //积分类型
     private String integralTypeName; 
-
-    //改变类型
-    private String changeType;
-    
-    //改变值
-    private String changeValue;
-    
-    //创建人
+	
+	//创建人
     private String createrDisplay;
     
     //更新人
     private String updaterDisplay;
-     
-    
-    public String getChangeValue() {
-		return changeValue;
+
+    public String getShipperMemberIntegralId() {
+        return shipperMemberIntegralId;
+    }
+
+    public String getMemberName() {
+		return memberName;
 	}
 
-	public void setChangeValue(String changeValue) {
-		this.changeValue = changeValue;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	
+	public String getIntegralTypeName() {
+		return integralTypeName;
 	}
 
-	public String getChangeType() {
-		return changeType;
-	}
-
-	public void setChangeType(String changeType) {
-		this.changeType = changeType;
+	public void setIntegralTypeName(String integralTypeName) {
+		this.integralTypeName = integralTypeName;
 	}
 
 	public String getCreaterDisplay() {
@@ -66,7 +66,7 @@ public class ShipperMemberIntegral {
 	public void setCreaterDisplay(String createrDisplay) {
 		this.createrDisplay = createrDisplay;
 	}
-
+	
 	public String getUpdaterDisplay() {
 		return updaterDisplay;
 	}
@@ -75,27 +75,7 @@ public class ShipperMemberIntegral {
 		this.updaterDisplay = updaterDisplay;
 	}
 
-	public String getIntegralTypeName() {
-		return integralTypeName;
-	}
-
-	public void setIntegralTypeName(String integralTypeName) {
-		this.integralTypeName = integralTypeName;
-	}
-
-	public String getMemberName() {
-		return memberName;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
-	public String getShipperMemberIntegralId() {
-        return shipperMemberIntegralId;
-    }
-
-    public void setShipperMemberIntegralId(String shipperMemberIntegralId) {
+	public void setShipperMemberIntegralId(String shipperMemberIntegralId) {
         this.shipperMemberIntegralId = shipperMemberIntegralId;
     }
 
@@ -113,6 +93,22 @@ public class ShipperMemberIntegral {
 
     public void setIntegralTypeId(String integralTypeId) {
         this.integralTypeId = integralTypeId;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(String changeType) {
+        this.changeType = changeType;
+    }
+
+    public Integer getChangeValue() {
+        return changeValue;
+    }
+
+    public void setChangeValue(Integer changeValue) {
+        this.changeValue = changeValue;
     }
 
     public String getRemark() {
@@ -170,6 +166,8 @@ public class ShipperMemberIntegral {
         return (this.getShipperMemberIntegralId() == null ? other.getShipperMemberIntegralId() == null : this.getShipperMemberIntegralId().equals(other.getShipperMemberIntegralId()))
             && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getIntegralTypeId() == null ? other.getIntegralTypeId() == null : this.getIntegralTypeId().equals(other.getIntegralTypeId()))
+            && (this.getChangeType() == null ? other.getChangeType() == null : this.getChangeType().equals(other.getChangeType()))
+            && (this.getChangeValue() == null ? other.getChangeValue() == null : this.getChangeValue().equals(other.getChangeValue()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -184,6 +182,8 @@ public class ShipperMemberIntegral {
         result = prime * result + ((getShipperMemberIntegralId() == null) ? 0 : getShipperMemberIntegralId().hashCode());
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getIntegralTypeId() == null) ? 0 : getIntegralTypeId().hashCode());
+        result = prime * result + ((getChangeType() == null) ? 0 : getChangeType().hashCode());
+        result = prime * result + ((getChangeValue() == null) ? 0 : getChangeValue().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
