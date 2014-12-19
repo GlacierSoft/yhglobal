@@ -19,10 +19,19 @@
  */
 package com.glacier.frame.web.controller.common;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.frame.service.carrier.CarrierMemberService;
+import com.glacier.frame.service.finace.FinaceRechargeMemberSetService;
+import com.glacier.frame.service.finace.FinaceRechargeSetCarrierService;
+import com.glacier.frame.service.finace.FinaceWithdrawSetCarrierService;
+import com.glacier.frame.service.finace.FinaceWithdrawSetMemberService;
+import com.glacier.frame.service.orders.OrdersOrderService;
+import com.glacier.frame.service.storehouse.StorehouseBelaidupService;
 
 /**
  * @ClassName: CommonController
@@ -35,52 +44,43 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="/index")
 public class indexController {
     
-//    @Autowired
-//    private BorrowingLoanService borrowingLoanService;
-//    
-//    @Autowired
-//    private MemberAuthService memberAuthService;
-//    
-//    @Autowired
-//    private FinanceRechargeService financeRechargeService;
-//    
-//    @Autowired
-//    private FinanceWithdrawService financeWithdrawService;
-//    
-//    @Autowired
-//    private FinanceBankCardService financeBankCardService;
-//    
-//    @Autowired
-//    private MemberApplyAmountService memberApplyAmountService;
-//    
-//    @Autowired
-//    private MemberEstateService memberEstateService;
+    @Autowired
+    private StorehouseBelaidupService storehouseBelaidupService;// 注入货物业务类
+    
+    @Autowired
+    private OrdersOrderService ordersOrderService;// 注入订单业务类
+    
+    @Autowired
+    private CarrierMemberService carrierMemberService;// 注入承运商业务类
+    
+    @Autowired
+    private FinaceRechargeSetCarrierService finaceRechargeSetCarrierService;// 注入承运商充值设置业务类
+    
+    @Autowired
+    private FinaceWithdrawSetCarrierService finaceWithdrawSetCarrierService;// 注入承运商提现设置业务类
+    
+    @Autowired
+    private FinaceRechargeMemberSetService finaceRechargeMemberSetService;// 注入会员充值设置业务类
+    
+    @Autowired
+    private FinaceWithdrawSetMemberService finaceWithdrawSetMemberService;// 注入会员提现设置业务类
     
     @RequestMapping(value = "/center", method = RequestMethod.GET)
     public Object intoIndex() {
         
         ModelAndView mav = new ModelAndView("layout/center");
-//        //借款管理
-//        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanState("firstAudit"));//查询初审中的借款记录条数
-//        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanState("secondAuditor"));//查询复审中的借款记录条数
-//        
-//        //资金管理
-//        mav.addObject("financeRechargeNumAuthstr", financeRechargeService.getFinanceRechargeNumByAuditState("Authstr"));//查询审核中的会员充值记录条数
-//        mav.addObject("financeWithdrawNumAuthstr", financeWithdrawService.getFinanceWithdrawNumByAuditState("Authstr"));//查询审核中的会员提现记录条数
-//        mav.addObject("bankCardNumAuthstr", financeBankCardService.getBankCardNumByBankCardAuths("authstr"));//查询审核中的会员银行卡记录条数
-//        mav.addObject("applyAmountNumAuthstr", memberApplyAmountService.getApplyAmountNumByAuditState("Authstr"));//查询审核中的会员额度申请记录条数
-//        mav.addObject("memberEstateNumAuthstr", memberEstateService.getEstateNumByAuditState("Authstr"));//查询审核中的会员房产信息记录条数
-//        
-//        //认证管理
-//        mav.addObject("infoAuthNum", memberAuthService.getInfoAuthNumByInfoAuth("authstr"));//查询会员审核中的基本资料认证记录条数
-//        mav.addObject("vipAuthNum", memberAuthService.getVipAuthNumByVipAuth("authstr"));//查询会员审核中的Vip认证记录条数
-//        mav.addObject("emailAuthNum", memberAuthService.getEmailAuthNumByEmailAuth("authstr"));//查询会员审核中的邮箱认证记录条数
-//        mav.addObject("mobileAuthNum", memberAuthService.getMobileAuthNumByMobileAuth("authstr"));//查询会员审核中的电话认证记录条数
-//        mav.addObject("creditAuthNum", memberAuthService.getCreditAuthNumByCreditAuth("authstr"));//查询会员审核中的信用认证记录条数
-//        mav.addObject("companyAuthNum", memberAuthService.getCompanyAuthNumByCompanyAuth("authstr"));//查询会员审核中的企业认证记录条数
-//        mav.addObject("realNameAuthNum", memberAuthService.getRealNameAuthNumByRealNameAuth("authstr"));//查询会员审核中的真实姓名认证记录条数
-//        mav.addObject("idCardAuthNum", memberAuthService.getIdCardAuthNumByIdCardAuth("authstr"));//查询会员审核中的身份证认证记录条数
-//        mav.addObject("workAuthNum", memberAuthService.getWorkAuthNumByWorkAuth("authstr"));//查询会员审核中的工作认证记录条数
+        //货物管理
+        mav.addObject("belaidupnNumWaitsorting", storehouseBelaidupService.getBelaidupnNumBySortingStauts("waitsorting"));//查询等待分拣货物记录条数
+        mav.addObject("belaidupnNumHassorting", storehouseBelaidupService.getBelaidupnNumBySortingStauts("hassorting"));//查询已经分拣货物记录条数
+        //订单管理
+        mav.addObject("ordersNumWaitdistribute", ordersOrderService.getOrdersNumByDistributeStatus("waitdistribute"));//查询等待分拣货物记录条数
+        mav.addObject("ordersNumHasdistribute", ordersOrderService.getOrdersNumByDistributeStatus("hasdistribute"));//查询已经分拣货物记录条数
+        //审核管理
+        mav.addObject("carrierNumAuditState", carrierMemberService.getCarrierNumByAuditState("authstr"));//查询等待审核的承运商条数
+        mav.addObject("rechargeSetCarrierNum", finaceRechargeSetCarrierService.getRechargeSetCarrierNumByAuditState("authstr"));//查询等待审核的承运商条数
+        mav.addObject("withdrawSetCarrierNum", finaceWithdrawSetCarrierService.getWithdrawSetCarrierNumByAuditState("authstr"));//查询等待审核的承运商条数
+        mav.addObject("rechargeSetMemberNum", finaceRechargeMemberSetService.getRechargeSetMemberNumByAuditState("authstr"));//查询等待审核的承运商条数
+        mav.addObject("withdrawMemberNum", finaceWithdrawSetMemberService.getWithdrawMemberNumByAuditState("authstr"));//查询等待审核的承运商条数
         return mav;
     }
 }

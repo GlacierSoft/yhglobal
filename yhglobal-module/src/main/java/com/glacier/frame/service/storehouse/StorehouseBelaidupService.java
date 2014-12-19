@@ -829,4 +829,19 @@ public class StorehouseBelaidupService {
         return use.getUserId();
     }
     
+    /**
+     * @Title: getBelaidupnNumBySortingStauts 
+     * @Description: TODO(根据分拣状态进行统计货物条数) 
+     * @param  @param SortingStauts
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getBelaidupnNumBySortingStauts(String SortingStauts) {
+        StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
+        storehouseBelaidupExample.createCriteria().andSortingStautsEqualTo(SortingStauts);
+        int belaidupnNum = belaidupMapper.countByExample(storehouseBelaidupExample);
+        return belaidupnNum;
+    }
+    
 }

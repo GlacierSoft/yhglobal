@@ -273,7 +273,18 @@ public class FinaceWithdrawSetMemberService {
         return returnResult;
     }
     
-    
-	
-	
+    /**
+     * @Title: getWithdrawMemberNumByAuditState 
+     * @Description: TODO(查找审核状态为审核中的会员提现设置的信息记录条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getWithdrawMemberNumByAuditState(String auditState) {
+        FinaceWithdrawSetMemberExample finaceWithdrawSetMemberExample = new FinaceWithdrawSetMemberExample();
+        finaceWithdrawSetMemberExample.createCriteria().andAuditStateEqualTo(auditState);
+        int withdrawMemberNum = finaceWithdrawSetMemberMapper.countByExample(finaceWithdrawSetMemberExample);
+        return withdrawMemberNum;
+    }
 }

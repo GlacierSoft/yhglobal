@@ -264,4 +264,19 @@ public class FinaceWithdrawSetCarrierService {
         	   }
         return returnResult;
     }
+    
+    /**
+     * @Title: getWithdrawSetCarrierNumByAuditState 
+     * @Description: TODO(查找审核状态为审核中的承运商提现设置信息记录) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getWithdrawSetCarrierNumByAuditState(String auditState) {
+        FinaceWithdrawSetCarrierExample finaceWithdrawSetCarrierExample = new FinaceWithdrawSetCarrierExample();
+        finaceWithdrawSetCarrierExample.createCriteria().andAuditStateEqualTo(auditState);
+        int withdrawSetCarrierNum = finaceWithdrawSetCarrierMapper.countByExample(finaceWithdrawSetCarrierExample);
+        return withdrawSetCarrierNum;
+    }
 }

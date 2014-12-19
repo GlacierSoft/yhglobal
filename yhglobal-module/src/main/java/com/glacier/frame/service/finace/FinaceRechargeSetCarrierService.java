@@ -246,4 +246,19 @@ public class FinaceRechargeSetCarrierService {
         	   }
         return returnResult;
     }
+    
+    /**
+     * @Title: getRechargeSetCarrierNumByAuditState 
+     * @Description: TODO(查找审核中的承运商充值设置信息条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getRechargeSetCarrierNumByAuditState(String auditState) {
+        FinaceRechargeSetCarrierExample finaceRechargeSetCarrierExample = new FinaceRechargeSetCarrierExample();
+        finaceRechargeSetCarrierExample.createCriteria().andAuditStateEqualTo(auditState);
+        int rechargeSetCarrierNum = finaceRechargeSetCarrierMapper.countByExample(finaceRechargeSetCarrierExample);
+        return rechargeSetCarrierNum;
+    }
 }

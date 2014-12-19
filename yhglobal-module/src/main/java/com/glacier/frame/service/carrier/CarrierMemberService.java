@@ -298,6 +298,21 @@ public class CarrierMemberService {
     }
     
     /**
+     * @Title: getCarrierNumByAuditState 
+     * @Description: TODO(根据承运商的审核状态来查找审核状态的承运商条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getCarrierNumByAuditState(String auditState) {
+        CarrierMemberExample carrierMemberExample = new CarrierMemberExample();
+        carrierMemberExample.createCriteria().andAuditStateEqualTo(auditState);
+        int carrierNum = carrierMemberMapper.countByExample(carrierMemberExample);
+        return carrierNum;
+    }
+    
+    /**
      * 加密方式
      */
     public static final String HASH_ALGORITHM = "SHA-1";

@@ -290,4 +290,19 @@ public class OrdersOrderService {
         returnResult.setMsg("订单信息删除成功!");
         return returnResult;
     }
+    
+    /**
+     * @Title: getOrdersNumByDistributeStatus 
+     * @Description: TODO(根据订单的分配状态来查找订单的条数) 
+     * @param  @param distributeStatus 订单分配状态
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getOrdersNumByDistributeStatus(String distributeStatus) {
+        OrdersOrderExample OrdersOrderExample = new OrdersOrderExample();
+        OrdersOrderExample.createCriteria().andDistributeStatusEqualTo(distributeStatus);
+        int ordersNum = orderMapper.countByExample(OrdersOrderExample);
+        return ordersNum;
+    }
 }

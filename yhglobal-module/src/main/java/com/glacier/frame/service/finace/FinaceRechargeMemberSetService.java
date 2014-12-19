@@ -292,4 +292,18 @@ public class FinaceRechargeMemberSetService {
         return returnResult;
     }
 	
+    /**
+     * @Title: getRechargeSetMemberNumByAuditState 
+     * @Description: TODO(查找审核状态为审核中的会员充值记录信息条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getRechargeSetMemberNumByAuditState(String auditState) {
+        FinaceRechargeSetMemberExample finaceRechargeSetMemberExample = new FinaceRechargeSetMemberExample();
+        finaceRechargeSetMemberExample.createCriteria().andAuditStateEqualTo(auditState);
+        int rechargeSetMemberNum = finaceRechargeSetMemberMapper.countByExample(finaceRechargeSetMemberExample);
+        return rechargeSetMemberNum;
+    }
 }
