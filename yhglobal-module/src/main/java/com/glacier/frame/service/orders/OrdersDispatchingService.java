@@ -33,18 +33,30 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.basicdatas.ParameterCarrierCreditworthinessTypeMapper;
+import com.glacier.frame.dao.carrier.CarrierMemberCreditworthinessMapper;
+import com.glacier.frame.dao.carrier.CarrierMemberMapper;
 import com.glacier.frame.dao.finace.FinanceCarrierDetailMapper;
 import com.glacier.frame.dao.finace.FinanceCarrierMapper;
+import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
+import com.glacier.frame.dao.finace.FinancePlatformMapper;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
 import com.glacier.frame.dao.orders.OrdersOrdispatchingDetailedMapper;
+import com.glacier.frame.dao.storehouse.StorehouseBelaidupMapper;
 import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
+import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessType;
+import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessTypeExample;
 import com.glacier.frame.entity.carrier.CarrierMember;
+import com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness;
 import com.glacier.frame.entity.finace.FinanceCarrier;
 import com.glacier.frame.entity.finace.FinanceCarrierDetail;
 import com.glacier.frame.entity.finace.FinanceCarrierExample;
+import com.glacier.frame.entity.finace.FinancePlatform;
+import com.glacier.frame.entity.finace.FinancePlatformDetail;
+import com.glacier.frame.entity.finace.FinancePlatformExample;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
@@ -53,6 +65,7 @@ import com.glacier.frame.entity.orders.OrdersOrderInfo;
 import com.glacier.frame.entity.orders.OrdersOrderInfoExample;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailed;
 import com.glacier.frame.entity.orders.OrdersOrdispatchingDetailedExample;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.system.User;
 import com.glacier.frame.entity.system.UserExample;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -92,6 +105,165 @@ public class OrdersDispatchingService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private StorehouseBelaidupMapper belaidupMapper;
+	
+	@Autowired
+	private FinancePlatformMapper platformMapper;
+	
+	@Autowired
+	private FinancePlatformDetailMapper platformDetailMapper;
+	
+	@Autowired
+	private ParameterCarrierCreditworthinessTypeMapper creditworthinessTypeMapper; 
+	
+	@Autowired
+	private CarrierMemberCreditworthinessMapper creditworthinessMapper;
+	
+	@Autowired
+	private CarrierMemberMapper carrierMemberMapper;
+	
+	/**
+     * 
+     * @Title: signOrdersDispatchingStatus 
+     * @Description: TODO(修改配送记录签收状态信息) 
+     * @param  @param 
+      * @param  @return 设定文件返回类型 
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+	@Transactional(readOnly = false)
+	public Object signOrdersDispatchingStatus(String dispatchingId) {
+		Subject pricipalSubject = SecurityUtils.getSubject();
+    	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+    	//获取超级管理员的信息
+    	UserExample userExample=new UserExample();
+      	userExample.createCriteria().andUsernameEqualTo("admin");
+      	User use= (User)userMapper.selectByExample(userExample).get(0);
+    	
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		OrdersDispatching ordersDispatching = ordersDispatchingMapper.selectByPrimaryKey(dispatchingId);
+		int count=0;
+		//第一步修改配送记录签收完成状态havesigned
+		ordersDispatching.setDispatchingStatus("completion");
+		ordersDispatching.setDispatchingSignfor("havesigned");
+		count=ordersDispatchingMapper.updateByPrimaryKeySelective(ordersDispatching);
+		if(count==1){
+			//第二步，根据配送记录查询出订单
+			OrdersOrdispatchingDetailed ordersOrdispatchingDetailed = ordersOrdispatchingDetailedMapper.selectByDetailed(ordersDispatching.getDispatchingId());
+			OrdersOrder order = ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
+			//改变订单的交易完成状态
+			order.setOrderStatus("takedelivery");
+			ordersOrderMapper.updateByPrimaryKeySelective(order);
+			//根据订单ID取出关于此订单的订单详情中所有的信息
+			OrdersOrderInfoExample ordersOrderInfoExample = new OrdersOrderInfoExample();
+			ordersOrderInfoExample.createCriteria().andOrderIdEqualTo(order.getOrderId());
+			List<OrdersOrderInfo> ordersOrderInfoList = ordersOrderInfoMapper.selectByExample(ordersOrderInfoExample);
+			for (int i = 0; i < ordersOrderInfoList.size(); i++) {
+				//循环取出货物信息
+				StorehouseBelaidup belaidup =  belaidupMapper.selectByPrimaryKey(ordersOrderInfoList.get(i).getBelaidupId());
+				belaidup.setBelaidupStatus("business");
+				belaidupMapper.updateByPrimaryKeySelective(belaidup);//修改货物交易状态
+			}
+			//增加承运商资金明细信息
+            FinanceCarrierDetail detail=new FinanceCarrierDetail();
+            detail.setDetailId(RandomGUID.getRandomGUID());
+            detail.setCarrierId(pricipalUser.getCarrierMemberId());
+            detail.setArticleId(order.getOrderId());//订单id
+            detail.setDetailIncome(order.getOrderPrice());//收入金额
+            detail.setDetailFreeze(new BigDecimal(0));//冻结金额
+            detail.setCreateTime(new Date());
+            detail.setCreater(getUserId());
+            detail.setRemoveFreeze(new BigDecimal(0));
+            detail.setDetailStatus("normal");
+            detail.setDetailMark(new BigDecimal(0));
+            detail.setDetailReturn(new BigDecimal(0));
+            detail.setRemark("运送成功获得运输费用！");
+            detail.setUpdater(getUserId());
+            detail.setUpdateTime(new Date());
+            financeCarrierDetailMapper.insert(detail);//添加承运商资金明细信息
+            //增加承运商解冻金额资金明细信息
+            FinanceCarrierDetail removeFreezeDetail = new FinanceCarrierDetail();
+            removeFreezeDetail.setDetailId(RandomGUID.getRandomGUID());
+            removeFreezeDetail.setCarrierId(pricipalUser.getCarrierMemberId());
+            removeFreezeDetail.setArticleId(order.getOrderId());//订单id
+            removeFreezeDetail.setDetailIncome(order.getOrderCost().multiply(new BigDecimal(0.5)));//收入金额
+            removeFreezeDetail.setDetailFreeze(new BigDecimal(0));//冻结金额
+            removeFreezeDetail.setCreateTime(new Date());
+            removeFreezeDetail.setCreater(getUserId());
+            removeFreezeDetail.setRemoveFreeze(order.getOrderCost().multiply(new BigDecimal(0.5)));
+            removeFreezeDetail.setDetailStatus("normal");
+            removeFreezeDetail.setDetailMark(new BigDecimal(0));
+            removeFreezeDetail.setDetailReturn(new BigDecimal(0));
+            removeFreezeDetail.setRemark("获得解冻金额资金！");
+            removeFreezeDetail.setUpdater(getUserId());
+            removeFreezeDetail.setUpdateTime(new Date());
+            financeCarrierDetailMapper.insert(removeFreezeDetail);//添加承运商资金明细信息
+            //增加承运商资金余额
+            FinanceCarrierExample financeCarrierExample=new FinanceCarrierExample();
+            financeCarrierExample.createCriteria().andCarrierMemberIdEqualTo(pricipalUser.getCarrierMemberId());
+            FinanceCarrier financeCarrier = financeCarrierMapper.selectByExample(financeCarrierExample).get(0);
+            financeCarrier.setCarrierIncome(financeCarrier.getCarrierIncome().add(order.getOrderCost().multiply(new BigDecimal(0.5)).add(order.getOrderPrice())));//总余额+冻结金额+运输费用
+            financeCarrier.setCarrierFreeze(financeCarrier.getCarrierFreeze().subtract(order.getOrderCost().multiply(new BigDecimal(0.5))));//冻结总金额-当前冻结金额
+            financeCarrier.setUpdateTime(new Date());
+            financeCarrierMapper.updateByPrimaryKeySelective(financeCarrier);//更资金信息
+            //取出平台资金信息
+            FinancePlatformExample platformExample = new FinancePlatformExample();
+            platformExample.createCriteria().andBankTypeEqualTo("default");
+            List<FinancePlatform> financePlatformList = platformMapper.selectByExample(platformExample);
+            FinancePlatform financePlatform = financePlatformList.get(0);
+            //平台资金增加运输费用明细信息
+            FinancePlatformDetail platformDetail = new FinancePlatformDetail();
+            platformDetail.setDetailId(RandomGUID.getRandomGUID());
+            platformDetail.setPlatformId(financePlatform.getPlatformId());
+            platformDetail.setTradeTarget(pricipalUser.getMemberName());
+            platformDetail.setTradeType("支出");
+            platformDetail.setTradeEarn(new BigDecimal(0));
+            platformDetail.setTradeSpend(order.getOrderPrice());//支出金额
+            platformDetail.setRemark("支出订单为"+order.getOrderCode()+"的运输费用金额");
+            platformDetail.setCreateTime(new Date());
+            platformDetail.setCreater(use.getUserId());
+            platformDetail.setUpdater(use.getUserId());
+            platformDetail.setUpdateTime(new Date());
+            platformDetailMapper.insert(platformDetail);
+            //平台资金余额减去相对扣除的支出资金(原来的总余额-运输费用金额)
+            financePlatform.setRemainMoney(financePlatform.getRemainMoney().subtract(platformDetail.getTradeSpend()));
+            financePlatform.setUpdateTime(new Date());
+            platformMapper.updateByPrimaryKeySelective(financePlatform);
+            
+            //增加承运商信誉记录
+            //第一步取出“运送信誉”类型信息
+            ParameterCarrierCreditworthinessTypeExample creditworthinessTypeExample = new ParameterCarrierCreditworthinessTypeExample();
+            creditworthinessTypeExample.createCriteria().andCreditworthinessTypeEqualTo("运送信誉");
+            List<ParameterCarrierCreditworthinessType> creditworthinessTypeList = creditworthinessTypeMapper.selectByExample(creditworthinessTypeExample);
+            //构建信誉记录类
+            CarrierMemberCreditworthiness creditworthiness = new CarrierMemberCreditworthiness();
+            creditworthiness.setCarrierMemberCreditworthinessId(RandomGUID.getRandomGUID());
+            creditworthiness.setCarrierMemberId(pricipalUser.getCarrierMemberId());;
+            creditworthiness.setCreditworthinessTypeId(creditworthinessTypeList.get(0).getCreditworthinessTypeId());
+            creditworthiness.setChangeType(creditworthinessTypeList.get(0).getChangeType());
+            creditworthiness.setChangeValue(creditworthinessTypeList.get(0).getChangeValue());
+            creditworthiness.setRemark(creditworthinessTypeList.get(0).getRemark());
+            creditworthiness.setCreateTime(new Date());
+            creditworthiness.setCreater(use.getUserId());
+            creditworthiness.setUpdater(use.getUserId());
+            creditworthiness.setUpdateTime(new Date());
+            creditworthinessMapper.insert(creditworthiness);
+            //相对应增加该承运商信誉度(原来的信誉度+新增的信誉度)
+            pricipalUser.setCreditworthiness(pricipalUser.getCreditworthiness()+creditworthinessTypeList.get(0).getChangeValue());
+            carrierMemberMapper.updateByPrimaryKeySelective(pricipalUser);
+            //返回成功消息
+            returnResult.setSuccess(true);
+            returnResult.setMsg("配送签收成功！");
+		}else{
+			//返回消息
+            returnResult.setSuccess(false);
+            returnResult.setMsg("配送签收失败！");
+		}
+		return returnResult;
+	}
+	
 	
 	 /**
 	    * 
@@ -275,14 +447,14 @@ public class OrdersDispatchingService {
 	            FinanceCarrierDetail detail=new FinanceCarrierDetail();
 	            detail.setDetailId(RandomGUID.getRandomGUID());
 	            detail.setCarrierId(pricipalUser.getCarrierMemberId());
-	            detail.setArticleId(ordersDispatching.getDispatchingId());//配送单id
-	            detail.setDetailIncome(financeCarrier.getCarrierIncome());//余额
+	            detail.setArticleId(ordersOrder.getOrderId());//订单id
+	            detail.setDetailIncome(new BigDecimal(0));
 	            detail.setDetailFreeze(ordersDispatching.getDispatchingGoodsDeposit());//冻结金额
 	            detail.setCreateTime(new Date());
 	            detail.setCreater(getUserId() );
 	            detail.setRemoveFreeze(new BigDecimal(0));
 	            detail.setDetailStatus("normal");
-	            detail.setDetailMark(new BigDecimal(0));
+	            detail.setDetailMark(ordersOrder.getOrderCost().multiply(new BigDecimal(0.5)));
 	            detail.setDetailReturn(new BigDecimal(0));
 	            detail.setRemark("配送冻结押金");
 	            detail.setUpdater(getUserId());

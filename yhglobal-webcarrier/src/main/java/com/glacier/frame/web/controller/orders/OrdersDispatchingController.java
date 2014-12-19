@@ -89,6 +89,13 @@ public class OrdersDispatchingController {
    	    return mav;
    	}
    	
+   	//修改配送记录的状态
+    @RequestMapping(value = "/sign.json")
+    @ResponseBody
+    private Object signStorehouseStorageGoodsrun(String dispatchingId) {
+        return ordersDispatchingService.signOrdersDispatchingStatus(dispatchingId);
+    }
+   	
     //修改货物流动启用或禁用状态
     @RequestMapping(value = "/audit.json")
     @ResponseBody

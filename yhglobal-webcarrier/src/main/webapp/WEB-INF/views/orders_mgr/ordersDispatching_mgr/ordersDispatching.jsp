@@ -12,9 +12,7 @@
 	glacier.orders_mgr.ordersDispatching_mgr.ordersDispatching.param = {
 		toolbarId : 'ordersDispatchingDataGrid_toolbar',
 		actions : {
-			edit:{flag:'edit',controlType:'single'},
-			del:{flag:'del',controlType:'multiple'},
-			audit:{flag:'audit',controlType:'single'}
+			sign:{flag:'sign',controlType:'single'}
           }
      };
 
@@ -174,16 +172,11 @@
     //点击启用禁用触发按钮
 	glacier.orders_mgr.ordersDispatching_mgr.ordersDispatching.editOrdersDispatching=function(){
 		var row = glacier.orders_mgr.ordersDispatching_mgr.ordersDispatching.ordersDispatchingDataGrid.datagrid("getSelected");
-		var str="";
-		if(row.status=="enable")
-			  str="禁用";
-		else
-			  str="启用";
-        $.messager.confirm('请确认', '是否要'+str+'该条货物流动记录', function(r){
+        $.messager.confirm('请确认', '是否签收该配送记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/ordersDispatching/audit.json',
+						   url: ctx + '/do/ordersDispatching/sign.json',
 						   data: {dispatchingId:row.dispatchingId},
 						   dataType:'json',
 						   success: function(r){
@@ -242,6 +235,8 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="ordersDispatchingGridPanel" data-options="region:'center',border:true">
 		<table id="ordersDispatchingDataGrid"> 
+			<glacierui:toolbar panelEnName="DispatchingList"
+				toolbarId="ordersDispatchingDataGrid_toolbar" menuEnName="ordersDispatching" /> 
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"

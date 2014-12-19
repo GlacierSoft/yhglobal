@@ -34,13 +34,10 @@
 				width:120,
 				sortable:true
 			},{
-				field:'creditworthinessType',
+				field:'creditworthinessTypeDisplay',
 				title:' 信誉类型',
 				width:120,
 				sortable:true,
-				formatter: function(value,row,index){//数据格式化，例如('borrow'借款,'invest'投资)
-					return renderGridValue(value,fields.creditwortinssType);
-				}
 			},{
 				field:'changeType',
 				title:'改变类型',
@@ -133,8 +130,8 @@
 				<tr>
 					<td>会员名称：</td>
 					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
-					<td>信誉类型：</td>
-					<td><input id="memberCreditwortinssSearchForm_type" name="creditworthinessType" style="width: 150px;" class="spinner"/></td>
+					<!-- <td>信誉类型：</td>
+					<td><input id="memberCreditwortinssSearchForm_type" name="creditworthinessType" style="width: 150px;" class="spinner"/></td> -->
 					<td>改变类型：</td>
 					<td><input id="memberCreditwortinssSearchForm_changeType" name="changeType" style="width: 80px;" class="spinner"/></td>
 					<td>录入时间：</td>

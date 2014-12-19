@@ -99,13 +99,13 @@
     ,temp_creater.user_cn_name as temp_finance_carrier_detail_creater_display
     ,temp_updater.user_cn_name as temp_finance_carrier_detail_updater_display
     ,temp_carrier.member_name as temp_finance_carrier_detail_carrier_member_display
-  	,temp_belaidup.belaidup_prod_name as temp_finance_carrier_detail_article_display
+  	,temp_orders_order.order_code as temp_finance_carrier_detail_article_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_carrier_detail.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_carrier_detail.updater <!-- 扩展 -->
   	LEFT JOIN t_carrier_member temp_carrier ON temp_carrier.carrier_member_id = temp_finance_carrier_detail.carrier_id <!-- 扩展 -->
-  	LEFT JOIN t_storehouse_belaidup temp_belaidup ON temp_belaidup.belaidup_id = temp_finance_carrier_detail.article_id <!-- 扩展 -->
+  	LEFT JOIN t_orders_order temp_orders_order ON temp_orders_order.order_id = temp_finance_carrier_detail.article_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.finace.FinanceCarrierDetailExample" >
     select

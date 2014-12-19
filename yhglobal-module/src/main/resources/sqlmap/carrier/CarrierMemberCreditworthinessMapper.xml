@@ -5,18 +5,18 @@
     <id column="temp_carrier_member_creditworthiness_carrier_member_creditworthiness_id" property="carrierMemberCreditworthinessId" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_carrier_member_id" property="carrierMemberId" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_creditworthiness_type_id" property="creditworthinessTypeId" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_change_type" property="changeType" jdbcType="CHAR" />
+    <result column="temp_carrier_member_creditworthiness_change_value" property="changeValue" jdbcType="INTEGER" />
     <result column="temp_carrier_member_creditworthiness_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_carrier_member_creditworthiness_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <!-- 自定义扩展字段 -->
-    <result column="temp_carrier_member_creditworthiness_member_name" property="memberName" jdbcType="VARCHAR" />
-    <result column="temp_carrier_member_creditworthiness_creditworthiness_type" property="creditworthinessType" jdbcType="VARCHAR" />
-    <result column="temp_carrier_member_creditworthiness_change_type" property="changeType" jdbcType="VARCHAR" />
-    <result column="temp_carrier_member_creditworthiness_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
+  	<!-- 自定义字段 -->
+  	<result column="temp_carrier_member_creditworthiness_member_name" property="memberName" jdbcType="VARCHAR" />
+  	<result column="temp_carrier_member_creditworthiness_creater_display" property="createrDisplay" jdbcType="VARCHAR" />
     <result column="temp_carrier_member_creditworthiness_updater_display" property="updaterDisplay" jdbcType="VARCHAR" />
-    <result column="temp_carrier_member_creditworthiness_change_value" property="changeValue" jdbcType="VARCHAR" />
+    <result column="temp_carrier_member_creditworthiness_creditworthiness_type_display" property="creditworthinessTypeDisplay" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,27 +80,24 @@
     temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id as temp_carrier_member_creditworthiness_carrier_member_creditworthiness_id, 
     temp_carrier_member_creditworthiness.carrier_member_id as temp_carrier_member_creditworthiness_carrier_member_id, 
     temp_carrier_member_creditworthiness.creditworthiness_type_id as temp_carrier_member_creditworthiness_creditworthiness_type_id, 
+    temp_carrier_member_creditworthiness.change_type as temp_carrier_member_creditworthiness_change_type, 
+    temp_carrier_member_creditworthiness.change_value as temp_carrier_member_creditworthiness_change_value, 
     temp_carrier_member_creditworthiness.remark as temp_carrier_member_creditworthiness_remark, 
     temp_carrier_member_creditworthiness.creater as temp_carrier_member_creditworthiness_creater, 
     temp_carrier_member_creditworthiness.create_time as temp_carrier_member_creditworthiness_create_time, 
     temp_carrier_member_creditworthiness.updater as temp_carrier_member_creditworthiness_updater, 
     temp_carrier_member_creditworthiness.update_time as temp_carrier_member_creditworthiness_update_time
-   <!-- 自定义扩展字段 -->
+  	<!-- 自定义扩展字段 -->
     ,temp_carrier_member.member_name as temp_carrier_member_creditworthiness_member_name 
-    ,temp_carrier_creditworthiness_type.creditworthiness_type as temp_carrier_member_creditworthiness_creditworthiness_type 
-    ,temp_carrier_creditworthiness_change_type.change_type as temp_carrier_member_creditworthiness_change_type 
     ,temp_creater.user_cn_name as temp_carrier_member_creditworthiness_creater_display
-    ,temp_updater.user_cn_name as temp_temp_carrier_member_creditworthiness_updater_display 
-    ,temp_carrier_creditworthiness_value.change_value as temp_carrier_member_creditworthiness_change_value
-   
+    ,temp_updater.user_cn_name as temp_temp_carrier_member_creditworthiness_updater_display
+    ,temp_carrier_creditworthiness_type.creditworthiness_type as temp_carrier_member_creditworthiness_creditworthiness_type_display
    </sql> 
    <sql id="Base_extend">
     LEFT JOIN t_carrier_member temp_carrier_member ON temp_carrier_member.carrier_member_id =temp_carrier_member_creditworthiness.carrier_member_id <!-- 扩展 -->
-    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_type ON temp_carrier_creditworthiness_type.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
-    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_change_type ON temp_carrier_creditworthiness_change_type.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
    	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_carrier_member_creditworthiness.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_carrier_member_creditworthiness.updater <!-- 扩展 -->
-    LEFT JOIN t_carrier_creditworthiness_type temp_carrier_creditworthiness_value ON temp_carrier_creditworthiness_value.creditworthiness_type_id =temp_carrier_member_creditworthiness.creditworthiness_type_id <!-- 扩展 -->
+    LEFT JOIN t_parameter_carrier_creditworthiness_type temp_carrier_creditworthiness_type ON temp_carrier_creditworthiness_type.creditworthiness_type_id = temp_carrier_member_creditworthiness.creditworthiness_type_id
    </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthinessExample" >
     select
@@ -139,13 +136,13 @@
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
     insert into t_carrier_member_creditworthiness (carrier_member_creditworthiness_id, carrier_member_id, 
-      creditworthiness_type_id, remark, creater, 
-      create_time, updater, update_time
-      )
+      creditworthiness_type_id, change_type, change_value, 
+      remark, creater, create_time, 
+      updater, update_time)
     values (#{carrierMemberCreditworthinessId,jdbcType=VARCHAR}, #{carrierMemberId,jdbcType=VARCHAR}, 
-      #{creditworthinessTypeId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{creditworthinessTypeId,jdbcType=VARCHAR}, #{changeType,jdbcType=CHAR}, #{changeValue,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness" >
     insert into t_carrier_member_creditworthiness
@@ -158,6 +155,12 @@
       </if>
       <if test="creditworthinessTypeId != null" >
         creditworthiness_type_id,
+      </if>
+      <if test="changeType != null" >
+        change_type,
+      </if>
+      <if test="changeValue != null" >
+        change_value,
       </if>
       <if test="remark != null" >
         remark,
@@ -184,6 +187,12 @@
       </if>
       <if test="creditworthinessTypeId != null" >
         #{creditworthinessTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="changeType != null" >
+        #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="changeValue != null" >
+        #{changeValue,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -221,6 +230,12 @@
       <if test="record.creditworthinessTypeId != null" >
         temp_carrier_member_creditworthiness.creditworthiness_type_id = #{record.creditworthinessTypeId,jdbcType=VARCHAR},
       </if>
+      <if test="record.changeType != null" >
+        temp_carrier_member_creditworthiness.change_type = #{record.changeType,jdbcType=CHAR},
+      </if>
+      <if test="record.changeValue != null" >
+        temp_carrier_member_creditworthiness.change_value = #{record.changeValue,jdbcType=INTEGER},
+      </if>
       <if test="record.remark != null" >
         temp_carrier_member_creditworthiness.remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -246,6 +261,8 @@
     set temp_carrier_member_creditworthiness.carrier_member_creditworthiness_id = #{record.carrierMemberCreditworthinessId,jdbcType=VARCHAR},
       temp_carrier_member_creditworthiness.carrier_member_id = #{record.carrierMemberId,jdbcType=VARCHAR},
       temp_carrier_member_creditworthiness.creditworthiness_type_id = #{record.creditworthinessTypeId,jdbcType=VARCHAR},
+      temp_carrier_member_creditworthiness.change_type = #{record.changeType,jdbcType=CHAR},
+      temp_carrier_member_creditworthiness.change_value = #{record.changeValue,jdbcType=INTEGER},
       temp_carrier_member_creditworthiness.remark = #{record.remark,jdbcType=VARCHAR},
       temp_carrier_member_creditworthiness.creater = #{record.creater,jdbcType=VARCHAR},
       temp_carrier_member_creditworthiness.create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -263,6 +280,12 @@
       </if>
       <if test="creditworthinessTypeId != null" >
         creditworthiness_type_id = #{creditworthinessTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="changeType != null" >
+        change_type = #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="changeValue != null" >
+        change_value = #{changeValue,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -286,6 +309,8 @@
     update t_carrier_member_creditworthiness
     set carrier_member_id = #{carrierMemberId,jdbcType=VARCHAR},
       creditworthiness_type_id = #{creditworthinessTypeId,jdbcType=VARCHAR},
+      change_type = #{changeType,jdbcType=CHAR},
+      change_value = #{changeValue,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

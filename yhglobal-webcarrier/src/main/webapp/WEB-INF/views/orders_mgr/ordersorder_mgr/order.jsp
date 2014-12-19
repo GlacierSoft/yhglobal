@@ -58,7 +58,7 @@
 			title : '货物数量',
 			width : 120,
 			sortable : true
-		},{
+		},/* {
 			field : 'orderStatus',
 			title : '订单状态',
 			width : 120,
@@ -66,7 +66,7 @@
 			formatter : function(value, row, index) {
 				return renderGridValue(value, fields.orderStatus);
 			}
-		},{
+		}, */{
 			field : 'distributeStatus',
 			title : '订单分拣状态',
 			width : 120,
@@ -264,7 +264,6 @@
 		<table id="orderDataGrid">
 			<glacierui:toolbar panelEnName="OrderList"
 				toolbarId="orderDataGrid_toolbar" menuEnName="order" />
-			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"

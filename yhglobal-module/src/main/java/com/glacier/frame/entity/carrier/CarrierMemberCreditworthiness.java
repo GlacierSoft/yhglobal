@@ -11,29 +11,27 @@ public class CarrierMemberCreditworthiness {
 
     private String creditworthinessTypeId;
 
+    private String changeType;
+
+    private Integer changeValue;
+
     private String remark;
 
-    private String creater;  
-	
+    private String creater;
+
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
-    
+
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     //自定义字段
     private String memberName; 
     
-    //积分类型
-    private String creditworthinessType; 
-
-    //改变类型
-    private String changeType;
-    
-    //改变值
-    private String changeValue;
+    //自定义字段
+    private String creditworthinessTypeDisplay; 
     
     //创建人
     private String createrDisplay;
@@ -41,55 +39,7 @@ public class CarrierMemberCreditworthiness {
     //更新人
     private String updaterDisplay;  
 
-    public String getMemberName() {
-		return memberName;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
-	public String getCreditworthinessType() {
-		return creditworthinessType;
-	}
-
-	public void setCreditworthinessType(String creditworthinessType) {
-		this.creditworthinessType = creditworthinessType;
-	}
-
-	public String getChangeType() {
-		return changeType;
-	}
-
-	public void setChangeType(String changeType) {
-		this.changeType = changeType;
-	}
-
-	public String getChangeValue() {
-		return changeValue;
-	}
-
-	public void setChangeValue(String changeValue) {
-		this.changeValue = changeValue;
-	}
-
-	public String getCreaterDisplay() {
-		return createrDisplay;
-	}
-
-	public void setCreaterDisplay(String createrDisplay) {
-		this.createrDisplay = createrDisplay;
-	}
-
-	public String getUpdaterDisplay() {
-		return updaterDisplay;
-	}
-
-	public void setUpdaterDisplay(String updaterDisplay) {
-		this.updaterDisplay = updaterDisplay;
-	}
-
-	public String getCarrierMemberCreditworthinessId() {
+    public String getCarrierMemberCreditworthinessId() {
         return carrierMemberCreditworthinessId;
     }
 
@@ -111,6 +61,22 @@ public class CarrierMemberCreditworthiness {
 
     public void setCreditworthinessTypeId(String creditworthinessTypeId) {
         this.creditworthinessTypeId = creditworthinessTypeId;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(String changeType) {
+        this.changeType = changeType;
+    }
+
+    public Integer getChangeValue() {
+        return changeValue;
+    }
+
+    public void setChangeValue(Integer changeValue) {
+        this.changeValue = changeValue;
     }
 
     public String getRemark() {
@@ -153,7 +119,39 @@ public class CarrierMemberCreditworthiness {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getCreditworthinessTypeDisplay() {
+		return creditworthinessTypeDisplay;
+	}
+
+	public void setCreditworthinessTypeDisplay(String creditworthinessTypeDisplay) {
+		this.creditworthinessTypeDisplay = creditworthinessTypeDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -168,6 +166,8 @@ public class CarrierMemberCreditworthiness {
         return (this.getCarrierMemberCreditworthinessId() == null ? other.getCarrierMemberCreditworthinessId() == null : this.getCarrierMemberCreditworthinessId().equals(other.getCarrierMemberCreditworthinessId()))
             && (this.getCarrierMemberId() == null ? other.getCarrierMemberId() == null : this.getCarrierMemberId().equals(other.getCarrierMemberId()))
             && (this.getCreditworthinessTypeId() == null ? other.getCreditworthinessTypeId() == null : this.getCreditworthinessTypeId().equals(other.getCreditworthinessTypeId()))
+            && (this.getChangeType() == null ? other.getChangeType() == null : this.getChangeType().equals(other.getChangeType()))
+            && (this.getChangeValue() == null ? other.getChangeValue() == null : this.getChangeValue().equals(other.getChangeValue()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -182,6 +182,8 @@ public class CarrierMemberCreditworthiness {
         result = prime * result + ((getCarrierMemberCreditworthinessId() == null) ? 0 : getCarrierMemberCreditworthinessId().hashCode());
         result = prime * result + ((getCarrierMemberId() == null) ? 0 : getCarrierMemberId().hashCode());
         result = prime * result + ((getCreditworthinessTypeId() == null) ? 0 : getCreditworthinessTypeId().hashCode());
+        result = prime * result + ((getChangeType() == null) ? 0 : getChangeType().hashCode());
+        result = prime * result + ((getChangeValue() == null) ? 0 : getChangeValue().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());

@@ -19,6 +19,8 @@ public interface OrdersOrdispatchingDetailedMapper {
     List<OrdersOrdispatchingDetailed> selectByExample(OrdersOrdispatchingDetailedExample example);
 
     OrdersOrdispatchingDetailed selectByPrimaryKey(String ordisdetailedId);
+    
+    OrdersOrdispatchingDetailed selectByDetailed(String OrdersOrdispatchingId);
 
     int updateByExampleSelective(@Param("record") OrdersOrdispatchingDetailed record, @Param("example") OrdersOrdispatchingDetailedExample example);
 

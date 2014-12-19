@@ -92,6 +92,13 @@
     from t_orders_ordispatching_detailed temp_orders_ordispatching_detailed
     where temp_orders_ordispatching_detailed.ordisdetailed_id = #{ordisdetailedId,jdbcType=VARCHAR}
   </select>
+  <!-- 自定义根据配送ID查询 -->
+  <select id="selectByDetailed" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_orders_ordispatching_detailed temp_orders_ordispatching_detailed
+    where temp_orders_ordispatching_detailed.dispatching_id = #{OrdersOrdispatchingId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_orders_ordispatching_detailed
     where ordisdetailed_id = #{ordisdetailedId,jdbcType=VARCHAR}

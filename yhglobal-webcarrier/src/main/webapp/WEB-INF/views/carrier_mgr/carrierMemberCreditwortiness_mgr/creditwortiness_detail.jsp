@@ -10,8 +10,8 @@
 				<input type="hidden" name="carrierMemberCreditworthinessId" value="${creditwortinessData.carrierMemberCreditworthinessId}" />
 				<input class="spinner" style="width:168px"  value="${creditwortinessData.memberName}" readonly="readonly"/>
 			</td>
-			<td>积分类型：</td>
-			<td><input id="creditwortiness_mgr_creditwortiness_detail_creditwortinessType" value="${creditwortinessData.creditworthinessType}" class="spinner" style="width:168px" readonly="readonly"/></td>
+			<td>信誉类型：</td>
+			<td><input id="creditwortiness_mgr_creditwortiness_detail_creditwortinessType" value="${creditwortinessData.creditworthinessTypeDisplay}" class="spinner" style="width:168px" readonly="readonly"/></td>
 		</tr>
 
 		<tr>
@@ -33,6 +33,5 @@
 	</table>
 </form>
 <script type="text/javascript">
-	$('#creditwortiness_mgr_creditwortiness_detail_creditwortinessType').val(renderGridValue('${creditwortinessData.creditworthinessType}',fields.creditwortinssType));
 	$('#creditwortiness_mgr_creditwortiness_detail_changeType').val(renderGridValue('${creditwortinessData.changeType}',fields.changeType));
 </script>

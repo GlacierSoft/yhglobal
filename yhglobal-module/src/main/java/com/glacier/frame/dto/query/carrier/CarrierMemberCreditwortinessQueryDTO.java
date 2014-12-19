@@ -12,7 +12,7 @@ import com.glacier.frame.entity.carrier.CarrierMemberCreditworthinessExample.Cri
 
 /** 
  * @ClassName: CarrierMemberCreditwortinessQueryDTO 
- * @Description: TODO(会员信誉记录查询QueryDTO) 
+ * @Description: TODO(承运商信誉记录查询QueryDTO) 
  * @author songjundong
  * @email 985776597@QQ.com
  * @date 2014-10-14 下午9:27:54  
@@ -48,10 +48,6 @@ public class CarrierMemberCreditwortinessQueryDTO extends CarrierMemberCreditwor
    	if(null != this.getMemberName()){//会员真实名称Like查询
         queryCriteria.andMemberName("%" + this.getMemberName() + "%");
     }
-   	
-   	 if(null != this.getCreditworthinessType()){//根据积分类型查询
-        queryCriteria.andCreditworthinessTypeEqualTo(this.getCreditworthinessType().toString());
-   	 	}
    	 if(null != this.getChangeType()){//根据改变类型查询
         queryCriteria.andChangeTypeEqualTo(this.getChangeType().toString());
    	 	}
