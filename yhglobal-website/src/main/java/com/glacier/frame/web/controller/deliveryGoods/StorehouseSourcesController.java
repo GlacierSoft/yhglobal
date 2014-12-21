@@ -19,19 +19,29 @@
  */
 package com.glacier.frame.web.controller.deliveryGoods;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupSourceQueryDTO;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidupSource;
 import com.glacier.frame.service.storehouse.StorehouseBelaidupSourceService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+
 
 /**
  * @ClassName: StorehouseSourcesController 
@@ -73,8 +83,19 @@ public class StorehouseSourcesController {
 	  		 return mav;
 	  	 } 	    
 	   
-	  
-	  	
-	  	
-	  	
+	    // 发布货源信息,我要发货添加，先存储数据，选择班线后再一并提交到数据库
+		@RequestMapping(value = "/belaidupSource.json", method = RequestMethod.POST)
+		@ResponseBody
+		private Object belaidup(@Valid StorehouseBelaidupSource storehouseBelaidupSource,HttpSession httpSession) {
+		    Subject pricipalSubject = SecurityUtils.getSubject();
+	        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
+	        storehouseBelaidupSource.setBelaidupId(RandomGUID.getRandomGUID());
+	        storehouseBelaidupSource.setMemberId(pricipalUser.getMemberId());
+	        storehouseBelaidupSource.setCreater(pricipalUser.getMemberId());
+	        storehouseBelaidupSource.setCreateTime(new Date());
+	        storehouseBelaidupSource.setUpdater(pricipalUser.getMemberId());
+	        storehouseBelaidupSource.setUpdateTime(new Date());
+	        storehouseBelaidupSource.setShowStyle("hide");
+	        return storehouseBelaidupSourceService.addBelaidupSource(storehouseBelaidupSource);
+		} 
 }

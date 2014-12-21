@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView; 
+
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dto.query.carrier.CarrierRouteQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehousePackagetypeSetQueryDTO;
@@ -160,7 +162,7 @@ public class DeliveryController {
   		return mav;
   	}  
   	
-    //货源发布操作
+    //货源发布操作,转至对话框班线选择页面
    	@RequestMapping(value="/releaseRoute.htm")
    	private Object doPublish(String belaidupId,JqPager pager,@RequestParam int p,CarrierRouteQueryDTO routeQueryDTO) {
    		ModelAndView mav=new ModelAndView("member_mgr/memberReleaseRoute");
@@ -168,9 +170,10 @@ public class DeliveryController {
    		routeQueryDTO.setRouteOrigin(belaidup.getOriginationStation());
   		routeQueryDTO.setRouteStop(belaidup.getEndStation());
   		mav.addObject("routerDatas", carrierRouterService.listAsWebsite(pager,p,"",routeQueryDTO));
+  		mav.addObject("belaidupId",belaidupId);
    		return mav;
    	}
-  	
+   	
   	//提交运单页
    	@RequestMapping(value="getRouteInfo.htm")
    	private Object getRouteInfo(String routeId ){
@@ -178,6 +181,34 @@ public class DeliveryController {
    		mav.addObject("route", carrierRouterService.getRoute(routeId));
    	   return mav;
    	}
+   	
+  //运单提交转到运单提交成功页面(货源)
+  	@RequestMapping(value = "/addRouteInfo.json")
+  	@ResponseBody
+  	public Object addRouteInfo(@Valid StorehouseBelaidup storehouseBelaidup, @Valid StorehouseAddedService storehouseAddedService,String type,HttpSession httpSession){ 
+  		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+  		//取出货源消息
+  		StorehouseBelaidupSource belaidupSource=(StorehouseBelaidupSource)storehouseBelaidupSourceService.getBelaidup(storehouseBelaidup.getBelaidupId());
+  		//构建货物对象
+  		storehouseBelaidup.setBelaidupId(belaidupSource.getBelaidupId());
+  		storehouseBelaidup.setBelaidupProdName(belaidupSource.getBelaidupProdName());
+  		storehouseBelaidup.setGoodstypeId(belaidupSource.getBelaidupTypeId());
+  		storehouseBelaidup.setBelaidupInitiatin(belaidupSource.getOriginationStation());
+  		storehouseBelaidup.setBelaidupTerminu(belaidupSource.getEndStation());
+  		storehouseBelaidup.setOrderConsignee(belaidupSource.getReceiveMember());
+  		storehouseBelaidup.setOrderPhone(belaidupSource.getReceiveMobile());
+  		storehouseBelaidup.setOrderAddress(belaidupSource.getEndAddress());
+  		storehouseBelaidup.setConsignor(belaidupSource.getSendMember());
+  		storehouseBelaidup.setSendPhone(belaidupSource.getSendMobile());
+  		storehouseBelaidup.setSendAddress(belaidupSource.getOriginationAddress());
+  		returnResult= (JqReturnJson) belaidupService.addBelaidup_website(storehouseBelaidup,storehouseAddedService,type);
+  		if(returnResult.isSuccess()){
+  		//更新货源信息状态
+  	  		belaidupSource.setShowStyle("show");
+  	  		storehouseBelaidupSourceService.updateBelaidupSource(belaidupSource);
+  		}
+  		return returnResult;
+  	}
    	
    	//条件查询（轻重货价格等）
   	@RequestMapping(value = "/routeInfoList.htm")
@@ -216,6 +247,7 @@ public class DeliveryController {
   		belaidup.setOrderSite(storehouseBelaidup.getOrderSite());//收货地
   		belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery()); //是否加急配送
   		belaidup.setRouterId(storehouseBelaidup.getRouterId());//班线id
+  		belaidup.setBelaidupId(RandomGUID.getRandomGUID());//货物id
   		returnResult= (JqReturnJson) belaidupService.addBelaidup_website(belaidup,storehouseAddedService, type);
   	 	if(returnResult.isSuccess()){
         	//进入下单成功的页面
@@ -239,24 +271,7 @@ public class DeliveryController {
         } 
   		return mav;
   	}
-  	
-    //运单提交转到运单提交成功页面
-  	@RequestMapping(value = "/addRouteInfo.json")
-  	@ResponseBody
-  	public Object addRouteInfo(@Valid StorehouseBelaidup storehouseBelaidup, @Valid StorehouseAddedService storehouseAddedService,String type,HttpSession httpSession){ 
-  		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        //取出暂存的数据信息 
-  		StorehouseBelaidup belaidup=(StorehouseBelaidup) httpSession.getAttribute("belaidup");
-  		belaidup.setBelaidupWeight(storehouseBelaidup.getBelaidupWeight()); //重量
-  		belaidup.setBelaidupBulk(storehouseBelaidup.getBelaidupBulk()); //体积
-  		belaidup.setSendSite(storehouseBelaidup.getSendSite());//发货地
-  		belaidup.setOrderSite(storehouseBelaidup.getOrderSite());//收货地
-  		belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery()); //是否加急配送
-  		belaidup.setRouterId(storehouseBelaidup.getRouterId());//班线id
-  		returnResult= (JqReturnJson) belaidupService.addBelaidup_website(belaidup,storehouseAddedService, type);
-  	    return returnResult;
-  	}
-  	
+ 
   	//订单合同协议页面
  	@RequestMapping(value = "/contract.htm")
  	private Object contract(String belaidupId) {
@@ -267,4 +282,20 @@ public class DeliveryController {
  		}
  		return mav; 
  	}
-}
+ 	
+ 	//班线信息
+ 	@RequestMapping(value="/walkRoute.htm")
+ 	private Object walkRoute(String belaidupId){
+ 		ModelAndView mav = new ModelAndView("member_mgr/memberWalkRoute");
+ 		StorehouseBelaidup belaidupDae=(StorehouseBelaidup)belaidupService.getBelaidup(belaidupId);
+ 		mav.addObject("belaidupDae",belaidupDae );
+ 		mav.addObject("router",carrierRouterService.getRoute(belaidupDae.getRouterId()));
+ 	    return mav;
+ 	}
+ 	
+ 	@RequestMapping(value="findBelaidupNumb.json")
+ 	@ResponseBody
+ 	private Object findBelaidupNumb(String belaidupId) { 
+	    return belaidupService.findBelaidupNumb(belaidupId);
+ 	}
+ }

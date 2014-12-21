@@ -111,29 +111,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  <div class="panel-body">
 				         <div class="row">
 				              <form class="form-horizontal" role="form" id="form_release_goods">
-								  <div class="form-group">
+				                  <div class="form-group">
 								    <label for="inputEmail3" class="col-sm-2 control-label">发货地址</label>
 								    <div class="col-sm-3">
-								      <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="belaidupInitiatin" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+								      <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="originationStation" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 								    </div>
 								    <div class="col-sm-5">
-								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="belaidupInitiatin_detail">
+								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="originationAddress">
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="inputEmail3" class="col-sm-2 control-label">收获地址</label>
 								    <div class="col-sm-3">
-								       <!-- <input type="text" class="form-control" placeholder="请选择/输入城市名称" name="belaidupTerminu">  -->
-								       <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="belaidupTerminu" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
+								       <input type="text" style="width: 200px;float: left;height: 35px;border-color: #c3d9e0;" name="endStation" autocomplete="off" type="text" placeholder="请选择/输入城市名称" class="city_input  inputFocus proCityQueryAll proCitySelAll form-control">
 								    </div>
 								    <div class="col-sm-5">
-								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="orderAddress">
+								      <input type="text" class="form-control" placeholder="填写详细地址(必填)" name="endAddress">
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="inputEmail3" class="col-sm-2 control-label">类型/名称</label>
 								    <div class="col-sm-4">
-								          <select name="goodstypeId" id="goodstypeId" class="form-control" >
+								          <select name="belaidupTypeId" id="belaidupTypeId" class="form-control" >
 											<option value="">--请选择--</option>
 											 <c:forEach items="${StorehouseGoodstypeSetList}" var="StorehouseGoodstypeSet" varStatus="status">
 												<option value="${StorehouseGoodstypeSet.goodstypeId}">${StorehouseGoodstypeSet.goodstypeName}</option>
@@ -144,17 +143,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								       <input type="text" class="form-control" name="belaidupProdName" placeholder="填写货物名称(必填)">
 								    </div>
 								  </div>
+								   <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">发货/手机</label>
+								    <div class="col-sm-4">
+								         <input type="text" class="form-control" name="sendMember" placeholder="填写发货人姓名">
+								    </div>
+								    <div class="col-sm-4">
+								       <input type="text" class="form-control" name="sendMobile" placeholder="填写发货人联系手机)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+								    </div>
+								  </div>
 								  <div class="form-group">
 								    <label for="inputEmail3" class="col-sm-2 control-label">加急/取货</label>
 								    <div class="col-sm-4">
-								      <select name="yesOrNo" class="form-control" id="yesOrNo" >
+								      <select name="belaidupUrgent" class="form-control" id="belaidupUrgent" >
 										   <option value="">--请选择--</option>
 										   <option value="yes" >是</option>
 										   <option value="no">否</option>
 									  </select>
 								    </div>
 								    <div class="col-sm-4">
-								        <select name="replenishment" class="form-control" >
+								        <select name="receivcStyle" class="form-control" >
 										    <option value="">--请选择--</option>
 										    <option value="storepickup" >送货上门</option>
 										    <option value="deliversm">上门取货</option>
@@ -171,12 +179,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  <div class="form-group ">
 								    <label for="inputEmail3" class="col-sm-2 control-label">收货人名称</label>
 								    <div class="col-sm-2">
-								      <input type="text" class="form-control" name="orderConsignee" placeholder="收货人名称(必填)">
+								      <input type="text" class="form-control" name="receiveMember" placeholder="收货人名称(必填)">
 								    </div>
 								    <DIV CLASS="col-sm-8">
 									    <label for="inputEmail3" class="col-sm-2 control-label">收货人手机</label>
 									    <div class="col-sm-3">
-									      <input type="text" class="form-control" name="orderPhone" placeholder="收货人手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+									      <input type="text" class="form-control" name="receiveMobile" placeholder="收货人手机(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 									    </div>
 									    <label for="inputEmail3" class="col-sm-2 control-label">单价(元)</label>
 									    <div class="col-sm-3">
@@ -193,11 +201,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    <DIV CLASS="col-sm-8">
 									    <label for="inputEmail3" class="col-sm-2 control-label">体积(方)</label>
 									    <div class="col-sm-3">
-									      <input type="text" class="form-control" name="belaidupBulk" placeholder="体积(方)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
+									      <input type="text" class="form-control" name="belaidupVolume" placeholder="体积(方)(必填)" onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
 									    </div>
 									    <label for="inputEmail3" class="col-sm-2 control-label">数量(件)</label>
 									    <div class="col-sm-3">
-									      <input type="text" class="form-control" name="belaidupNum" placeholder="数量(件)(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+									      <input type="text" class="form-control" name="belaidupNumber" placeholder="数量(件)(必填)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 									    </div>
 									 </DIV>
 								  </div>
@@ -276,34 +284,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   //表单提交
    $("#form_release_goods").validate({
 	    rules:{
-	    	belaidupInitiatin:{
+	    	originationStation:{
 	    		required:true
 	    	},
-	    	belaidupInitiatin_detail:{
+	    	originationAddress:{
 	    		required:true
 	    	},
-	    	belaidupTerminu:{
+	    	endStation:{
 	    		required:true
 	    	},
-	    	orderAddress:{
+	    	endAddress:{
 	    		required:true
 	    	},
-	    	goodstypeId:{
+	    	belaidupTypeId:{
 	    		required:true
 	    	},
 	    	belaidupProdName:{
 	    		required:true
 	    	},
-	    	yesOrNo:{
+	    	sendMember:{
 	    		required:true
 	    	},
-	    	replenishment:{
+	    	sendMobile:{
+	    		required:true,
+	    		isMobile:true
+	    	},
+	    	belaidupUrgent:{
 	    		required:true
 	    	},
-	    	orderConsignee:{
+	    	receivcStyle:{
+	    		required:true
+	    	},	
+	    	receiveMember:{
 	    		required:true
 	    	},
-	    	orderPhone:{
+	    	receiveMobile:{
 	    		required:true,
 	    		number:true,
 	    		isMobile:true
@@ -319,46 +334,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		number:true,
 	    		min:0.0001
 	    	},
-	    	belaidupBulk:{
+	    	belaidupVolume:{
 	    		required:true,
 	    		number:true,
 	    		min:0.0001
 	    	},
-	    	belaidupNum:{
+	    	belaidupNumber:{
 	    		required:true,
 	    		number:true,
 	    		min:1
 	    	}
 	    },
 	    messages:{
-	    	belaidupInitiatin:{
+	    	originationStation:{
 	    		required:"发货城市名称不能为空!"
 	    	},
-	    	belaidupInitiatin_detail:{
+	    	originationAddress:{
 	    		required:"发货详细地址不能为空!"
 	    	},
-	    	belaidupTerminu:{
+	    	endStation:{
 	    		required:"收货城市名称不能为空!"
 	    	},
-	    	orderAddress:{
+	    	endAddress:{
 	    		required:"收货详细地址不能为空!"
 	    	},
-	    	goodstypeId:{
+	    	belaidupTypeId:{
 	    		required:"寄送货物类型不能为空!"
 	    	},
 	    	belaidupProdName:{
 	    		required:"寄送货物名称不能为空!"
 	    	},
-	    	yesOrNo:{
+	    	sendMember:{
+	    		required:"发货人不能为空!"
+	    	},
+	    	sendMobile:{
+	    		required:"发货人联系手机不能为空!",
+	    		isMobile:"请填写正确格式电话号码!"
+	    	},
+	    	belaidupUrgent:{
 	    		required:"货物是否加急配送!"
 	    	},
-	    	replenishment:{
+	    	receivcStyle:{
 	    		required:"取货方式不能为空!"
 	    	},
-	    	orderConsignee:{
+	    	receiveMember:{
 	    		required:"收货人姓名不能为空!"
 	    	},
-	    	orderPhone:{
+	    	receiveMobile:{
 	    		required:"收货人手机不能为空!",
 	    		number:"请输入合法手机号码!",
 	    		isMobile:"请输入合法手机号码!"
@@ -374,58 +396,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		number:"请输入整数或者小数!",
 		    	min:"最低重量为0.0001(吨)"
 	    	},
-	    	belaidupBulk:{
+	    	belaidupVolume:{
 	    		required:"货物体积不能为空!",
 	    		number:"请输入整数或者小数!",
 		    	min:"最低体积为0.001(立方米)"
 	    	},
-	    	belaidupNum:{
+	    	belaidupNumber:{
 	    		required:"货物数量不能为空!",
 	    		number:"请输入整数或者小数!",
 	    	    min:"最低数量为1(个/张)"
 	    	}
 	    },
 	    submitHandler:function(){
-	    	KindEditor.ready(function(K) {
-	   		  var dialog = K.dialog({
-	   	          width : 500,
-	   	          title : '货源发布',
-	   	          body : '<div style="margin:10px;"><strong>你确定要发布此条货源信息吗?</strong></div>',
-	   	          closeBtn : {
-	   	                  name : '关闭',
-	   	                  click : function(e) {
-	   	                          dialog.remove();
-	   	                  }
-	   	          },
-	   	          yesBtn : {
-	   	                  name : '确定',
-	   	                  click : function(e) {
-	   	                	  $.ajax({
-	   	    					   type: "POST",
-	   	    					   url:ctx + '/delivery/belaidup.json',
-	   	    					   data: $("#form_release_goods").serialize(),
-	   	    					   dataType:'json',
-	   	    					   success: function(r){
-	   	    						 if(r.success){
-	   	    							dialog.remove();
-	   	    							doDailog("货源发布成功，可在记录中查看该条信息!");
-	   	    						 }
-	   	    						 else{
-	   	    							dialog.remove();
-	   	    							doDailog("货源发布失败，请联系管理员!");
-	   	    						 }
-	   	    					   }
-	   	                	  });
-	   	                  }
-	   	          },
-	   	          noBtn : {
-	   	                  name : '取消',
-	   	                  click : function(e) {
-	   	                          dialog.remove();
-	   	                  }
-	   	          }
-	   	    });
-	   	  });
+	    	doWarn("你确定要发布此条货源信息吗?","${ctx}/storehouseBelaidupSource/belaidupSource.json"); 
 	    }
    });
   
@@ -434,36 +417,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  $('#form_release_goods')[0].reset();
   }
   
-  //公共对话框定义
-  function  doDailog(str){
-	  KindEditor.ready(function(K) {
-		  var dialog = K.dialog({
-		        width : 500,
-		        title : '发布提示',
-		        body : '<div style="margin:10px;"><strong>'+str+'</strong></div>',
-		        closeBtn : {
- 	                  name : '关闭',
- 	                  click : function(e) {
- 	                          dialog.remove();
- 	                  }
- 	          },
-		     yesBtn : {
-	                name : '确定',
-	                click : function(e) {
-	                	 doClear();
-	                	 dialog.remove();
-	                }
-	        },
-	        noBtn : {
-	                name : '取消',
-	                click : function(e) {
-	                		doClear();
-	                        dialog.remove();
-	                }
-	        }
-		}); 
-	  });
+  //提示对话框
+  function doWarn(str,url){
+ 	var d =art.dialog({
+		    title:'操作提示',
+		    fixed:true,
+    	    lock: true,
+    	    icon:'question',
+    	    background:"#E6E6E6",
+   		opacity:0.4,
+		    content: str,
+		    ok: function () {
+		    	 $.ajax({
+					   type: "POST",
+					   url: url,
+					   dataType:'json',
+					   data:$("#form_release_goods").serialize(),
+					   success: function(r){
+						 if(r.success){
+							doShowRight(r.msg)  
+						 }
+						 else{
+							doShowError(r.msg)
+						 }
+					   }
+        	     });
+		    },
+		    cancel: function () {
+		        this.close();
+		    }
+		});
+		d.show();  
   }
+  
+  //警告对话款
+  function doShowError(str){
+ 	 var d =art.dialog({
+ 		    title: '提示',
+ 		    content:str ,
+ 		    fixed:true,
+       	    lock: true,
+       	    icon:'error',
+       	    background:"#E6E6E6",
+      		opacity:0.4,
+ 		    okValue: '确定',
+ 		    ok: function () {
+ 		    	this.close;
+ 		    }
+ 		});
+ 		d.show();
+  }
+  
+  function doShowRight(str){
+ 	 var d =art.dialog({
+ 		    title: '提示',
+ 		    content:str ,
+ 		    fixed:true,
+       	    lock: true,
+       	    icon:'succeed',
+       	    background:"#E6E6E6",
+      		opacity:0.4,
+ 		    okValue: '确定',
+ 		    ok: function () {
+ 		    	this.close;
+ 		    	 doClear();
+ 		    }
+ 		});
+ 		d.show();
+ }
+  
   
 </script>
 </body>

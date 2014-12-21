@@ -42,10 +42,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          
         <table id="tab">
             <tr>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">发货用户:</span></td>
+               <td><input value=" ${belaidupDate.sendMember}" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">收货用户:</span></td>
+               <td><input value=" ${belaidupDate.receiveMember}" readonly="readonly"></td>
+            </tr>
+            <tr>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">发货手机:</span></td>
+               <td><input value=" ${belaidupDate.sendMobile}" readonly="readonly"></td>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">收货手机:</span></td>
+               <td><input value=" ${belaidupDate.receiveMobile}" readonly="readonly"></td>
+            </tr>
+            <tr>
+               <td class="str" ><span class="label label-default" style="background-color: #F28041">创建账户:</span></td>
+               <td><input value=" ${belaidupDate.shipperMemberDisplay}" readonly="readonly"></td>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">货物名称:</span></td>
                <td><input value=" ${belaidupDate.belaidupProdName}" readonly="readonly"></td>
-               <td class="str" ><span class="label label-default" style="background-color: #F28041">交易手机:</span></td>
-               <td><input value=" ${belaidupDate.membermobile }" readonly="readonly"></td>
             </tr>
             <tr>
                <td class="str" ><span class="label label-default" style="background-color: #F28041">起始站点:</span></td>

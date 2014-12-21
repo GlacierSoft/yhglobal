@@ -455,6 +455,146 @@ public class StorehouseBelaidupSourceExample {
             return (Criteria) this;
         }
 
+        public Criteria andSendMemberIsNull() {
+            addCriterion("temp_storehouse_belaidup_source.send_member is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberIsNotNull() {
+            addCriterion("temp_storehouse_belaidup_source.send_member is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member =", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberNotEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member <>", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberGreaterThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member >", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member >=", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberLessThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member <", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member <=", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member like", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberNotLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_member not like", value, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.send_member in", values, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberNotIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.send_member not in", values, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.send_member between", value1, value2, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMemberNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.send_member not between", value1, value2, "sendMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileIsNull() {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileIsNotNull() {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile =", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileNotEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile <>", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileGreaterThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile >", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile >=", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileLessThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile <", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile <=", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile like", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileNotLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile not like", value, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile in", values, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileNotIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile not in", values, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile between", value1, value2, "sendMobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendMobileNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.send_mobile not between", value1, value2, "sendMobile");
+            return (Criteria) this;
+        }
+
         public Criteria andOriginationStationIsNull() {
             addCriterion("temp_storehouse_belaidup_source.origination_station is null");
             return (Criteria) this;
@@ -665,6 +805,66 @@ public class StorehouseBelaidupSourceExample {
             return (Criteria) this;
         }
 
+        public Criteria andBelaidupNumberIsNull() {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberIsNotNull() {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberEqualTo(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number =", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberNotEqualTo(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number <>", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberGreaterThan(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number >", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number >=", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberLessThan(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number <", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number <=", value, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberIn(List<Integer> values) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number in", values, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberNotIn(List<Integer> values) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number not in", values, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberBetween(Integer value1, Integer value2) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number between", value1, value2, "belaidupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBelaidupNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("temp_storehouse_belaidup_source.belaidup_number not between", value1, value2, "belaidupNumber");
+            return (Criteria) this;
+        }
+
         public Criteria andBelaidupUrgentIsNull() {
             addCriterion("temp_storehouse_belaidup_source.belaidup_urgent is null");
             return (Criteria) this;
@@ -732,76 +932,6 @@ public class StorehouseBelaidupSourceExample {
 
         public Criteria andBelaidupUrgentNotBetween(String value1, String value2) {
             addCriterion("temp_storehouse_belaidup_source.belaidup_urgent not between", value1, value2, "belaidupUrgent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileIsNull() {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileIsNotNull() {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileEqualTo(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile =", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileNotEqualTo(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile <>", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileGreaterThan(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile >", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile >=", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileLessThan(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile <", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileLessThanOrEqualTo(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile <=", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileLike(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile like", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileNotLike(String value) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile not like", value, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileIn(List<String> values) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile in", values, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileNotIn(List<String> values) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile not in", values, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile between", value1, value2, "membermobile");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembermobileNotBetween(String value1, String value2) {
-            addCriterion("temp_storehouse_belaidup_source.memberMobile not between", value1, value2, "membermobile");
             return (Criteria) this;
         }
 
@@ -942,6 +1072,76 @@ public class StorehouseBelaidupSourceExample {
 
         public Criteria andEndAddressNotBetween(String value1, String value2) {
             addCriterion("temp_storehouse_belaidup_source.end_address not between", value1, value2, "endAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberIsNull() {
+            addCriterion("temp_storehouse_belaidup_source.receive_member is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberIsNotNull() {
+            addCriterion("temp_storehouse_belaidup_source.receive_member is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member =", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberNotEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member <>", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberGreaterThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member >", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member >=", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberLessThan(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member <", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberLessThanOrEqualTo(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member <=", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member like", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberNotLike(String value) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member not like", value, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member in", values, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberNotIn(List<String> values) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member not in", values, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member between", value1, value2, "receiveMember");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveMemberNotBetween(String value1, String value2) {
+            addCriterion("temp_storehouse_belaidup_source.receive_member not between", value1, value2, "receiveMember");
             return (Criteria) this;
         }
 

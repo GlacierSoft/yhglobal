@@ -7,13 +7,16 @@
     <result column="temp_storehouse_belaidup_source_belaidup_type_id" property="belaidupTypeId" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_belaidup_volume" property="belaidupVolume" jdbcType="REAL" />
     <result column="temp_storehouse_belaidup_source_belaidup_weight" property="belaidupWeight" jdbcType="REAL" />
+    <result column="temp_storehouse_belaidup_source_send_member" property="sendMember" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_send_mobile" property="sendMobile" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_origination_station" property="originationStation" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_origination_address" property="originationAddress" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_belaidup_number" property="belaidupNumber" jdbcType="INTEGER" />
     <result column="temp_storehouse_belaidup_source_belaidup_urgent" property="belaidupUrgent" jdbcType="CHAR" />
-    <result column="temp_storehouse_belaidup_source_memberMobile" property="membermobile" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_end_station" property="endStation" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_end_address" property="endAddress" jdbcType="VARCHAR" />
+    <result column="temp_storehouse_belaidup_source_receive_member" property="receiveMember" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_receive_mobile" property="receiveMobile" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_receivc_style" property="receivcStyle" jdbcType="CHAR" />
     <result column="temp_storehouse_belaidup_source_show_style" property="showStyle" jdbcType="CHAR" />
@@ -22,10 +25,9 @@
     <result column="temp_storehouse_belaidup_source_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_storehouse_belaidup_source_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_storehouse_belaidup_source_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    
     <result column="temp_storehouse_belaidup_source_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_source_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_storehouse_belaidup_source_member_display" property="shipperMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_storehouse_belaidup_source_shipper_member_display" property="shipperMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_storehouse_belaidup_source_goods_type_display" property="goodsTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -92,13 +94,16 @@
     temp_storehouse_belaidup_source.belaidup_type_id as temp_storehouse_belaidup_source_belaidup_type_id, 
     temp_storehouse_belaidup_source.belaidup_volume as temp_storehouse_belaidup_source_belaidup_volume, 
     temp_storehouse_belaidup_source.belaidup_weight as temp_storehouse_belaidup_source_belaidup_weight, 
+    temp_storehouse_belaidup_source.send_member as temp_storehouse_belaidup_source_send_member, 
+    temp_storehouse_belaidup_source.send_mobile as temp_storehouse_belaidup_source_send_mobile, 
     temp_storehouse_belaidup_source.origination_station as temp_storehouse_belaidup_source_origination_station, 
     temp_storehouse_belaidup_source.origination_address as temp_storehouse_belaidup_source_origination_address, 
     temp_storehouse_belaidup_source.member_id as temp_storehouse_belaidup_source_member_id, 
+    temp_storehouse_belaidup_source.belaidup_number as temp_storehouse_belaidup_source_belaidup_number, 
     temp_storehouse_belaidup_source.belaidup_urgent as temp_storehouse_belaidup_source_belaidup_urgent, 
-    temp_storehouse_belaidup_source.memberMobile as temp_storehouse_belaidup_source_memberMobile, 
     temp_storehouse_belaidup_source.end_station as temp_storehouse_belaidup_source_end_station, 
     temp_storehouse_belaidup_source.end_address as temp_storehouse_belaidup_source_end_address, 
+    temp_storehouse_belaidup_source.receive_member as temp_storehouse_belaidup_source_receive_member, 
     temp_storehouse_belaidup_source.receive_mobile as temp_storehouse_belaidup_source_receive_mobile, 
     temp_storehouse_belaidup_source.receivc_style as temp_storehouse_belaidup_source_receivc_style, 
     temp_storehouse_belaidup_source.show_style as temp_storehouse_belaidup_source_show_style, 
@@ -107,15 +112,14 @@
     temp_storehouse_belaidup_source.create_time as temp_storehouse_belaidup_source_create_time, 
     temp_storehouse_belaidup_source.updater as temp_storehouse_belaidup_source_updater, 
     temp_storehouse_belaidup_source.update_time as temp_storehouse_belaidup_source_update_time
-    
-     <!-- 以下属于拓展字段 -->
+    <!-- 以下属于拓展字段 -->
     ,temp_creater.user_cn_name as temp_storehouse_belaidup_source_creater_display
     ,temp_updater.user_cn_name as temp_storehouse_belaidup_source_updater_display
     ,temp_goodstype.goodstype_name as temp_storehouse_belaidup_source_goods_type_display
     ,temp_member.member_name as temp_storehouse_belaidup_source_shipper_member_display
-   </sql>
-   
-   <sql id="Base_extend">
+  </sql>
+  
+  <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id =  temp_storehouse_belaidup_source.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_storehouse_belaidup_source.updater <!-- 扩展 -->
     LEFT JOIN t_storehouse_goodstype_set temp_goodstype ON temp_goodstype.goodstype_id = temp_storehouse_belaidup_source.belaidup_type_id <!-- 扩展 -->
@@ -159,16 +163,18 @@
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.storehouse.StorehouseBelaidupSource" >
     insert into t_storehouse_belaidup_source (belaidup_id, belaidup_prod_name, belaidup_type_id, 
-      belaidup_volume, belaidup_weight, origination_station, 
-      origination_address, member_id, belaidup_urgent, 
-      memberMobile, end_station, end_address, 
+      belaidup_volume, belaidup_weight, send_member, 
+      send_mobile, origination_station, origination_address, 
+      member_id, belaidup_number, belaidup_urgent, 
+      end_station, end_address, receive_member, 
       receive_mobile, receivc_style, show_style, 
       remark, creater, create_time, 
       updater, update_time)
     values (#{belaidupId,jdbcType=VARCHAR}, #{belaidupProdName,jdbcType=VARCHAR}, #{belaidupTypeId,jdbcType=VARCHAR}, 
-      #{belaidupVolume,jdbcType=REAL}, #{belaidupWeight,jdbcType=REAL}, #{originationStation,jdbcType=VARCHAR}, 
-      #{originationAddress,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{belaidupUrgent,jdbcType=CHAR}, 
-      #{membermobile,jdbcType=VARCHAR}, #{endStation,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
+      #{belaidupVolume,jdbcType=REAL}, #{belaidupWeight,jdbcType=REAL}, #{sendMember,jdbcType=VARCHAR}, 
+      #{sendMobile,jdbcType=VARCHAR}, #{originationStation,jdbcType=VARCHAR}, #{originationAddress,jdbcType=VARCHAR}, 
+      #{memberId,jdbcType=VARCHAR}, #{belaidupNumber,jdbcType=INTEGER}, #{belaidupUrgent,jdbcType=CHAR}, 
+      #{endStation,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, #{receiveMember,jdbcType=VARCHAR}, 
       #{receiveMobile,jdbcType=VARCHAR}, #{receivcStyle,jdbcType=CHAR}, #{showStyle,jdbcType=CHAR}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
@@ -191,6 +197,12 @@
       <if test="belaidupWeight != null" >
         belaidup_weight,
       </if>
+      <if test="sendMember != null" >
+        send_member,
+      </if>
+      <if test="sendMobile != null" >
+        send_mobile,
+      </if>
       <if test="originationStation != null" >
         origination_station,
       </if>
@@ -200,17 +212,20 @@
       <if test="memberId != null" >
         member_id,
       </if>
+      <if test="belaidupNumber != null" >
+        belaidup_number,
+      </if>
       <if test="belaidupUrgent != null" >
         belaidup_urgent,
-      </if>
-      <if test="membermobile != null" >
-        memberMobile,
       </if>
       <if test="endStation != null" >
         end_station,
       </if>
       <if test="endAddress != null" >
         end_address,
+      </if>
+      <if test="receiveMember != null" >
+        receive_member,
       </if>
       <if test="receiveMobile != null" >
         receive_mobile,
@@ -253,6 +268,12 @@
       <if test="belaidupWeight != null" >
         #{belaidupWeight,jdbcType=REAL},
       </if>
+      <if test="sendMember != null" >
+        #{sendMember,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMobile != null" >
+        #{sendMobile,jdbcType=VARCHAR},
+      </if>
       <if test="originationStation != null" >
         #{originationStation,jdbcType=VARCHAR},
       </if>
@@ -262,17 +283,20 @@
       <if test="memberId != null" >
         #{memberId,jdbcType=VARCHAR},
       </if>
+      <if test="belaidupNumber != null" >
+        #{belaidupNumber,jdbcType=INTEGER},
+      </if>
       <if test="belaidupUrgent != null" >
         #{belaidupUrgent,jdbcType=CHAR},
-      </if>
-      <if test="membermobile != null" >
-        #{membermobile,jdbcType=VARCHAR},
       </if>
       <if test="endStation != null" >
         #{endStation,jdbcType=VARCHAR},
       </if>
       <if test="endAddress != null" >
         #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMember != null" >
+        #{receiveMember,jdbcType=VARCHAR},
       </if>
       <if test="receiveMobile != null" >
         #{receiveMobile,jdbcType=VARCHAR},
@@ -325,6 +349,12 @@
       <if test="record.belaidupWeight != null" >
         temp_storehouse_belaidup_source.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
       </if>
+      <if test="record.sendMember != null" >
+        temp_storehouse_belaidup_source.send_member = #{record.sendMember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendMobile != null" >
+        temp_storehouse_belaidup_source.send_mobile = #{record.sendMobile,jdbcType=VARCHAR},
+      </if>
       <if test="record.originationStation != null" >
         temp_storehouse_belaidup_source.origination_station = #{record.originationStation,jdbcType=VARCHAR},
       </if>
@@ -334,17 +364,20 @@
       <if test="record.memberId != null" >
         temp_storehouse_belaidup_source.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
+      <if test="record.belaidupNumber != null" >
+        temp_storehouse_belaidup_source.belaidup_number = #{record.belaidupNumber,jdbcType=INTEGER},
+      </if>
       <if test="record.belaidupUrgent != null" >
         temp_storehouse_belaidup_source.belaidup_urgent = #{record.belaidupUrgent,jdbcType=CHAR},
-      </if>
-      <if test="record.membermobile != null" >
-        temp_storehouse_belaidup_source.memberMobile = #{record.membermobile,jdbcType=VARCHAR},
       </if>
       <if test="record.endStation != null" >
         temp_storehouse_belaidup_source.end_station = #{record.endStation,jdbcType=VARCHAR},
       </if>
       <if test="record.endAddress != null" >
         temp_storehouse_belaidup_source.end_address = #{record.endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveMember != null" >
+        temp_storehouse_belaidup_source.receive_member = #{record.receiveMember,jdbcType=VARCHAR},
       </if>
       <if test="record.receiveMobile != null" >
         temp_storehouse_belaidup_source.receive_mobile = #{record.receiveMobile,jdbcType=VARCHAR},
@@ -382,13 +415,16 @@
       temp_storehouse_belaidup_source.belaidup_type_id = #{record.belaidupTypeId,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.belaidup_volume = #{record.belaidupVolume,jdbcType=REAL},
       temp_storehouse_belaidup_source.belaidup_weight = #{record.belaidupWeight,jdbcType=REAL},
+      temp_storehouse_belaidup_source.send_member = #{record.sendMember,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.send_mobile = #{record.sendMobile,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.origination_station = #{record.originationStation,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.origination_address = #{record.originationAddress,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.belaidup_number = #{record.belaidupNumber,jdbcType=INTEGER},
       temp_storehouse_belaidup_source.belaidup_urgent = #{record.belaidupUrgent,jdbcType=CHAR},
-      temp_storehouse_belaidup_source.memberMobile = #{record.membermobile,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.end_station = #{record.endStation,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.end_address = #{record.endAddress,jdbcType=VARCHAR},
+      temp_storehouse_belaidup_source.receive_member = #{record.receiveMember,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.receive_mobile = #{record.receiveMobile,jdbcType=VARCHAR},
       temp_storehouse_belaidup_source.receivc_style = #{record.receivcStyle,jdbcType=CHAR},
       temp_storehouse_belaidup_source.show_style = #{record.showStyle,jdbcType=CHAR},
@@ -416,6 +452,12 @@
       <if test="belaidupWeight != null" >
         belaidup_weight = #{belaidupWeight,jdbcType=REAL},
       </if>
+      <if test="sendMember != null" >
+        send_member = #{sendMember,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMobile != null" >
+        send_mobile = #{sendMobile,jdbcType=VARCHAR},
+      </if>
       <if test="originationStation != null" >
         origination_station = #{originationStation,jdbcType=VARCHAR},
       </if>
@@ -425,17 +467,20 @@
       <if test="memberId != null" >
         member_id = #{memberId,jdbcType=VARCHAR},
       </if>
+      <if test="belaidupNumber != null" >
+        belaidup_number = #{belaidupNumber,jdbcType=INTEGER},
+      </if>
       <if test="belaidupUrgent != null" >
         belaidup_urgent = #{belaidupUrgent,jdbcType=CHAR},
-      </if>
-      <if test="membermobile != null" >
-        memberMobile = #{membermobile,jdbcType=VARCHAR},
       </if>
       <if test="endStation != null" >
         end_station = #{endStation,jdbcType=VARCHAR},
       </if>
       <if test="endAddress != null" >
         end_address = #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMember != null" >
+        receive_member = #{receiveMember,jdbcType=VARCHAR},
       </if>
       <if test="receiveMobile != null" >
         receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
@@ -470,13 +515,16 @@
       belaidup_type_id = #{belaidupTypeId,jdbcType=VARCHAR},
       belaidup_volume = #{belaidupVolume,jdbcType=REAL},
       belaidup_weight = #{belaidupWeight,jdbcType=REAL},
+      send_member = #{sendMember,jdbcType=VARCHAR},
+      send_mobile = #{sendMobile,jdbcType=VARCHAR},
       origination_station = #{originationStation,jdbcType=VARCHAR},
       origination_address = #{originationAddress,jdbcType=VARCHAR},
       member_id = #{memberId,jdbcType=VARCHAR},
+      belaidup_number = #{belaidupNumber,jdbcType=INTEGER},
       belaidup_urgent = #{belaidupUrgent,jdbcType=CHAR},
-      memberMobile = #{membermobile,jdbcType=VARCHAR},
       end_station = #{endStation,jdbcType=VARCHAR},
       end_address = #{endAddress,jdbcType=VARCHAR},
+      receive_member = #{receiveMember,jdbcType=VARCHAR},
       receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
       receivc_style = #{receivcStyle,jdbcType=CHAR},
       show_style = #{showStyle,jdbcType=CHAR},

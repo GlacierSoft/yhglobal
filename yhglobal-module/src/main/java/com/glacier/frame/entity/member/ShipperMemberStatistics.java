@@ -7,23 +7,23 @@ public class ShipperMemberStatistics {
 
     private String memberId;
 
-    private Integer countstatus;
+    private Integer countstatus=0;
 
-    private BigDecimal mrechageadd;
+    private BigDecimal mrechageadd=new BigDecimal(0.00);
 
-    private BigDecimal receivemoney;
+    private BigDecimal receivemoney=new BigDecimal(0.00);
 
-    private BigDecimal withdrawmoney;
+    private BigDecimal withdrawmoney=new BigDecimal(0.00);
 
-    private BigDecimal withdrawreallymoney;
+    private BigDecimal withdrawreallymoney=new BigDecimal(0.00);
 
-    private BigDecimal mrechargemark;
+    private BigDecimal mrechargemark=new BigDecimal(0.00);
 
-    private BigDecimal counttransportation;
+    private BigDecimal counttransportation=new BigDecimal(0.00);
 
-    private BigDecimal countinsurance;
+    private BigDecimal countinsurance=new BigDecimal(0.00);
 
-    private BigDecimal countgoods;
+    private BigDecimal countgoods=new BigDecimal(0.00);
 
     public String getStatisticsId() {
         return statisticsId;

@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <table class="table table-bordered" id="finace_member_detail_record">
 				          	<thead>
 					          <tr>
-					            <th>交易类型</th>
+					            <th>类型</th>
 					            <th>交易对象</th>
 					            <th>收入金额</th>
 					            <th>手续费</th>

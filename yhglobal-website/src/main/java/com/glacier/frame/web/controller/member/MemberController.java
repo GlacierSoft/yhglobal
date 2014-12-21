@@ -165,6 +165,7 @@ public class MemberController extends AbstractController{
   	  		JqGridReturn returnResult=(JqGridReturn)storehouseBelaidupSourceService.listAsWebsite(pager, storehouseBelaidupSourceQueryDTO,p);
   	  		mav.addObject("returnResult",returnResult); 
   	      	mav.addObject("currentMemberId",pricipalMember.getMemberId()); 
+  	      	mav.addObject("sourceNumber",storehouseBelaidupSourceService.getStoreBelaidupSourceNumber());
 	  		mav.addObject("storehouseBelaidupSourceQueryDTO",storehouseBelaidupSourceQueryDTO);
   		 }
   		 return mav;

@@ -386,6 +386,31 @@ public class StorehouseBelaidupService {
     }
     
     /**
+	 * @Title: findBelaidupNumb 
+	 * @Description: TODO(获取货物信息) 
+	 * @param @param belaidupId
+	 * @param @return    设定文件 
+	 * @return Object    返回 
+	 * @throws
+	 */
+    public Object findBelaidupNumb(String belaidupId){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample(); 
+    	belaidupSetExample.createCriteria().andBelaidupIdEqualTo(belaidupId);
+    	int count=belaidupMapper.countByExample(belaidupSetExample);
+    	if(count>0){
+    		returnResult.setSuccess(false);
+    		returnResult.setMsg("已发布成功，无须重复发布!");
+    	}else{
+    		returnResult.setSuccess(true);
+    		returnResult.setMsg("可发布货源");
+    	}
+    	return returnResult;
+    }
+    
+    
+    
+    /**
      * @Title: addBelaidup 
      * @Description: TODO(新增货物) 
      * @param @param belaidup
@@ -501,7 +526,6 @@ public class StorehouseBelaidupService {
         //新增物品信息
         int count = 0;
         belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery());
-        belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");
         belaidup.setSortingStauts("waitsorting");

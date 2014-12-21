@@ -15,19 +15,25 @@ public class StorehouseBelaidupSource {
 
     private Float belaidupWeight;
 
+    private String sendMember;
+
+    private String sendMobile;
+
     private String originationStation;
 
     private String originationAddress;
 
     private String memberId;
 
-    private String belaidupUrgent;
+    private Integer belaidupNumber;
 
-    private String membermobile;
+    private String belaidupUrgent;
 
     private String endStation;
 
     private String endAddress;
+
+    private String receiveMember;
 
     private String receiveMobile;
 
@@ -39,28 +45,23 @@ public class StorehouseBelaidupSource {
 
     private String creater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-    
-    
-    /**
-     * 自定义字段 
-     */
-    
-    private String createrDisplay;
+
+	private String createrDisplay;
     
     private String updaterDisplay;
     
     private String shipperMemberDisplay;
     
     private String goodsTypeDisplay;
-    
-    public String getCreaterDisplay() {
+	
+	public String getCreaterDisplay() {
 		return createrDisplay;
 	}
 
@@ -91,8 +92,8 @@ public class StorehouseBelaidupSource {
 	public void setGoodsTypeDisplay(String goodsTypeDisplay) {
 		this.goodsTypeDisplay = goodsTypeDisplay;
 	}
-
-	public String getBelaidupId() {
+	
+    public String getBelaidupId() {
         return belaidupId;
     }
 
@@ -132,6 +133,22 @@ public class StorehouseBelaidupSource {
         this.belaidupWeight = belaidupWeight;
     }
 
+    public String getSendMember() {
+        return sendMember;
+    }
+
+    public void setSendMember(String sendMember) {
+        this.sendMember = sendMember;
+    }
+
+    public String getSendMobile() {
+        return sendMobile;
+    }
+
+    public void setSendMobile(String sendMobile) {
+        this.sendMobile = sendMobile;
+    }
+
     public String getOriginationStation() {
         return originationStation;
     }
@@ -156,20 +173,20 @@ public class StorehouseBelaidupSource {
         this.memberId = memberId;
     }
 
+    public Integer getBelaidupNumber() {
+        return belaidupNumber;
+    }
+
+    public void setBelaidupNumber(Integer belaidupNumber) {
+        this.belaidupNumber = belaidupNumber;
+    }
+
     public String getBelaidupUrgent() {
         return belaidupUrgent;
     }
 
     public void setBelaidupUrgent(String belaidupUrgent) {
         this.belaidupUrgent = belaidupUrgent;
-    }
-
-    public String getMembermobile() {
-        return membermobile;
-    }
-
-    public void setMembermobile(String membermobile) {
-        this.membermobile = membermobile;
     }
 
     public String getEndStation() {
@@ -186,6 +203,14 @@ public class StorehouseBelaidupSource {
 
     public void setEndAddress(String endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public String getReceiveMember() {
+        return receiveMember;
+    }
+
+    public void setReceiveMember(String receiveMember) {
+        this.receiveMember = receiveMember;
     }
 
     public String getReceiveMobile() {
@@ -269,13 +294,16 @@ public class StorehouseBelaidupSource {
             && (this.getBelaidupTypeId() == null ? other.getBelaidupTypeId() == null : this.getBelaidupTypeId().equals(other.getBelaidupTypeId()))
             && (this.getBelaidupVolume() == null ? other.getBelaidupVolume() == null : this.getBelaidupVolume().equals(other.getBelaidupVolume()))
             && (this.getBelaidupWeight() == null ? other.getBelaidupWeight() == null : this.getBelaidupWeight().equals(other.getBelaidupWeight()))
+            && (this.getSendMember() == null ? other.getSendMember() == null : this.getSendMember().equals(other.getSendMember()))
+            && (this.getSendMobile() == null ? other.getSendMobile() == null : this.getSendMobile().equals(other.getSendMobile()))
             && (this.getOriginationStation() == null ? other.getOriginationStation() == null : this.getOriginationStation().equals(other.getOriginationStation()))
             && (this.getOriginationAddress() == null ? other.getOriginationAddress() == null : this.getOriginationAddress().equals(other.getOriginationAddress()))
             && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
+            && (this.getBelaidupNumber() == null ? other.getBelaidupNumber() == null : this.getBelaidupNumber().equals(other.getBelaidupNumber()))
             && (this.getBelaidupUrgent() == null ? other.getBelaidupUrgent() == null : this.getBelaidupUrgent().equals(other.getBelaidupUrgent()))
-            && (this.getMembermobile() == null ? other.getMembermobile() == null : this.getMembermobile().equals(other.getMembermobile()))
             && (this.getEndStation() == null ? other.getEndStation() == null : this.getEndStation().equals(other.getEndStation()))
             && (this.getEndAddress() == null ? other.getEndAddress() == null : this.getEndAddress().equals(other.getEndAddress()))
+            && (this.getReceiveMember() == null ? other.getReceiveMember() == null : this.getReceiveMember().equals(other.getReceiveMember()))
             && (this.getReceiveMobile() == null ? other.getReceiveMobile() == null : this.getReceiveMobile().equals(other.getReceiveMobile()))
             && (this.getReceivcStyle() == null ? other.getReceivcStyle() == null : this.getReceivcStyle().equals(other.getReceivcStyle()))
             && (this.getShowStyle() == null ? other.getShowStyle() == null : this.getShowStyle().equals(other.getShowStyle()))
@@ -295,13 +323,16 @@ public class StorehouseBelaidupSource {
         result = prime * result + ((getBelaidupTypeId() == null) ? 0 : getBelaidupTypeId().hashCode());
         result = prime * result + ((getBelaidupVolume() == null) ? 0 : getBelaidupVolume().hashCode());
         result = prime * result + ((getBelaidupWeight() == null) ? 0 : getBelaidupWeight().hashCode());
+        result = prime * result + ((getSendMember() == null) ? 0 : getSendMember().hashCode());
+        result = prime * result + ((getSendMobile() == null) ? 0 : getSendMobile().hashCode());
         result = prime * result + ((getOriginationStation() == null) ? 0 : getOriginationStation().hashCode());
         result = prime * result + ((getOriginationAddress() == null) ? 0 : getOriginationAddress().hashCode());
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
+        result = prime * result + ((getBelaidupNumber() == null) ? 0 : getBelaidupNumber().hashCode());
         result = prime * result + ((getBelaidupUrgent() == null) ? 0 : getBelaidupUrgent().hashCode());
-        result = prime * result + ((getMembermobile() == null) ? 0 : getMembermobile().hashCode());
         result = prime * result + ((getEndStation() == null) ? 0 : getEndStation().hashCode());
         result = prime * result + ((getEndAddress() == null) ? 0 : getEndAddress().hashCode());
+        result = prime * result + ((getReceiveMember() == null) ? 0 : getReceiveMember().hashCode());
         result = prime * result + ((getReceiveMobile() == null) ? 0 : getReceiveMobile().hashCode());
         result = prime * result + ((getReceivcStyle() == null) ? 0 : getReceivcStyle().hashCode());
         result = prime * result + ((getShowStyle() == null) ? 0 : getShowStyle().hashCode());

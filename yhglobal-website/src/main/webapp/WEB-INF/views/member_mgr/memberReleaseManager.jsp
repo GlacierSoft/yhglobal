@@ -109,10 +109,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </div>
 				  <div class="panel-body">
 				      <c:choose>
-				       <c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
-			                <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">货源记录</a>
-					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default" role="button">已发布记录</a>
-					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录</a>						   	   
+			 			<c:when test="${buttonState == 'firstAudit'|| empty buttonState}">
+			                <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">货源记录【${sourceNumber.countNumber}】</a>
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default" role="button">已发布记录【${sourceNumber.sourceShowNumber}】</a>
+					   	    <a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录【${sourceNumber.sourceHideNumber}】</a>						   	   
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&loanState=firstAudit&loanState=firstAudit" >
@@ -131,9 +131,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    </div>
 				      </c:when>
 				      <c:when test="${buttonState == 'secondAudit'}">
-				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">已发布记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录</a>	
+				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录【${sourceNumber.countNumber}】</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">已发布记录【${sourceNumber.sourceShowNumber}】</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default" role="button">未发布记录【${sourceNumber.sourceHideNumber}】</a>	
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						       <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=enable&loanState=secondAudit" >
@@ -152,9 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    </div>
 				      </c:when>
 				      <c:when test="${buttonState == 'thirdAudit'}">
-				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  role="button">已发布记录</a>
-						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">未发布记录</a>	
+				            <a id="repaymenting" href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1" class="btn btn-default" role="button">货源记录【${sourceNumber.countNumber}】</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=secondAudit&p=1&showStyle=show" class="btn btn-default"  role="button">已发布记录【${sourceNumber.sourceShowNumber}】</a>
+						   	<a id="completed" href="${ctx}/member/releaseManager.htm?loanState=thirdAudit&p=1&showStyle=hide" class="btn btn-default"  style="background: #FF5400;color: white;" role="button">未发布记录【${sourceNumber.sourceHideNumber}】</a>	
 				            <div class="panel panel-default" style="margin-top: 20px;">
 						         <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
 								     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/member/releaseManager.htm?p=1&stauts=disableloanState=thirdAudit" >
@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                       <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doPublish('${storehouseBelaidupList.belaidupId}','${storehouseBelaidupList.belaidupProdName}','${storehouseBelaidupList.showStyle}');">发布</button>  
 					                 </c:if>
 					                 <c:if test="${storehouseBelaidupList. showStyle=='show'}" >
-					                       <button  type="button" class="btn btn-primary" data-toggle="button" >航线</button>   	
+					                       <button  type="button" class="btn btn-primary" data-toggle="button" onclick="doWalk('${storehouseBelaidupList.belaidupId}')" >班线</button>   	
 					                 </c:if>
 					            </td>
 					          </tr>
@@ -289,7 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        function doCheck(id){
     	   var url=ctx + '/delivery/intoDetail.htm?belaidupId='+id;
     	   art.dialog.open(url, {
-               width: '500px',
+               width: '515px',
                height: 'auto',
                lock: true,
                background:"#E6E6E6",
@@ -396,6 +396,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		    }
     		});
     		d.show();
+     }
+     
+     //航线详情
+     function doWalk(id){
+    	  var url=ctx + '/delivery/walkRoute.htm?belaidupId='+id;
+     	   art.dialog.open(url, {
+                width: '720px',
+                height: 'auto',
+                lock: true,
+                background:"#E6E6E6",
+         	     opacity:0.4,
+         	     fixed:true,
+         	     okValue: '确定',
+    		       ok: function () {
+    		    	   this.close;
+    		    	}
+            })
      }
      
      //查看合同协议

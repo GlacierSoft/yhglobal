@@ -31,8 +31,9 @@ public class StorehouseBelaidupSourceQueryDTO extends StorehouseBelaidupSource  
      if(this.getMemberId()!=null){
           queryCriteria.andMemberIdEqualTo(this.getMemberId());
         }
+     
      if(this.getBelaidupProdName()!=null){
-    	 queryCriteria.andBelaidupIdLike("%"+this.getBelaidupProdName()+"%");
+    	 queryCriteria.andBelaidupProdNameLike("%"+this.getBelaidupProdName()+"%");
      }
      
      

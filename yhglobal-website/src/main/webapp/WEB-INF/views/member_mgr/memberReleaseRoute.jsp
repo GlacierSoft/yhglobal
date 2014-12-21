@@ -109,9 +109,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div> 
    
    <script>
+      
+   //记录提交次数
+   var releaseRouteNumber=0;
+   
+   //定义window对象
+   
+   var window_Object;
+   
    function send(id){
         	  var url=ctx + '/delivery/getRouteInfo.htm?routeId='+id;
-        	   art.dialog.open(url, {
+        	   var memberReleaseRouteDialog=art.dialog.open(url, {
             		title:'发布信息完善',
             		 width: '750px',
                      height: 'auto',
@@ -123,10 +131,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 		    name: '提交',
                 		    focus: true,
                 		    callback: function () {
- 								var sendSite= this.iframe.contentWindow.$("#sendSite option:selected").prop("value"); 
+                		    	releaseRouteNumber=this.iframe.contentWindow.routeInfoNumber+this.iframe.contentWindow.routeInfoChangeNumber;
+                		    	var belaidupId='${belaidupId}';
+                		    	var sendSite= this.iframe.contentWindow.$("#sendSite option:selected").prop("value"); 
             		    		var orderSite=this.iframe.contentWindow.$("#orderSite option:selected").prop("value"); 
             		    		var zhongPrice=this.iframe.contentWindow.$("#zhongPrice").val();
             		    		var qingPrice=this.iframe.contentWindow.$("#qingPrice").val();
+            		    		var window_Object=this.iframe.contentWindow;
             		    		if(sendSite=="--请选择--"||sendSite==""||sendSite==null){
             		    			this.iframe.contentWindow.doShowErrorRoute("请选择发货点!");
             		    		}else{
@@ -137,20 +148,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             		    					this.iframe.contentWindow.doShowErrorRoute("请填写重量或者体积!");
             		    				}else{
             		    					$.ajax({
-            		   	    					   type: "POST",
-            		   	    					   url:ctx + '/delivery/addRouteInfo.json',
-            		   	    					   data: this.iframe.contentWindow.$("#fom").serialize(),
-            		   	    					   dataType:'json',
-            		   	    					   success: function(r){
-            		   	    						 this.close;
-            		   	    						 if(r.success){
-            		   	    							doShowRight("货源发布成功，可在记录中查看该条信息!");
-            		   	    						 }
-            		   	    						 else{
-            		   	    							doShowError("货源发布失败，请联系管理员!");
-            		   	    						 }
-            		   	    					   }
-            		   	                	  });
+          		   	    					   type: "POST",
+          		   	    					   url:ctx + '/delivery/addRouteInfo.json?belaidupId='+belaidupId,
+          		   	    					   data: this.iframe.contentWindow.$("#fom").serialize(),
+          		   	    					   dataType:'json',
+          		   	    					   success: function(rel){
+          		   	    						 if(rel.success){
+          		   	    							window_Object.doShowRight(rel.msg);
+          		   	    						 }
+          		   	    						 else{
+          		   	    							window_Object.doShowError(rel.msg);
+          		   	    						 }
+          		   	    					   }
+          		   	                	  });
             		    				}
             		    			}
             		    		}	
@@ -164,41 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 		}]
            		 });
            }
-   //警告对话款
-   function doShowError(str){
-	   var d =art.dialog({
-   		    title: '提示',
-   		    content:str ,
-   		    fixed:true,
-         	    lock: true,
-         	    icon:'error',
-         	    background:"#E6E6E6",
-         	 	opacity:0.4,
-   		    okValue: '确定',
-   		    ok: function () {
-   		    	this.close;
-   		    }
-   		});
-   		d.show();
-  	}
-   
-   function doShowRight(str){
-  	 var d =art.dialog({
-  		    title: '提示',
-  		    content:str ,
-  		    fixed:true,
-        	    lock: true,
-        	    icon:'succeed',
-        	    background:"#E6E6E6",
-       		opacity:0.4,
-  		    okValue: '确定',
-  		    ok: function () {
-  		    	this.close;
-  		    }
-  		});
-  		d.show();
-  }
-      
     </script>
   </body>
 </html>

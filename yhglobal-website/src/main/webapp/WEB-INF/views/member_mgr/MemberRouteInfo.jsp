@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	                          <b>选择网点</b><label style="color:#999">&nbsp;&nbsp;&nbsp;&nbsp;选择附近的网点，物流跟进更及时</label>
    	                      </div>
    	                      <div style="float:left;width: 515px;margin-left: 15px;">
-   	                         	发货网点：&nbsp;&nbsp;&nbsp;&nbsp;<select  style="width: 300px;height: 30px;" onchange="selectDeliver()" id="sendSite">
+   	                         	发货网点：&nbsp;&nbsp;&nbsp;&nbsp;<select  style="width: 300px;height: 30px;"   name="sendSite" onchange="selectDeliver()" id="sendSite">
    	                         	      <option>--请选择--</option>
    	                         	      <c:if test="${!empty route.deliverList}">
    	                         	           <c:forEach  items="${route.deliverList }" var="deliver" varStatus="status">
@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	                      </div>
    	                      <div id="info" style="color:#FF7300;margin-left: 100px;"></div>	
    	                      <div style="float:left;width: 515px;margin-top: 5px;margin-left: 15px;margin-bottom: 10px;" id="receiveDiv">
-   	                         	收货网点：&nbsp;&nbsp;&nbsp;&nbsp;<select  style="width: 300px;height: 30px;" id="orderSite" onchange="selectPickUp()">
+   	                         	收货网点：&nbsp;&nbsp;&nbsp;&nbsp;<select  style="width: 300px;height: 30px;" id="orderSite" onchange="selectPickUp()" name="orderSite">
    	                         	      <option>--请选择--</option>
    	                         	        <c:if test="${!empty route.pickUpList}">
    	                         	         <c:forEach items="${route.pickUpList}" var="deliver" varStatus="state">
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	                          <b>货物保险服务</b><label style="color:#999">&nbsp;&nbsp;&nbsp;&nbsp;<a href="${ctx}/insuranceExplain.htm"  target=_blank style="color: #FF7300">保险协议</a></label>
    	                      </div>
    	                      <div style="float:left;width: 515px;height:20px;line-height: 20px;margin-left: 15px;">
-   	                            	货物价值：<input type="text"  id="price" style="border:1px solid #CCCCCC;width: 100px;border-radius:5px;" name="belaidupWeight" placeholder="公斤" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'')"> 
+   	                            	货物价值：<input type="text"  id="price" style="border:1px solid #CCCCCC;width: 100px;border-radius:5px;" name="goodsCost" placeholder="公斤" onkeyup="value=value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^/d]/g,'')"> 
    	                      </div>
    	                      <div style="float:left;width: 515px;height:20px;margin-top: 10px;margin-left: 15px;">
    	                              <input id="check1" type="checkbox" name="insurance"  value="yes" onchange="javaScript:prem(this)">&nbsp;购买货运险（中国平安承保，费率1.5‰，最低3元起）
@@ -258,9 +258,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#totalCost").attr("value",sum.toFixed(2));
 	}
 	
+	
+	var routeInfoNumber=1;
+	var routeInfoChangeNumber=0;
+	
 	//警告对话款
     function doShowErrorRoute(str){
-	   var d =art.dialog({
+     routeInfoNumber=artDialog.open.origin.releaseRouteNumber;
+     routeInfoChangeNumber+=1;
+     if(routeInfoNumber+1==2){
+    	 var d =art.dialog({
+ 		    title: '提示',
+ 		    content:str ,
+ 		    fixed:true,
+       	    lock: true,
+       	    icon:'error',
+       	    background:"#E6E6E6",
+       	 	opacity:0.4,
+ 		    okValue: '确定',
+ 		    ok: function () {
+ 		    	routeInfoNumber=1;
+ 		    	routeInfoChangeNumber=0;
+ 		    	this.close;
+ 		    }
+ 		});
+ 		d.show();
+     }
+	}
+	
+    //警告对话款
+    function doShowError(str){
+    	routeInfoNumber=artDialog.open.origin.releaseRouteNumber;
+        routeInfoChangeNumber+=1;
+        if(routeInfoNumber+1==2){
+ 	    var d =art.dialog({
     		    title: '提示',
     		    content:str ,
     		    fixed:true,
@@ -270,10 +301,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           	 	opacity:0.4,
     		    okValue: '确定',
     		    ok: function () {
-    		    	this.close;
+    		    	routeInfoNumber=1;
+     		    	routeInfoChangeNumber=0;
+     		    	this.close;
     		    }
     		});
     		d.show();
+        }
    	}
+    
+    function doShowRight(str){
+    	routeInfoNumber=artDialog.open.origin.releaseRouteNumber;
+        routeInfoChangeNumber+=1;
+        if(routeInfoNumber+1==2){
+ 	    var d =art.dialog({
+   		    title: '提示',
+   		    content:str ,
+   		    fixed:true,
+         	    lock: true,
+         	    icon:'succeed',
+         	    background:"#E6E6E6",
+        		opacity:0.4,
+   		    okValue: '确定',
+   		    ok: function () {
+   		    	routeInfoNumber=1;
+ 		    	routeInfoChangeNumber=0;
+ 		    	this.close;
+   		    }
+   		});
+   		d.show();
+      }
+   }
 </script>
 </html>
