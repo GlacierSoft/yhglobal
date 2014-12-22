@@ -49,7 +49,7 @@ public class OrdersOrderController extends AbstractController{
     	CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
     	orderSetQueryDTO.setCarrierMemberId(pricipalUser.getCarrierMemberId());
     	orderSetQueryDTO.setOrderStatus("waitconfirm");
-    	orderSetQueryDTO.setDistributeStatus("waitconfirm");
+        orderSetQueryDTO.setDistributeStatus("waitdistribute");
     	return orderSetService.listAsGrid(jqPager, orderSetQueryDTO);
     }
       
