@@ -305,4 +305,34 @@ public class OrdersOrderService {
         int ordersNum = orderMapper.countByExample(OrdersOrderExample);
         return ordersNum;
     }
+    
+    /**
+     * @Title: getOrdersNumByHasdistribute 
+     * @Description: TODO(已分配订单的条数) 
+     * @param  @param 
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public int getOrdersNumByHasdistribute(String carrierId) {
+        OrdersOrderExample OrdersOrderExample = new OrdersOrderExample();
+        OrdersOrderExample.createCriteria().andDistributeStatusEqualTo("hasdistribute").andCarrierMemberIdEqualTo(carrierId);
+        int ordersNum = orderMapper.countByExample(OrdersOrderExample);
+        return ordersNum;
+    }
+    
+    /**
+     * @Title: getOrdersNumByWaitdistribute 
+     * @Description: TODO(未分配订单的条数) 
+     * @param  @param 
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public int getOrdersNumByWaitdistribute(String carrierId) {
+        OrdersOrderExample OrdersOrderExample = new OrdersOrderExample();
+        OrdersOrderExample.createCriteria().andDistributeStatusEqualTo("waitdistribute").andCarrierMemberIdEqualTo(carrierId);
+        int ordersNum = orderMapper.countByExample(OrdersOrderExample);
+        return ordersNum;
+    }
 }

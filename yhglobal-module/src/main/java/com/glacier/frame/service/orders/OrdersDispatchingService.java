@@ -545,4 +545,34 @@ public class OrdersDispatchingService {
 	    	User use= (User)userMapper.selectByExample(userExample).get(0);
 	        return use.getUserId();
 	    }
+	    
+	    /**
+	      * 
+	      * @Title: getCountNotsigned  
+	      * @Description: TODO(获取待签收配送记录)  
+	      * @param @return    设定文件  
+	      * @return String    返回类型  
+	      * @throws
+	      */
+	    public int getCountNotsigned(String carrierId){ 
+	    	OrdersDispatchingExample DispatchingExample = new OrdersDispatchingExample();
+	    	DispatchingExample.createCriteria().andDispatchingSignforEqualTo("notsigned").andCarrierIdEqualTo(carrierId);
+	    	int countNotsigned = ordersDispatchingMapper.countByExample(DispatchingExample);
+	        return countNotsigned;
+	    }
+	    
+	    /**
+	      * 
+	      * @Title: getCountHavesigned  
+	      * @Description: TODO(获取已签收配送记录)  
+	      * @param @return    设定文件  
+	      * @return String    返回类型  
+	      * @throws
+	      */
+	    public int getCountHavesigned(String carrierId){ 
+	    	OrdersDispatchingExample DispatchingExample = new OrdersDispatchingExample();
+	    	DispatchingExample.createCriteria().andDispatchingSignforEqualTo("havesigned").andCarrierIdEqualTo(carrierId);
+	    	int countNotsigned = ordersDispatchingMapper.countByExample(DispatchingExample);
+	        return countNotsigned;
+	    }
 }
