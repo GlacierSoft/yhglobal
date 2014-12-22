@@ -42,6 +42,7 @@ import com.glacier.frame.dao.finace.FinanceCarrierMapper;
 import com.glacier.frame.dao.finace.FinancePlatformDetailMapper;
 import com.glacier.frame.dao.finace.FinancePlatformMapper;
 import com.glacier.frame.dao.member.MemberContractTypeMapper;
+import com.glacier.frame.dao.member.ShipperMemberContractRecordMapper;
 import com.glacier.frame.dao.orders.OrdersDispatchingMapper;
 import com.glacier.frame.dao.orders.OrdersOrderInfoMapper;
 import com.glacier.frame.dao.orders.OrdersOrderMapper;
@@ -52,6 +53,7 @@ import com.glacier.frame.dto.query.orders.OrdersDispatchingQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessType;
 import com.glacier.frame.entity.basicdatas.ParameterCarrierCreditworthinessTypeExample;
 import com.glacier.frame.entity.carrier.CarrierContractRecord;
+import com.glacier.frame.entity.carrier.CarrierContractRecordExample;
 import com.glacier.frame.entity.carrier.CarrierMember;
 import com.glacier.frame.entity.carrier.CarrierMemberCreditworthiness;
 import com.glacier.frame.entity.finace.FinanceCarrier;
@@ -62,6 +64,8 @@ import com.glacier.frame.entity.finace.FinancePlatformDetail;
 import com.glacier.frame.entity.finace.FinancePlatformExample;
 import com.glacier.frame.entity.member.MemberContractType;
 import com.glacier.frame.entity.member.MemberContractTypeExample; 
+import com.glacier.frame.entity.member.ShipperMemberContractRecord;
+import com.glacier.frame.entity.member.ShipperMemberContractRecordExample;
 import com.glacier.frame.entity.orders.OrdersDispatching;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample;
 import com.glacier.frame.entity.orders.OrdersDispatchingExample.Criteria;
@@ -134,6 +138,10 @@ public class OrdersDispatchingService {
 	
 	@Autowired
 	private CarrierContractRecordMapper carrierContractRecordMapper;
+	
+	@Autowired
+	private ShipperMemberContractRecordMapper shipperMemberContractRecordMapper;
+	
 	/**
      * 
      * @Title: signOrdersDispatchingStatus 
@@ -177,6 +185,16 @@ public class OrdersDispatchingService {
 				StorehouseBelaidup belaidup =  belaidupMapper.selectByPrimaryKey(ordersOrderInfoList.get(i).getBelaidupId());
 				belaidup.setBelaidupStatus("business");
 				belaidupMapper.updateByPrimaryKeySelective(belaidup);//修改货物交易状态
+				//修改货主-平台合同状态
+				
+				//生成合同信息
+	        	ShipperMemberContractRecordExample shipperMemberContractRecordExample=new ShipperMemberContractRecordExample();
+	        	shipperMemberContractRecordExample.createCriteria().andGoodsIdEqualTo(belaidup.getBelaidupId()).andMemberIdEqualTo(belaidup.getMemberId());
+	        	ShipperMemberContractRecord shipperMemberContractRecord=shipperMemberContractRecordMapper.selectByExample(shipperMemberContractRecordExample).get(0);
+	        	shipperMemberContractRecord.setStatus("disable");
+	        	shipperMemberContractRecord.setCloseTime(new Date());
+	        	shipperMemberContractRecord.setUpdateTime(new Date()); 
+	        	shipperMemberContractRecordMapper.updateByPrimaryKeySelective(shipperMemberContractRecord);
 			}
 			//增加承运商资金明细信息
             FinanceCarrierDetail detail=new FinanceCarrierDetail();
@@ -265,6 +283,14 @@ public class OrdersDispatchingService {
             //相对应增加该承运商信誉度(原来的信誉度+新增的信誉度)
             pricipalUser.setCreditworthiness(pricipalUser.getCreditworthiness()+creditworthinessTypeList.get(0).getChangeValue());
             carrierMemberMapper.updateByPrimaryKeySelective(pricipalUser);
+            //合同作废
+            CarrierContractRecordExample ex=new CarrierContractRecordExample();
+            ex.createCriteria().andDeliverIdEqualTo(order.getOrderCode());
+            CarrierContractRecord carrierContractRecord=carrierContractRecordMapper.selectByExample(ex).get(0);
+            carrierContractRecord.setStatus("disable");
+            carrierContractRecord.setDisableTime(new Date());
+            carrierContractRecord.setUpdateTime(new Date());
+            carrierContractRecordMapper.updateByPrimaryKeySelective(carrierContractRecord);
             //返回成功消息
             returnResult.setSuccess(true);
             returnResult.setMsg("配送签收成功！");
@@ -445,14 +471,14 @@ public class OrdersDispatchingService {
 	        int numb_two=0; 
 	        OrdersOrder ordersOrder=ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
 	        ordersOrder.setDistributeStatus("hasdistribute"); 
-	        ordersOrder.setUpdater(pricipalUser.getCarrierMemberId());
+	        ordersOrder.setUpdater(getUserId());
 	        ordersOrder.setUpdateTime(new Date());
 	        int numb=ordersOrderMapper.updateByPrimaryKeySelective(ordersOrder); 
             SimpleDateFormat sf=new SimpleDateFormat("dd_hh_ss");
 	        ordersDispatching.setDispatchingId(RandomGUID.getRandomGUID());
 	        ordersDispatching.setDispatchingCode("ST_"+sf.format(new Date()));
 	        ordersDispatching.setDispatchingSignfor("notsigned");
-	        ordersDispatching.setDispatchingStatus("waitdistribution");
+	        ordersDispatching.setDispatchingStatus("distribution");
 	        ordersDispatching.setStatus("enable");
 	        ordersDispatching.setDispatchTime(new Date());
 	        ordersDispatching.setArriveTime(new Date());
