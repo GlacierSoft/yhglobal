@@ -134,6 +134,38 @@ public class CarrierMemberMessageNoticeService {
     }
     
     /**
+     * @Title: countAlready 
+     * @Description: TODO(已读消息通知) 
+     * @param @param
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public int getCountAlready(String carrierId){
+    	//已读
+    	CarrierMemberMessageNoticeExample NoticeExampleAlready= new CarrierMemberMessageNoticeExample();
+        NoticeExampleAlready.createCriteria().andLetterstatusEqualTo("read").andReceiverEqualTo(carrierId);
+        int countAlready=carrierMemberMessageNoticeMapper.countByExample(NoticeExampleAlready);
+        return countAlready;
+    }
+    
+    /**
+	 * @Title: getCountWithout 
+	 * @Description: TODO(未读消息数量) 
+	 * @param @param 
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public int getCountWithout(String carrierId){
+        //未读
+        CarrierMemberMessageNoticeExample NoticeExampleWithout= new CarrierMemberMessageNoticeExample();
+        NoticeExampleWithout.createCriteria().andLetterstatusEqualTo("unread").andReceiverEqualTo(carrierId);
+        int countWithout=carrierMemberMessageNoticeMapper.countByExample(NoticeExampleWithout);
+        return countWithout;
+    }
+    
+    /**
      * @Title: editMemberMessageNotice 
      * @Description: TODO(修改消息通知) 
      * @param @param memberMessageNotice
