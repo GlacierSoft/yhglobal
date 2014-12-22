@@ -63,7 +63,9 @@ public void setQueryCondition(Criteria queryCriteria, String q){
 		
 		if(null != this.getDispatchingSignfor()){//状态Enum查询
 			queryCriteria.andDispatchingSignforEqualTo(this.getDispatchingSignfor().toString());
-	   	}
+	   	}else{
+	   		queryCriteria.andDispatchingSignforNotEqualTo("havesigned");
+	    }
 		
 		if(null != this.getCarrierId()){//承运商查询
 			queryCriteria.andCarrierIdEqualTo(this.getCarrierId());

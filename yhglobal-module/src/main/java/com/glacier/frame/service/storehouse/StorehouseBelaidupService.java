@@ -525,6 +525,7 @@ public class StorehouseBelaidupService {
         } 
         //新增物品信息
         int count = 0;
+        belaidup.setBelaidupId(RandomGUID.getRandomGUID());
         belaidup.setYesOrNo(storehouseAddedService.getUrgentDelivery());
         belaidup.setMemberId(pricipalUser.getMemberId());
         belaidup.setBelaidupStatus("receiving");

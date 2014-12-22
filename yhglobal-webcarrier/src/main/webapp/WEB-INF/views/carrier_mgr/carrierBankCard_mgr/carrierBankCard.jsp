@@ -185,9 +185,9 @@
     
     <div id="carrierBankCardGridPanel" data-options="region:'center',border:true">
 		<table id="carrierBankCardDataGrid">
-			<glacierui:toolbar panelEnName="CarrierBankCardList"
+			<!--<glacierui:toolbar panelEnName="CarrierBankCardList"
 				toolbarId="carrierBankCardDataGrid_toolbar" menuEnName="carrierBankCard" />
-			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 

@@ -65,6 +65,9 @@ public class CarrierRouteController extends AbstractController {
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager,CarrierRouteQueryDTO routeQueryDTO) {
+    	Subject pricipalSubject = SecurityUtils.getSubject(); 
+        CarrierMember pricipalUser = (CarrierMember) pricipalSubject.getPrincipal();
+        routeQueryDTO.setCarrierDisplay(pricipalUser.getMemberName());
      	return carrierRouterService.listAsGrid(jqPager,routeQueryDTO);
     }
        

@@ -165,6 +165,8 @@ public class OrdersDispatchingService {
 			OrdersOrder order = ordersOrderMapper.selectByPrimaryKey(ordersOrdispatchingDetailed.getOrderId());
 			//改变订单的交易完成状态
 			order.setOrderStatus("takedelivery");
+			order.setUpdater(use.getUserId());
+			order.setUpdateTime(new Date());
 			ordersOrderMapper.updateByPrimaryKeySelective(order);
 			//根据订单ID取出关于此订单的订单详情中所有的信息
 			OrdersOrderInfoExample ordersOrderInfoExample = new OrdersOrderInfoExample();
