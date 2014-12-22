@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="panel-body" style="height: 30px;">
                <!-- 左边导航 -->
              	<button type="button" class="btn btn-warning"  style="background-color: #FF5400;" >&nbsp;班线信息&nbsp;&nbsp;</button>
-	      		<div style="float:right;"> 记录<font color="#FF7300">1</font>条配送班线信息
+	      		<div style="float:right;">【记录<font color="#FF7300">1</font>条班线信息】
                </div>
           </div>   
      </div>
