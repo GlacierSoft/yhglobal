@@ -35,7 +35,7 @@
 	      </div>
 	    </div>
 		<div id="normal_container" class="container">
-			<div class="row"  style="width: 1300px; height: 800px;">
+			<div class="row"  style="width: 1200px; height: 600px;">
 				<div class="col-md-6 hidden-sm hidden-xs">
 					<img src="${pageContext.request.contextPath}/resources/images/login.jpg" class="img-responsive" alt="Glacier Soft" style="width: 690px; height: 600px;"/>
 				</div>
