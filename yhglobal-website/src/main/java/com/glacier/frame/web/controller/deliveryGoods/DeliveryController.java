@@ -123,6 +123,16 @@ public class DeliveryController {
 		return belaidupService.updateBelaidup(belaidup);
 	}
 
+	// 运单详细展示页
+	@RequestMapping(value = "/belaidupInfo.htm")
+	private Object belaidupInfo(String belaidupId) {
+		ModelAndView mav = new ModelAndView("member_mgr/belaidupInfo");
+		if (StringUtils.isNotBlank(belaidupId)) {
+			mav.addObject("referDelivery",belaidupService.getBelaidup(belaidupId));
+		}
+		return mav; 
+	}
+	
 	// 货源信息详细展示页
 	@RequestMapping(value = "/intoDetail.htm")
 	private Object intoMemberGradeDetailPage(String belaidupId) {

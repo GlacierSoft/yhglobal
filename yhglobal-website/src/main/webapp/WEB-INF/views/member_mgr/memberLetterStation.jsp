@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          <li><a href="${ctx}/member/index.htm" class="btn btn-default" role="button">会员信息</a></li>
 						          <li><a href="${ctx}/member/release.htm" class="btn btn-default" role="button">发布货源</a></li>
 						          <li><a href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"  class="btn btn-default" role="button">货源管理</a></li>
+						          <li><a href="${ctx}/member/belaidup.htm?p=1"  class="btn btn-default" role="button">运单记录</a></li>
 						          <li class="active" style="width: 120px;"><a href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1" class="btn btn-info" role="button">站内信</a></li>
 								  <li><a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">详细信息</a></li>
 								  <li><a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">会员头像</a></li>

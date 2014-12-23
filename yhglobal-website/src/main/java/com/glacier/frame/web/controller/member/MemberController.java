@@ -19,10 +19,12 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.entity.member.ShipperEnterpriseMember;
 import com.glacier.frame.entity.member.ShipperIndividualityMember;
 import com.glacier.frame.entity.member.ShipperMember;
+import com.glacier.frame.entity.storehouse.StorehouseBelaidup;
 import com.glacier.frame.entity.storehouse.StorehouseGoodstypeSet;
 import com.glacier.frame.dto.query.finace.FinaceMemberRecordQueryDTO; 
 import com.glacier.frame.dto.query.member.ShipperMemberMessageNoticeQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupSourceQueryDTO;
+import com.glacier.frame.dto.query.storehouse.StorehouseBelaidupsQueryDTO;
 import com.glacier.frame.dto.query.storehouse.StorehouseGoodstypeSetQueryDTO;
 import com.glacier.frame.service.carrier.ShipperEnterpriseMemberService;
 import com.glacier.frame.service.carrier.ShipperIndividualityMemberService;
@@ -125,6 +127,21 @@ public class MemberController extends AbstractController{
         session.removeAttribute("currentMember");
         session.setAttribute("currentMember", member);
         return mav;
+    }
+    
+    
+    //运单记录页面
+    @RequestMapping(value="belaidup.htm")
+    private Object belaidup(JqPager pager,StorehouseBelaidupsQueryDTO storehouseBelaidupsQuerysDTO,int p){
+    	ModelAndView mav=new ModelAndView("/member_mgr/memberBelaidup"); 
+    	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+  		ShipperMember pricipalMember = (ShipperMember) pricipalSubject.getPrincipal();
+    	JqGridReturn returnResult=(JqGridReturn) storehouseBelaidupService.listAsWebsite(pager,  storehouseBelaidupsQuerysDTO, pricipalMember.getMemberId(),  p);
+    	@SuppressWarnings("unchecked")
+		List<StorehouseBelaidup> storehouseBelaidup=(List<StorehouseBelaidup>) returnResult.getRows();
+    	mav.addObject("storehouseBelaidupList",storehouseBelaidup);
+    	mav.addObject("storehouseBelaidupSourceQueryDTO", storehouseBelaidupsQuerysDTO);
+    	return mav;
     }
     
     //加入货源发送展示页

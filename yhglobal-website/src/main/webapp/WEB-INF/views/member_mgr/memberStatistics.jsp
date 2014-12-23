@@ -51,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<li><a
 											href="${ctx}/member/releaseManager.htm?loanState=firstAudit&p=1"
 											class="btn btn-default" role="button">货源管理</a></li>
+											<li><a href="${ctx}/member/belaidup.htm?p=1"  class="btn btn-default" role="button">运单记录</a></li>
 										<li><a
 											href="${ctx}/member/memberLetterStation.htm?loanState=firstAudit&p=1"
 											class="btn btn-default" role="button">站内信</a></li>
