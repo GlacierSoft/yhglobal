@@ -201,15 +201,17 @@ public class StorehouseBelaidupService {
 	
 	/**
      * @Title: notLogin 
-     * @Description: TODO(根据货物条形码获取货物状态) 
+     * @Description: TODO(根据订单号获取货物信息) 
      * @param @param code
      * @param @return    设定文件 
      * @return Object    返回 
      * @throws
      */
 	public Object getCodeBelaidup(String code) {
+		Subject pricipalSubject = SecurityUtils.getSubject();
+        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
 		StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
-		storehouseBelaidupExample.createCriteria().andBelaidupBarCodeEqualTo(code);
+		storehouseBelaidupExample.createCriteria().andBelaidupBarCodeEqualTo(code).andMemberIdEqualTo(pricipalUser.getMemberId());
 		List<StorehouseBelaidup> storehouseBelaidup = belaidupMapper.selectByExample(storehouseBelaidupExample);
 		return storehouseBelaidup;
 	}
@@ -294,10 +296,13 @@ public class StorehouseBelaidupService {
      */
     public Object listAsGridWBE(JqPager jqPager) {
         JqGridReturn returnResult = new JqGridReturn();
-        StorehouseBelaidupExample belaidupSetExample = new StorehouseBelaidupExample();
-        belaidupSetExample.setOrderByClause("temp_storehouse_belaidup.create_time desc");
-        List<StorehouseBelaidup> belaidupSetTypeList = belaidupMapper.selectByExample(belaidupSetExample); // 查询所有会员列表
-        int total = belaidupMapper.countByExample(belaidupSetExample); // 查询总页数
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        ShipperMember pricipalUser = (ShipperMember) pricipalSubject.getPrincipal(); 
+        StorehouseBelaidupExample storehouseBelaidupExample = new StorehouseBelaidupExample();
+        storehouseBelaidupExample.createCriteria().andMemberIdEqualTo(pricipalUser.getMemberId());
+        storehouseBelaidupExample.setOrderByClause("temp_storehouse_belaidup.create_time desc");
+        List<StorehouseBelaidup> belaidupSetTypeList = belaidupMapper.selectByExample(storehouseBelaidupExample); // 查询所有货物列表
+        int total = belaidupMapper.countByExample(storehouseBelaidupExample); // 查询总页数
         returnResult.setRows(belaidupSetTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表

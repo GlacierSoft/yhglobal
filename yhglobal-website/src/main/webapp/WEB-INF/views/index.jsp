@@ -73,19 +73,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <img src="${pageContext.request.contextPath}/resources/images/index/5.jpg"  alt="Generic placeholder image">
           <h2>寄送货物</h2>
           <p>填写寄送货物的<br/>信息以及寄送地址等相关信息</p>
-          <p><a class="btn btn-default" href="${ctx}/index.htm" role="button">查看详情 >></a></p>
+          <p><a class="btn btn-default" href="${ctx}/delivery/index.htm" role="button">查看详情 >></a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <img src="${pageContext.request.contextPath}/resources/images/index/4.jpg" alt="Generic placeholder image">
           <h2>订单查询</h2>
           <p>用户可根据得到的<br/>订单编号进行查询，及时跟踪货物信息</p>
-          <p><a class="btn btn-default" href="${ctx}/index.htm" role="button">查看详情 >></a></p>
+          <p><a class="btn btn-default" href="${ctx}/orderQuery.htm?&p=1" role="button">查看详情 >></a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <img src="${pageContext.request.contextPath}/resources/images/index/6.jpg"  alt="Generic placeholder image">
           <h2>网点查询</h2>
           <p>可查询本站各个地方的<br/>物流网点(储运仓库、流通仓库、中转仓库等)</p>
-          <p><a class="btn btn-default" href="${ctx}/index.htm" role="button">查看详情 >></a></p>
+          <p><a class="btn btn-default" href="javascript:alert('功能暂定');" role="button">查看详情 >></a></p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -202,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td >${router.routeStop}</td> 
 						            <td ><fmt:formatDate value="${router.createTime}" type="both"/></td>
 						          	<td >
-						          	 <a href="#" onclick="doClickRoute('${router.routerId}','${router.routeType}')"><font size="2" color="#0697DA">查看详细</font></a>
+						          	 <a href="javascript:doClickRoute('${router.routerId}','${router.routeType}')"><font size="2" color="#0697DA">查看详细</font></a>
 			                         <button type="button" onclick="send('${router.routerId}')" class="btn btn-warning">发货</button>
 			                    	</td>
 						          </tr>
