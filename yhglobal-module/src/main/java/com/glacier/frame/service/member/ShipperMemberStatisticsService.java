@@ -202,7 +202,4 @@ public class ShipperMemberStatisticsService {
 		}    
         return wb;    
     }     
-    
-    
-    
 }

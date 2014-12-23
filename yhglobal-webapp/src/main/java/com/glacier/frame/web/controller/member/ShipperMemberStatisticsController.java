@@ -87,6 +87,4 @@ public class ShipperMemberStatisticsController {
         ouputStream.flush();    
         ouputStream.close();  
     }
- 	
-	
 }
