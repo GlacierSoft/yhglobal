@@ -131,6 +131,11 @@
 						}
 					});
 	
+	  //承运商统计信息导出
+	  glacier.member_mgr.statistics_mgr.statistics.expAccountInvest= function(){
+		  location.href=ctx+"/do/carrierMemberStatistics/exp.json";
+		};
+	
 </script>
 
 
@@ -138,8 +143,8 @@
     
     <div id="statisticsGridPanel" data-options="region:'center',border:true">
 		<table id="statisticsDataGrid">
-			<%-- <glacierui:toolbar panelEnName="BankCardList"
-				toolbarId="statisticsDataGrid_toolbar" menuEnName="carrierStatistics" /> --%>
+			 <glacierui:toolbar panelEnName="carrierStatisticsList"
+				toolbarId="statisticsDataGrid_toolbar" menuEnName="carrierStatistics" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
